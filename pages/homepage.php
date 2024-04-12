@@ -10,6 +10,10 @@
 </head>
 <body>
     <header>
+        <nav id = 'menu'>
+            <input type="checkbox" id='hamburguer'>
+            <label class="hamburger" for="hamburger"></label>
+        </nav>
         <h1>Bem Vindo a loja</h1>
         <form action="resultado_da_pesquisa" method= "GET">
             <input type="text" name="pesquisa" placeholder="pesquisar">
@@ -17,11 +21,12 @@
         </form>
         <nav>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>catalogo</li>
+                <li>Membro</li>
+                <li>Help center</li>
             </ul>
         </nav>
+        <a href="loginpage.php" id="loginLink"><button id="openLogincard">Login</button></a>
     </header>
 </body>
 </html>
