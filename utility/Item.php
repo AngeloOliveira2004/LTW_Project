@@ -1,6 +1,7 @@
 
 <?php
 
+require_once 'Users.php';
 
 class Item {
 // Properties (attributes)
@@ -36,8 +37,6 @@ class Item {
         $this->userId = -1;
     }
 
-
-
     // Method to display car details
     public function displayDetails() {
         echo "Id: " . $this->id . "<br>";
@@ -47,6 +46,10 @@ class Item {
         echo "Condition: " . $this->condition . "<br>";
         echo "Available: " . $this->available . "<br>";
         echo "User Id: " . $this->userId . "<br>";
+    }
+
+    public function getUserId() : int {
+        return $this->userId;
     }
 }
 

@@ -81,7 +81,35 @@
             $stmt->execute();
         }
 
-        
+        public function getOrderHistoryById($id) : OrderHistory {
+            $stmt = $this->conn->prepare("SELECT * FROM orderHistory WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return new OrderHistory($row['id'], $row['userId'], $row['orderDate'] , $row['totalPrice'], $row['status']);
+        }        
+
+        public function getOrderHistories() : array {
+            $stmt = $this->conn->prepare("SELECT * FROM orderHistory");
+            $stmt->execute();
+            $orderHistories = [];
+            while ($row = $stmt->fetch()) {
+                $orderHistories[] = new OrderHistory($row['id'], $row['userId'], $row['orderDate'] , $row['totalPrice'], $row['status']);
+            }
+            return $orderHistories;
+        }
+
+        public function insertOrderHistory(OrderHistory $orderHistory) {
+            $stmt = $this->conn->prepare("INSERT INTO OrderHistory (OrderId , UserId, OrderDate, TotalPrice, Status) VALUES (:orderId, :userId, :orderDate, :totalPrice, :status)");
+            $stmt->bindParam(':userId', $orderHistory->UserId);
+            $stmt->bindParam(':orderDate', $orderHistory->OrderDate);
+            $stmt->bindParam(':totalPrice', $orderHistory->TotalPrice);
+            $stmt->bindParam(':status', $orderHistory->Status);
+            $stmt->bindParam(':orderId', $orderHistory->OrderId);
+            $stmt->execute();
+        }
+
+
 
     }
 
