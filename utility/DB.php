@@ -11,7 +11,7 @@
         private static $instance = null;
         private $conn;
     
-        private function __construct() {
+        public function __construct() {
             $databasePath = "../database.db";
             try {
                 $this->conn = new PDO("sqlite:$databasePath");

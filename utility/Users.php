@@ -1,38 +1,38 @@
 <?php
 
-class Item {
+class User {
     // Properties (attributes)
-    public $id;
-    public $name;
-    public $description;
-    public $category;
-    public $price;
-    public $condition;
-    public $available;
-    public $userId;
+    public $Id;
+    public $Username;
+    public $Email;
+    public $PasswordHash;
+    public $FirstName;
+    public $LastName;
+    public $Address;
+    public $PhoneNumber;
 
     // Constructor with all attributes
-    public function __construct($id, $name, $description, $category, $price, $condition, $available, $userId) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
-        $this->category = $category;
-        $this->price = $price;
-        $this->condition = $condition;
-        $this->available = $available;
-        $this->userId = $userId;
+    public function __construct($Id, $Username, $Email, $PasswordHash, $FirstName, $LastName, $Address, $PhoneNumber) {
+        $this->Id = $Id;
+        $this->Username = $Username;
+        $this->Email = $Email;
+        $this->PasswordHash = $PasswordHash;
+        $this->FirstName = $FirstName;
+        $this->LastName = $LastName;
+        $this->Address = $Address;
+        $this->PhoneNumber = $PhoneNumber;
     }
 
-    // Method to display item details
+    // Method to display user details
     public function displayDetails() {
-        echo "Id: " . $this->id . "<br>";
-        echo "Name: " . $this->name . "<br>";
-        echo "Description: " . $this->description . "<br>";
-        echo "Category: " . $this->category . "<br>";
-        echo "Price: " . $this->price . "<br>";
-        echo "Condition: " . $this->condition . "<br>";
-        echo "Available: " . ($this->available ? "Yes" : "No") . "<br>";
-        echo "User Id: " . $this->userId . "<br>";
+        echo "Id: " . $this->Id . "<br>";
+        echo "Username: " . $this->Username . "<br>";
+        echo "Email: " . $this->Email . "<br>";
+        echo "PasswordHash: " . $this->PasswordHash . "<br>";
+        echo "First Name: " . $this->FirstName . "<br>";
+        echo "Last Name: " . $this->LastName . "<br>";
+        echo "Address: " . $this->Address . "<br>";
+        echo "Phone Number: " . $this->PhoneNumber . "<br>";
     }
 }
 
