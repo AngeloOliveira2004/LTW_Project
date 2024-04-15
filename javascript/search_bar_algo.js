@@ -1,14 +1,36 @@
 
 function calculateRecommendations(itemNames) {
 
-    let reccomendations = [];
-
+    let dict = {};
     let inputValue = scanInput();
 
+
+    for(let i = 0; i < itemNames.length; i++) {
+        let itemName = itemNames[i];
+        dict[itemName] = 0;
+    }
+
+    for(let i = 0 ; i < inputValue.length; i++) {
+        let char = inputValue[i];
+        for(let j = 0; j < itemNames.length; j++) {
+            let itemName = itemNames[j];
+            if(itemName.includes(char)) {
+                dict[itemName] += 3;
+            }
+            if (char === itemName[i]) {
+                dict[itemName] += 10;
+            }
+        }
+    }
+
+    // Sort itemNames by corresponding dict value
+    let sortedItemNames = itemNames.sort((a, b) => dict[b] - dict[a]);
+
+    // Print sorted itemNames
+    console.log("Sorted item names:", sortedItemNames);
+
     console.log("Scanned input:", inputValue);
-
-    console.log(items.length);
-
+    console.log(itemNames.length);
 }   
 
 function fetchItems() {
