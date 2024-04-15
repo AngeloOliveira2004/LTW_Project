@@ -13,7 +13,7 @@ if (isset($_POST['execute'])) {
     // Your predetermined function
     function myFunction() {
         $database = new Database();
-        $database->insertItem(new Item(1, "name", "description", "category", 10.0, "condition", true, 1));
+        $database->insertItem(new Item(1, "Smartphone", "iphone", "technologyh", 10.0, "new", true, 1));
         return "Function executed successfully!";
     }
 

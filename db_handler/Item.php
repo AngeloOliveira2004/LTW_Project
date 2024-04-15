@@ -15,7 +15,7 @@ class Item {
     public $userId;
 
 
-    public function __constructer($id, $name, $description, $category, $price, $condition, $available, $userId) {
+    public function __construct($id, $name, $description, $category, $price, $condition, $available, $userId) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
@@ -26,7 +26,8 @@ class Item {
         $this->userId = $userId;
     }
 
-    public function __construct($id) {
+    
+    public function __constructer($id) {
         $this->id = $id;
         $this->name = "";
         $this->description = "";
@@ -36,7 +37,6 @@ class Item {
         $this->available = false;
         $this->userId = -1;
     }
-
     // Method to display car details
     public function displayDetails() {
         echo "Id: " . $this->id . "<br>";
