@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 class WishlistItem {
     public $WishlistId;
     public $UserId;

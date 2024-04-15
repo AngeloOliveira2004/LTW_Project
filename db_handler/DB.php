@@ -1,5 +1,5 @@
 <?php
-
+    declare(strict_types=1);
     require_once 'Item.php';
     require_once 'OrderHistory.php';
     require_once 'OrderItems.php';
