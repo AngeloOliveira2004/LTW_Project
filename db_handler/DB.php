@@ -39,6 +39,16 @@
             $row = $stmt->fetch();
             return new Item($row['id'], $row['name'], $row['description'], $row['category'], $row['price'], $row['condition'], $row['available'], $row['userId']);
         }
+        
+        public function getItemsName() : array {
+            $stmt = $this->conn->prepare("SELECT * FROM items");
+            $stmt->execute();
+            $items = [];
+            while ($row = $stmt->fetch()) {
+                $items[] = $row['Name'];
+            }
+            return $items;
+        }
 
         public function getItems() : array {
             $stmt = $this->conn->prepare("SELECT * FROM items");
@@ -112,6 +122,5 @@
 
 
     }
-
 ?>
 
