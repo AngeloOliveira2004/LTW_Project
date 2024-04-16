@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- icon library -->
+  
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- -->
-    
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="../css/header.css" rel="stylesheet">
     
   </head>
-
+    <body>
     <header>
       <nav class = "navbar">
         <div class = "navdiv"> 
@@ -26,21 +26,32 @@
             </div>
             <ul>
                 <li>
-                    <a href="wishlist.php"> <img src="assets/heart.png" alt="Wishlist"> </a>
+                    <a href="wishlist.php"> 
+                        Wishlist
+                    </a>
                 </li>
                 <li>
-                    <a href="profile.php"> <img src="assets/user.png" alt="Profile"> </a>
+                    <a href="profile.php"> 
+                        Profile
+                    </a>
                 </li>
                 <li>
-                    <a href="messages.php"> <img src="assets/messenger.png" alt="Messages"> </a>
+                    <a href="messages.php"> 
+                        Messages
+                    </a>
                 </li>
                 <li>
-                    <a href="shopping.php"> <img src="assets/shopping-cart.png" alt="Shopping Cart"> </a>
+                    <a href="shopping.php"> 
+                       Checkout
+                    </a>
                 </li>
-                <li>
-                    <a href="shopping_cart.php"> <button>Anuncie Agora</button></a>
-                </li>
+                
+                <a href="shopping_cart.php"> 
+                    <button>Anuncie Agora</button>
+                </a>
+            
             </ul>
         </div>
       </nav>
     </header>
+    </body>
