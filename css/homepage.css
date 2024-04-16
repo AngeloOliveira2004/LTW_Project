@@ -1,12 +1,44 @@
 body{
     margin: auto;
     padding: auto;
-    display: grid;
+
+}
+header{
+    display: flex;
+    align-items: center;
+    background-color: rgb(158, 37, 37);
+}
+
+header > #Titulo{
+    margin-right: 2em;
+    margin-left: 2em;
+    
+}
+select{
+    margin: 2em;
+    margin-right: 0;
 }
 #hamburguer{
     display: none;
-
 }
-nav {
+#menu1 {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: max-height 0.3s ease;
+    overflow: hidden;
+    background-color: aqua;
+}
+
+header > #menu1 {
+    background-color: rgb(248, 248, 20);
+}
+
+
+body > #catregoria ul{
+    display: flex;
+    align-items: center;
+}
+#openlogincard{
     
 }

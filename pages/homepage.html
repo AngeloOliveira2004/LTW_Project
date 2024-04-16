@@ -11,28 +11,34 @@
         <nav id = 'menu'>
             <input type="checkbox" id='hamburguer'>
             <label class="hamburger" for="hamburger"></label>
-        </nav>  
-        <h1>Bem Vindo a loja</h1>
-        <form action="resultado_da_pesquisa" method= "GET">
+        </nav> 
+        <h1 id="Titulo">Bem Vindo a loja</h1>
+        <nav id="menu1">
+            <select>
+                <option>All</option>
+                <option>catalogo</option>
+                <option>Membro</option>
+                <option>Help center</option>
+            </select>
+            </ul>
+        </nav>
+     
+        <form action="resultado_da_pesquisa" method= "GET" id="barradepesquisa">
             <input type="text" name="pesquisa" placeholder="pesquisar">
             <button type="submit">search</button>
         </form>
-        <nav>
-            <ul>
-                <li>catalogo</li>
-                <li>Membro</li>
-                <li>Help center</li>
-            </ul>  
-        </nav>
-        <nav>
-            <ul>
-                <li><a href="#">homem</a></li>
-                <li><a href="#">mulher</a></li>
-                <li><a href="#">crianca</a></li>
-                <li><a href="#">Desporto</a></li>
-        </ul>
-    </nav>
-        <a href="loginpage.php" id="loginLink"><button id="openLogincard">Login</button></a>
+    
+       
+        <a href="loginpage.html" id="loginLink"><button id="openLogincard">Login</button></a>
     </header>
+    <nav id="catregoria">
+        <ul>
+            <li><a href="#">homem</a></li>
+            <li><a href="#">mulher</a></li>
+            <li><a href="#">crianca</a></li>
+            <li><a href="#">Desporto</a></li>
+    </ul>
+</nav>
+    <footer></footer>
 </body>
 </html>
