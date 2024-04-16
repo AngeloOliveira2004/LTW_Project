@@ -49,7 +49,6 @@
                 <a href="shopping_cart.php"> 
                     <button>Anuncie Agora</button>
                 </a>
-            
             </ul>
         </div>
       </nav>
