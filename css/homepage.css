@@ -1,8 +1,12 @@
 body{
     margin: auto;
     padding: auto;
+    display: grid;
 }
 #hamburguer{
     display: none;
 
+}
+nav {
+    
 }
