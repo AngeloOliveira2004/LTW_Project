@@ -13,7 +13,7 @@
     <script>
         document.getElementById("executeBtn").addEventListener("click", function() {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "templates/post_template.php", true);
+            xhr.open("POST", "teste.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
@@ -22,6 +22,35 @@
             };
             xhr.send("execute=true");
         });
+    </script>
+
+    <input type = 'file' accept="image/jpeg, image/jpg , image/png" id="uploadBtn" placeholder="Insert image"></input>
+
+    <script>
+
+    document.getElementById("uploadBtn").addEventListener("click", function() {
+
+            var imageInput = this;
+            var file = imageInput.files[0];
+            if (!file) {
+                alert("Please select an image file.");
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append("itemId", 1); // Example item ID
+            formData.append("imageData", file);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "teste.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("output").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send(formData);
+        });
+
     </script>
 
     <input type="text" id="searchBar" placeholder="Enter a value">
