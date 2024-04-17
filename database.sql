@@ -25,6 +25,7 @@ CREATE TABLE Items (
     Condition VARCHAR(20) NOT NULL,
     Available BOOLEAN NOT NULL,
     UserId INTEGER NOT NULL,
+    photo_img_col LONGBLOB,
     FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
 );
 
@@ -95,9 +96,3 @@ INSERT INTO Wishlist (WishlistId, UserId, ItemId)
 VALUES
     (1, 1, 3),
     (2, 2, 1);
-
-
-
-
-
-

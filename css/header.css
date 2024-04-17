@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Crimson Pro", serif;
 }
 
 body{
@@ -23,7 +23,7 @@ body{
 }
 
 .navbar{
-    background: #172A3A; 
+    background: #0B6E4F; 
     font-family: 'Poppins', sans-serif; 
     padding-right: 15px;
     padding-left: 15px;

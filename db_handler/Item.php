@@ -13,9 +13,9 @@ class Item {
     public $condition;
     public $available;
     public $userId;
+    public $photo_img_col;
 
-
-    public function __construct($id, $name, $description, $category, $price, $condition, $available, $userId) {
+    public function __construct($id, $name, $description, $category, $price, $condition, $available, $userId , $photo_img_col) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
@@ -24,6 +24,7 @@ class Item {
         $this->condition = $condition;
         $this->available = $available;
         $this->userId = $userId;
+        $this->photo_img_col = $photo_img_col;
     }
 
     
@@ -50,6 +51,34 @@ class Item {
 
     public function getUserId() : int {
         return $this->userId;
+    }
+
+    public function getName() : string {
+        return $this->name;
+    }
+
+    public function getDescription() : string {
+        return $this->description;
+    }
+
+    public function getCategory() : string {
+        return $this->category;
+    }
+
+    public function getPrice() : float {
+        return $this->price;
+    }
+
+    public function getCondition() : string {
+        return $this->condition;
+    }
+
+    public function getAvailable() : bool {
+        return $this->available;
+    }
+
+    public function getPhoto(){
+        return $this->photo_img_col;
     }
 }
 

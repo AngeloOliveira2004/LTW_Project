@@ -11,15 +11,48 @@ if (isset($_POST['execute'])) {
     require_once '../db_handler/DB.php';
 
     // Your predetermined function
-    function myFunction() {
-        $database = new Database();
-        for($i = 6; $i < 9 ; $i++) {
-            $database->deleteItem($i);
+    $db = new Database();
+
+    $items = $db->getItems();
+    $item = $items[0];
+
+/*
+    foreach ($items as $item) {
+        // Do something with each item
+        echo $item->getName() . '<br>';
+    }
+    */
+
+    function generate_item_listing($item) {
+        // Initialize the listing HTML
+        $listing = '<div class="item-listing">';
+        
+        // Display the item name
+        $listing .= '<h2>' . $item->getName() . '</h2>';
+    
+        // Display the item price
+        $listing .= '<p>Price: $' . number_format($item->getPrice(), 2) . '</p>';
+    
+        // Check if the item has a photo
+        if ($item->getPhoto() !== null){
+            // Display the item photo
+            $listing .= '<img src="data:image/jpeg;base64,' . base64_encode($item->getPhoto()) . '" alt="Item Photo">';
+        } else {
+            // If no photo is available, display a placeholder
+            $listing .= '<div class="placeholder-photo">No Photo Available</div>';
         }
-        return "Function executed successfully!";
+    
+        // Close the listing HTML
+        $listing .= '</div>';
+    
+        return $listing;
     }
 
-    $output = myFunction();
-    echo $output;
+    $item_listing = generate_item_listing($item);
+
+
+echo $item_listing;
 }
+
+
 ?>

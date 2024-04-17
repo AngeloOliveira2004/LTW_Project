@@ -37,7 +37,7 @@
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $row = $stmt->fetch();
-            return new Item($row['id'], $row['name'], $row['description'], $row['category'], $row['price'], $row['condition'], $row['available'], $row['userId']);
+            return new Item($row['id'], $row['name'], $row['description'], $row['category'], $row['price'], $row['condition'], $row['available'], $row['userId'] , $row['photo_img_col']);
         }
         
         public function getItemsName() : array {
@@ -51,11 +51,11 @@
         }
 
         public function getItems() : array {
-            $stmt = $this->conn->prepare("SELECT * FROM items");
+            $stmt = $this->conn->prepare("SELECT * FROM Items");
             $stmt->execute();
             $items = [];
             while ($row = $stmt->fetch()) {
-                $items[] = new Item($row['id'], $row['name'], $row['description'], $row['category'], $row['price'], $row['condition'], $row['available'], $row['userId']);
+                $items[] = new Item($row['Id'], $row['Name'], $row['Description'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
             }
             return $items;
         }
@@ -70,6 +70,25 @@
             $stmt->bindParam(':available', $item->available);
             $stmt->bindParam(':userId', $item->userId);
             $stmt->execute();
+        }
+
+        public function insertImageOnItem(int $itemId, array $imageData) : void {
+            if (!isset($imageData['name']) || !isset($imageData['tmp_name']) || !isset($imageData['error']) || !isset($imageData['size'])) {
+                echo "Error: Invalid image data.";
+                return;
+            }
+        
+            if ($imageData['error'] !== UPLOAD_ERR_OK) {
+                echo "Error uploading image: " . $imageData['error'];
+                return;
+            }
+            // Temporary file path
+            $tempImagePath = $imageData['tmp_name'];
+        
+            // Call the Python script with the item ID and temporary image path
+            $command = 'python3 insert_item.py ' . $itemId . ' ' . escapeshellarg($tempImagePath);
+            $output = exec($command);
+            echo $output;
         }
 
         public function updateItem(Item $item) {

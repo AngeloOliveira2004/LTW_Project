@@ -4,28 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>homepage</title>
+
+    <link href="../css/homepage.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 <body>
     <?php
         include 'templates/header.php';
     ?>
 
-    <table class="search_table">
-        <tr>
-            <td class="search_bar">
-                <input type="text" placeholder="O que Procuras?">
-            </td>
-            <td class="category_bar">
-                <input type="text" placeholder="Todas as Categorias">
-            </td>
-            <td>
-                <button class="search_button">
-                    Pesquisar
-                </button>
-            </td>
-        </tr>
-    </table>
+    <span class="search_table">
+        <input type="text" placeholder="O que Procuras?" class="search_bar">
+        <input type="text" placeholder="Todas as Categorias" class="category_search">
+        <button class="search_button">
+            Pesquisar
+            <img src="assets/search-interface-symbol.png" alt="search-icon" class = "search_icon">
+        </button>
+    </span>
     
     <div class = "Categories">
         <span>
@@ -47,7 +45,7 @@
         </table>
     </div>
     
-    <div class = "Feed de Noticias">
+    <div class = "Destaques">
         <table class="news_feed_table">
             <?php
             for ($i = 0; $i < 5; $i++) {
