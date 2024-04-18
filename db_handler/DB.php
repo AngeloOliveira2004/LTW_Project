@@ -77,7 +77,7 @@
                 echo "Error: Invalid image data.";
                 return;
             }
-        
+            
             if ($imageData['error'] !== UPLOAD_ERR_OK) {
                 echo "Error uploading image: " . $imageData['error'];
                 return;
@@ -86,7 +86,7 @@
             $tempImagePath = $imageData['tmp_name'];
         
             // Call the Python script with the item ID and temporary image path
-            $command = 'python3 insert_item.py ' . $itemId . ' ' . escapeshellarg($tempImagePath);
+            $command = 'python3 insert_image.py ' . $itemId . ' ' . escapeshellarg($tempImagePath);
             $output = exec($command);
             echo $output;
         }

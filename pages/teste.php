@@ -10,12 +10,15 @@ require_once '../db_handler/DB.php';
 
 $db = new Database();
 
-
     echo $_SERVER["REQUEST_METHOD"];
 
     $item = $db->getItemById(1);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["imageData"]) && isset($_POST["itemId"])) {
+
+    echo "Request received.";
+    echo $_FILES["imageData"];
+
     // Initialize the database
     $db = Database::getInstance();
 
