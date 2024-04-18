@@ -37,7 +37,7 @@
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $row = $stmt->fetch();
-            return new Item($row['id'], $row['name'], $row['description'], $row['category'], $row['price'], $row['condition'], $row['available'], $row['userId'] , $row['photo_img_col']);
+            return new Item($row['Id'], $row['Name'], $row['Description'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'], $row['UserId'] , $row['photo_img_col']);
         }
         
         public function getItemsName() : array {
