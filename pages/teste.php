@@ -12,7 +12,7 @@ $db = new Database();
 
     echo $_SERVER["REQUEST_METHOD"];
 
-    $item = $db->getItemById(1);
+    $item = $db->getItemById(4);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["imageData"]) && isset($_POST["itemId"])) {
 
@@ -54,7 +54,7 @@ function generate_item_listing($item) {
         $listing .= '<img src="data:image/jpeg;base64,' . base64_encode($item->getPhoto()) . '" alt="Item Photo">';
     } else {
         // If no photo is available, display a placeholder
-        $listing .= '<div class="placeholder-photo">No Photo Available</div>';
+        $listing .= '<img src="assets/error.png" alt="error_png">';
     }
 
     // Close the listing HTML
