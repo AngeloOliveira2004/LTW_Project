@@ -18,7 +18,34 @@
 
     <span class="search_table">
         <input type="text" placeholder="O que Procuras?" class="search_bar">
-        <input type="text" placeholder="Todas as Categorias" class="category_search">
+            <?php
+                require_once '../db_handler/DB.php';
+
+                $db = new Database();
+
+                $allItems = $db->getItems();
+
+                $categoryCounts = array();
+                foreach ($allItems as $item) {
+                    $category = $item->getCategory();
+                    if (!isset($categoryCounts[$category])) {
+                        $categoryCounts[$category] = 0;
+                    }
+                    $categoryCounts[$category]++;
+                }
+
+                arsort($categoryCounts);
+
+                $topCategories = array_slice($categoryCounts, 0, 7);
+
+                echo '<select class="category_dropdown">';
+                echo '<option value="">Todas as Categorias</option>';
+                foreach ($topCategories as $category => $count) {
+                    echo "<option value='$category'>$category</option>";
+                }
+                echo '</select>';
+            ?>
+
         <button class="search_button">
             Pesquisar
             <img src="assets/search-interface-symbol.png" alt="search-icon" class = "search_icon">
@@ -50,8 +77,8 @@
         </a>
         <a href="">
         <div class="image-container">
-            <img src="assets/hammer-removebg-preview.png" alt="hammer">
-            <span>Tools</span>
+            <img src="assets/tshirt.png" alt="tshirt">
+            <span>Clothes</span>
         </div>
         </a>
         <a href="">
