@@ -24,24 +24,53 @@
         </button>
     </span>
     
-    <div class = "Categories">
-        <span>
-            Cateorias Principais
-        </span>
+    <span class = "Categorias_Principais">
+        Categorias Principais
+    </span>
 
-        <table class="data_table">
-            <tr>
-                <td><a href="#">Column 1</a></td>
-                <td><a href="#">Column 2</a></td>
-                <td><a href="#">Column 3</a></td>
-                <td><a href="#">Column 4</a></td>
-                <td><a href="#">Column 5</a></td>
-                <td><a href="#">Column 6</a></td>
-                <td><a href="#">Column 7</a></td>
-                <td><a href="#">Column 8</a></td>
-                <td><a href="#">Column 9</a></td>
-            </tr>
-        </table>
+    <div class = "Categories">
+            <a href="">
+        <div class="image-container">
+            <img src="assets/carro-removebg-preview.png" alt="car">
+            <span>Veihicles</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/bola-removebg-preview.png" alt="ball">
+            <span>Sports</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/chair-removebg-preview.png" alt="chair">
+            <span>Furniture</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/hammer-removebg-preview.png" alt="hammer">
+            <span>Tools</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
+            <span>Mobile Phones</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/computer-removebg-preview.png" alt="computer">
+            <span>Technology</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/guitar-removebg-preview.png" alt="guitar">
+            <span>Music</span>
+        </div>
+        </a>
     </div>
     
     <div class = "Destaques">

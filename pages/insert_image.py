@@ -1,8 +1,9 @@
 import sqlite3
-import base64
+from PIL import Image
+import io
 import sys
 
-def insert_image(item_id, image_data):
+def insert_image(item_id, image_path):
     try:
         # Connect to the SQLite database
         print("Connecting to the database...")
@@ -10,11 +11,15 @@ def insert_image(item_id, image_data):
         print("Connected to the database.")
         cursor = conn.cursor()
 
-        # Decode base64 image data
-        image_blob = base64.b64decode(image_data)
+        # Open the image file using PIL
+        with Image.open(image_path) as img:
+            # Convert the image to bytes
+            img_bytes = io.BytesIO()
+            img.save(img_bytes, format=img.format)
+            img_bytes = img_bytes.getvalue()
 
         # Update the record in the database
-        cursor.execute("UPDATE Items SET photo_img_col = ? WHERE Id = ?", (sqlite3.Binary(image_blob), item_id))
+        cursor.execute("UPDATE Items SET photo_img_col = ? WHERE Id = ?", (sqlite3.Binary(img_bytes), item_id))
         conn.commit()
 
         print("Image inserted successfully.")
@@ -29,10 +34,10 @@ def insert_image(item_id, image_data):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python insert_item.py <item_id> <base64_image_data>")
+        print("Usage: python insert_item.py <item_id> <image_path>")
         sys.exit(1)
 
     item_id = sys.argv[1]
-    image_data = sys.argv[2]
+    image_path = sys.argv[2]
 
-    insert_image(item_id, image_data)
+    insert_image(item_id, image_path)
