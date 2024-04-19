@@ -74,19 +74,76 @@
         </a>
     </div>
     
-    <div class = "Destaques">
-        <table class="news_feed_table">
-            <?php
-            for ($i = 0; $i < 5; $i++) {
-                echo "<tr>";
-                for ($j = 0; $j < 5; $j++) {
-                    echo "<td>Row $i, Column $j</td>";
-                }
-                echo "</tr>";
-            }
-            ?>
-        </table>
-    </div>
+    <span class = "Buy_From_Brand">
+        Compre pela marca
+    </span>
+
+    <?php
+        require_once '../db_handler/DB.php';
+
+        $db = new Database();
+
+        $allItems = $db->getItems();
+        $map = array();
+
+        foreach ($allItems as $item) {
+            $map[$item->getBrand()] = 0;
+        }
+
+        foreach ($allItems as $item) {
+            $map[$item->getBrand()] += 1;
+        }
+        
+        arsort($map);
+
+        $topBrands = array_slice($map, 0, 15    );
+
+        echo "<div class='brands'>";
+
+        foreach ($topBrands as $brand => $value) {
+            echo "
+                <button>
+                    $brand
+                </button> ";
+        }
+
+        echo "</div>";
+    ?>
+
+    <span class = "Feed">
+        Posts
+    </span>
     
+    <div class = "Items" >
+
+    <?php
+        require_once '../db_handler/DB.php';
+
+        $db = new Database();
+        
+        $randomItems = $db->getXRandItems(10);
+        
+        foreach ($randomItems as $item) {
+
+            $name = $item->getName();
+            $price = $item->getPrice();
+            $photo = $item->getPhoto();
+            $brand = $item->getBrand();
+            
+            if($photo == null)
+                $photo = "assets/error.png";
+            else
+                $photo = "data:image/jpeg;base64," . base64_encode($photo);
+        
+            echo "<div class='item'>
+                    <img src='$photo' alt='$name'>
+                    <h3>$name</h3>
+                    <p>Price: $price</p>
+                    <p>Brand: $brand</p>
+                  </div>";
+        }
+    ?>
+    </div>
+        -- insert footer here --
 </body>
 </html>

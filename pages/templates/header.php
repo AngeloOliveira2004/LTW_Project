@@ -21,7 +21,7 @@
         <div class = "navdiv"> 
             <div class = "logo"> 
                 <a href="homepage.php">
-                    RetroRags
+                    <img src="assets/logo-8BLo7dnmx-transformed.png" alt="logo">
                 </a>
             </div>
             <ul>

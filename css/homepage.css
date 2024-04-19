@@ -68,18 +68,19 @@
 .Categorias_Principais{
     padding: 1em;
     font-family: "Crimson Pro", serif;
-    font-size: 30px;
+    font-size: 2em;
     font-weight: bolder;
     color: #0B6E4F;
     display: flex;
     justify-content: center;
+    background-color: #ededed;
 }
 
 .Categories{
     display: flex;
     justify-content: center;
     padding: 2em 0;
-    background-color: white;
+    background-color: #ededed;
 }
 
 .img{
@@ -129,8 +130,85 @@ a{
     left: 50%; 
     transform: translateX(-50%); 
     font-family: "Crimson Pro", serif;
-    font-size: 30px;
+    font-size: 1.5em;
     font-weight: bolder;
     color: #0B6E4F;
 
+}
+
+.Buy_From_Brand{
+    padding: 1em;
+    font-family: "Crimson Pro", serif;
+    font-size: 2em;
+    font-weight: bolder;
+    color: #0B6E4F;
+    display: flex;
+    justify-content: center;
+    background-color: #ededed;
+}
+
+.brands {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #CBE896;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.brands button {
+    margin: 1%; 
+    width: 10%;
+    height: 10%;
+    font-size: 25px;
+    color:#0B6E4F;
+}
+
+.brands button:hover {
+    cursor: pointer;
+}
+
+.Feed{
+    padding: 1em;
+    font-family: "Crimson Pro", serif;
+    font-size: 2em;
+    font-weight: bolder;
+    color: #0B6E4F;
+    display: flex;
+    justify-content: center;
+}
+
+
+.Items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.item {
+    width: 300px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5em;
+    margin-top: 2em;
+}
+
+.item img {
+    width: 100%;
+    height: auto    ;
+    border-radius: 8px;
+}
+
+.item h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.item p {
+    font-size: 16px;
+    margin: 5px 0;
 }
