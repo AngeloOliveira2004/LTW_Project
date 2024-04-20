@@ -10,14 +10,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-</head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/homepage.js"></script>
+    
+</head> 
 <body>
     <?php
         include 'templates/header.php';
     ?>
 
     <span class="search_table">
-        <input type="text" placeholder="O que Procuras?" class="search_bar">
+        <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
             <?php
                 require_once '../db_handler/DB.php';
 
@@ -172,5 +175,5 @@
     ?>
     </div>
         -- insert footer here --
-</body>
+    </body>
 </html>
