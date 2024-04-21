@@ -20,6 +20,7 @@ CREATE TABLE Items (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Name VARCHAR(100) NOT NULL,
     Description TEXT NOT NULL,
+    Brand VARCHAR(50) NOT NULL ,
     Category VARCHAR(50) NOT NULL,
     Price DECIMAL(10, 2) NOT NULL,
     Condition VARCHAR(20) NOT NULL,
@@ -72,12 +73,29 @@ VALUES
     (2, 'jane_smith', 'jane@example.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'Jane', 'Smith', '456 Elm St, City, Country', '987654321');
 
 -- Inserting data into the Items table
-INSERT INTO Items (Id, Name, Description, Category, Price, Condition, Available, UserId)
+INSERT INTO Items (Id, Name, Description, Brand, Category, Price, Condition, Available, UserId)
 VALUES
-    (1, 'Smartphone', 'High-end smartphone with advanced features', 'Electronics', 799.99, 'New', true, 1),
-    (2, 'Laptop', 'Powerful laptop for work and entertainment', 'Electronics', 1299.99, 'New', true, 1),
-    (3, 'Headphones', 'Noise-cancelling headphones for immersive audio experience', 'Electronics', 249.99, 'New', true, 2),
-    (4, 'Book', 'Best-selling novel by a renowned author', 'Books', 19.99, 'New', true, 2);
+    (1, 'Smartphone', 'High-end smartphone with advanced features', 'Samsung', 'Electronics', 799.99, 'New', true, 1),
+    (2, 'Laptop', 'Powerful laptop for work and entertainment', 'Dell', 'Electronics', 1299.99, 'New', true, 1),
+    (3, 'Headphones', 'Noise-cancelling headphones for immersive audio experience', 'Sony', 'Electronics', 249.99, 'New', true, 2),
+    (4, 'Book', 'Best-selling novel by a renowned author', 'Penguin', 'Books', 19.99, 'New', true, 2),
+    -- Add more items with different brands here
+    (5, 'Smartwatch', 'Smartwatch with health and fitness tracking features', 'Apple', 'Electronics', 299.99, 'New', true, 3),
+    (6, 'Tablet', 'Portable tablet for productivity and entertainment', 'Microsoft', 'Electronics', 499.99, 'New', true, 3),
+    (7, 'Camera', 'High-quality camera for capturing memories', 'Canon', 'Electronics', 699.99, 'New', true, 4),
+    (8, 'Gaming Console', 'Next-gen gaming console for immersive gaming experience', 'Nintendo', 'Electronics', 399.99, 'New', true, 4),
+    (9, 'Backpack', 'Durable backpack for everyday use', 'Jansport', 'Fashion', 49.99, 'New', true, 5),
+    (10, 'Sneakers', 'Stylish sneakers for casual wear', 'Nike', 'Fashion', 89.99, 'New', true, 5),
+    (11, 'Smart Speaker', 'Voice-controlled smart speaker for home entertainment', 'Amazon', 'Electronics', 129.99, 'New', true, 6),
+    (12, 'T-shirt', 'Comfortable cotton t-shirt for everyday wear', 'Adidas', 'Fashion', 29.99, 'New', true, 6),
+    (13, 'Coffee Maker', 'Automatic coffee maker for brewing delicious coffee', 'Keurig', 'Appliances', 149.99, 'New', true, 7),
+    (14, 'Vacuum Cleaner', 'High-powered vacuum cleaner for efficient cleaning', 'Dyson', 'Appliances', 299.99, 'New', true, 7),
+    (15, 'Wireless Mouse', 'Ergonomic wireless mouse for smooth navigation', 'Logitech', 'Electronics', 39.99, 'New', true, 8),
+    (16, 'Keyboard', 'Mechanical keyboard with customizable RGB lighting', 'Razer', 'Electronics', 99.99, 'New', true, 8),
+    (17, 'Hiking Boots', 'Sturdy hiking boots for outdoor adventures', 'Merrell', 'Fashion', 129.99, 'New', true, 9),
+    (18, 'Camping Tent', 'Spacious camping tent for overnight trips', 'Coleman', 'Outdoor', 199.99, 'New', true, 9),
+    (19, 'Guitar', 'Acoustic guitar for playing beautiful melodies', 'Fender', 'Music', 399.99, 'New', true, 10),
+    (20, 'Drone', 'High-performance drone for aerial photography', 'DJI', 'Electronics', 799.99, 'New', true, 10);
 
 -- Inserting data into the OrderHistory table
 INSERT INTO OrderHistory (OrderId, UserId, OrderDate, TotalPrice, Status)

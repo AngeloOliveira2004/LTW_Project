@@ -37,7 +37,7 @@
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $row = $stmt->fetch();
-            return new Item($row['id'], $row['name'], $row['description'], $row['category'], $row['price'], $row['condition'], $row['available'], $row['userId'] , $row['photo_img_col']);
+            return new Item($row['Id'], $row['Name'], $row['Description'], $row['Brand'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'], $row['UserId'] , $row['photo_img_col']);
         }
         
         public function getItemsName() : array {
@@ -55,15 +55,16 @@
             $stmt->execute();
             $items = [];
             while ($row = $stmt->fetch()) {
-                $items[] = new Item($row['Id'], $row['Name'], $row['Description'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
+                $items[] = new Item($row['Id'], $row['Name'], $row['Description'],$row['Brand'] , $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
             }
             return $items;
         }
 
         public function insertItem(Item $item) {
-            $stmt = $this->conn->prepare("INSERT INTO items (name, description, category, price, condition, available, userId) VALUES (:name, :description, :category, :price, :condition, :available, :userId)");
+            $stmt = $this->conn->prepare("INSERT INTO items (Name, Description, Category, Brand ,price, condition, available, userId) VALUES (:name, :description, :category, :price, :condition, :available, :userId)");
             $stmt->bindParam(':name', $item->name);
             $stmt->bindParam(':description', $item->description);
+            $stmt->bindParam(':brand', $item->brand);
             $stmt->bindParam(':category', $item->category);
             $stmt->bindParam(':price', $item->price);
             $stmt->bindParam(':condition', $item->condition);
@@ -77,7 +78,7 @@
                 echo "Error: Invalid image data.";
                 return;
             }
-        
+            
             if ($imageData['error'] !== UPLOAD_ERR_OK) {
                 echo "Error uploading image: " . $imageData['error'];
                 return;
@@ -86,7 +87,7 @@
             $tempImagePath = $imageData['tmp_name'];
         
             // Call the Python script with the item ID and temporary image path
-            $command = 'python3 insert_item.py ' . $itemId . ' ' . escapeshellarg($tempImagePath);
+            $command = 'python3 insert_image.py ' . $itemId . ' ' . escapeshellarg($tempImagePath);
             $output = exec($command);
             echo $output;
         }
@@ -138,7 +139,16 @@
             $stmt->execute();
         }
 
-
+        public function getXRandItems(int $x) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY RANDOM() LIMIT :x");
+            $stmt->bindParam(':x', $x);
+            $stmt->execute();
+            $items = [];
+            while ($row = $stmt->fetch()) {
+                $items[] = new Item($row['Id'], $row['Name'], $row['Description'], $row['Brand'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
+            }
+            return $items;
+        }
 
     }
 ?>

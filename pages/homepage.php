@@ -9,54 +9,170 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-</head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/homepage.js"></script>
+    
+</head> 
 <body>
     <?php
         include 'templates/header.php';
     ?>
 
     <span class="search_table">
-        <input type="text" placeholder="O que Procuras?" class="search_bar">
-        <input type="text" placeholder="Todas as Categorias" class="category_search">
+        <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
+            <?php
+                require_once '../db_handler/DB.php';
+
+                $db = new Database();
+
+                $allItems = $db->getItems();
+
+                $categoryCounts = array();
+                foreach ($allItems as $item) {
+                    $category = $item->getCategory();
+                    if (!isset($categoryCounts[$category])) {
+                        $categoryCounts[$category] = 0;
+                    }
+                    $categoryCounts[$category]++;
+                }
+
+                arsort($categoryCounts);
+
+                $topCategories = array_slice($categoryCounts, 0, 7);
+
+                echo '<select class="category_dropdown">';
+                echo '<option value="">Todas as Categorias</option>';
+                foreach ($topCategories as $category => $count) {
+                    echo "<option value='$category'>$category</option>";
+                }
+                echo '</select>';
+            ?>
+
         <button class="search_button">
             Pesquisar
             <img src="assets/search-interface-symbol.png" alt="search-icon" class = "search_icon">
         </button>
     </span>
     
-    <div class = "Categories">
-        <span>
-            Cateorias Principais
-        </span>
+    <span class = "Categorias_Principais">
+        Categorias Principais
+    </span>
 
-        <table class="data_table">
-            <tr>
-                <td><a href="#">Column 1</a></td>
-                <td><a href="#">Column 2</a></td>
-                <td><a href="#">Column 3</a></td>
-                <td><a href="#">Column 4</a></td>
-                <td><a href="#">Column 5</a></td>
-                <td><a href="#">Column 6</a></td>
-                <td><a href="#">Column 7</a></td>
-                <td><a href="#">Column 8</a></td>
-                <td><a href="#">Column 9</a></td>
-            </tr>
-        </table>
+    <div class = "Categories">
+            <a href="">
+        <div class="image-container">
+            <img src="assets/carro-removebg-preview.png" alt="car">
+            <span>Veihicles</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/bola-removebg-preview.png" alt="ball">
+            <span>Sports</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/chair-removebg-preview.png" alt="chair">
+            <span>Furniture</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/tshirt.png" alt="tshirt">
+            <span>Clothes</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
+            <span>Mobile Phones</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/computer-removebg-preview.png" alt="computer">
+            <span>Technology</span>
+        </div>
+        </a>
+        <a href="">
+        <div class="image-container">
+            <img src="assets/guitar-removebg-preview.png" alt="guitar">
+            <span>Music</span>
+        </div>
+        </a>
     </div>
     
-    <div class = "Destaques">
-        <table class="news_feed_table">
-            <?php
-            for ($i = 0; $i < 5; $i++) {
-                echo "<tr>";
-                for ($j = 0; $j < 5; $j++) {
-                    echo "<td>Row $i, Column $j</td>";
-                }
-                echo "</tr>";
-            }
-            ?>
-        </table>
-    </div>
+    <span class = "Buy_From_Brand">
+        Compre pela marca
+    </span>
+
+    <?php
+        require_once '../db_handler/DB.php';
+
+        $db = new Database();
+
+        $allItems = $db->getItems();
+        $map = array();
+
+        foreach ($allItems as $item) {
+            $map[$item->getBrand()] = 0;
+        }
+
+        foreach ($allItems as $item) {
+            $map[$item->getBrand()] += 1;
+        }
+        
+        arsort($map);
+
+        $topBrands = array_slice($map, 0, 15    );
+
+        echo "<div class='brands'>";
+
+        foreach ($topBrands as $brand => $value) {
+            echo "
+                <button>
+                    $brand
+                </button> ";
+        }
+
+        echo "</div>";
+    ?>
+
+    <span class = "Feed">
+        Posts
+    </span>
     
-</body>
+    <div class = "Items" >
+
+    <?php
+        require_once '../db_handler/DB.php';
+
+        $db = new Database();
+        
+        $randomItems = $db->getXRandItems(10);
+        
+        foreach ($randomItems as $item) {
+
+            $name = $item->getName();
+            $price = $item->getPrice();
+            $photo = $item->getPhoto();
+            $brand = $item->getBrand();
+            
+            if($photo == null)
+                $photo = "assets/error.png";
+            else
+                $photo = "data:image/jpeg;base64," . base64_encode($photo);
+        
+            echo "<div class='item'>
+                    <img src='$photo' alt='$name'>
+                    <h3>$name</h3>
+                    <p>Price: $price</p>
+                    <p>Brand: $brand</p>
+                  </div>";
+        }
+    ?>
+    </div>
+        -- insert footer here --
+    </body>
 </html>

@@ -21,7 +21,7 @@
         <div class = "navdiv"> 
             <div class = "logo"> 
                 <a href="homepage.php">
-                    RetroRags
+                        RetroRags
                 </a>
             </div>
             <ul>
