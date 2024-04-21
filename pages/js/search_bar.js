@@ -1,48 +1,50 @@
 
-function getSuggestions(itemNames){
+function getSuggestions(input , itemNamesJson){
+    var itemNames = JSON.parse(itemNamesJson);
 
-    var search = $('.search_bar').val();
-
-    if(search.lenght < 2){
-        return;
-    }else{
-        search = search.toLowerCase();
-
-        itemNames = itemNames.map(function(item) {
+    if (input.length < 0) {
+        return [];
+    } else {
+        input = input.toLowerCase();
+    
+        itemNames = itemNames.map(function (item) {
             return item.toLowerCase();
         });
-
-        let filteredItems = itemNames.filter(function(item) {
-            return item.startsWith(search);
+    
+        let filteredItems = itemNames.filter(function (item) {
+            return item.startsWith(input);
         });
-
-        itemNames = itemNames.filter(function(item) {
-            return !item.startsWith(search);
+    
+        itemNames = itemNames.filter(function (item) {
+            return !item.startsWith(input);
         });
-
-        let suggestionsMap = filteredItems.reduce(function(map, item) {
+    
+        let suggestionsMap = filteredItems.reduce(function (map, item) {
             var differences = 0;
-            for (var i = 0; i < search.length; i++) {
-                if (item[i] !== search[i]) {
+            for (var i = 0; i < input.length; i++) {
+                if (item[i] !== input[i]) {
                     differences++;
                 }
             }
             map[item] = differences;
             return map;
         }, {});
-
-        let sortedItems = filteredItems.sort(function(a, b) {
-            return Math.abs(a.length - search.length) - Math.abs(b.length - search.length);
+    
+        let sortedItems = filteredItems.sort(function (a, b) {
+            return Math.abs(a.length - input.length) - Math.abs(b.length - input.length);
         });
-
-        let sortedMap = Object.entries(suggestionsMap).sort(function(a, b) {
+    
+        let sortedMap = Object.entries(suggestionsMap).sort(function (a, b) {
             return a[1] - b[1];
         });
+    
+        let result = sortedItems.concat(sortedMap.map(item => item[0]));
 
-        
+        result = [...new Set(result)];
+    
+        return result;
     }
-
-
+/*
     var xhr = new XMLHttpRequest();
     var url = "/search/suggestions?search=" + search;
     xhr.open("GET", url, true);
@@ -62,5 +64,45 @@ function getSuggestions(itemNames){
         }
     };
     xhr.send();
+*/
+}
 
+document.addEventListener('DOMContentLoaded', function() {
+    const inputBox = document.querySelector('.search_bar');
+    console.log("Loaded");
+    console.log(inputBox);
+
+
+    inputBox.addEventListener('keyup' , function() {
+        console.log("inputBox.onkeyup");
+
+        let input = inputBox.value;
+
+        let result_ = getSuggestions(input, JSON.stringify(itemNames)); // Pass input along with itemNamesJson
+
+        console.log(result_);
+
+        if(input.length == 0){
+            result_ = [];
+        }
+        display_result(result_);
+    });
+});
+
+
+function display_result(result){
+
+    const resultBox = document.querySelector('.result_box');
+
+    const content = result.map((item) =>{
+        return "<li onclick = selectInput(this)>" + item + "</li>";
+    });
+
+    resultBox.innerHTML = "<ul>" + content.join('') + "</ul>";
+
+}
+
+
+function selectInput(element){
+    document.querySelector('.search_bar').value = element.innerHTML;
 }

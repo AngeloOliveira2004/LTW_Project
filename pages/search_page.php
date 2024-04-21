@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search_page</title>
     <link href="../css/search_page.css" rel="stylesheet">
-    <script src="js/searchBar.js"></script>
+    <script src="js/search_bar.js"></script>
     
     
 </head>
@@ -22,8 +22,30 @@
     ?>
 
     <span class="search_table">
-        <input type="text" placeholder="O que Procuras?" class="search_bar" value="<?php echo $searchValue; ?>">
-        <ul class="autocomplete-list" id="autocomplete-list"></ul>
+        <?php
+            require_once '../db_handler/DB.php';
+
+            $db = new Database();
+
+            $itemNames = $db->getItemsName();
+
+            $itemNamesJson = json_encode($itemNames);
+        ?>
+
+        <div class = "search_bar_div ">
+            <div class = "row">
+                <input type="text" placeholder="O que Procuras?" class="search_bar" value="<?php echo $searchValue; ?>">
+            </div>
+
+            <div class = "result_box">
+                
+            </div>
+        </div>
+
+        <script>
+            var itemNames = <?php echo $itemNamesJson; ?>;
+        </script>
+
         <?php
                 require_once '../db_handler/DB.php';
 
