@@ -69,7 +69,7 @@ CREATE TABLE Wishlist (
 -- Inserting data into the Users table
 INSERT INTO Users (Id, Username, Email, PasswordHash, FirstName, LastName, Address, PhoneNumber)
 VALUES
-    (1, 'john_doe', 'john@example.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'John', 'Doe', '123 Main St, City, Country', '123456789'),
+    (1, 'john_doe', 'john@example.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'John', 'Doe', '123 Main St, California, USA', '123456789'),
     (2, 'jane_smith', 'jane@example.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'Jane', 'Smith', '456 Elm St, City, Country', '987654321');
 
 -- Inserting data into the Items table

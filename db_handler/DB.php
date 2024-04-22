@@ -60,6 +60,17 @@
             return $items;
         }
 
+        public function getItemByUserId($userId) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Items WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $items = [];
+            while ($row = $stmt->fetch()) {
+                $items[] = new Item($row['Id'], $row['Name'], $row['Description'], $row['Brand'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
+            }
+            return $items;
+        }        
+
         public function insertItem(Item $item) {
             $stmt = $this->conn->prepare("INSERT INTO items (Name, Description, Category, Brand ,price, condition, available, userId) VALUES (:name, :description, :category, :price, :condition, :available, :userId)");
             $stmt->bindParam(':name', $item->name);
