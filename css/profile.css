@@ -1,5 +1,4 @@
 body {
-    max-width: 80%;
     margin: 0 auto;
 }
 
@@ -49,7 +48,7 @@ section.profile_info {
 }
 
 .profile_info .edit_profile {
-    background-color: darkblue;
+    background-color: #CBE896;
     border: none;
     color: white;
     padding: 1em;
@@ -77,11 +76,11 @@ section.profile_info {
 
 .profile_option ul > li > a:hover {
     background-color: lightgrey;
-    border-bottom: 2px solid darkblue;
+    border-bottom: 2px solid #CBE896;
 }
 
 .blue-line {
-    background-color: darkblue;
+    background-color: #CBE896;
     height: 2px;
     width: 100%;
 }

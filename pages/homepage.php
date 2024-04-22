@@ -174,6 +174,8 @@
         }
     ?>
     </div>
-        -- insert footer here --
+    <?php
+        include 'templates/footer.php';
+    ?>
     </body>
 </html>

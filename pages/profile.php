@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../css/profile.css">
 </head>
 <body>
+     <?php
+        include 'templates/header.php';
+    ?>
     <section class="profile_info">
             <img src="assets/profile/keanu.jpeg" alt="Keanu Reeves">
 
