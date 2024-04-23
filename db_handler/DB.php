@@ -189,11 +189,10 @@
             SELECT * 
             FROM 
                 Reviews 
-            INNER JOIN 
+            JOIN 
                 Users ON Reviews.Author = Users.Id
             WHERE 
                 Reviews.UserReviewed = :userId;
-
             ");
             $stmt->bindParam(':userId', $userId);
             $stmt->execute();

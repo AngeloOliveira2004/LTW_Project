@@ -98,7 +98,7 @@ a {
     padding-left: 1em;
 }
 
-.item {
+.item{
     width: 300px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -120,11 +120,22 @@ a {
     margin: 10px 0;
 }
 
-#item-count h3{
+#item-count h3, #reviews-count h3{
     padding: 1em 0 0 2em;
 }
 
 .item p {
     font-size: 16px;
     margin: 5px 0;
+}
+
+.Reviews{
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 1em;
+}
+
+#reviews-count{
+    display: none;
 }
