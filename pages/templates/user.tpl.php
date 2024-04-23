@@ -13,7 +13,7 @@ declare(strict_types=1);
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login Page</title>
-        <link rel="stylesheet" href="../css/loginsignuppage.css">
+        <link rel="stylesheet" href="../../css/loginsignuppage.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     </head>
@@ -36,7 +36,7 @@ declare(strict_types=1);
                 </label>
                 <label>
 
-                    <button formaction="#" formmethod="post" class="loginbutton"><a href="">Next</a></button>
+                    <button formaction="#" formmethod="post" class="loginbutton">Next</button>
                     <p id="Loginwith">or login with :</p>
                     <a href="#" class="google-login"><i class="fab fa-google"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
