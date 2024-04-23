@@ -32,21 +32,26 @@
             $itemNamesJson = json_encode($itemNames);
         ?>
 
-        <div class = "search_bar_div ">
-            <div class = "row">
-                <input type="text" placeholder="O que Procuras?" class="search_bar" value="<?php echo $searchValue; ?>">
-            </div>
-
-            <div class = "result_box">
-                
-            </div>
-        </div>
-
         <script>
             var itemNames = <?php echo $itemNamesJson; ?>;
         </script>
 
-        <?php
+        <span class="search_table">
+
+            <div class = "search-box">
+                <div class = "row">
+                    <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
+                </div>
+                
+                <div class = "result-box">
+                    <ul class="result"> 
+                    
+                    </ul>
+                </div>
+            </div>
+            
+
+                <?php
                 require_once '../db_handler/DB.php';
 
                 $db = new Database();
@@ -64,53 +69,71 @@
 
                 arsort($categoryCounts);
 
-                $topCategories = array_slice($categoryCounts, 0, 7);
+                $topCategories = array_slice($categoryCounts, 0, 8);
                 
                 if($categoryValue === 'All' || $categoryValue === '' || $categoryValue === null){
                     echo '<select class="category_dropdown">';
                     echo '<option value="">Todas as Categorias</option>';
                 } else {
                     echo '<select class="category_dropdown">';
+                    echo '<option value="">Todas as Categorias</option>';
                     echo '<option value="" selected>' .$categoryValue. '</option>';
                 }
 
                 foreach ($topCategories as $category => $count) {
+                    if($categoryValue === $category){
+                        continue;
+                    }
                     echo "<option value='$category'>$category</option>";
                 }
+                
                 echo '</select>';
             ?>
-        <button class="search_button">
-            Pesquisar
-            <img src="assets/search-interface-symbol.png" alt="search-icon" class="search_icon">
-        </button>
+
+                <button class="search_button">
+                    Pesquisar
+                    <img src="assets/search-interface-symbol.png" alt="search-icon" class = "search_icon">
+                </button>
+            </span>
     </span>
     
-    <button class="filter_button" id="image_filter">Apenas anúncios com imagens</button>
-    <button class="filter_button" id="delivery_filter">Disponível para entrega</button>
+    <span class = "filter_text">
+        Apenas anúncios com imagens
+        <button class="filter_button" id="image_filter">
+            AA
+        </button>
+    </span>
+    <span class = "filter_text">
+        Disponível para entrega
+        <button class="filter_button" id="delivery_filter">
+            AA
+        </button>
+    </span>
+
+
+    
     <div class="filter_section">
         <span class="filter_keyword">Filtros</span>
         <div class="filter_dropdown">
             <select name="marca" id="marca_filter">
-                <!-- Options for Marca filter -->
                 <option value="">Marca</option>
-                <!-- Add more options dynamically or manually -->
             </select>
         </div>
         <div class="filter_dropdown">
             <select name="estado" id="estado_filter">
-                <!-- Options for Estado filter -->
                 <option value="">Estado</option>
-                <!-- Add more options dynamically or manually -->
             </select>
         </div>
 
         <div class="filter_dropdown">
-            <select name="preco_filter" id="preco_filter">
-                <option value="">Preço</option>
-                <option value="de">De</option>
-                <option value="ate">Até</option>
-                <option value="custom">Personalizado</option>
-            </select>
+            <ul name="preco_filter" id="preco_filter">
+                <li>
+                    <input type="text" placeholder="De">
+                </li>
+                <li>
+                    <input type="text" placeholder="Até">
+                </li>
+            </ul>
         </div>
         <div class="filter_dropdown" id="preco_range" style="display: none;">
             <input type="number" name="preco_min" id="preco_min" placeholder="Preço mínimo">

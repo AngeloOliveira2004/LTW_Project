@@ -1,3 +1,4 @@
+let lastSuggestions = [];
 
 function getSuggestions(input , itemNamesJson){
     var itemNames = JSON.parse(itemNamesJson);
@@ -69,6 +70,8 @@ function getSuggestions(input , itemNamesJson){
 
 document.addEventListener('DOMContentLoaded', function() {
     const inputBox = document.querySelector('.search_bar');
+    const resultBox = document.querySelector('.result-box');
+    const filterButtons = document.querySelectorAll('.filter_button');
     console.log("Loaded");
     console.log(inputBox);
 
@@ -87,12 +90,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         display_result(result_);
     });
+
+    inputBox.addEventListener('click', function(event) {
+        event.stopPropagation(); 
+        resultBox.style.display = 'block'; 
+    });
+
+    document.addEventListener('click', function(event) {
+        const clickedElement = event.target;
+        
+        if (!inputBox.contains(clickedElement)) {
+            resultBox.style.display = 'none'; // Hide suggestion box
+        }
+    });
+
+    filterButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Toggle 'active' class for the clicked button
+            button.classList.toggle('active');
+        });
+    });
+
 });
 
 
 function display_result(result){
 
-    const resultBox = document.querySelector('.result_box');
+    const resultBox = document.querySelector('.result-box');
 
     const content = result.map((item) =>{
         return "<li onclick = selectInput(this)>" + item + "</li>";
