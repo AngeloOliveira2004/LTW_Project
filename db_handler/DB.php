@@ -192,7 +192,8 @@
             JOIN 
                 Users ON Reviews.Author = Users.Id
             WHERE 
-                Reviews.UserReviewed = :userId;
+                Reviews.UserReviewed = :userId
+            ORDER BY Reviews.ReviewDate DESC;    
             ");
             $stmt->bindParam(':userId', $userId);
             $stmt->execute();

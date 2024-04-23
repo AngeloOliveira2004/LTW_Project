@@ -12,25 +12,34 @@
         <?php
             include 'templates/header.php';
         ?>
-        <section class="profile_info">
-                <img src="assets/profile/keanu.jpeg" alt="Keanu Reeves">
+        <?php
+            require_once '../db_handler/DB.php';
+            $db = new Database();
 
-            <div class="user_details">
-                <ul>
-                    <li>keanu_reeves_007</li>
-                    <li>4.9 stars</li>
-                    <li>20 reviews</li>
-                </ul>  
-            
-                <ul>
-                    <li>About:</li>
-                    <li><img src="assets/profile/location.png" alt="location icon">                                                                                                                     Sacramento, United States</li>
-                    <li><img src="assets/profile/clock.png" alt="clock icon"> Last online: 1 day ago</li>
-                    <li><img src="assets/profile/product.png" alt="product icon"> Items sold: 5</li>
-                </ul>
-            </div>  
-            <button class="edit_profile"><img src="assets/profile/editpencil.png" alt="pencil"> Edit Profile</button>
-        </section>
+            $user = $db->getUserById(1);
+
+            if ($user) {
+                echo "<section class='profile_info'>
+                    <img src='assets/profile/keanu.jpeg' alt='{$user->getFirstName()} {$user->getLastName()}'>
+                    <div class='user_details'>
+                        <ul>
+                            <li>{$user->getFirstName()} {$user->getLastName()}</li>
+                            <li>{$user->getUsername()}</li>
+                            <li>4.9 stars</li>
+                            <li>20 reviews</li>
+                        </ul>
+                        <ul>
+                            <li>About:</li>
+                            <li><img src='assets/profile/location.png' alt='location icon'> {$user->getAddress()}</li>
+                            <li><img src='assets/profile/product.png' alt='product icon'> Items sold: 20</li>
+                        </ul>
+                    </div>
+                <button class='edit_profile'><img src='assets/profile/editpencil.png' alt='pencil'> Edit Profile</button>
+                </section>";
+            } else {
+                echo "User not found.";
+            }
+        ?>
 
         <section class="profile_option">
             <ul>
@@ -38,7 +47,7 @@
                     <a id="listings-link">Listings</a>        
                 </li>
                 <li>
-                    <a id="ratings-link">Ratings</a>
+                    <a id="ratings-link">Reviews</a>
                 </li>
             </ul>
         </section>
@@ -114,6 +123,7 @@
             $author = $review->getAuthor()->getUsername();
             $comment = $review->getComment();
             $photo = null;
+            $reviewDate = $review->getReviewDate();
 
 
             if($photo == null)
@@ -125,7 +135,8 @@
              echo "<span class='review'>
                         <img src='$photo' alt='$author'>
                         <h3>$author</h3>
-                     <div class='rating'>
+                        <h4>$reviewDate</h4>
+                    <div class='rating'>
                         <span class='stars' style='--rating: $rating;'></span>
                         <span class='numeric-rating'>$rating</span>
                     </div> 
