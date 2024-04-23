@@ -5,4 +5,4 @@ session_start();
 
 require_once('templates/user.tpl.php');
 
-register_form();
+register_login_form();

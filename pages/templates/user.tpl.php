@@ -2,156 +2,82 @@
 declare(strict_types=1);
 ?>
 
-<?php function register_form()
+<?php function register_login_form()
 {?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login Page</title>
-        <link rel="stylesheet" href="../../css/loginsignuppage.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    </head>
-
-    <body>
-        <section id="signup">
-            <form>
-                <h1>Signup</h1>
-                <label id="input">
-                    <input type="text" name="Firstname" placeholder="name">
-                </label>
-                <label id="input">
-                    <input type="text" name="Lastname" placeholder="surname">
-                </label>
-                <label id="input">
-                    <input type="text" name="email" placeholder="email">
-                </label>
-                <label id="input">
-                    <input type="password" name="password" placeholder="password">
-                </label>
-                <label>
-
-                    <button formaction="#" formmethod="post" class="loginbutton">Next</button>
-                    <p id="Loginwith">or login with :</p>
-                    <a href="#" class="google-login"><i class="fab fa-google"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <p id="reglink">Do you have an account?<a href="loginpage.html">Sign In</a></p>
-
-            </form>
-
-        </section>
-
-    </body>
-
-</html>
-
-<?php } ?>
-
-
-<?php function register2_form()
-{?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="../css/loginsignuppage.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/loginsignuppage.css">
+    <title>Modern Login Page | AsmrProg</title>
 </head>
 
 <body>
-    <section id="signup">
-        <form>
-            <h1>Signup</h1>
-            <label id="input">
-                <input type="text" name="Username" placeholder="Username">
-            </label>
-            <label id="input">
-                <input type="text" name="Adress" placeholder="Adress">
-            </label>
-            <label id="input">
-                <select name="Country">
-                    <option value="">Select Country</option>
-                    <option value="USA">United States</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="CA">Canada</option>
-                </select>
-            </label>
-            <label id="input">
-                <input type="tel" name="Phonenumber" placeholder="Phone Number">
-            </label>
-         
-            <label>
-                <button formaction="#" formmethod="post" class="loginbutton">Sign up</button>
-                <p id="Loginwith">or login with :</p>
-                <a href="#" class="google-login"><i class="fab fa-google"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <p id="reglink">Do you have an account?<a href="loginpage.html">Sign In</a></p>
-            </label>
-        </form>
+
+    <section class="container" id="container">
+        <section class="form-container sign-up">
+            <form>
+                <h1>Create Account</h1>
+                <section class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+
+                </section>
+                <span>or Register with:</span>
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <button id="nextButton">Next</button>
+            </form>
+        </section>
+        <section class="form-container sign-in">
+            <form>
+                <h1>Sign In</h1>
+                <section class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+   
+                </section>
+                <span>or Sign In with:</span>
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <a href="#">Forget Your Password?</a>
+                <button>Sign In</button>
+            </form>
+        </section>
+        <section class="form-container register-details"> <!-- Nova seção adicionada -->
+            <form>
+                <h1>Additional Details</h1>
+                <input type="text" placeholder="Username">
+                <input type="text" placeholder="Phone Number">
+                <input type="text" placeholder="Address">
+                <button id="submitButton">Submit</button>
+            </form>
+        </section>
+        <section class="toggle-container">
+            <section class="toggle">
+                <section class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </section>
+                <section class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </section>
+            </section>
+        </section>
     </section>
+
+    <script src="../../javascript/loginsignup.js"></script>
 </body>
 
 </html>
 
-<?php } ?>
-
-<?php function login_form()
-{?>
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login Page</title>
-        <link rel="stylesheet" href="../css/loginsignuppage.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    </head>
-
-    <body>
-        <section id="login">
-            <form>
-                <h1>Login</h1>
-                <label id="input">
-                    <input type="text" name="username" placeholder="username">
-                </label>
-                <label id="input">
-                    <input type="password" name="password" placeholder="password">
-                </label>
-                <section>
-
-                    <label id="Remember">
-                        <input type="checkbox">
-                        <span>Remember me</span>
-                        <a href="#">Forgot password?</a>
-
-                    </label>
-
-
-                    <button formaction="#" formmethod="post" class="loginbutton">Login</button>
-                    <p id="Loginwith">or login with :</p>
-                    <a href="#" class="google-login"><i class="fab fa-google"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <p id="reglink">Don't have an account?<a href="signuppage.html">Register</a></p>
-                </section>
-
-            </form>
-
-        </section>
-
-    </body>
-
-</html>
 <?php } ?>
