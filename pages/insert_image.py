@@ -5,20 +5,18 @@ import sys
 
 def insert_image(item_id, image_path):
     try:
-        # Connect to the SQLite database
+
         print("Connecting to the database...")
         conn = sqlite3.connect('../database.db')
         print("Connected to the database.")
         cursor = conn.cursor()
 
-        # Open the image file using PIL
         with Image.open(image_path) as img:
             # Convert the image to bytes
             img_bytes = io.BytesIO()
             img.save(img_bytes, format=img.format)
             img_bytes = img_bytes.getvalue()
 
-        # Update the record in the database
         cursor.execute("UPDATE Items SET photo_img_col = ? WHERE Id = ?", (sqlite3.Binary(img_bytes), item_id))
         conn.commit()
 

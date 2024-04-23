@@ -12,7 +12,7 @@ $db = new Database();
 
     echo $_SERVER["REQUEST_METHOD"];
 
-    $item = $db->getItemById(4);
+    $item = $db->getItemById(2);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["imageData"]) && isset($_POST["itemId"])) {
 

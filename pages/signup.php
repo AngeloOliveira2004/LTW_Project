@@ -11,32 +11,29 @@
     </head>
 
     <body>
-        <section id="login">
+        <section id="signup">
             <form>
-                <h1>Login</h1>
+                <h1>Signup</h1>
                 <label id="input">
-                    <input type="text" name="username" placeholder="username">
+                    <input type="text" name="Firstname" placeholder="name">
+                </label>
+                <label id="input">
+                    <input type="text" name="Lastname" placeholder="surname">
+                </label>
+                <label id="input">
+                    <input type="text" name="email" placeholder="email">
                 </label>
                 <label id="input">
                     <input type="password" name="password" placeholder="password">
                 </label>
-                <section>
+                <label>
 
-                    <label id="Remember">
-                        <input type="checkbox">
-                        <span>Remember me</span>
-                        <a href="#">Forgot password?</a>
-
-                    </label>
-
-
-                    <button formaction="#" formmethod="post" class="loginbutton">Login</button>
+                    <button formaction="#" formmethod="post" class="loginbutton"><a href="">Next</a></button>
                     <p id="Loginwith">or login with :</p>
                     <a href="#" class="google-login"><i class="fab fa-google"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <p id="reglink">Don't have an account?<a href="signuppage.html">Register</a></p>
-                </section>
+                    <p id="reglink">Do you have an account?<a href="loginpage.html">Sign In</a></p>
 
             </form>
 

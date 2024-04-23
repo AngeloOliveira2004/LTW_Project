@@ -3,31 +3,59 @@ body{
     margin: 0;
 }
 footer {
-    
-    background: #0B6E4F; 
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: flex-end;
-}
-footer #about{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-footer #politicas label p{
-    display: inline;
-    padding: 2em;
+    display: block;
+  
+
+    unicode-bidi: isolate;
 }
 
-.web_ui__Divider__divider {
-    background: grey;
+.main_footer_content{
+    background-color: gray;
+    padding-bottom: 16px;
+    padding-top: 20px;
+}
+#container{
+    width: 1280px;
+    padding-right: 20px;
+    padding-left: 20px;
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+#link_session{
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+.link_session-item{
+    margin: 0;
+    padding: 12px;
+    
+}
+
+.link_session-item ul{
+    list-style: none;
+    
+}
+#web_ui__Divider__divider{
+    background: black;
     border: 0;
     display: block;
     font-size: 0;
     height: 1px;
-    line-height: 5%;
+    line-height: 0;
     margin: 0;
     min-height: 1px;
     overflow: hidden;
     width: 100%;
+}
+#politic_section{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#politic_section li a{
+    padding: 12px;
 }

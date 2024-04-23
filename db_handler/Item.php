@@ -8,6 +8,7 @@ class Item {
     public $id;
     public $name;
     public $description;
+    public $brand;
     public $category;
     public $price;
     public $condition;
@@ -15,10 +16,11 @@ class Item {
     public $userId;
     public $photo_img_col;
 
-    public function __construct($id, $name, $description, $category, $price, $condition, $available, $userId , $photo_img_col) {
+    public function __construct($id, $name, $description, $brand, $category, $price, $condition, $available, $userId , $photo_img_col) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+        $this->brand = $brand;
         $this->category = $category;
         $this->price = $price;
         $this->condition = $condition;
@@ -79,6 +81,10 @@ class Item {
 
     public function getPhoto(){
         return $this->photo_img_col;
+    }
+
+    public function getBrand(){
+        return $this->brand;
     }
 }
 
