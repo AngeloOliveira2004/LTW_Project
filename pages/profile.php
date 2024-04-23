@@ -123,10 +123,13 @@
 
          
              echo "<span class='review'>
-                     <img src='$photo' alt='$author'>
-                     <h3>$author</h3>
-                     <p>Rating: $rating</p>
-                     <p>Comment: $comment</p>
+                        <img src='$photo' alt='$author'>
+                        <h3>$author</h3>
+                     <div class='rating'>
+                        <span class='stars' style='--rating: $rating;'></span>
+                        <span class='numeric-rating'>$rating</span>
+                    </div> 
+                     <p>$comment</p>
                  </span>";
              }
          ?>
