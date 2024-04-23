@@ -49,9 +49,8 @@
                     </ul>
                 </div>
             </div>
-            
-
-                <?php
+        
+            <?php
                 require_once '../db_handler/DB.php';
 
                 $db = new Database();
@@ -97,60 +96,73 @@
             </span>
     </span>
     
-    <span class = "filter_text">
-        Apenas anúncios com imagens
-        <button class="filter_button" id="image_filter">
-            AA
-        </button>
-    </span>
-    <span class = "filter_text">
-        Disponível para entrega
-        <button class="filter_button" id="delivery_filter">
-            AA
-        </button>
-    </span>
-
-
-    
     <div class="filter_section">
-        <span class="filter_keyword">Filtros</span>
-        <div class="filter_dropdown">
-            <select name="marca" id="marca_filter">
-                <option value="">Marca</option>
-            </select>
-        </div>
-        <div class="filter_dropdown">
+        <span class="filter_text" id="filter_image">
+            Apenas anúncios com imagens
+            <button class="filter_button" id="image_filter">
+                A
+            </button>
+        </span>
+        <span class="filter_text" id="filter_delivery">
+            Disponível para entrega
+            <button class="filter_button" id="delivery_filter">
+                A
+            </button>
+        </span>
+       
+        <span class="filter_keyword">
+            Filtros
+        </span>
+            
+        <span class = "line">
+
+        </span>
+
+        <select name="marca" id="marca_filter">
+            <option value="" class="Marca">Marca</option>
+                <?php
+                    require_once '../db_handler/DB.php';
+
+                    $db = new Database();
+    
+                    $allItems = $db->getItems();
+    
+                    $brandCounts = array();
+                    foreach ($allItems as $item) {
+                        $brand = $item->getBrand();
+                        if (!isset($brandCounts[$brand])) {
+                            $brandCounts[$brand] = 0;
+                        }
+                        $brandCounts[$brand]++;
+                    }
+    
+                    arsort($brandCounts);
+    
+                    $topBrands = array_keys(array_slice($brandCounts, 0, 8));
+                
+                    foreach ($topBrands as $brand) {
+                        echo "<option value=\"$brand\" class=\"Marca\">$brand</option>";
+                    }
+                    ?>
+                </select>
             <select name="estado" id="estado_filter">
-                <option value="">Estado</option>
-            </select>
-        </div>
-
-        <div class="filter_dropdown">
-            <ul name="preco_filter" id="preco_filter">
-                <li>
-                    <input type="text" placeholder="De">
-                </li>
-                <li>
-                    <input type="text" placeholder="Até">
-                </li>
-            </ul>
-        </div>
-        <div class="filter_dropdown" id="preco_range" style="display: none;">
-            <input type="number" name="preco_min" id="preco_min" placeholder="Preço mínimo">
-            <input type="number" name="preco_max" id="preco_max" placeholder="Preço máximo">
-            <input type="number" name="preco_actual" id="preco_actual" placeholder="Preço atual">
-        </div>
-
-        <div class="filter_dropdown">
-            <select name="sort" id="sort_filter">
-                <!-- Options for sorting -->
-                <option value="">Ordenar por</option>
-                <option value="price_asc">Preço (menor para maior)</option>
-                <option value="price_desc">Preço (maior para menor)</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
+            <option value="" disabled selected>Estado</option>
+            <option value="">Novo</option>
+            <option value="">Usado</option>
+        </select>
+        <input type="text" value="De" class="from">
+        <input type="text" value="Até" class = "to">
+        
+    
+        <select name="sort" id="sort_filter">
+            <option value="">Ordenar por</option>
+            <option value="price_asc">Preço (menor para maior)</option>
+            <option value="price_desc">Preço (maior para menor)</option>
+        </select>
+    
     </div>
-
+    <?php
+        include 'templates/footer.php';
+    ?>
 </body>
 </html>

@@ -19,7 +19,7 @@
 
 
 .search-box{
-    margin-left: 10%;
+    margin-left: 7%;
     flex-grow: 4; 
     width: 80%;
     border-collapse: collapse;
@@ -90,7 +90,7 @@
     border: none;
     color: white;
     background-color: #A4969B;
-    margin-right: 15%;
+    margin-right: 12%;
     padding: 0;
     padding-right: 30px;
     margin-left: 0;
@@ -98,6 +98,11 @@
     border-radius: 0;
     font-size: 1.5em;;
     position: relative;
+    cursor: pointer;
+}
+
+.search_button:active {
+    background-color: #91858E; /* Change background color when button is clicked */
 }
 
 .search_icon {
@@ -124,6 +129,8 @@
     user-select: none;
     background: transparent ;
     transition: ease;
+    display: inline-block;
+ 
 }
 
 .filter_button.active {
@@ -131,11 +138,38 @@
     color: #0B6E4F;
 }
 
+.filter_section {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
 
+#filter_image{
+    padding-top: 1em;
+    margin-left: 10%;
+    margin-right: 2em;
+    color: #0B6E4F;
+}
 
+#filter_delivery{
+    padding-top: 1em;
+    margin-right: 50%;
+    padding-right: 9em;
+    color: #0B6E4F;
+}
 
+.filter_keyword{
+    margin-left: 10%;
+    margin-right: 90%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+    padding-top: 0.5em;
+    color: #0B6E4F;
+    padding-bottom: 1em;
+}
 
-
-
-
+#marca_filter{
+    margin-left: 10%;
+    padding-bottom: 20em;
+}
 
