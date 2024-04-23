@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const reviews = document.getElementById("reviews-section");
         const reviews_count = document.getElementById("reviews-count");
-        items.style.display = 'none';
-        item_count.style.display = 'none';
+        reviews.style.display = 'flex';
+        reviews_count.style.display = 'flex';
     }
 });
 
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const reviews = document.getElementById("reviews-section");
         const reviews_count = document.getElementById("reviews-count");
-        items.style.display = 'flex';
-        item_count.style.display = 'flex';
+        reviews.style.display = 'none';
+        reviews_count.style.display = 'none';
     }
 });

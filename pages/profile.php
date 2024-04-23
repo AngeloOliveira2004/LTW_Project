@@ -86,7 +86,7 @@
          ?>
         </div>
 
-        <span id="reviews-count">
+        <nav id="reviews-count">
          <?php
              require_once '../db_handler/DB.php';
      
@@ -98,8 +98,8 @@
  
              echo "<h3>Total reviews: $reviewsCount </h3>";
          ?>
-        </span>
-        <div class = "Reviews" id="reviews-section">
+        </nav>
+        <nav class = "Reviews" id="reviews-section">
          <?php
          require_once '../db_handler/DB.php';
      
@@ -130,10 +130,14 @@
                  </span>";
              }
          ?>
+         </nav>
+        
 
-        <?php
-            include 'templates/footer.php';
-        ?>
+        <footer>
+            <?php
+                include 'templates/footer.php';
+            ?>
+        </footer>
     </body>
     </html>
 
