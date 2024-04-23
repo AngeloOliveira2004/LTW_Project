@@ -85,6 +85,52 @@
              }
          ?>
         </div>
+
+        <span id="reviews-count">
+         <?php
+             require_once '../db_handler/DB.php';
+     
+             $db = new Database();
+         
+             $Reviews = $db->getReviewByReviewedUserId(1);
+ 
+             $reviewsCount = count($Reviews);
+ 
+             echo "<h3>Total reviews: $reviewsCount </h3>";
+         ?>
+        </span>
+        <div class = "Reviews" id="reviews-section">
+         <?php
+         require_once '../db_handler/DB.php';
+     
+         $db = new Database();
+         
+         $Reviews = $db->getReviewByReviewedUserId(1);
+         
+         foreach ($Reviews as $review) {
+
+            $rating = $review->getRating();
+            $date = $review->getReviewDate();
+            $author = $review->getAuthor()->getUsername();
+            $comment = $review->getComment();
+            $photo = null;
+
+
+            if($photo == null)
+                 $photo = "assets/error.png";
+             else
+                 $photo = "data:image/jpeg;base64," . base64_encode($photo);
+
+         
+             echo "<span class='review'>
+                     <img src='$photo' alt='$author'>
+                     <h3>$author</h3>
+                     <p>Rating: $rating</p>
+                     <p>Comment: $comment</p>
+                 </span>";
+             }
+         ?>
+
         <?php
             include 'templates/footer.php';
         ?>

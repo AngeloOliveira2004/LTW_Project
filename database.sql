@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS OrderHistory;
 DROP TABLE IF EXISTS OrderItems;
 DROP TABLE IF EXISTS ShoppingCart;
 DROP TABLE IF EXISTS Wishlist;
+DROP TABLE IF EXISTS Reviews;
 
 CREATE TABLE Users (
     Id INT PRIMARY KEY NOT NULL,
@@ -65,6 +66,17 @@ CREATE TABLE Wishlist (
     FOREIGN KEY (ItemId) REFERENCES Items(Id)
 );
 
+CREATE TABLE Reviews (
+    ReviewId INT PRIMARY KEY,
+    Rating DECIMAL NOT NULL,
+    Comment TEXT NOT NULL,
+    Author INT,
+    UserReviewed INT,
+    ReviewDate DATE NOT NULL,
+    FOREIGN KEY (Author) REFERENCES Users(Id),
+    FOREIGN KEY (UserReviewed) REFERENCES Users(Id)
+);
+
 
 -- Inserting data into the Users table
 INSERT INTO Users (Id, Username, Email, PasswordHash, FirstName, LastName, Address, PhoneNumber)
@@ -114,3 +126,9 @@ INSERT INTO Wishlist (WishlistId, UserId, ItemId)
 VALUES
     (1, 1, 3),
     (2, 2, 1);
+
+ -- Insert data into Reviews table
+INSERT INTO Reviews (ReviewId, Rating, Comment, Author, UserReviewed, ReviewDate) VALUES
+(1, 4.5, 'Great product!', 2, 1, '2024-04-20'),
+(2, 3.8, 'Could be better.', 3, 1, '2024-04-21'),
+(3, 5.0, 'Excellent service!', 4, 1, '2024-04-22');
