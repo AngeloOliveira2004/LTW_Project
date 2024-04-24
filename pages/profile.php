@@ -18,15 +18,25 @@
 
             $user = $db->getUserById(1);
 
+            $Reviews = $db->getReviewByReviewedUserId(1);
+
+            $reviewsCount = count($Reviews);
+
+            if($reviewsCount == 0){
+                $average = 0;
+            }else{
+                $average = number_format(array_reduce($Reviews, function ($carry, $review) {return $carry + $review->getRating();}, 0) / $reviewsCount,2);
+            }
+
             if ($user) {
                 echo "<section class='profile_info'>
-                    <img src='assets/profile/keanu.jpeg' alt='{$user->getFirstName()} {$user->getLastName()}'>
+                    <img src='../assets/users/{$user->getId()}.png' alt='{$user->getFirstName()} {$user->getLastName()}'>
                     <div class='user_details'>
                         <ul>
                             <li>{$user->getFirstName()} {$user->getLastName()}</li>
                             <li>{$user->getUsername()}</li>
-                            <li>4.9 stars</li>
-                            <li>20 reviews</li>
+                            <li>{$average} stars</li>
+                            <li>{$reviewsCount} reviews</li>
                         </ul>
                         <ul>
                             <li>About:</li>

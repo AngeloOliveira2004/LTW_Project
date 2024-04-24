@@ -146,32 +146,35 @@
     <div class = "Items" >
 
     <?php
-        require_once '../db_handler/DB.php';
+require_once '../db_handler/DB.php';
 
-        $db = new Database();
-        
-        $randomItems = $db->getXRandItems(10);
-        
-        foreach ($randomItems as $item) {
+$db = new Database();
 
-            $name = $item->getName();
-            $price = $item->getPrice();
-            $photo = $item->getPhoto();
-            $brand = $item->getBrand();
-            
-            if($photo == null)
-                $photo = "assets/error.png";
-            else
-                $photo = "data:image/jpeg;base64," . base64_encode($photo);
-        
-            echo "<div class='item'>
-                    <img src='$photo' alt='$name'>
-                    <h3>$name</h3>
-                    <p>Price: $price</p>
-                    <p>Brand: $brand</p>
-                  </div>";
-        }
+$randomItems = $db->getXRandItems(10);
+
+foreach ($randomItems as $item) {
+    $name = $item->getName();
+    $price = $item->getPrice();
+    $photo = $item->getPhoto();
+    $brand = $item->getBrand();
+
+    if ($photo == null)
+        $photo = "assets/error.png";
+    else
+        $photo = "data:image/jpeg;base64," . base64_encode($photo);
     ?>
+
+    <div class='item'>
+        <a href='itempage.php?item=<?= $item->getId() ?>'>
+            <img src='../assets/items/<?= $item->getId() ?>.png' alt='<?= $item->getName() ?>'>
+        </a>
+        <h3><?= $item->getName() ?></h3>
+        <p>Price: <?= $item->getPrice() ?></p>
+        <p>Brand: <?= $item->getBrand() ?></p>
+    </div>
+
+    <?php } ?>
+
     </div>
     <?php
         include 'templates/footer.php';

@@ -91,7 +91,5 @@ class Item {
         return $this->brand;
     }
 }
-
-
 ?>
 
