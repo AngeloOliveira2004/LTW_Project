@@ -11,10 +11,12 @@ loginBtn.addEventListener('click', () => {
     container.classList.remove("active");
 });
 
-nextButton.addEventListener('click', () => {
-    const currentForm = document.querySelector('.form-container.active');
-    currentForm.classList.remove('active');
 
-    const nextForm = document.querySelector('.register-details');
-    nextForm.classList.add('active');
+document.getElementById('nextButton').addEventListener('click', function() {
+    // Oculta o primeiro formulário de registro
+    document.querySelector('.form-container.sign-up').style.display = 'none';
+    // Mostra o segundo formulário de registro
+    document.querySelector('.form-container.sign-up.register-details').style.display = 'block';
+    // Mostra o painel de registro à direita
+    document.querySelector('.toggle-panel.toggle-right').style.display = 'block';
 });
