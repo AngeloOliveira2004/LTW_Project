@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link href="../css/header.css" rel="stylesheet">
+    <link href="../../css/header.css" rel="stylesheet">
     
   </head>
     <body>
@@ -20,33 +20,33 @@
       <nav class = "navbar">
         <div class = "navdiv"> 
             <div class = "logo"> 
-                <a href="homepage.php">
+                <a href="../../pages/homepage.php">
                         RetroRags
                 </a>
             </div>
             <ul>
                 <li>
-                    <a href="wishlist.php"> 
+                    <a href="../../pages/wishlist.php"> 
                         Wishlist
                     </a>
                 </li>
                 <li>
-                    <a href="profile.php"> 
+                    <a href="../../pages/profile.php"> 
                         Profile
                     </a>
                 </li>
                 <li>
-                    <a href="messages.php"> 
+                    <a href="../../pages/messages.php"> 
                         Messages
                     </a>
                 </li>
                 <li>
-                    <a href="shopping.php"> 
+                    <a href="../../pages/shopping.php"> 
                        Checkout
                     </a>
                 </li>
                 
-                <a href="shopping_cart.php"> 
+                <a href="../../pages/shopping_cart.php"> 
                     <button>Anuncie Agora</button>
                 </a>
             </ul>
