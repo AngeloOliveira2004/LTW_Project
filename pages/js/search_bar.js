@@ -1,3 +1,5 @@
+let lastSuggestions = [];
+let allItems = [];
 
 function getSuggestions(input , itemNamesJson){
     var itemNames = JSON.parse(itemNamesJson);
@@ -69,6 +71,20 @@ function getSuggestions(input , itemNamesJson){
 
 document.addEventListener('DOMContentLoaded', function() {
     const inputBox = document.querySelector('.search_bar');
+    const resultBox = document.querySelector('.result-box');
+    const filterButtons = document.querySelectorAll('.filter_button');
+    const searchButton = document.querySelector('.search_button'); 
+    const filterImage = document.getElementById('filter_image');
+    const deliveryFilter = document.getElementById('filter_delivery');
+    const marcaFilter = document.getElementById('marca_filter');
+    const estadoFilter = document.getElementById('estado_filter');
+    const precoFilter = document.getElementById('preco_filter');
+    const sortFilter = document.getElementById('sort_filter');
+    
+    // Booleans to check if buttons are active
+    let isImageFilterActive = false;
+    let isDeliveryFilterActive = false;
+
     console.log("Loaded");
     console.log(inputBox);
 
@@ -87,12 +103,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         display_result(result_);
     });
+
+    inputBox.addEventListener('click', function(event) {
+        event.stopPropagation(); 
+        resultBox.style.display = 'block'; 
+    });
+
+    document.addEventListener('click', function(event) {
+        const clickedElement = event.target;
+        
+        if (!inputBox.contains(clickedElement)) {
+            resultBox.style.display = 'none'; // Hide suggestion box
+        }
+    });
+
+    filterButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            button.classList.toggle('active');
+            if(button.id == 'image_filter'){
+                isImageFilterActive = !isImageFilterActive;
+            }
+            else if(button.id == 'delivery_filter'){
+                isDeliveryFilterActive = !isDeliveryFilterActive;
+            }
+        });
+    });
+
+    searchButton.addEventListener('click', async function() {
+        try {
+            const response = await fetch('js/get_all_items.php');
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            console.log('Data fetched successfully');
+
+            const allItems = await response.json(); 
+
+            console.log(allItems);
+            
+            search_algorithm(allItems, isImageFilterActive , isDeliveryFilterActive);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+
 });
 
 
 function display_result(result){
 
-    const resultBox = document.querySelector('.result_box');
+    const resultBox = document.querySelector('.result-box');
 
     const content = result.map((item) =>{
         return "<li onclick = selectInput(this)>" + item + "</li>";
@@ -106,3 +166,60 @@ function display_result(result){
 function selectInput(element){
     document.querySelector('.search_bar').value = element.innerHTML;
 }
+
+
+function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActive){
+    
+    const marcaFilter = document.getElementById('marca_filter');
+    const estadoFilter = document.getElementById('estado_filter');
+    const precoFilter = document.getElementById('preco_filter');
+    const sortFilter = document.getElementById('sort_filter');
+    const precoMin = document.querySelector('.from');
+    const precoMax = document.querySelector('.to');
+    
+    const marcaValue = marcaFilter.value;
+    const estadoValue = estadoFilter.value;
+    const precoMinValue = precoMin.value;
+    const precoMaxValue = precoMax.value;
+    const sortValue = sortFilter.value;
+
+    console.log("Image Filter:", isImageFilterActive);
+    console.log("Delivery Filter:", isDeliveryFilterActive);
+    console.log("Marca:", marcaValue);
+    console.log("Estado:", estadoValue);
+    console.log("Preço Mínimo:", precoMinValue);
+    console.log("Preço Máximo:", precoMaxValue);
+    console.log("Ordenar por:", sortValue);
+    console.log('buttonClicked');
+    //allItems = [[Id, Name, Description, Brand, Category, Price, Condition, Available, UserId , Deliverable ,photo_img_col] ,...]
+
+    allItems = allItems.filter(item => {
+
+        const marcaMatch = marcaValue === '' || item[3] === marcaValue;
+        const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue;
+        const precoMatch = (precoMinValue === '' || parseFloat(item[5]) >= parseFloat(precoMinValue)) &&
+                        (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
+
+        return marcaMatch && precoMatch && estadoMatch ;
+    });
+
+    if(isImageFilterActive){
+        allItems = allItems.filter(item => item[10] !== null);
+    }
+    
+    if(isDeliveryFilterActive){
+        allItems = allItems.filter(item => item[9] === 'true');
+    }
+
+    if (sortValue === 'price_asc') {
+        allItems.sort(function(a, b) {
+            return parseFloat(a[5]) - parseFloat(b[5]);
+        });
+    } else if (sortValue === 'price_desc') {
+        allItems.sort(function(a, b) {
+            return parseFloat(b[5]) - parseFloat(a[5]);
+        });
+    }
+
+    console.log(allItems);
+}   

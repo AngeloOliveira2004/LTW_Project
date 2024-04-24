@@ -61,6 +61,26 @@
             return $items;
         }
 
+        public function getAllItems() : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Items");
+            $stmt->execute();
+            $items = [];
+            while ($row = $stmt->fetch()) {
+                $items[] = [
+                    $row['Id'],
+                    $row['Name'],
+                    $row['Description'],
+                    $row['Category'],
+                    $row['Price'],
+                    $row['Condition'],
+                    $row['Available'],
+                    $row['UserId'],
+                    $row['photo_img_col']
+                ];
+            }
+            return $items;
+        }
+
         public function getItemByUserId($userId) : array {
             $stmt = $this->conn->prepare("SELECT * FROM Items WHERE UserId = :userId");
             $stmt->bindParam(':userId', $userId);

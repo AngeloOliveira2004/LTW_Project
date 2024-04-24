@@ -32,21 +32,25 @@
             $itemNamesJson = json_encode($itemNames);
         ?>
 
-        <div class = "search_bar_div ">
-            <div class = "row">
-                <input type="text" placeholder="O que Procuras?" class="search_bar" value="<?php echo $searchValue; ?>">
-            </div>
-
-            <div class = "result_box">
-                
-            </div>
-        </div>
-
         <script>
             var itemNames = <?php echo $itemNamesJson; ?>;
         </script>
 
-        <?php
+        <span class="search_table">
+
+            <div class = "search-box">
+                <div class = "row">
+                    <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
+                </div>
+                
+                <div class = "result-box">
+                    <ul class="result"> 
+                    
+                    </ul>
+                </div>
+            </div>
+        
+            <?php
                 require_once '../db_handler/DB.php';
 
                 $db = new Database();
@@ -64,70 +68,103 @@
 
                 arsort($categoryCounts);
 
-                $topCategories = array_slice($categoryCounts, 0, 7);
+                $topCategories = array_slice($categoryCounts, 0, 8);
                 
                 if($categoryValue === 'All' || $categoryValue === '' || $categoryValue === null){
                     echo '<select class="category_dropdown">';
                     echo '<option value="">Todas as Categorias</option>';
                 } else {
                     echo '<select class="category_dropdown">';
+                    echo '<option value="">Todas as Categorias</option>';
                     echo '<option value="" selected>' .$categoryValue. '</option>';
                 }
 
                 foreach ($topCategories as $category => $count) {
+                    if($categoryValue === $category){
+                        continue;
+                    }
                     echo "<option value='$category'>$category</option>";
                 }
+                
                 echo '</select>';
             ?>
-        <button class="search_button">
-            Pesquisar
-            <img src="assets/search-interface-symbol.png" alt="search-icon" class="search_icon">
-        </button>
+
+                <button class="search_button">
+                    Pesquisar
+                    <img src="assets/search-interface-symbol.png" alt="search-icon" class = "search_icon">
+                </button>
+            </span>
     </span>
     
-    <button class="filter_button" id="image_filter">Apenas anúncios com imagens</button>
-    <button class="filter_button" id="delivery_filter">Disponível para entrega</button>
     <div class="filter_section">
-        <span class="filter_keyword">Filtros</span>
-        <div class="filter_dropdown">
-            <select name="marca" id="marca_filter">
-                <!-- Options for Marca filter -->
-                <option value="">Marca</option>
-                <!-- Add more options dynamically or manually -->
-            </select>
-        </div>
-        <div class="filter_dropdown">
+        <span class="filter_text" id="filter_image">
+            Apenas anúncios com imagens
+            <button class="filter_button" id="image_filter">
+                A
+            </button>
+        </span>
+        <span class="filter_text" id="filter_delivery">
+            Disponível para entrega
+            <button class="filter_button" id="delivery_filter">
+                A
+            </button>
+        </span>
+       
+        <span class="filter_keyword">
+            Filtros
+        </span>
+            
+        <span class = "line">
+
+        </span>
+
+        <select name="marca" id="marca_filter">
+            <option value="" class="Marca">Marca</option>
+                <?php
+                    require_once '../db_handler/DB.php';
+
+                    $db = new Database();
+    
+                    $allItems = $db->getItems();
+    
+                    $brandCounts = array();
+                    foreach ($allItems as $item) {
+                        $brand = $item->getBrand();
+                        if (!isset($brandCounts[$brand])) {
+                            $brandCounts[$brand] = 0;
+                        }
+                        $brandCounts[$brand]++;
+                    }
+    
+                    arsort($brandCounts);
+    
+                    $topBrands = array_keys(array_slice($brandCounts, 0, 8));
+                
+                    foreach ($topBrands as $brand) {
+                        echo "<option value=\"$brand\" class=\"Marca\">$brand</option>";
+                    }
+                    ?>
+                </select>
             <select name="estado" id="estado_filter">
-                <!-- Options for Estado filter -->
-                <option value="">Estado</option>
-                <!-- Add more options dynamically or manually -->
-            </select>
-        </div>
-
-        <div class="filter_dropdown">
-            <select name="preco_filter" id="preco_filter">
-                <option value="">Preço</option>
-                <option value="de">De</option>
-                <option value="ate">Até</option>
-                <option value="custom">Personalizado</option>
-            </select>
-        </div>
-        <div class="filter_dropdown" id="preco_range" style="display: none;">
-            <input type="number" name="preco_min" id="preco_min" placeholder="Preço mínimo">
-            <input type="number" name="preco_max" id="preco_max" placeholder="Preço máximo">
-            <input type="number" name="preco_actual" id="preco_actual" placeholder="Preço atual">
-        </div>
-
-        <div class="filter_dropdown">
-            <select name="sort" id="sort_filter">
-                <!-- Options for sorting -->
-                <option value="">Ordenar por</option>
-                <option value="price_asc">Preço (menor para maior)</option>
-                <option value="price_desc">Preço (maior para menor)</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
+            <option value="" disabled selected>Estado</option>
+            <option value="Any">Qualuer Um</option>
+            <option value="Novo">Novo</option>
+            <option value="Usado">Usado</option>
+        </select>
+        <span>Preço: </span>
+        <input type="text" value="0" class="from">
+        <input type="text" value="1000" class = "to">
+        
+    
+        <select name="sort" id="sort_filter">
+            <option value="">Ordenar por</option>
+            <option value="price_asc">Preço (menor para maior)</option>
+            <option value="price_desc">Preço (maior para menor)</option>
+        </select>
+    
     </div>
-
+    <?php
+        include 'templates/footer.php';
+    ?>
 </body>
 </html>

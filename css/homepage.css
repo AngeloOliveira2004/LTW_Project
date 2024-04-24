@@ -19,6 +19,10 @@ button:hover{
     padding: 3em 2em;
 }
 
+.search_button:active {
+    background-color: #91858E; /* Change background color when button is clicked */
+}
+
 .search_bar {
     margin-left: 10%;
     flex-grow: 3; 
