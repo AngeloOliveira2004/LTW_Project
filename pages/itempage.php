@@ -26,7 +26,6 @@
         
             $name = $item->getName();
             $price = $item->getPrice();
-            $photo = $item->getPhoto();
             $brand = $item->getBrand();
             $user = $item->getUserId();
 
@@ -43,14 +42,14 @@
          
         ?>
             <nav class='item'>
-                <img src='<?= $photo ?>' alt='<?= $name ?>' id="item_image">
+                <img src='../assets/items/<?= $item->getId()?>.png' alt='<?= $name ?>' id="item_image">
                 <section class="right-side-bar">    
                 <h3><?= $name ?></h3>
                     <ul>
                         <li><?= $price ?> EUR</li>
                         <li>Brand: <?= $brand ?></li>
                         <div class="rectangle">
-                          <li><img src='../assets/<?= $user?>.png'><i>@<?= $user_username ?></i></li>
+                          <li><img src='../assets/users/<?= $user?>.png'><i>@<?= $user_username ?></i></li>
                           <li>
                             <span id="user_phonenumber"><?= $user_phonenumber ?></span>
                              <button id="reveal-num-button">Reveal Number</button>
