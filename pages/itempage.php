@@ -9,13 +9,13 @@
 </head>
     <body>
         <?php
-            include 'header.php';
+            include 'templates/header.php';
         ?>
 
         <div class="item-container">
         <?php
         
-        require_once '../../db_handler/DB.php';
+        require_once '../db_handler/DB.php';
 
         $db = new Database();
 
@@ -57,7 +57,7 @@
 
 
     <?php
-        include 'footer.php';
+        include 'templates/footer.php';
     ?>
     
     </body>

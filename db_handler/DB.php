@@ -13,7 +13,7 @@
         private $conn;
     
         public function __construct() {
-            $databasePath = "../../database.db";
+            $databasePath = "../database.db";
             try {
                 $this->conn = new PDO("sqlite:$databasePath");
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

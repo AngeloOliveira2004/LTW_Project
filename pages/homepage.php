@@ -166,7 +166,7 @@
                 $photo = "data:image/jpeg;base64," . base64_encode($photo);
         
             echo "<div class='item'>
-                    <a href='templates/itempage.php?item={$item->getId()}'><img src='$photo' alt='$name'></a>
+                    <a href='itempage.php?item={$item->getId()}'><img src='$photo' alt='$name'></a>
                     <h3>$name</h3>
                     <p>Price: $price</p>
                     <p>Brand: $brand</p>
