@@ -90,10 +90,6 @@ class Item {
     public function getBrand(){
         return $this->brand;
     }
-
-    public function getId(){
-        return $this->id;
-    }
 }
 
 
