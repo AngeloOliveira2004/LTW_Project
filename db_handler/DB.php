@@ -6,6 +6,7 @@
     require_once 'ShoppingCart.php';
     require_once 'Users.php';
     require_once 'Wishlist.php';
+    require_once 'Reviews.php';
     
     class Database {
         private static $instance = null;
@@ -59,6 +60,37 @@
             }
             return $items;
         }
+
+        public function getAllItems() : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Items");
+            $stmt->execute();
+            $items = [];
+            while ($row = $stmt->fetch()) {
+                $items[] = [
+                    $row['Id'],
+                    $row['Name'],
+                    $row['Description'],
+                    $row['Category'],
+                    $row['Price'],
+                    $row['Condition'],
+                    $row['Available'],
+                    $row['UserId'],
+                    $row['photo_img_col']
+                ];
+            }
+            return $items;
+        }
+
+        public function getItemByUserId($userId) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Items WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $items = [];
+            while ($row = $stmt->fetch()) {
+                $items[] = new Item($row['Id'], $row['Name'], $row['Description'], $row['Brand'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
+            }
+            return $items;
+        }        
 
         public function insertItem(Item $item) {
             $stmt = $this->conn->prepare("INSERT INTO items (Name, Description, Category, Brand ,price, condition, available, userId) VALUES (:name, :description, :category, :price, :condition, :available, :userId)");
@@ -148,6 +180,59 @@
                 $items[] = new Item($row['Id'], $row['Name'], $row['Description'], $row['Brand'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
             }
             return $items;
+        }
+
+        function getUserById($userId) : User {
+            $stmt = $this->conn->prepare("SELECT * FROM Users WHERE Id = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($user) {
+                return new User(
+                    $user['Id'],
+                    $user['Username'],
+                    $user['Email'],
+                    $user['PasswordHash'],
+                    $user['FirstName'],
+                    $user['LastName'],
+                    $user['Address'],
+                    $user['PhoneNumber']
+                );
+            } else {
+                return null;
+            }
+        }
+
+        public function getReviewByReviewedUserId($userId) : array {
+            $stmt = $this->conn->prepare("
+            SELECT * 
+            FROM 
+                Reviews 
+            JOIN 
+                Users ON Reviews.Author = Users.Id
+            WHERE 
+                Reviews.UserReviewed = :userId
+            ORDER BY Reviews.ReviewDate DESC;    
+            ");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $reviews = [];
+            while ($row = $stmt->fetch()) {
+               $author = $this->getUserById($row['Author']);
+
+                $review = new Review(
+                    $row['ReviewId'], 
+                    $row['Rating'], 
+                    $row['Comment'], 
+                    $author,
+                    $row['UserReviewed'], 
+                    $row['ReviewDate']
+                );
+
+                $reviews[] = $review;
+            }
+            return $reviews;
         }
 
     }

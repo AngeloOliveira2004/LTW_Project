@@ -1,61 +1,104 @@
-body{
-    padding: 0;
+.row * {
     margin: 0;
-}
-footer {
-    display: block;
-  
-
-    unicode-bidi: isolate;
-}
-
-.main_footer_content{
-    background-color: gray;
-    padding-bottom: 16px;
-    padding-top: 20px;
-}
-#container{
-    width: 1280px;
-    padding-right: 20px;
-    padding-left: 20px;
-    position: relative;
-    max-width: 100%;
-    margin: 0 auto;
+    padding: 0;
     box-sizing: border-box;
 }
-#link_session{
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-}
-.link_session-item{
-    margin: 0;
-    padding: 12px;
-    
+
+.container{
+    max-width: 1170px;
+    margin: auto;
 }
 
-.link_session-item ul{
+.footer-column > ul {
     list-style: none;
-    
 }
-#web_ui__Divider__divider{
-    background: black;
-    border: 0;
-    display: block;
-    font-size: 0;
-    height: 1px;
-    line-height: 0;
-    margin: 0;
-    min-height: 1px;
-    overflow: hidden;
-    width: 100%;
+
+.footer{
+    background-color: #0B6E4F;
+    padding: 70px 0;
 }
-#politic_section{
-    list-style: none;
+
+.footer-column{
+    width: 25%;
+    padding: 0;
+}
+
+.footer-column h4{
+    font-size: 1.5em;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 0.9em;
+    font-weight: 500;
+    position: relative;
+}   
+
+.footer-column h4::before{
+    content: '';
+    position: absolute;
+    left:0;
+    bottom: -0.2em;
+    background-color: #CBE896;
+    height: 2px;
+    box-sizing: border-box;
+    width: 2em;
+}
+
+.row{
     display: flex;
     flex-wrap: wrap;
 }
 
-#politic_section li a{
-    padding: 12px;
+.footer-column ul li:not(:last-child) {
+    margin-bottom: 0.5em;
+}
+
+.footer-column ul li a {
+    font-size: 1.2em;
+    text-transform: capitalize;
+    color:#ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    padding-left: 0.5em;
+}
+
+.footer-column .social-links a{
+    display: inline-block;
+    height: 3em;
+    width: 3em;
+    margin-right: 0.5em;
+    text-align: center;
+    background-color: #CBE896;
+    line-height: 3.2em;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.footer-column .social-links a:hover{
+    color: #0B6E4F
+}
+
+@media(max-width: 760px){
+    .footer-column{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width: 760px){
+    .footer-column{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width: 400px){
+    .footer-column{
+        width: 100%;
+    }
 }

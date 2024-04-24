@@ -13,7 +13,7 @@ declare(strict_types=1);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="../../css/loginsignuppage.css">
+    <link rel="stylesheet" href="../../css/loginsignuppage.css">                
     <title>Register and Login page</title>
 </head>
 
@@ -21,7 +21,7 @@ declare(strict_types=1);
 
     <section class="container" id="container">
         <section class="form-container sign-up">
-            <form>
+            <form action="../pages/homepage.php" method="POST">
                 <h1>Create Account</h1>
                 <section class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -29,13 +29,14 @@ declare(strict_types=1);
 
                 </section>
                 <span>or Register with:</span>
-                <input type="text" placeholder="Name">
-                <input type="username" placeholder="Username">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <input type="text" placeholder="Adress">
-                <input type="phone number" placeholder="Phone number">
-                <button id="nextButton">Next</button>
+                <input type="text" name= "firstname" placeholder="Name">
+                <input type="text" name= "lastname" placeholder="Surname">
+                <input type="username" name= "username" placeholder="Username">
+                <input type="email" name= "email" placeholder="Email">
+                <input type="password" name= "password" placeholder="Password">
+                <input type="text" name= "address" placeholder="Adress">
+                <input type="phone number" name= "phonenumber" placeholder="Phone number">
+                <button type = "submit">Sign in</button>
             </form>
         </section>
         <section class="form-container sign-in">
@@ -50,7 +51,7 @@ declare(strict_types=1);
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
                 <a href="#">Forget Your Password?</a>
-                <button>Sign In</button>
+                <button type = "Submit">Sign In</button>
             </form>
         </section>
        

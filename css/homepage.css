@@ -1,5 +1,5 @@
 
-*{
+body{
     padding: 0;
     margin: 0;
     font-family: "Crimson Pro", serif;
@@ -17,6 +17,10 @@ button:hover{
     justify-content: center;
     border-spacing: 0;
     padding: 3em 2em;
+}
+
+.search_button:active {
+    background-color: #91858E; /* Change background color when button is clicked */
 }
 
 .search_bar {

@@ -5,7 +5,7 @@ class DB{
         
         if($this->dbh == Null){
             try{
-            $this->dbh = new PDO('sqlite:../database.db');
+            $this->dbh = new PDO('sqlite:database.db');
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e){

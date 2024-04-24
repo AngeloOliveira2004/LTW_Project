@@ -34,6 +34,34 @@ class User {
         echo "Address: " . $this->Address . "<br>";
         echo "Phone Number: " . $this->PhoneNumber . "<br>";
     }
+
+    public function getId(): int {
+        return $this->Id;
+    }
+
+    public function getUsername(): string {
+        return $this->Username;
+    }
+
+    public function getEmail(): string {
+        return $this->Email;
+    }
+
+    public function getFirstName(): string {
+        return $this->FirstName;
+    }
+
+    public function getLastName(): string {
+        return $this->LastName;
+    }
+
+    public function getAddress(): string {
+        return $this->Address;
+    }
+
+    public function getPhoneNumber(): string {
+        return $this->PhoneNumber;
+    }
 }
 
 ?>

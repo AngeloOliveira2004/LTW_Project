@@ -1,127 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
+  <head>
+    <title>Shop Footer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>footer</title>
-        <link rel="stylesheet" href="../css/footer.css">
-    </head>
-
+  
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="../css/footer.css" rel="stylesheet">
+    
+  </head>
     <body>
-        <footer id="main_footer">
-            <section class="main_footer_content">
-                <section id="container">
-                    <ul id="link_session">
-                        <li class="link_session-item">
-                            <ul>
-                                <li>
-                                    <h3>nossa loja</h3>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="link_session-item">
-                            <ul>
-                                <li>
-                                    <h3>nossa loja</h3>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="link_session-item">
-                            <ul>
-                                <li>
-                                    <h3>nossa loja</h3>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        something
-
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div id="web_ui__Divider__divider"></div>
-                    <ul id="politic_section">
-                        <li>
-                            <a href="#">something</a>
-                        </li>
-                        <li>
-                            <a href="#">something</a>
-                        </li>
-                        <li>
-                            <a href="#">something</a>
-                        </li>
-                        <li>
-                            <a href="#">something</a>
-                        </li>
-                    </ul>
-                    <div id="web_ui__Divider__divider"></div>
-                    <footer>
-                        <p>&copy; Bruno Fortes the goat, 2024</p>
-                    </footer>
-                </section>
-
-
-            </section>
+        <footer class="footer">
+            <nav class="container">
+                <div class="row">
+                    <div class="footer-column">
+                        <h4>RetroRags</h4>
+                        <ul>
+                            <li><a href="#">about us</a></li>
+                            <li><a href="#">our services</a></li>
+                            <li><a href="#">privacy policy</a></li>
+                            <li><a href="#">affiliate program</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">shipping</a></li>
+                            <li><a href="#">returns</a></li>
+                            <li><a href="#">order status</a></li>
+                            <li><a href="#">payment options</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Shop</h4>
+                        <ul>
+                            <li><a href="#">Watch</a></li>
+                            <li><a href="#">Bag</a></li>
+                            <li><a href="#">Shoes</a></li>
+                            <li><a href="#">Dresses</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Follow us</h4>
+                        <div class ="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </footer>
     </body>
-
-</html>

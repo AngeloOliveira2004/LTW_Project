@@ -1,12 +1,9 @@
-
 *{
-    padding: 0;
     margin: 0;
-    font-family: "Crimson Pro", serif;
-}
-
-button:hover{
-    cursor: pointer;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    list-style: none;
 }
 
 .search_table{
@@ -16,20 +13,65 @@ button:hover{
     border-collapse: collapse;
     justify-content: center;
     border-spacing: 0;
-    padding: 3em 2em;
+    padding: 2em 2em;
+    position: relative;
 }
 
-.search_bar {
-    margin-left: 10%;
-    flex-grow: 3; 
+
+.search-box{
+    margin-left: 7%;
+    flex-grow: 4; 
     width: 80%;
-    padding-top: 0.7em;
-    padding-bottom: 0.7em;
     border-collapse: collapse;
-    font-size: 25px;
-    padding-left: 10px;
+    font-size: 1em;
     border: none;
     border-right: 0.5px solid #D3D3DE;
+    flex-direction: column;
+    position: relative;
+}
+
+.row {
+    display: flex;
+}
+
+.row .search_bar {
+    flex-grow: 1; 
+    border: none;
+    font-size: 1.5em;
+    padding: 0.75em;
+}
+
+.result-box {
+    border-top: 1px solid #D3D3DE; 
+    position: absolute; /* Position absolutely */
+    top: 100%; /* Position under the search bar */
+    left: 0; /* Align with the left edge of the containing element */
+    width: 100%; 
+}
+
+.result-box .result {
+    list-style: none;
+    padding: 0;
+}
+
+.result ul{
+    list-style: none;
+    padding: 0;
+}
+
+.result-box li {
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #D3D3DE;
+}
+
+.result-box li:hover {
+    cursor: pointer;
+    background-color: #D3D3D3;
+}
+
+.row .search_bar:focus + .result-box {
+    display: block;
 }
 
 .category_dropdown {
@@ -39,7 +81,7 @@ button:hover{
     flex-grow: 0; 
     width: 50%;
     border-collapse: collapse;
-    font-size: 25px;
+    font-size: 1.5em;;
     padding-left: 10px;
     font-weight: 0;
 }
@@ -48,14 +90,19 @@ button:hover{
     border: none;
     color: white;
     background-color: #A4969B;
-    margin-right: 15%;
+    margin-right: 12%;
     padding: 0;
     padding-right: 30px;
     margin-left: 0;
     width: 20%;
     border-radius: 0;
-    font-size: 25px;
+    font-size: 1.5em;;
     position: relative;
+    cursor: pointer;
+}
+
+.search_button:active {
+    background-color: #91858E; /* Change background color when button is clicked */
 }
 
 .search_icon {
@@ -67,153 +114,62 @@ button:hover{
     left: 70%; /* Adjust the left position of the image */
     z-index: 1; /* Set the z-index to bring the image to the front */
      /* Adjust the right position of the image */
-    margin-left: 10px
+    margin-left: 15px
 }
 
-.Categorias_Principais{
-    padding: 1em;
-    font-family: "Crimson Pro", serif;
-    font-size: 2em;
-    font-weight: bolder;
-    color: #0B6E4F;
-    display: flex;
-    justify-content: center;
-    background-color: #ededed;
-}
-
-.Categories{
-    display: flex;
-    justify-content: center;
-    padding: 2em 0;
-    background-color: #ededed;
-}
-
-.img{
-    width: 3%;
-    height: 3%;
-    object-fit: cover;
-    border-radius: 25px;
-    border-width: 1px;
-    border-color: black;
-}
-
-a{
+.filter_button {
+    flex: 1;
+    padding: 0.9em 1.5em;
+    margin: 0.7em;
+    border: 1px solid #0B6E4F;
+    font-size: 0.7em;
+    white-space: nowrap;
+    color: #fff;
     cursor: pointer;
+    user-select: none;
+    background: transparent ;
+    transition: ease;
+    display: inline-block;
+ 
 }
 
-.image-container {
-    width: 200px; height: 200px;
-    padding: 0;
-    position: relative;
-    text-align: center;
+.filter_button.active {
+    background-color: #0B6E4F; 
+    color: #0B6E4F;
+}
+
+.filter_section {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+#filter_image{
+    padding-top: 1em;
+    margin-left: 10%;
+    margin-right: 2em;
+    color: #0B6E4F;
+}
+
+#filter_delivery{
+    padding-top: 1em;
+    margin-right: 50%;
+    padding-right: 9em;
+    color: #0B6E4F;
+}
+
+.filter_keyword{
+    margin-left: 10%;
+    margin-right: 90%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+    padding-top: 0.5em;
+    color: #0B6E4F;
     padding-bottom: 1em;
 }
 
-.image-container > img {
-    display: inline-block;
-    max-width: 70%; 
-    max-height: 70%;
-    vertical-align: middle;
-    text-align: center;
-    background-color: #CBE896;
-    border-radius: 50%;
-}
-.image-container:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50px; left: 50px;
-    width: 150px; height: 150px;
-    border: 1px solid red;
-    background-color: black;
-    z-index: -10;
+#marca_filter{
+    margin-left: 10%;
+    padding-bottom: 20em;
 }
 
-.Categories .image-container span {
-    position: absolute;
-    bottom: 0;
-    left: 50%; 
-    transform: translateX(-50%); 
-    font-family: "Crimson Pro", serif;
-    font-size: 1.5em;
-    font-weight: bolder;
-    color: #0B6E4F;
-
-}
-
-.Buy_From_Brand{
-    padding: 1em;
-    font-family: "Crimson Pro", serif;
-    font-size: 2em;
-    font-weight: bolder;
-    color: #0B6E4F;
-    display: flex;
-    justify-content: center;
-    background-color: #ededed;
-}
-
-.brands {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background-color: #CBE896;
-    padding-top: 2em;
-    padding-bottom: 2em;
-}
-
-.brands button {
-    margin: 1%; 
-    width: 10%;
-    height: 10%;
-    font-size: 25px;
-    color:#0B6E4F;
-}
-
-.brands button:hover {
-    cursor: pointer;
-}
-
-.Feed{
-    padding: 1em;
-    font-family: "Crimson Pro", serif;
-    font-size: 2em;
-    font-weight: bolder;
-    color: #0B6E4F;
-    display: flex;
-    justify-content: center;
-}
-
-
-.Items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.item {
-    width: 300px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 5em;
-    margin-top: 2em;
-}
-
-.item img {
-    width: 100%;
-    height: auto    ;
-    border-radius: 8px;
-}
-
-.item h3 {
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-.item p {
-    font-size: 16px;
-    margin: 5px 0;
-}

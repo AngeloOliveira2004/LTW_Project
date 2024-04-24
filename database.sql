@@ -1,9 +1,12 @@
+PRAGMA foreign_keys = ON;
+
 DROP TABLE IF EXISTS Items;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS OrderHistory;
 DROP TABLE IF EXISTS OrderItems;
 DROP TABLE IF EXISTS ShoppingCart;
 DROP TABLE IF EXISTS Wishlist;
+DROP TABLE IF EXISTS Reviews;
 
 CREATE TABLE Users (
     Id INT PRIMARY KEY NOT NULL,
@@ -65,13 +68,32 @@ CREATE TABLE Wishlist (
     FOREIGN KEY (ItemId) REFERENCES Items(Id)
 );
 
+CREATE TABLE Reviews (
+    ReviewId INT PRIMARY KEY,
+    Rating DECIMAL NOT NULL,
+    Comment TEXT NOT NULL,
+    Author INT,
+    UserReviewed INT,
+    ReviewDate DATE NOT NULL,
+    FOREIGN KEY (Author) REFERENCES Users(Id),
+    FOREIGN KEY (UserReviewed) REFERENCES Users(Id)
+);
+
 
 -- Inserting data into the Users table
 INSERT INTO Users (Id, Username, Email, PasswordHash, FirstName, LastName, Address, PhoneNumber)
 VALUES
-    (1, 'john_doe', 'john@example.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'John', 'Doe', '123 Main St, City, Country', '123456789'),
-    (2, 'jane_smith', 'jane@example.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'Jane', 'Smith', '456 Elm St, City, Country', '987654321');
-
+    (1, 'john_doe', 'john@example.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'John', 'Doe', '123 Main St, California, USA', '123456789'),
+    (2, 'jane_smith', 'jane@example.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'Jane', 'Smith', '456 Elm St, City, Country', '987654321'),
+    (3, 'alex_jones', 'alex@example.com', '5f4dcc3b5aa765d61d8327deb882cf99', 'Alex', 'Jones', '789 Oak St, State, Country', '456123789'),
+    (4, 'emily_brown', 'emily@example.com', '25d55ad283aa400af464c76d713c07ad', 'Emily', 'Brown', '987 Pine St, City, Country', '321654987'),
+    (5, 'mike_wilson', 'mike@example.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mike', 'Wilson', '654 Maple St, Town, Country', '789456123'),
+    (6, 'sarah_green', 'sarah@example.com', 'f899139df5e1059396431415e770c6dd', 'Sarah', 'Green', '321 Birch St, Town, Country', '147258369'),
+    (7, 'chris_taylor', 'chris@example.com', 'c33367701511b4f6020ec61ded352059', 'Chris', 'Taylor', '852 Cedar St, City, Country', '963852741'),
+    (8, 'lisa_johnson', 'lisa@example.com', '5d41402abc4b2a76b9719d911017c592', 'Lisa', 'Johnson', '963 Walnut St, State, Country', '789123654'),
+    (9, 'ryan_miller', 'ryan@example.com', '202cb962ac59075b964b07152d234b70', 'Ryan', 'Miller', '741 Pine St, Town, Country', '654789123'),
+    (10, 'jessica_white', 'jessica@example.com', '098f6bcd4621d373cade4e832627b4f6', 'Jessica', 'White', '852 Oak St, City, Country', '321789456');
+    
 -- Inserting data into the Items table
 INSERT INTO Items (Id, Name, Description, Brand, Category, Price, Condition, Available, UserId)
 VALUES
@@ -114,3 +136,9 @@ INSERT INTO Wishlist (WishlistId, UserId, ItemId)
 VALUES
     (1, 1, 3),
     (2, 2, 1);
+
+ -- Insert data into Reviews table
+INSERT INTO Reviews (ReviewId, Rating, Comment, Author, UserReviewed, ReviewDate) VALUES
+(1, 4.5, 'Great product!', 1, 1, '2024-04-20'),
+(2, 3.8, 'Could be better.', 2, 1, '2024-04-21'),
+(3, 5.0, 'Excellent service!', 2, 1, '2024-04-22');
