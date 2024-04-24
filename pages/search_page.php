@@ -147,11 +147,13 @@
                 </select>
             <select name="estado" id="estado_filter">
             <option value="" disabled selected>Estado</option>
-            <option value="">Novo</option>
-            <option value="">Usado</option>
+            <option value="Any">Qualuer Um</option>
+            <option value="Novo">Novo</option>
+            <option value="Usado">Usado</option>
         </select>
-        <input type="text" value="De" class="from">
-        <input type="text" value="Até" class = "to">
+        <span>Preço: </span>
+        <input type="text" value="0" class="from">
+        <input type="text" value="1000" class = "to">
         
     
         <select name="sort" id="sort_filter">

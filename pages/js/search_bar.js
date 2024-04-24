@@ -120,17 +120,31 @@ document.addEventListener('DOMContentLoaded', function() {
     filterButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             button.classList.toggle('active');
-            if(button.id == 'filter_image'){
+            if(button.id == 'image_filter'){
                 isImageFilterActive = !isImageFilterActive;
             }
-            else if(button.id == 'filter_delivery'){
+            else if(button.id == 'delivery_filter'){
                 isDeliveryFilterActive = !isDeliveryFilterActive;
             }
         });
     });
 
-    searchButton.addEventListener('click', function() {
-        search_algorithm(allItems); // Call the search_algorithm function
+    searchButton.addEventListener('click', async function() {
+        try {
+            const response = await fetch('js/get_all_items.php');
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            console.log('Data fetched successfully');
+
+            const allItems = await response.json(); 
+
+            console.log(allItems);
+            
+            search_algorithm(allItems, isImageFilterActive , isDeliveryFilterActive);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     });
 
 });
@@ -179,14 +193,21 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     console.log('buttonClicked');
     //allItems = [[Id, Name, Description, Brand, Category, Price, Condition, Available, UserId , Deliverable ,photo_img_col] ,...]
 
+
+    for (let i = 0; i < allItems.length; i++) {
+        if (allItems[i][3] === allItems[i][1]) {
+            console.log(true);
+        }
+    }
+
     allItems.filter(item => {
-        // Check if the item matches the filter criteria
+
         const marcaMatch = marcaValue === '' || item[3] === marcaValue;
-        const estadoMatch = estadoValue === '' || item[6] === estadoValue;
+        const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue;
         const precoMatch = (precoMinValue === '' || parseFloat(item[5]) >= parseFloat(precoMinValue)) &&
                            (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
-        // Return true only if all criteria match
-        return marcaMatch && estadoMatch && precoMatch;
+
+        return marcaMatch && precoMatch && estadoMatch ;
     });
 
     if(isImageFilterActive){
@@ -206,4 +227,6 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
             return parseFloat(b[5]) - parseFloat(a[5]);
         });
     }
+
+    console.log(allItems);
 }   

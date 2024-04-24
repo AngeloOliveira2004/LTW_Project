@@ -51,6 +51,10 @@ class Item {
         echo "User Id: " . $this->userId . "<br>";
     }
 
+    public function getId() : int {
+        return $this->id;
+    }
+
     public function getUserId() : int {
         return $this->userId;
     }
