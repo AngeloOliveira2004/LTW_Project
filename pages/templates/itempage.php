@@ -13,7 +13,34 @@
         ?>
 
         <div class="item-container">
-            <h3>hello</h3>
+        <?php
+        require_once '../../db_handler/DB.php';
+
+        $db = new Database();
+        
+        $randomItems = $db->getXRandItems(10);
+        
+        foreach ($randomItems as $item) {
+
+            $name = $item->getName();
+            $price = $item->getPrice();
+            $photo = $item->getPhoto();
+            $brand = $item->getBrand();
+            
+            if($photo == null)
+                $photo = "assets/error.png";
+            else
+                $photo = "data:image/jpeg;base64," . base64_encode($photo);
+        
+            echo "<div class='item'>
+                    <a href='templates/itempage.php?item={$item->getId()}'><img src='$photo' alt='$name'></a>
+                    <h3>$name</h3>
+                    <p>Price: $price</p>
+                    <p>Brand: $brand</p>
+                </div>";
+            
+        }
+    ?>
         </div>
 
 
