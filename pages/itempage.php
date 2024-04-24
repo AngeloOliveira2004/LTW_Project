@@ -6,6 +6,7 @@
     <title>Item page</title>
     <link href="../../css/itempage.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="js/itempage.js"></script>
 </head>
     <body>
         <?php
@@ -39,17 +40,29 @@
                 $photo = "assets/error.png";
             else
                 $photo = "data:image/jpeg;base64," . base64_encode($photo);
-        
-            echo "<div class='item'>
-                    <img src='$photo' alt='$name'></a>
-                    <h3>$name</h3>
-                    <p>Price: $price</p>
-                    <p>Brand: $brand</p>
-                    <p>User: $user_username</p>
-                    <p>Phone Number: $user_phonenumber</p>
-                    <p>Email: $user_email</p>
-                </div>";  
+         
         ?>
+            <nav class='item'>
+                <img src='<?= $photo ?>' alt='<?= $name ?>' id="item_image">
+                <section class="right-side-bar">    
+                <h3><?= $name ?></h3>
+                    <ul>
+                        <li><?= $price ?> EUR</li>
+                        <li>Brand: <?= $brand ?></li>
+                        <div class="rectangle">
+                          <li><img src='../assets/<?= $user?>.png'><i>@<?= $user_username ?></i></li>
+                          <li>
+                            <span id="user_phonenumber"><?= $user_phonenumber ?></span>
+                             <button id="reveal-num-button">Reveal Number</button>
+                          </li>
+                          <li>
+                            <span id="user_email"><?= $user_email ?></span>
+                             <button id="reveal-email-button">Reveal Email</button>
+                          </li>
+                        </div>
+                    </ul>
+                </section>
+            </nav>
         </div>
 
 

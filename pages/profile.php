@@ -30,7 +30,7 @@
 
             if ($user) {
                 echo "<section class='profile_info'>
-                    <img src='assets/profile/keanu.jpeg' alt='{$user->getFirstName()} {$user->getLastName()}'>
+                    <img src='../assets/{$user->getId()}.png' alt='{$user->getFirstName()} {$user->getLastName()}'>
                     <div class='user_details'>
                         <ul>
                             <li>{$user->getFirstName()} {$user->getLastName()}</li>
