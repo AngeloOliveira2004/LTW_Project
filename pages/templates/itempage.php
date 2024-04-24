@@ -14,18 +14,26 @@
 
         <div class="item-container">
         <?php
+        
         require_once '../../db_handler/DB.php';
 
         $db = new Database();
-        
-        $randomItems = $db->getXRandItems(10);
-        
-        foreach ($randomItems as $item) {
 
+        $itemId = $_GET['item'];
+
+        $item = $db->getItemById($itemId);
+        
             $name = $item->getName();
             $price = $item->getPrice();
             $photo = $item->getPhoto();
             $brand = $item->getBrand();
+            $user = $item->getUserId();
+
+        $user_details = $db->getUserById($user);
+            $user_username = $user_details->getUsername();
+            $user_phonenumber = $user_details->getPhoneNumber();
+            $user_email = $user_details->getEmail();
+
             
             if($photo == null)
                 $photo = "assets/error.png";
@@ -33,14 +41,15 @@
                 $photo = "data:image/jpeg;base64," . base64_encode($photo);
         
             echo "<div class='item'>
-                    <a href='templates/itempage.php?item={$item->getId()}'><img src='$photo' alt='$name'></a>
+                    <img src='$photo' alt='$name'></a>
                     <h3>$name</h3>
                     <p>Price: $price</p>
                     <p>Brand: $brand</p>
-                </div>";
-            
-        }
-    ?>
+                    <p>User: $user_username</p>
+                    <p>Phone Number: $user_phonenumber</p>
+                    <p>Email: $user_email</p>
+                </div>";  
+        ?>
         </div>
 
 
