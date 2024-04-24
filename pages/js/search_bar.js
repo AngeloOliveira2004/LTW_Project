@@ -193,19 +193,12 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     console.log('buttonClicked');
     //allItems = [[Id, Name, Description, Brand, Category, Price, Condition, Available, UserId , Deliverable ,photo_img_col] ,...]
 
-
-    for (let i = 0; i < allItems.length; i++) {
-        if (allItems[i][3] === allItems[i][1]) {
-            console.log(true);
-        }
-    }
-
-    allItems.filter(item => {
+    allItems = allItems.filter(item => {
 
         const marcaMatch = marcaValue === '' || item[3] === marcaValue;
         const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue;
         const precoMatch = (precoMinValue === '' || parseFloat(item[5]) >= parseFloat(precoMinValue)) &&
-                           (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
+                        (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
 
         return marcaMatch && precoMatch && estadoMatch ;
     });
