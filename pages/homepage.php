@@ -177,6 +177,9 @@ foreach ($randomItems as $item) {
     <?php } ?>
 
     </div>
+
+    <div class = "search-items"> </div>
+    
     <?php
         include 'templates/footer.php';
     ?>

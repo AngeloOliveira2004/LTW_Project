@@ -1,6 +1,13 @@
 let lastSuggestions = [];
 let allItems = [];
 
+let searched_items = [];
+let current_filters = {
+    "state": new Set(),
+    "brand": new Set(),
+    "category": new Set()
+};
+
 function getSuggestions(input , itemNamesJson){
     var itemNames = JSON.parse(itemNamesJson);
 
@@ -217,6 +224,8 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     console.log('buttonClicked');
     //allItems = [[Id, Name, Description, Brand, Category, Price, Condition, Available, UserId , Deliverable ,photo_img_col] ,...]
 
+    let size = allItems.length;
+    let size2 = allItems.length;
     allItems = allItems.filter(item => {
 
         const marcaMatch = marcaValue === '' || item[3] === marcaValue;
@@ -227,13 +236,37 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
         return marcaMatch && precoMatch && estadoMatch ;
     });
 
+    size2 = allItems.length;
+
+    if(size > size2){
+        console.log("marca filter , estado filter , preço filter")
+    }
+
+    size = size2;
+
     if(isImageFilterActive){
         allItems = allItems.filter(item => item[10] !== null);
     }
     
+    size2 = allItems.length;
+
+    if(size > size2){
+        console.log("price filter")
+    }
+
+    size = size2;
+
     if(isDeliveryFilterActive){
         allItems = allItems.filter(item => item[9] === 'true');
     }
+
+    size2 = allItems.length;
+
+    if(size > size2){
+        console.log("image filter")
+    }
+
+    size = size2;
 
     if (sortValue === 'price_asc') {
         allItems.sort(function(a, b) {
@@ -246,4 +279,34 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     }
 
     console.log(allItems);
+
+    searched_items = allItems;
+
+    render_items();
 }   
+
+function render_items(){
+    const searchItemsDiv = document.querySelector('.search-items');
+    searchItemsDiv.innerHTML = '';
+
+    // Render found items
+    searched_items.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('searched-item');
+
+        const nameElement = document.createElement('h3');
+        nameElement.textContent = item[1]; // Assuming the item name is in the second index
+
+        const priceElement = document.createElement('p');
+        priceElement.textContent = `Price: ${item[5]}`; // Assuming the price is in the sixth index
+
+        const brandElement = document.createElement('p');
+        brandElement.textContent = `Brand: ${item[3]}`; // Assuming the brand is in the fourth index
+
+        itemElement.appendChild(nameElement);
+        itemElement.appendChild(priceElement);
+        itemElement.appendChild(brandElement);
+
+        searchItemsDiv.appendChild(itemElement);
+    });
+}

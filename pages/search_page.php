@@ -161,11 +161,15 @@
             <option value="price_desc">Preço (maior para menor)</option>
         </select>
         
-        <div class = "current_filters" ></div>
+        <div class = "current_filters" >
+
+        </div>
 
     </div>
 
     <div class = "line"></div>
+    
+    <div class = "search-items"></div>
 
     <?php
         include 'templates/footer.php';
