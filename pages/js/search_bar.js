@@ -158,26 +158,156 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('change', updateCurrentFilters);
     });
 
-    function updateCurrentFilters() {
-        const currentFiltersDiv = document.querySelector('.current_filters');
-        currentFiltersDiv.innerHTML = ''; // Clear existing content
+    marcaFilter.addEventListener('change', function() {
+        const selectedMarca = marcaFilter.value;
+        console.log('Selected Marca:', selectedMarca);
+        updateCurrentFilters(selectedMarca.input , 'Marca' , true);
+    });
 
-        document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
-            if (input.value !== '') {
-                const filterEntry = document.createElement('div');
-                filterEntry.textContent = input.value;
+    estadoFilter.addEventListener('change', function() {
+        const selectedEstado = estadoFilter.value;
+        console.log('Selected Estado:', selectedEstado);
+        updateCurrentFilters(selectedEstado.input , 'State' , true);
+        
+    });
+
+    fromPriceInput.addEventListener('change', function() {
+        const fromPrice = fromPriceInput.value;
+        console.log('From Price:', fromPrice);
+        updateCurrentFilters(fromPrice.input , 'Price' , true);
+        
+    });
+
+    toPriceInput.addEventListener('change', function() {
+        const toPrice = toPriceInput.value;
+        console.log('To Price:', toPrice);
+        updateCurrentFilters(toPrice.input , 'Price' , false);
+    });
+
+    sortFilter.addEventListener('change', function() {
+        const selectedSort = sortFilter.value;
+        console.log('Selected Sort:', selectedSort);
+        updateCurrentFilters(selectedSort.input , 'Sort' , true);
+        
+    });
+
+    function updateCurrentFilters(input , indicator , from) {
+
+        switch(indicator){
+            case 'Marca':
+                currentFiltersDiv = document.querySelector('.current_filters');
+                currentFiltersDiv.innerHTML = '';
                 
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'X';
-                removeButton.addEventListener('click', () => {
-                    filterEntry.remove();
-                });
-                filterEntry.appendChild(removeButton);
+                if (input.value !== '' && input.value !== 'Marca') {
+                    const filterEntry = document.createElement('div');
+                    filterEntry.textContent = input.value;
 
-                currentFiltersDiv.appendChild(filterEntry);
-            }
-        });
-    }
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'X';
+                    removeButton.addEventListener('click', () => {
+                        filterEntry.remove();
+                        current_filters['brand'].delete(value);
+                    });
+                    filterEntry.appendChild(removeButton);
+                    currentFiltersDiv.appendChild(filterEntry);
+
+                    current_filters['brand'].add(input);
+                }
+
+                break;
+            case 'State':
+                currentFiltersDiv = document.querySelector('.current_filters');
+                currentFiltersDiv.innerHTML = '';
+                
+                document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+                    if (input.value !== '' && input.value !== 'Any') { 
+                        const filterEntry = document.createElement('div');
+                        filterEntry.textContent = input.value;
+            
+                        const removeButton = document.createElement('button');
+                        removeButton.textContent = 'X';
+                        removeButton.addEventListener('click', () => {
+                            filterEntry.remove();
+                            current_filters['state'].delete(value);
+                        });
+                        filterEntry.appendChild(removeButton);
+            
+                        currentFiltersDiv.appendChild(filterEntry);
+
+                        current_filters['state'].add(value);
+                    }
+                });
+                break;
+            case 'Price':
+                if(from){
+                    currentFiltersDiv = document.querySelector('.current_filters');
+                    currentFiltersDiv.innerHTML = '';
+                    
+                    document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+                        if (input.value !== '' && input.value !== '0') { 
+                            const filterEntry = document.createElement('div');
+                            filterEntry.textContent = input.value;
+                
+                            const removeButton = document.createElement('button');
+                            removeButton.textContent = 'X';
+                            removeButton.addEventListener('click', () => {
+                                filterEntry.remove();
+                                current_filters['state'].delete('From' + value);
+                            });
+                            filterEntry.appendChild(removeButton);
+                
+                            currentFiltersDiv.appendChild(filterEntry);
+                            current_filters['state'].add('From' + value);
+                        }
+                    });
+                }else{
+                    currentFiltersDiv = document.querySelector('.current_filters');
+                    currentFiltersDiv.innerHTML = '';
+                    
+                    document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+                        if (input.value !== '' && input.value !== '1000') { 
+                            const filterEntry = document.createElement('div');
+                            filterEntry.textContent = input.value;
+                
+                            const removeButton = document.createElement('button');
+                            removeButton.textContent = 'X';
+                            removeButton.addEventListener('click', () => {
+                                filterEntry.remove();
+                                current_filters['state'].delete('To' + value);
+                            });
+                            filterEntry.appendChild(removeButton);
+                
+                            currentFiltersDiv.appendChild(filterEntry);
+
+                            current_filters['state'].add('To' + value);
+                        }
+                    });
+                }
+                break;
+            case 'Sort':
+                currentFiltersDiv = document.querySelector('.current_filters');
+                currentFiltersDiv.innerHTML = '';
+                
+                document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+                    if (input.value !== '' && input.value !== 'Ordenar Por') { 
+                        const filterEntry = document.createElement('div');
+                        filterEntry.textContent = input.value;
+            
+                        const removeButton = document.createElement('button');
+                        removeButton.textContent = 'X';
+                        removeButton.addEventListener('click', () => {
+                            filterEntry.remove();
+                            current_filters['state'].delete(value);
+                        });
+                        filterEntry.appendChild(removeButton);
+            
+                        currentFiltersDiv.appendChild(filterEntry);
+                        current_filters['state'].add(value);
+                    }
+                });
+                break;
+        }
+    }    
 }); 
 
 

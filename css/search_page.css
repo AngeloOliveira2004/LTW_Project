@@ -238,8 +238,7 @@ body{
     font-size: 1.3em;
     color: #0B6E4F;
     width: 80%;
-    align-items: center;
-    justify-content: center;
+    margin-left: 10%;
 }
 
 .current_filters > div {
