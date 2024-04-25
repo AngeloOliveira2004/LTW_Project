@@ -40,7 +40,7 @@ declare(strict_types=1);
             </form>
         </section>
         <section class="form-container sign-in">
-            <form>
+            <form action="../db_handler/action_login.php" method="POST">
                 <h1>Sign In</h1>
                 <section class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -48,8 +48,8 @@ declare(strict_types=1);
    
                 </section>
                 <span>or Sign In with:</span>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+                <input type="email" name= "email" placeholder="Email">
+                <input type="password" name = "password" placeholder="Password">
                 <a href="#">Forget Your Password?</a>
                 <button type = "Submit">Sign In</button>
             </form>

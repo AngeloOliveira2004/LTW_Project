@@ -10,16 +10,15 @@ function register_user($dbh, $Id, User $user): void {
 }
 
 
-function verify_user(PDO $dbh, string $email, string $password){
-    $stmt = $dbh->prepare("SELECT * FROM Users WHERE Email = :email");
-    $stmt->execute([':email' => $email]);
+function verify_user(PDO $dbh, string $email, string $password): bool{
+    $stmt = $dbh->prepare('SELECT * FROM Users WHERE Email = ? AND PasswordHash = ?');
+    $stmt->execute(array($email, $password));
 
     $user = $stmt->fetch();
-
-    if ($user && password_verify($password, $user['PasswordHash'])) {
-        return $user; 
+    if ($user) {
+        return true;
     } else {
-        return null; 
+        return false;
     }
 }
-?>
+?> 
