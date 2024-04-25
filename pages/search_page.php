@@ -146,7 +146,7 @@
         </select>
         <select name="estado" id="estado_filter">
                 <option value="" disabled selected>Estado</option>
-                <option value="Any">Qualuer Um</option>
+                <option value="Any">Qualquer Um</option>
                 <option value="Novo">Novo</option>
                 <option value="Usado">Usado</option>
         </select>

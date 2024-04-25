@@ -8,6 +8,52 @@ let current_filters = {
     "category": new Set()
 };
 
+function calculateSuggestions(inputVal , items){
+    if (inputVal.length === 0) {
+        return [];
+    } else {
+        inputVal = inputVal.toLowerCase();
+    
+        allItemNames = items.map(function (item) {
+            return item[1].toLowerCase(); 
+        });
+    
+        let filteredItems = allItemNames.filter(function (item) {
+            return item.startsWith(inputVal);
+        });
+    
+        allItemNames = allItemNames.filter(function (item) {
+            return !item.startsWith(inputVal);
+        });
+    
+        let suggestionsMap = filteredItems.reduce(function (map, item) {
+            var differences = 0;
+            for (var i = 0; i < inputVal.length; i++) {
+                if (item[i] !== inputVal[i]) {
+                    differences++;
+                }
+            }
+            map[item] = differences;
+            return map;
+        }, {});
+    
+        let sortedItems = filteredItems.sort(function (a, b) {
+            return Math.abs(a.length - inputVal.length) - Math.abs(b.length - inputVal.length);
+        });
+    
+        let sortedMap = Object.entries(suggestionsMap).sort(function (a, b) {
+            return a[1] - b[1];
+        });
+    
+        let result = sortedItems.concat(sortedMap.map(item => item[0]));
+
+        result = [...new Set(result)];
+    
+        return result;
+    }
+}
+
+
 function getSuggestions(input , itemNamesJson){
     var itemNames = JSON.parse(itemNamesJson);
 
@@ -145,10 +191,18 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Data fetched successfully');
 
             const allItems = await response.json(); 
-
-            console.log(allItems);
             
-            search_algorithm(allItems, isImageFilterActive , isDeliveryFilterActive);
+            items =  [...allItems];
+            console.log(items);
+
+            input = document.querySelector('.search_bar').value;
+            console.log(input);
+            
+            const items_names = calculateSuggestions(input, items);
+            items = items.filter(item => items_names.includes(item.name));
+            console.log("after suggestions");
+            console.log(items);
+            search_algorithm(items, isImageFilterActive , isDeliveryFilterActive);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -329,7 +383,7 @@ function selectInput(element){
 }
 
 
-function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActive){
+function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
     const marcaFilter = document.getElementById('marca_filter');
     const estadoFilter = document.getElementById('estado_filter');
@@ -354,9 +408,9 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     console.log('buttonClicked');
     //allItems = [[Id, Name, Description, Brand, Category, Price, Condition, Available, UserId , Deliverable ,photo_img_col] ,...]
 
-    let size = allItems.length;
-    let size2 = allItems.length;
-    allItems = allItems.filter(item => {
+    let size = items.length;
+    let size2 = items.length;
+    items = items.filter(item => {
 
         const marcaMatch = marcaValue === '' || item[3] === marcaValue;
         const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue;
@@ -366,7 +420,7 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
         return marcaMatch && precoMatch && estadoMatch ;
     });
 
-    size2 = allItems.length;
+    size2 = items.length;
 
     if(size > size2){
         console.log("marca filter , estado filter , preço filter")
@@ -375,10 +429,10 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     size = size2;
 
     if(isImageFilterActive){
-        allItems = allItems.filter(item => item[10] !== null);
+        items = items.filter(item => item[10] !== null);
     }
     
-    size2 = allItems.length;
+    size2 = items.length;
 
     if(size > size2){
         console.log("price filter")
@@ -387,10 +441,10 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     size = size2;
 
     if(isDeliveryFilterActive){
-        allItems = allItems.filter(item => item[9] === 'true');
+        items = items.filter(item => item[9] === 'true');
     }
 
-    size2 = allItems.length;
+    size2 = items.length;
 
     if(size > size2){
         console.log("image filter")
@@ -399,18 +453,18 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     size = size2;
 
     if (sortValue === 'price_asc') {
-        allItems.sort(function(a, b) {
+        items.sort(function(a, b) {
             return parseFloat(a[5]) - parseFloat(b[5]);
         });
     } else if (sortValue === 'price_desc') {
-        allItems.sort(function(a, b) {
+        items.sort(function(a, b) {
             return parseFloat(b[5]) - parseFloat(a[5]);
         });
     }
 
-    console.log(allItems);
+    console.log(items);
 
-    searched_items = allItems;
+    searched_items = items;
 
     render_items();
 }   
