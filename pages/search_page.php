@@ -10,6 +10,7 @@
     
 </head>
 <body>
+    <div class = "whole-page">
     <?php
         include 'templates/header.php';
 
@@ -113,10 +114,8 @@
         <span class="filter_keyword">
             Filtros
         </span>
-            
-        <span class = "line">
-
-        </span>
+        
+        <div class = "line"></div>
 
         <select name="marca" id="marca_filter">
             <option value="" class="Marca">Marca</option>
@@ -144,14 +143,14 @@
                         echo "<option value=\"$brand\" class=\"Marca\">$brand</option>";
                     }
                     ?>
-                </select>
-            <select name="estado" id="estado_filter">
-            <option value="" disabled selected>Estado</option>
-            <option value="Any">Qualuer Um</option>
-            <option value="Novo">Novo</option>
-            <option value="Usado">Usado</option>
         </select>
-        <span>Preço: </span>
+        <select name="estado" id="estado_filter">
+                <option value="" disabled selected>Estado</option>
+                <option value="Any">Qualuer Um</option>
+                <option value="Novo">Novo</option>
+                <option value="Usado">Usado</option>
+        </select>
+        <span class = "price">Preço: </span>
         <input type="text" value="0" class="from">
         <input type="text" value="1000" class = "to">
         
@@ -161,10 +160,16 @@
             <option value="price_asc">Preço (menor para maior)</option>
             <option value="price_desc">Preço (maior para menor)</option>
         </select>
-    
+        
+        <div class = "current_filters" ></div>
+
     </div>
+
+    <div class = "line"></div>
+
     <?php
         include 'templates/footer.php';
     ?>
+    </div>
 </body>
 </html>

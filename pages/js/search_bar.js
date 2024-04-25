@@ -147,7 +147,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-});
+    document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+        input.addEventListener('change', updateCurrentFilters);
+    });
+
+    function updateCurrentFilters() {
+        const currentFiltersDiv = document.querySelector('.current_filters');
+        currentFiltersDiv.innerHTML = ''; // Clear existing content
+
+        document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+            if (input.value !== '') {
+                const filterEntry = document.createElement('div');
+                filterEntry.textContent = input.value;
+                
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'X';
+                removeButton.addEventListener('click', () => {
+                    filterEntry.remove();
+                });
+                filterEntry.appendChild(removeButton);
+
+                currentFiltersDiv.appendChild(filterEntry);
+            }
+        });
+    }
+}); 
 
 
 function display_result(result){
