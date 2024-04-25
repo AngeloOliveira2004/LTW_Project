@@ -21,7 +21,7 @@ declare(strict_types=1);
 
     <section class="container" id="container">
         <section class="form-container sign-up">
-            <form action="../pages/homepage.php" method="POST">
+            <form action="../db_handler/action_register.php" method="POST">
                 <h1>Create Account</h1>
                 <section class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -35,7 +35,7 @@ declare(strict_types=1);
                 <input type="email" name= "email" placeholder="Email">
                 <input type="password" name= "password" placeholder="Password">
                 <input type="text" name= "address" placeholder="Adress">
-                <input type="phone number" name= "phonenumber" placeholder="Phone number">
+                <input type="tel" name= "phonenumber" placeholder="Phone number">
                 <button type = "submit">Sign in</button>
             </form>
         </section>
