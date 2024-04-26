@@ -23,6 +23,22 @@
         <option value="recently added">Price: Low to High</option>
         <option value="recently added">Price: High to Low</option>
     </select>
+    <?php
+// wishlist.php
+
+// Verifica se o ID do item foi passado na URL
+if (isset($_GET['item'])) {
+    $itemId = $_GET['item'];
+    
+    // Aqui você pode consultar o banco de dados para obter informações sobre o item com o ID fornecido
+    
+    // Exemplo: exibir o nome do item
+    echo "<h1>Item adicionado à wishlist:</h1>";
+    echo "<p>ID do item: $itemId</p>";
+} else {
+    echo "<h1>Nenhum item adicionado à wishlist</h1>";
+}
+?>
      <?php
         include 'templates/footer.php';
     ?>

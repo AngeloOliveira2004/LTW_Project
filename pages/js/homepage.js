@@ -60,6 +60,8 @@ function toggleHeartColor() {
             if (icon.classList.contains('fa-regular')) {
                 icon.classList.remove('fa-regular');
                 icon.classList.add('fa-solid'); 
+                let itemId = icon.getAttribute('data-item-id');
+                window.location.href = 'wishlist.php?item=' + itemId;
             } else {
                 icon.classList.remove('fa-solid');
                 icon.classList.add('fa-regular');
