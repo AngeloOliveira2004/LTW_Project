@@ -12,7 +12,6 @@ button:hover{
 .search_table{
     background-color: #CBE896;
     display: flex;
-    width: 100%;
     border-collapse: collapse;
     justify-content: center;
     border-spacing: 0;
