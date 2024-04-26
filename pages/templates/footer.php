@@ -16,7 +16,9 @@
     <link href="../../css/footer.css" rel="stylesheet">
     
   </head>
+  
     <body>
+    <section class="body-footer">
         <footer class="footer">
             <nav class="container">
                 <div class="row">
@@ -61,4 +63,5 @@
                 </div>
             </nav>
         </footer>
+        </section>
     </body>
