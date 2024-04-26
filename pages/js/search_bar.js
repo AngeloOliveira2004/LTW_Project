@@ -9,22 +9,32 @@ let current_filters = {
 };
 
 function calculateSuggestions(inputVal , items){
+    console.log('beginning suggestions');
+    console.log(items);
+    console.log(inputVal);
+
     if (inputVal.length === 0) {
+        console.log('empty input');
         return [];
     } else {
         inputVal = inputVal.toLowerCase();
-    
-        allItemNames = items.map(function (item) {
-            return item[1].toLowerCase(); 
-        });
-    
-        let filteredItems = allItemNames.filter(function (item) {
+        
+        allItemNames = []
+        filteredItems = [...items];
+        
+        for(let i = 0; i < items.length; i++){
+            allItemNames.push(items[i][1].toLowerCase());
+        }
+        
+        console.log('all items names');
+        console.log(allItemNames);
+
+        let filteredItemsNames = allItemNames.filter(function (item) {
             return item.startsWith(inputVal);
         });
-    
-        allItemNames = allItemNames.filter(function (item) {
-            return !item.startsWith(inputVal);
-        });
+
+        console.log('filtered items');
+        console.log(filteredItemsNames);
     
         let suggestionsMap = filteredItems.reduce(function (map, item) {
             var differences = 0;
@@ -36,20 +46,24 @@ function calculateSuggestions(inputVal , items){
             map[item] = differences;
             return map;
         }, {});
-    
-        let sortedItems = filteredItems.sort(function (a, b) {
-            return Math.abs(a.length - inputVal.length) - Math.abs(b.length - inputVal.length);
-        });
-    
-        let sortedMap = Object.entries(suggestionsMap).sort(function (a, b) {
-            return a[1] - b[1];
-        });
-    
-        let result = sortedItems.concat(sortedMap.map(item => item[0]));
+        
+        console.log(filteredItems);
+        console.log(filteredItemsNames);
 
-        result = [...new Set(result)];
+        recommendations = [];
+
+        for(let i = 0; i < filteredItemsNames.length; i++){
+            for(let j = 0; j < filteredItems.length; j++){
+                if(filteredItems[j][1].toLowerCase() === filteredItemsNames[i]){
+                    recommendations.push(filteredItems[j]);
+                }
+            }
+        }
+
+        console.log('reco')
+        console.log(recommendations);
     
-        return result;
+        return recommendations;
     }
 }
 
@@ -198,11 +212,10 @@ document.addEventListener('DOMContentLoaded', function() {
             input = document.querySelector('.search_bar').value;
             console.log(input);
             
-            const items_names = calculateSuggestions(input, items);
-            items = items.filter(item => items_names.includes(item.name));
+            const recommendad_items = calculateSuggestions(input, items);
             console.log("after suggestions");
-            console.log(items);
-            search_algorithm(items, isImageFilterActive , isDeliveryFilterActive);
+            console.log(recommendad_items);
+            search_algorithm(recommendad_items, isImageFilterActive , isDeliveryFilterActive);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -387,7 +400,6 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
     const marcaFilter = document.getElementById('marca_filter');
     const estadoFilter = document.getElementById('estado_filter');
-    const precoFilter = document.getElementById('preco_filter');
     const sortFilter = document.getElementById('sort_filter');
     const precoMin = document.querySelector('.from');
     const precoMax = document.querySelector('.to');
@@ -413,10 +425,18 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     items = items.filter(item => {
 
         const marcaMatch = marcaValue === '' || item[3] === marcaValue;
+        if(marcaMatch){
+            console.log("marcou");
+        }
         const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue;
+        if(estadoMatch){
+            console.log("estadou");
+        }
         const precoMatch = (precoMinValue === '' || parseFloat(item[5]) >= parseFloat(precoMinValue)) &&
                         (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
-
+        if(precoMatch){
+            console.log("preçou");
+        }
         return marcaMatch && precoMatch && estadoMatch ;
     });
 

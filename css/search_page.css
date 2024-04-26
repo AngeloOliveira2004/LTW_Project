@@ -11,10 +11,6 @@ body{
     min-height: 100vh
 }
 
-.whole-page{
-    min-height: 100vh
-}
-
 .search_table{
     background-color: #CBE896;
     display: flex;
