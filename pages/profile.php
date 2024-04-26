@@ -13,12 +13,16 @@
             include 'templates/header.php';
         ?>
         <?php
-            require_once '../db_handler/DB.php';
+            require_once (__DIR__ . '/../db_handler/DB.php');
+            session_start();
+
             $db = new Database();
 
-            $user = $db->getUserById(1);
+            $userId = $_SESSION['userId'];
 
-            $Reviews = $db->getReviewByReviewedUserId(1);
+            $user = $db->getUserById($userId);
+
+            $Reviews = $db->getReviewByReviewedUserId($userId);
 
             $reviewsCount = count($Reviews);
 
@@ -68,7 +72,7 @@
      
              $db = new Database();
          
-             $Items = $db->getItemByUserId(1);
+             $Items = $db->getItemByUserId($userId);
  
              $ItemCount = count($Items);
  
@@ -81,7 +85,7 @@
      
          $db = new Database();
          
-         $Items = $db->getItemByUserId(1);
+         $Items = $db->getItemByUserId($userId);
          
          foreach ($Items as $item) {
      
@@ -111,7 +115,7 @@
      
              $db = new Database();
          
-             $Reviews = $db->getReviewByReviewedUserId(1);
+             $Reviews = $db->getReviewByReviewedUserId($userId);
  
              $reviewsCount = count($Reviews);
  
@@ -124,7 +128,7 @@
      
          $db = new Database();
          
-         $Reviews = $db->getReviewByReviewedUserId(1);
+         $Reviews = $db->getReviewByReviewedUserId($userId);
          
          foreach ($Reviews as $review) {
 

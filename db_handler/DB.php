@@ -235,6 +235,28 @@
             return $reviews;
         }
 
+        public function getUserByEmail($email) : User {
+            $stmt = $this->conn->prepare("SELECT * FROM Users WHERE Email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($user) {
+                return new User(
+                    $user['Id'],
+                    $user['Username'],
+                    $user['Email'],
+                    $user['PasswordHash'],
+                    $user['FirstName'],
+                    $user['LastName'],
+                    $user['Address'],
+                    $user['PhoneNumber']
+                );
+            } else {
+                return null;
+            }
+        }
+
     }
 ?>
 

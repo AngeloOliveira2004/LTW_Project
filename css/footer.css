@@ -83,11 +83,14 @@
     color: #0B6E4F
 }
 
-@media(max-width: 760px){
-    .footer-column{
-        width: 50%;
-        margin-bottom: 30px;
-    }
+.body-footer{
+    min-height: 45vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer{
+    margin-top: auto;
 }
 
 @media(max-width: 760px){
