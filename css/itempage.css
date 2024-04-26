@@ -17,7 +17,6 @@
   #item_image {
     max-width: 40%;
     border-radius: 5%;
-    cursor: pointer;
     margin-bottom: 3.5rem;
   }
   
@@ -78,7 +77,7 @@
   }
 
   .rectangle button:hover {
-    background-color: #45a049; /* Change background color on hover */
+    background-color: #45a049;
   }
 
   .rectangle li:last-of-type{

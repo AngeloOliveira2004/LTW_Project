@@ -36,7 +36,7 @@ declare(strict_types=1);
                 <input type="password" name= "password" placeholder="Password">
                 <input type="text" name= "address" placeholder="Adress">
                 <input type="tel" name= "phonenumber" placeholder="Phone number">
-                <button type = "submit">Sign in</button>
+                <button type = "submit">Sign Up</button>
             </form>
         </section>
         <section class="form-container sign-in">
