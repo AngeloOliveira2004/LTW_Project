@@ -424,17 +424,17 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     let size2 = items.length;
     items = items.filter(item => {
 
-        const marcaMatch = marcaValue === '' || item[3] === marcaValue;
-        if(marcaMatch){
+        const marcaMatch = marcaValue === '' || item[3] === marcaValue || marcaValue === 'Marca';
+        if(!marcaMatch){
             console.log("marcou");
         }
-        const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue;
-        if(estadoMatch){
+        const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue || estadoValue === '';
+        if(!estadoMatch){
             console.log("estadou");
         }
         const precoMatch = (precoMinValue === '' || parseFloat(item[5]) >= parseFloat(precoMinValue)) &&
                         (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
-        if(precoMatch){
+        if(!precoMatch){
             console.log("preçou");
         }
         return marcaMatch && precoMatch && estadoMatch ;
