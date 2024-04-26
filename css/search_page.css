@@ -6,6 +6,11 @@
     list-style: none;
 }
 
+body{
+    height: 100%;
+    min-height: 100vh
+}
+
 .search_table{
     background-color: #CBE896;
     display: flex;
@@ -142,6 +147,8 @@
     display: flex;
     flex-wrap: wrap;
     margin: 0;
+    padding-bottom: 5em;
+
 }
 
 #filter_image{
@@ -169,7 +176,84 @@
 }
 
 #marca_filter{
+    padding-left: 0.5em;
     margin-left: 10%;
-    padding-bottom: 20em;
+    margin-right: 3.5em;
+    color: #0B6E4F;
+    font-size: 1.3em;
+    background-color: white;
 }
 
+.line {
+    width: 77%; 
+    height: 1px; 
+    background-color: #CBE896; 
+    margin-bottom: 3em;
+    margin-left: 10%;
+}
+
+#estado_filter{
+    padding-left: 0.5em;
+    background-color: white;
+    color: #0B6E4F;
+    font-size: 1.3em;
+    margin-right: 3.5em;
+}
+
+.price{
+    color: #0B6E4F;
+    font-size: 1.3em;
+    margin-right: 1em;
+}
+
+.from{
+    padding-left: 0.5em;
+    color: #0B6E4F;
+    font-size: 1.3em;
+    margin-right: 1em;
+}
+
+.to{
+    padding-left: 0.5em;
+    color: #0B6E4F;
+    font-size: 1.3em;
+    margin-right: 3.5em;
+}
+
+#sort_filter{
+    padding-left: 0.5em;
+    color: #0B6E4F;
+    font-size: 1.3em;
+    background-color: white;
+    margin-right: 8em;
+}
+
+.current_filters{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.3em;
+    color: #0B6E4F;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.current_filters > div {
+    padding-left: 1em; 
+    border: 1px solid #0B6E4F; 
+    border-radius: 8px; 
+    padding: 0.3em 1em; 
+    margin-top: 3em;
+    margin-right: 1.4em;
+}
+
+
+.current_filters > div > button {
+    flex-grow: 1; 
+    height: calc(100% - 0.5em); 
+    margin-left: 0.5em; 
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #0B6E4F;
+    font-size: 1em;
+}

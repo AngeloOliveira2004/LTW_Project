@@ -1,6 +1,73 @@
 let lastSuggestions = [];
 let allItems = [];
 
+let searched_items = [];
+let current_filters = {
+    "state": new Set(),
+    "brand": new Set(),
+    "category": new Set()
+};
+
+function calculateSuggestions(inputVal , items){
+    console.log('beginning suggestions');
+    console.log(items);
+    console.log(inputVal);
+
+    if (inputVal.length === 0) {
+        console.log('empty input');
+        return [];
+    } else {
+        inputVal = inputVal.toLowerCase();
+        
+        allItemNames = []
+        filteredItems = [...items];
+        
+        for(let i = 0; i < items.length; i++){
+            allItemNames.push(items[i][1].toLowerCase());
+        }
+        
+        console.log('all items names');
+        console.log(allItemNames);
+
+        let filteredItemsNames = allItemNames.filter(function (item) {
+            return item.startsWith(inputVal);
+        });
+
+        console.log('filtered items');
+        console.log(filteredItemsNames);
+    
+        let suggestionsMap = filteredItems.reduce(function (map, item) {
+            var differences = 0;
+            for (var i = 0; i < inputVal.length; i++) {
+                if (item[i] !== inputVal[i]) {
+                    differences++;
+                }
+            }
+            map[item] = differences;
+            return map;
+        }, {});
+        
+        console.log(filteredItems);
+        console.log(filteredItemsNames);
+
+        recommendations = [];
+
+        for(let i = 0; i < filteredItemsNames.length; i++){
+            for(let j = 0; j < filteredItems.length; j++){
+                if(filteredItems[j][1].toLowerCase() === filteredItemsNames[i]){
+                    recommendations.push(filteredItems[j]);
+                }
+            }
+        }
+
+        console.log('reco')
+        console.log(recommendations);
+    
+        return recommendations;
+    }
+}
+
+
 function getSuggestions(input , itemNamesJson){
     var itemNames = JSON.parse(itemNamesJson);
 
@@ -138,16 +205,177 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Data fetched successfully');
 
             const allItems = await response.json(); 
-
-            console.log(allItems);
             
-            search_algorithm(allItems, isImageFilterActive , isDeliveryFilterActive);
+            items =  [...allItems];
+            console.log(items);
+
+            input = document.querySelector('.search_bar').value;
+            console.log(input);
+            
+            const recommendad_items = calculateSuggestions(input, items);
+            console.log("after suggestions");
+            console.log(recommendad_items);
+            search_algorithm(recommendad_items, isImageFilterActive , isDeliveryFilterActive);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     });
 
-});
+    document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+        input.addEventListener('change', updateCurrentFilters);
+    });
+
+    marcaFilter.addEventListener('change', function() {
+        const selectedMarca = marcaFilter.value;
+        console.log('Selected Marca:', selectedMarca);
+        updateCurrentFilters(selectedMarca.input , 'Marca' , true);
+    });
+
+    estadoFilter.addEventListener('change', function() {
+        const selectedEstado = estadoFilter.value;
+        console.log('Selected Estado:', selectedEstado);
+        updateCurrentFilters(selectedEstado.input , 'State' , true);
+        
+    });
+
+    fromPriceInput.addEventListener('change', function() {
+        const fromPrice = fromPriceInput.value;
+        console.log('From Price:', fromPrice);
+        updateCurrentFilters(fromPrice.input , 'Price' , true);
+        
+    });
+
+    toPriceInput.addEventListener('change', function() {
+        const toPrice = toPriceInput.value;
+        console.log('To Price:', toPrice);
+        updateCurrentFilters(toPrice.input , 'Price' , false);
+    });
+
+    sortFilter.addEventListener('change', function() {
+        const selectedSort = sortFilter.value;
+        console.log('Selected Sort:', selectedSort);
+        updateCurrentFilters(selectedSort.input , 'Sort' , true);
+        
+    });
+
+    function updateCurrentFilters(input , indicator , from) {
+
+        switch(indicator){
+            case 'Marca':
+                currentFiltersDiv = document.querySelector('.current_filters');
+                currentFiltersDiv.innerHTML = '';
+                
+                if (input.value !== '' && input.value !== 'Marca') {
+                    const filterEntry = document.createElement('div');
+                    filterEntry.textContent = input.value;
+
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'X';
+                    removeButton.addEventListener('click', () => {
+                        filterEntry.remove();
+                        current_filters['brand'].delete(value);
+                    });
+                    filterEntry.appendChild(removeButton);
+                    currentFiltersDiv.appendChild(filterEntry);
+
+                    current_filters['brand'].add(input);
+                }
+
+                break;
+            case 'State':
+                currentFiltersDiv = document.querySelector('.current_filters');
+                currentFiltersDiv.innerHTML = '';
+                
+                document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+                    if (input.value !== '' && input.value !== 'Any') { 
+                        const filterEntry = document.createElement('div');
+                        filterEntry.textContent = input.value;
+            
+                        const removeButton = document.createElement('button');
+                        removeButton.textContent = 'X';
+                        removeButton.addEventListener('click', () => {
+                            filterEntry.remove();
+                            current_filters['state'].delete(value);
+                        });
+                        filterEntry.appendChild(removeButton);
+            
+                        currentFiltersDiv.appendChild(filterEntry);
+
+                        current_filters['state'].add(value);
+                    }
+                });
+                break;
+            case 'Price':
+                if(from){
+                    currentFiltersDiv = document.querySelector('.current_filters');
+                    currentFiltersDiv.innerHTML = '';
+                    
+                    document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+                        if (input.value !== '' && input.value !== '0') { 
+                            const filterEntry = document.createElement('div');
+                            filterEntry.textContent = input.value;
+                
+                            const removeButton = document.createElement('button');
+                            removeButton.textContent = 'X';
+                            removeButton.addEventListener('click', () => {
+                                filterEntry.remove();
+                                current_filters['state'].delete('From' + value);
+                            });
+                            filterEntry.appendChild(removeButton);
+                
+                            currentFiltersDiv.appendChild(filterEntry);
+                            current_filters['state'].add('From' + value);
+                        }
+                    });
+                }else{
+                    currentFiltersDiv = document.querySelector('.current_filters');
+                    currentFiltersDiv.innerHTML = '';
+                    
+                    document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+                        if (input.value !== '' && input.value !== '1000') { 
+                            const filterEntry = document.createElement('div');
+                            filterEntry.textContent = input.value;
+                
+                            const removeButton = document.createElement('button');
+                            removeButton.textContent = 'X';
+                            removeButton.addEventListener('click', () => {
+                                filterEntry.remove();
+                                current_filters['state'].delete('To' + value);
+                            });
+                            filterEntry.appendChild(removeButton);
+                
+                            currentFiltersDiv.appendChild(filterEntry);
+
+                            current_filters['state'].add('To' + value);
+                        }
+                    });
+                }
+                break;
+            case 'Sort':
+                currentFiltersDiv = document.querySelector('.current_filters');
+                currentFiltersDiv.innerHTML = '';
+                
+                document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
+                    if (input.value !== '' && input.value !== 'Ordenar Por') { 
+                        const filterEntry = document.createElement('div');
+                        filterEntry.textContent = input.value;
+            
+                        const removeButton = document.createElement('button');
+                        removeButton.textContent = 'X';
+                        removeButton.addEventListener('click', () => {
+                            filterEntry.remove();
+                            current_filters['state'].delete(value);
+                        });
+                        filterEntry.appendChild(removeButton);
+            
+                        currentFiltersDiv.appendChild(filterEntry);
+                        current_filters['state'].add(value);
+                    }
+                });
+                break;
+        }
+    }    
+}); 
 
 
 function display_result(result){
@@ -168,11 +396,10 @@ function selectInput(element){
 }
 
 
-function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActive){
+function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
     const marcaFilter = document.getElementById('marca_filter');
     const estadoFilter = document.getElementById('estado_filter');
-    const precoFilter = document.getElementById('preco_filter');
     const sortFilter = document.getElementById('sort_filter');
     const precoMin = document.querySelector('.from');
     const precoMax = document.querySelector('.to');
@@ -193,33 +420,97 @@ function search_algorithm(allItems , isImageFilterActive , isDeliveryFilterActiv
     console.log('buttonClicked');
     //allItems = [[Id, Name, Description, Brand, Category, Price, Condition, Available, UserId , Deliverable ,photo_img_col] ,...]
 
-    allItems = allItems.filter(item => {
+    let size = items.length;
+    let size2 = items.length;
+    items = items.filter(item => {
 
-        const marcaMatch = marcaValue === '' || item[3] === marcaValue;
-        const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue;
+        const marcaMatch = marcaValue === '' || item[3] === marcaValue || marcaValue === 'Marca';
+        if(!marcaMatch){
+            console.log("marcou");
+        }
+        const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue || estadoValue === '';
+        if(!estadoMatch){
+            console.log("estadou");
+        }
         const precoMatch = (precoMinValue === '' || parseFloat(item[5]) >= parseFloat(precoMinValue)) &&
                         (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
-
+        if(!precoMatch){
+            console.log("preçou");
+        }
         return marcaMatch && precoMatch && estadoMatch ;
     });
 
-    if(isImageFilterActive){
-        allItems = allItems.filter(item => item[10] !== null);
-    }
-    
-    if(isDeliveryFilterActive){
-        allItems = allItems.filter(item => item[9] === 'true');
+    size2 = items.length;
+
+    if(size > size2){
+        console.log("marca filter , estado filter , preço filter")
     }
 
+    size = size2;
+
+    if(isImageFilterActive){
+        items = items.filter(item => item[10] !== null);
+    }
+    
+    size2 = items.length;
+
+    if(size > size2){
+        console.log("price filter")
+    }
+
+    size = size2;
+
+    if(isDeliveryFilterActive){
+        items = items.filter(item => item[9] === 'true');
+    }
+
+    size2 = items.length;
+
+    if(size > size2){
+        console.log("image filter")
+    }
+
+    size = size2;
+
     if (sortValue === 'price_asc') {
-        allItems.sort(function(a, b) {
+        items.sort(function(a, b) {
             return parseFloat(a[5]) - parseFloat(b[5]);
         });
     } else if (sortValue === 'price_desc') {
-        allItems.sort(function(a, b) {
+        items.sort(function(a, b) {
             return parseFloat(b[5]) - parseFloat(a[5]);
         });
     }
 
-    console.log(allItems);
+    console.log(items);
+
+    searched_items = items;
+
+    render_items();
 }   
+
+function render_items(){
+    const searchItemsDiv = document.querySelector('.search-items');
+    searchItemsDiv.innerHTML = '';
+
+    // Render found items
+    searched_items.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('searched-item');
+
+        const nameElement = document.createElement('h3');
+        nameElement.textContent = item[1]; // Assuming the item name is in the second index
+
+        const priceElement = document.createElement('p');
+        priceElement.textContent = `Price: ${item[5]}`; // Assuming the price is in the sixth index
+
+        const brandElement = document.createElement('p');
+        brandElement.textContent = `Brand: ${item[3]}`; // Assuming the brand is in the fourth index
+
+        itemElement.appendChild(nameElement);
+        itemElement.appendChild(priceElement);
+        itemElement.appendChild(brandElement);
+
+        searchItemsDiv.appendChild(itemElement);
+    });
+}
