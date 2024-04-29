@@ -185,10 +185,11 @@ body{
 }
 
 .line {
-    width: 77%; 
+    width: 80%; 
     height: 1px; 
     background-color: #CBE896; 
     margin-bottom: 3em;
+    margin-right: 10%;
     margin-left: 10%;
 }
 
@@ -256,4 +257,74 @@ body{
     cursor: pointer;
     color: #0B6E4F;
     font-size: 1em;
+}
+.searched-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+    width: 80%;
+    margin-left: 10%;
+    position: relative; /* Positioning for absolute elements */
+}
+
+.item-photo {
+    max-width: 20%;
+    max-height: 20%;
+    margin-right: 0.3em;
+    margin-bottom: 0.5em; /* Spacing between photo and title */
+}
+
+.item-title {
+    font-size: 1.2em;
+    margin-bottom: 0.2em; /* Adjust spacing between title and description */
+}
+
+.item-description {
+    margin-bottom: 0.5em; /* Spacing between description and price */
+}
+
+.item-price {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+}
+
+.heart-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: grey; 
+}
+
+.heart-icon:hover {
+    cursor: pointer;
+    color: #CBE896; 
+}
+
+.searched-item-container:hover {
+    cursor: pointer;
+}
+
+.text-icon {
+    display: none;
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 0.5em;
+    border-radius: 4px;
+}
+
+.heart-icon:hover + .text-icon {
+    display: block;
+}
+
+.heart-active {
+    color: #FFCBDB;
 }
