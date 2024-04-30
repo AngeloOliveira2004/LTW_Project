@@ -7,6 +7,7 @@
     require_once 'Users.php';
     require_once 'Wishlist.php';
     require_once 'Reviews.php';
+    require_once 'Message.php';
     
     class Database {
         private static $instance = null;
@@ -257,6 +258,29 @@
             }
         }
 
+        public function getMessagesUser($userId) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Messages WHERE Receiver = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+
+            $messages = [];
+            
+            while($message = $stmt->fetch()) {
+                $sender = $this->getUserById($message['Sender']);
+                $receiver = $this->getUserById($message['Receiver']);
+                $new_message = new Message(
+                    $message['MessageId'],
+                    $sender,
+                    $receiver,
+                    $message['Content']
+                );
+
+                $messages[] = $new_message;
+
+            }
+            
+            return $messages;
+        }
     }
 ?>
 
