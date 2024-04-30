@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/homepage.js"></script>
     
@@ -171,6 +172,8 @@ foreach ($randomItems as $item) {
         <h3><?= $item->getName() ?></h3>
         <p>Price: <?= $item->getPrice() ?></p>
         <p>Brand: <?= $item->getBrand() ?></p>
+        <i class="fa-regular fa-heart" data-item-id="<?= $item->getId() ?>"></i>
+
     </div>
 
     <?php } ?>
