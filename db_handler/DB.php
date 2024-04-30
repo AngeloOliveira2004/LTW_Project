@@ -13,8 +13,8 @@
         private static $instance = null;
         private $conn;
     
-        public function __construct() {
-            $databasePath = "../database.db";
+        public function __construct($databasePath) {
+            
             try {
                 $this->conn = new PDO("sqlite:$databasePath");
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -25,7 +25,7 @@
     
         public static function getInstance() : Database {
             if (self::$instance === null) {
-                self::$instance = new Database();
+                self::$instance = new Database('../database/database.db');
             }
             return self::$instance;
         }
@@ -39,13 +39,27 @@
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $row = $stmt->fetch();
-            return new Item($row['Id'], $row['Name'], $row['Description'],$row['Brand'] , $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
+            return new Item(
+                $row['Id'],
+                $row['Name'],
+                $row['Description'],
+                $row['Brand'],
+                $row['Model'],
+                $row['CategoryId'],
+                $row['Size'],
+                $row['Price'],
+                $row['ConditionId'],
+                $row['Available'],
+                $row['AvailableForDelivery'],
+                $row['SubCategory'],
+                $row['UserId']
+            );
         }
         
         public function getItemsName() : array {
             $stmt = $this->conn->prepare("SELECT * FROM items");
             $stmt->execute();
-            $items = [];
+            $items = [];    
             while ($row = $stmt->fetch()) {
                 $items[] = $row['Name'];
             }
@@ -57,12 +71,27 @@
             $stmt->execute();
             $items = [];
             while ($row = $stmt->fetch()) {
-                $items[] = new Item($row['Id'], $row['Name'], $row['Description'],$row['Brand'] , $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
+            $items[] = new Item(
+                $row['Id'],
+                $row['Name'],
+                $row['Description'],
+                $row['Brand'],
+                $row['Model'],
+                $row['CategoryId'],
+                $row['Size'],
+                $row['Price'],
+                $row['ConditionId'],
+                $row['Available'],
+                $row['AvailableForDelivery'],
+                $row['SubCategory'],
+                $row['UserId']
+            );
             }
             return $items;
         }
 
         public function getAllItems() : array {
+            
             $stmt = $this->conn->prepare("SELECT * FROM Items");
             $stmt->execute();
             $items = [];
@@ -88,7 +117,21 @@
             $stmt->execute();
             $items = [];
             while ($row = $stmt->fetch()) {
-                $items[] = new Item($row['Id'], $row['Name'], $row['Description'], $row['Brand'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
+                $items[] = new Item(
+                    $row['Id'],
+                    $row['Name'],
+                    $row['Description'],
+                    $row['Brand'],
+                    $row['Model'],
+                    $row['CategoryId'],
+                    $row['Size'],
+                    $row['Price'],
+                    $row['ConditionId'],
+                    $row['Available'],
+                    $row['AvailableForDelivery'],
+                    $row['SubCategory'],
+                    $row['UserId']
+                );
             }
             return $items;
         }        
@@ -178,7 +221,21 @@
             $stmt->execute();
             $items = [];
             while ($row = $stmt->fetch()) {
-                $items[] = new Item($row['Id'], $row['Name'], $row['Description'], $row['Brand'], $row['Category'], $row['Price'], $row['Condition'], $row['Available'],$row['UserId'] , $row['photo_img_col']);
+                $items[] = new Item(
+                    $row['Id'],
+                    $row['Name'],
+                    $row['Description'],
+                    $row['Brand'],
+                    $row['Model'],
+                    $row['CategoryId'],
+                    $row['Size'],
+                    $row['Price'],
+                    $row['ConditionId'],
+                    $row['Available'],
+                    $row['AvailableForDelivery'],
+                    $row['SubCategory'],
+                    $row['UserId']
+                );
             }
             return $items;
         }
