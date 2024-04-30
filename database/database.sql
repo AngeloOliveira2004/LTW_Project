@@ -60,6 +60,7 @@ CREATE TABLE Items (
     Available BOOLEAN NOT NULL,
     AvailableForDelivery BOOLEAN NOT NULL , 
     SubCategory VARCHAR(50),
+    HasImage BOOLEAN NOT NULL,
     UserId INTEGER NOT NULL,
 
     FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
