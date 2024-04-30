@@ -430,7 +430,7 @@ function render_items() {
 
         // Item price
         const priceElement = document.createElement('p');
-        priceElement.textContent = `Price: ${item[5]}`; // Assuming price is in the sixth index
+        priceElement.textContent = `${item[5]}`; // Assuming price is in the sixth index
         priceElement.classList.add('item-price');
         itemContainer.appendChild(priceElement);
 
