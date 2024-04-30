@@ -24,21 +24,23 @@
         <option value="recently added">Price: High to Low</option>
     </select>
     <?php
-// wishlist.php
+        // wishlist.php
 
-// Verifica se o ID do item foi passado na URL
-if (isset($_GET['item'])) {
-    $itemId = $_GET['item'];
-    
-    // Aqui você pode consultar o banco de dados para obter informações sobre o item com o ID fornecido
-    
-    // Exemplo: exibir o nome do item
-    echo "<h1>Item adicionado à wishlist:</h1>";
-    echo "<p>ID do item: $itemId</p>";
-} else {
-    echo "<h1>Nenhum item adicionado à wishlist</h1>";
-}
-?>
+        // Verifica se o cookie "wishlist" existe
+        if (isset($_COOKIE['wishlist'])) {
+            $wishlistItems = explode(',', $_COOKIE['wishlist']);
+            
+            // Exibe os itens da wishlist
+            foreach ($wishlistItems as $itemId) {
+                // Aqui você pode consultar o banco de dados para obter informações sobre cada item com o ID fornecido
+                // Exemplo: exibir o nome do item
+                echo "<p>ID do item na wishlist: $itemId</p>";
+            }
+        } else {
+            echo "<p>Nenhum item adicionado à wishlist</p>";
+        }
+    ?>
+
      <?php
         include 'templates/footer.php';
     ?>

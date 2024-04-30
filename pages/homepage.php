@@ -172,7 +172,7 @@ foreach ($randomItems as $item) {
         <h3><?= $item->getName() ?></h3>
         <p>Price: <?= $item->getPrice() ?></p>
         <p>Brand: <?= $item->getBrand() ?></p>
-        <i class="fa-regular fa-heart" data-item-id="<?= $item->getId() ?>"></i>
+        <i class="fa-regular fa-heart" data-item-id="<?= $item->getId(1) ?>"></i>
 
     </div>
 
