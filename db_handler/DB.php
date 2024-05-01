@@ -316,7 +316,12 @@
         }
 
         public function getMessagesUser($userId) : array {
-            $stmt = $this->conn->prepare("SELECT * FROM Messages WHERE Receiver = :userId");
+            $stmt = $this->conn->prepare("
+            SELECT * FROM Messages
+            WHERE Receiver = :userId
+            GROUP BY Sender
+            ORDER BY Timestamp DESC
+        ");
             $stmt->bindParam(':userId', $userId);
             $stmt->execute();
 
@@ -329,7 +334,8 @@
                     $message['MessageId'],
                     $sender,
                     $receiver,
-                    $message['Content']
+                    $message['Content'],
+                    $message['Timestamp']
                 );
 
                 $messages[] = $new_message;

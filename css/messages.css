@@ -2,16 +2,20 @@
     display: flex;
     justify-content: space-between;
     width: auto;
-    height: 50em;
+    height: 40em;
+}
+
+.messages-rectangle{
+    overflow-y: scroll;
 }
 
 .users-rectangle,
 .open-messages {
+    position: relative;
     width: 45%;
-    height: 100%;
-    overflow-y: auto;
+    height: 90%;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 2px solid #CBE896;
     border-radius: 5px;
     background-color: #f9f9f9;
     box-sizing: border-box;
@@ -25,23 +29,33 @@
     font-family: 'Crimson Pro', serif;
 }
 
-.users-rectangle {
-    order: 1;
-}
-
-.open-messages {
-    order: 2;
-}
-
 .user-box{
     background-color: #f9f9f9;
+    cursor: pointer;
     border-radius: 5%;
+    border-bottom: 2px solid #CBE896;
+    transition: 0.5s ease;
 }
 
-.user-box h3 > img{
+.user-box:hover{
+    background-color: #CBE896;
+}
+
+.user-container > img{
     width: 3em;
     height: 3em;
     border-radius: 50%;
+    margin: 0.5em 1em 0.5em 1em;
+}
+
+.user-container{
+    display: flex;
+    flex-direction:row;
+}
+
+.user-container h4:nth-of-type(2){
+    margin-left: auto;
+    padding-right: 1em;
 }
 
 .user-box h3{
@@ -51,6 +65,34 @@
 .user-box p{
     padding: 0em 1em 1em 1em;
     margin: 0;
+}
+
+.text-box-container{
+    position: absolute;
+    bottom: 1em;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#user-message-input{
+    height: 2em;
+    width: calc(100% - 4em);
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}   
+
+.user-message-button{
+    width: 3em;
+    border: none;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #0B6E4F;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
 }
 
 

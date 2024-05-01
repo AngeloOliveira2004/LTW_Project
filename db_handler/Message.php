@@ -7,12 +7,14 @@ class Message {
     public $sender;
     public $receiver;
     public $text;
+    public $timestamp;
 
-    public function __construct($messageId, $sender, $receiver, $text) {
+    public function __construct($messageId, $sender, $receiver, $text, $timestamp) {
         $this->messageId = $messageId;
         $this->sender = $sender;
         $this->receiver = $receiver;
         $this->text = $text;
+        $this->timestamp = $timestamp;
     }
 
     public function displayDetails() {
@@ -20,10 +22,11 @@ class Message {
         echo "Sender: " . $this->sender . "<br>";
         echo "Receiver: " . $this->receiver . "<br>";
         echo "Text: " . $this->text . "<br>";
+        echo "Timestamp: " . $this->timestamp . "<br>";
     }
 
     public function getMessageId() : int {
-        return $this->reviewId;
+        return $this->messageId;
     }
 
     public function getContent() : string {
@@ -37,6 +40,25 @@ class Message {
     public function getSender() : User {
         return $this->sender;
     }
+
+    public function getTimestamp(): string {
+        return $this->timestamp;
+    }
+
+    public function printTimestamp() : string {
+        $currentTime = new DateTime();
+        $messageTime = new DateTime($this->timestamp);
+    
+        $interval = $currentTime->diff($messageTime);
+    
+        if ($interval->days == 0) {
+            $hoursPassed = $interval->h + ($interval->days * 24);
+            return $hoursPassed . ' hours ago';
+        } else {
+            return $interval->days . ' days ago';
+        }
+    }
+    
 }
 
 ?>
