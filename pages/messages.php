@@ -17,11 +17,11 @@
             <?php
                 include 'templates/header.php';
             ?>
-        <header>
+        </header>
 
     <section class="messages-section">
         <article class="messages-rectangle">
-            <h2>Users</h2>
+            <h2>Messages</h2>
             <?php 
             $db = new Database("../database/database.db");
             $userId = $_SESSION['userId'];
@@ -30,10 +30,16 @@
             
             foreach ($messages as $message) {
                 $sender = $message->getSender();
-                echo '<div class="user-box">';
-                echo '<h3><img src="../assets/users/' . $sender->getId() . '.png" alt="' . $sender->getUsername() . '" id="item_image">' . $sender->getUsername() . '</h3>';
-                echo '<p>Content: ' . $message->getContent() . '</p>';
-                echo '</div>';
+                ?>
+                    <div class="user-box">
+                        <div class="user-container">
+                            <img src="../assets/users/<?php echo $sender->getId(); ?>.png" alt="<?php echo $sender->getUsername(); ?>" id="item_image">
+                            <h4><?php echo $sender->getUsername(); ?></h4>
+                            <h4><?php echo $message->printTimestamp(); ?></h4>
+                        </div>
+                        <p>Content: <?php echo $message->getContent(); ?></p>
+                    </div>
+                <?php
             }
             ?>
 
@@ -41,7 +47,12 @@
 
         <article class="open-messages">
             <h2>Messages Hub</h2>
-            <form action="">
+            <form class = "text-box" action="../database/action_send_message.php">
+                <div class="text-box-container">
+                    <input type="text" id="user-message-input" placeholder="Type a message here:">
+                    <button type="submit" class="user-message-button"><i class="fa fa-paper-plane"></i></button>
+                </div>
+            </form>
         </article>
     </section>
         
