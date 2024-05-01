@@ -8,7 +8,9 @@ function displayMessages(messages) {
     messages.forEach(function(message) {
         let messageDiv = document.createElement('div');
 
+
         let receiverId = message.receiver.Id;
+        let senderId2 = message.sender.Id;
         let messageText = message.text;
         let timestamp = message.timestamp;
 
@@ -18,7 +20,8 @@ function displayMessages(messages) {
             messageDiv.classList.add('message-received');
         }
 
-        var messageHTML = `
+        let messageHTML = `
+            <img src="../assets/users/${senderId2}.png">
             <div class="message-content">${messageText}</div>
             <div class="message-timestamp">${timestamp}</div>
         `;

@@ -111,3 +111,10 @@ article.open-messages{
     text-align: right;
 }
 
+
+.message-sent img , .message-received img{
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+}
+
