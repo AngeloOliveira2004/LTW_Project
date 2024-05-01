@@ -23,7 +23,7 @@
         <article class="messages-rectangle">
             <h2>Users</h2>
             <?php 
-            $db = new Database();
+            $db = new Database("../database/database.db");
             $userId = $_SESSION['userId'];
 
             $messages = $db->getMessagesUser(2);
@@ -41,6 +41,7 @@
 
         <article class="open-messages">
             <h2>Messages Hub</h2>
+            <form action="">
         </article>
     </section>
         

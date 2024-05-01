@@ -16,7 +16,7 @@
             require_once (__DIR__ . '/../db_handler/DB.php');
             session_start();
 
-            $db = new Database();
+            $db = new Database("../database/database.db");
 
             $userId = $_SESSION['userId'];
 
@@ -70,7 +70,7 @@
          <?php
              require_once '../db_handler/DB.php';
      
-             $db = new Database();
+             $db = new Database("../database/database.db");
          
              $Items = $db->getItemByUserId($userId);
  
@@ -83,7 +83,7 @@
          <?php
          require_once '../db_handler/DB.php';
      
-         $db = new Database();
+         $db = new Database("../database/database.db");
          
          $Items = $db->getItemByUserId($userId);
          
@@ -113,7 +113,7 @@
          <?php
              require_once '../db_handler/DB.php';
      
-             $db = new Database();
+             $db = new Database("../database/database.db");
          
              $Reviews = $db->getReviewByReviewedUserId($userId);
  
@@ -126,7 +126,7 @@
          <?php
          require_once '../db_handler/DB.php';
      
-         $db = new Database();
+         $db = new Database("../database/database.db");
          
          $Reviews = $db->getReviewByReviewedUserId($userId);
          

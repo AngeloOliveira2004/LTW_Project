@@ -15,7 +15,7 @@ $usr = new User($Id, $_POST['username'], $_POST['email'], $_POST['password'], $_
 register_user($dbh, $Id, $usr);
 $usr->displayDetails();
 $_SESSION['email'] = $_POST['email'];
-$dB = new Database();
+$dB = new Database("../database/database.db");
 $user = $dB->getUserByEmail($_POST['email']);
 $userId = $user->getId();
 $_SESSION['userId'] = $userId;
