@@ -6,6 +6,7 @@
         <title>Messages</title>
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
         <link href="../css/messages.css" rel="stylesheet">
+        <script src="js/messages.js"></script>
     </head>
     <body>
         <?php
@@ -22,26 +23,28 @@
     <section class="messages-section">
         <article class="messages-rectangle">
             <h2>Messages</h2>
+            <div class="messages-content">
             <?php 
             $db = new Database("../database/database.db");
             $userId = $_SESSION['userId'];
 
-            $messages = $db->getMessagesUser(2);
+            $messages = $db->getMessagesUser($userId);
             
             foreach ($messages as $message) {
                 $sender = $message->getSender();
                 ?>
-                    <div class="user-box">
+                    <div class="user-box" data-user-id="<?php echo $sender->getId(); ?>">
                         <div class="user-container">
                             <img src="../assets/users/<?php echo $sender->getId(); ?>.png" alt="<?php echo $sender->getUsername(); ?>" id="item_image">
                             <h4><?php echo $sender->getUsername(); ?></h4>
                             <h4><?php echo $message->printTimestamp(); ?></h4>
                         </div>
-                        <p>Content: <?php echo $message->getContent(); ?></p>
+                        <p><?php echo $message->getContent(); ?></p>
                     </div>
                 <?php
             }
             ?>
+            </div>
 
         </article>
 

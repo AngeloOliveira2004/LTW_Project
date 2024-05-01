@@ -5,9 +5,11 @@
     height: 40em;
 }
 
-.messages-rectangle{
-    overflow-y: scroll;
+.messages-content {
+    max-height: 100%;
+    overflow-y: auto;
 }
+
 
 .users-rectangle,
 .open-messages {
@@ -20,6 +22,15 @@
     background-color: #f9f9f9;
     box-sizing: border-box;
     margin-bottom: 20px;
+}
+
+article.open-messages{
+    margin-top: 3em;
+}
+
+.messages-rectangle{
+    overflow: hidden;
+    padding-bottom: 80px;
 }
 
 .users-rectangle h2,

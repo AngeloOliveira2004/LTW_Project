@@ -344,6 +344,37 @@
             
             return $messages;
         }
+
+
+        public function getMessagesSenderToUser($userId,$senderId) : array {
+            $stmt = $this->conn->prepare("
+            SELECT * FROM Messages
+            WHERE Sender = :senderId AND Receiver = :userId
+            ORDER BY Timestamp DESC");
+
+            $stmt->bindParam(':userId', $userId);
+            $stmt->bindParam(':senderId', $senderId);
+            $stmt->execute();
+
+            $messages = [];
+            
+            while($message = $stmt->fetch()) {
+                $sender = $this->getUserById($message['Sender']);
+                $receiver = $this->getUserById($message['Receiver']);
+                $new_message = new Message(
+                    $message['MessageId'],
+                    $sender,
+                    $receiver,
+                    $message['Content'],
+                    $message['Timestamp']
+                );
+
+                $messages[] = $new_message;
+
+            }
+            
+            return $messages;
+        }
     }
 ?>
 
