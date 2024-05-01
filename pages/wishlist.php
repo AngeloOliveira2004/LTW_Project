@@ -29,12 +29,24 @@
         // Verifica se o cookie "wishlist" existe
         if (isset($_COOKIE['wishlist'])) {
             $wishlistItems = explode(',', $_COOKIE['wishlist']);
-            
+
+            require_once '../db_handler/DB.php';
+            $db = new Database();
             // Exibe os itens da wishlist
             foreach ($wishlistItems as $itemId) {
                 // Aqui você pode consultar o banco de dados para obter informações sobre cada item com o ID fornecido
-                // Exemplo: exibir o nome do item
-                echo "<p>ID do item na wishlist: $itemId</p>";
+                $item = $db->getItemById($itemId);
+                if($item){
+                    echo "<div class='item'>";
+                    echo "<a href='itempage.php?item={$item->getId()}'>";
+                    echo "<img src='../assets/items/{$item->getId()}.png' alt='{$item->getName()}'>";
+                    echo "<h3>{$item->getName()}</h3>";
+                    echo "<p>Price: {$item->getPrice()}</p>";
+                    echo "<p>Brand: {$item->getBrand()}</p>";
+                    echo "<i class='fa-regular fa-heart' data-item-id='{$item->getId()}'></i>";
+                    echo "</a>";
+                    echo "</div>";
+            }
             }
         } else {
             echo "<p>Nenhum item adicionado à wishlist</p>";
