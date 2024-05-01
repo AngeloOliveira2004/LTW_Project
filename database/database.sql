@@ -219,4 +219,5 @@ INSERT INTO Messages (Sender, Receiver, Content, Timestamp) VALUES
     (7, 2, "John, can we discuss the budget for next quarter?", '2024-04-09 10:30:00'),
     (8, 2, "Lisa, have you finalized the contracts?", '2024-04-10 14:45:00'),
     (9, 2, "Hey John, when are you available for a catch-up?", '2024-04-11 16:15:00'),
+    (2, 9, "Hey Joy, when are you available for a catch-up?", '2024-04-11 16:20:00'),
     (7, 2, "Jessica, could you review the presentation slides?", '2024-04-12 11:00:00');

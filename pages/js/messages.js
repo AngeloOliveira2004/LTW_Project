@@ -1,15 +1,24 @@
+let senderId;
+
+
 function displayMessages(messages) {
     let messagesContainer = document.querySelector('.user-messages');
     messagesContainer.innerHTML = '';
 
     messages.forEach(function(message) {
         let messageDiv = document.createElement('div');
-        messageDiv.classList.add('message');
 
+        let receiverId = message.receiver.Id;
         let messageText = message.text;
         let timestamp = message.timestamp;
 
-        let messageHTML = `
+        if(receiverId == senderId){
+            messageDiv.classList.add('message-sent');
+        }else{
+            messageDiv.classList.add('message-received');
+        }
+
+        var messageHTML = `
             <div class="message-content">${messageText}</div>
             <div class="message-timestamp">${timestamp}</div>
         `;
@@ -20,12 +29,11 @@ function displayMessages(messages) {
     });
 }
 
-
 document.addEventListener("DOMContentLoaded", function() {
-    var users = document.querySelectorAll('.user-box');
+    let users = document.querySelectorAll('.user-box');
     users.forEach(function(user) {
         user.addEventListener('click', function() {
-            var senderId = user.getAttribute('data-user-id');
+            senderId = user.getAttribute('data-user-id');
             fetchMessagesFromSender(senderId);
         });
     });

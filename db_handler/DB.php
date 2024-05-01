@@ -349,8 +349,11 @@
         public function getMessagesSenderToUser($userId,$senderId) : array {
             $stmt = $this->conn->prepare("
             SELECT * FROM Messages
+            WHERE Sender = :userId AND Receiver = :senderId
+            UNION
+            SELECT * FROM Messages
             WHERE Sender = :senderId AND Receiver = :userId
-            ORDER BY Timestamp DESC");
+            ORDER BY Timestamp ASC");
 
             $stmt->bindParam(':userId', $userId);
             $stmt->bindParam(':senderId', $senderId);
