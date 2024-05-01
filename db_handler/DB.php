@@ -52,6 +52,7 @@
                 $row['Available'],
                 $row['AvailableForDelivery'],
                 $row['SubCategory'],
+                $row['NumberOfImages'],
                 $row['UserId']
             );
         }
@@ -84,6 +85,7 @@
                 $row['Available'],
                 $row['AvailableForDelivery'],
                 $row['SubCategory'],
+                $row['NumberOfImages'],
                 $row['UserId']
             );
             }
@@ -130,6 +132,7 @@
                     $row['Available'],
                     $row['AvailableForDelivery'],
                     $row['SubCategory'],
+                    $row['NumberOfImages'],
                     $row['UserId']
                 );
             }
@@ -234,6 +237,7 @@
                     $row['Available'],
                     $row['AvailableForDelivery'],
                     $row['SubCategory'],
+                    $row['NumberOfImages'],
                     $row['UserId']
                 );
             }
