@@ -1,3 +1,5 @@
+
+
 let lastSuggestions = [];
 let allItems = [];
 
@@ -5,7 +7,10 @@ let searched_items = [];
 let current_filters = {
     "state": new Set(),
     "brand": new Set(),
-    "category": new Set()
+    "category": new Set(),
+    "subCategory": new Set(),
+    "onlyAdsWithImages": false,
+    "delivery": false,
 };
 
 function calculateSuggestions(inputVal , items){
@@ -184,9 +189,11 @@ document.addEventListener('DOMContentLoaded', function() {
             button.classList.toggle('active');
             if(button.id == 'image_filter'){
                 isImageFilterActive = !isImageFilterActive;
+                current_filters['onlyAdsWithImages'] = isImageFilterActive;
             }
             else if(button.id == 'delivery_filter'){
                 isDeliveryFilterActive = !isDeliveryFilterActive;
+                current_filters['delivery'] = isDeliveryFilterActive;
             }
         });
     });
@@ -198,9 +205,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Failed to fetch data');
             }
             console.log('Data fetched successfully');
-
-            const allItems = await response.json(); 
             
+            const allItems = await response.json(); 
+            console.log(allItems);
+
             items =  [...allItems];
             console.log(items);
 
@@ -323,8 +331,16 @@ function selectInput(element){
     document.querySelector('.search_bar').value = element.innerHTML;
 }
 
+function imageExistsAsync(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+    });
+}
 
-function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
+async function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
     const sortFilter = document.getElementById('sort_filter');
     const precoMin = document.querySelector('.from');
@@ -334,18 +350,18 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     const precoMaxValue = precoMax.value;
     const sortValue = sortFilter.value;
 
-    //allItems = [[Id, Name, Description, Brand, Category, Price, Condition, Available, UserId , Deliverable ,photo_img_col] ,...]
-
+    //allItems = [[Id, Name, Description, Brand, CategoryId, Size, Price, ConditionId, Available, isAvailableForDelivery, getSubCategory ,UserId ,  ] ,...]
     let size = items.length;
     let size2 = items.length;
+
     items = items.filter(item => {
         
-        const precoMatch = (precoMinValue === '' || parseFloat(item[5]) >= parseFloat(precoMinValue)) &&
-                        (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
+        const precoMatch = (precoMinValue === '' || parseFloat(item[6]) >= parseFloat(precoMinValue)) &&
+                        (precoMaxValue === '' || parseFloat(item[6]) <= parseFloat(precoMaxValue));
 
         const brandMatch = current_filters['brand'].size === 0 || current_filters['brand'].has(item[3]);
         const categoryMatch = current_filters['category'].size === 0 || current_filters['category'].has(item[4]);
-        const stateMatch = current_filters['state'].size === 0 || current_filters['state'].has(item[6]);
+        const stateMatch = current_filters['state'].size === 0 || current_filters['state'].has(item[7]);
 
         return  precoMatch && brandMatch && categoryMatch && stateMatch;
     });
@@ -353,13 +369,19 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     size2 = items.length;
 
     if(size > size2){
-        console.log("marca filter , estado filter , preço filter")
+        console.log("marcou filter , estado filter , preço filter")
     }
 
     size = size2;
 
-    if(isImageFilterActive){
-        items = items.filter(item => item[10] !== null);
+    if (current_filters['onlyAdsWithImages']) {
+        items = await Promise.all(items.map(async (item) => {
+            const filePath = `../assets/items/${item[0]}.png`;
+            const imageExists = await imageExistsAsync(filePath);
+            return imageExists ? item : null;
+        }));
+       
+        items = items.filter(item => item !== null);
     }
     
     size2 = items.length;
@@ -370,8 +392,8 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
 
     size = size2;
 
-    if(isDeliveryFilterActive){
-        items = items.filter(item => item[9] === 'true');
+    if(current_filters['delivery']){
+        items = items.filter(item => item[9] === 1);
     }
 
     size2 = items.length;
@@ -384,11 +406,11 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
 
     if (sortValue === 'price_asc') {
         items.sort(function(a, b) {
-            return parseFloat(a[5]) - parseFloat(b[5]);
+            return parseFloat(a[6]) - parseFloat(b[6]);
         });
     } else if (sortValue === 'price_desc') {
         items.sort(function(a, b) {
-            return parseFloat(b[5]) - parseFloat(a[5]);
+            return parseFloat(b[6]) - parseFloat(a[6]);
         });
     }
 
@@ -430,7 +452,7 @@ function render_items() {
 
         // Item price
         const priceElement = document.createElement('p');
-        priceElement.textContent = `${item[5]}`; // Assuming price is in the sixth index
+        priceElement.textContent = `${item[6]}`; // Assuming price is in the sixth index
         priceElement.classList.add('item-price');
         itemContainer.appendChild(priceElement);
 
@@ -482,7 +504,7 @@ function render_items() {
 
         // Item price
         const priceElement = document.createElement('p');
-        priceElement.textContent = `Price: ${item[5]}`; // Assuming price is in the sixth index
+        priceElement.textContent = `Price: ${item[6]}`; // Assuming price is in the sixth index
         priceElement.classList.add('item-price');
         itemContainer.appendChild(priceElement);
 

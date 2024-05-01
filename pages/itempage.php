@@ -18,7 +18,7 @@
         
         require_once '../db_handler/DB.php';
 
-        $db = new Database();
+        $db = new Database("../database/database.db");
 
         $itemId = $_GET['item'];
 
@@ -33,34 +33,51 @@
             $user_username = $user_details->getUsername();
             $user_phonenumber = $user_details->getPhoneNumber();
             $user_email = $user_details->getEmail();
-
-            
-            if($photo == null)
-                $photo = "assets/error.png";
-            else
-                $photo = "data:image/jpeg;base64," . base64_encode($photo);
-         
         ?>
             <nav class='item'>
-                <img src='../assets/items/<?= $item->getId()?>.png' alt='<?= $name ?>' id="item_image">
-                <section class="right-side-bar">    
-                <h3><?= $name ?></h3>
-                    <ul>
-                        <li><?= $price ?> EUR</li>
-                        <li>Brand: <?= $brand ?></li>
-                        <div class="rectangle">
-                          <li><img src='../assets/users/<?= $user?>.png'><i>@<?= $user_username ?></i></li>
-                          <li>
-                            <span id="user_phonenumber"><?= $user_phonenumber ?></span>
-                             <button id="reveal-num-button">Reveal Number</button>
-                          </li>
-                          <li>
-                            <span id="user_email"><?= $user_email ?></span>
-                             <button id="reveal-email-button">Reveal Email</button>
-                          </li>
-                        </div>
-                    </ul>
+
+                <section class = "image_section">
+                    <button>
+                        seta para a direita
+                    </button>
+                    <img src='../assets/items/<?= $item->getId()?>.png' alt='<?= $name ?>' id="item_image">
+                    <button>
+                        seta para a esquerda
+                    </button>
                 </section>
+                
+                <section class = "description_and_rest_section">
+                    <div class = "item_details">
+                        <p>Categoria: <?= $item->getCategoryId() ?></p>
+                        <p>Marca: <?= $brand ?></p>
+                        <p>Subcategoria: <?= $item->getSubcategory() ?></p>
+                        <p>Disponível para entrega: <?= $item->isAvailableForDelivery() ? 'Sim' : 'Não' ?></p>
+                    </div>
+                    <p>Descrição</p>
+                    <p><?= $item->getDescription() ?></p>
+                </section>
+
+                <section class = "title_price_section">
+                    <p>Nome: <?= $name ?></p>
+                    <p>Preço: <?= $price ?> EUR</p>
+
+                    <button>Send Message</button>
+
+                    <span id="user_phonenumber"><?= $user_phonenumber ?></span>
+                    <button id="reveal-num-button">Reveal Number</button>
+                </section>
+
+                <section class = "vendedor_section">
+                    <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>" id="user_image">
+                    <p>Utilizador</p>
+                    <p><?= $user_username ?></p>
+                </section>
+
+                <section class = "location_section">
+                    <button>
+                        Add location
+                    </button>
+                </section>              
             </nav>
         </div>
 

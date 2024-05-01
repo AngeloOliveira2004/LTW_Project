@@ -26,7 +26,7 @@
         <?php
             require_once '../db_handler/DB.php';
 
-            $db = new Database();
+            $db = new Database('../database/database.db');
 
             $itemNames = $db->getItemsName();
 
@@ -54,13 +54,13 @@
             <?php
                 require_once '../db_handler/DB.php';
 
-                $db = new Database();
+                $db = new Database("../database/database.db");
 
                 $allItems = $db->getItems();
 
                 $categoryCounts = array();
                 foreach ($allItems as $item) {
-                    $category = $item->getCategory();
+                    $category = $item->getCategoryId();
                     if (!isset($categoryCounts[$category])) {
                         $categoryCounts[$category] = 0;
                     }
@@ -122,7 +122,7 @@
                 <?php
                     require_once '../db_handler/DB.php';
 
-                    $db = new Database();
+                    $db = new Database("../database/database.db");
     
                     $allItems = $db->getItems();
     

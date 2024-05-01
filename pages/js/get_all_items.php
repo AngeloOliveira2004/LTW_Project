@@ -1,7 +1,7 @@
 <?php
     require_once '../../db_handler/DB.php';
 
-    $database = new Database();
+    $database = new Database('../../database/database.db');
     $items = $database->getItems();
 
     $itemsArray = [];
@@ -11,12 +11,14 @@
             $item->getName(),
             $item->getDescription(),
             $item->getBrand(),
-            $item->getCategory(),
+            $item->getCategoryId(), 
+            $item->getSize(), 
             $item->getPrice(),
-            $item->getCondition(),
+            $item->getConditionId(), 
             $item->getAvailable(),
+            $item->isAvailableForDelivery(), 
+            $item->getSubCategory(), 
             $item->getUserId(),
-            $item->getPhoto()
         ];
     }
 
