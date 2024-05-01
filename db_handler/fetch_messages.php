@@ -10,16 +10,8 @@ if(isset($_SESSION['userId'])) {
 
     $db = new Database("../database/database.db");
 
-    var_dump($senderId);
-
-    var_dump($userId);
-
-    $receivedMessages = $db->getMessagesSenderToUser($userId,$senderId); // Vai buscar as mensagens mandadas pelo outro para o log-in user
-    $sentMessages = $db->getMessagesSenderToUser($senderId,$userId); // Vai buscar as mensagens mandadas pelo log-in user para outro 
-
-    var_dump($receivedMessages);
-    var_dump($sentMessages);
-
+    $receivedMessages = $db->getMessagesSenderToUser(2,$senderId); // Vai buscar as mensagens mandadas pelo outro para o log-in user
+    $sentMessages = $db->getMessagesSenderToUser($senderId,2); // Vai buscar as mensagens mandadas pelo log-in user para outro 
 
     if($receivedMessages != NULL && $sentMessages != NULL){
 

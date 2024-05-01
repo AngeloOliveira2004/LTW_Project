@@ -28,7 +28,7 @@
             $db = new Database("../database/database.db");
             $userId = $_SESSION['userId'];
 
-            $messages = $db->getMessagesUser($userId);
+            $messages = $db->getMessagesUser(2);
             
             foreach ($messages as $message) {
                 $sender = $message->getSender();
@@ -50,6 +50,8 @@
 
         <article class="open-messages">
             <h2>Messages Hub</h2>
+            <div class="user-messages">
+            </div>    
             <form class = "text-box" action="../database/action_send_message.php">
                 <div class="text-box-container">
                     <input type="text" id="user-message-input" placeholder="Type a message here:">

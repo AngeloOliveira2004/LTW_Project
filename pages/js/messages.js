@@ -1,5 +1,25 @@
 function displayMessages(messages) {
+    let messagesContainer = document.querySelector('.user-messages');
+    messagesContainer.innerHTML = '';
+
+    messages.forEach(function(message) {
+        let messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+
+        let messageText = message.text;
+        let timestamp = message.timestamp;
+
+        let messageHTML = `
+            <div class="message-content">${messageText}</div>
+            <div class="message-timestamp">${timestamp}</div>
+        `;
+
+        messageDiv.innerHTML = messageHTML;
+
+        messagesContainer.appendChild(messageDiv);
+    });
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
     var users = document.querySelectorAll('.user-box');
@@ -16,41 +36,9 @@ function fetchMessagesFromSender(senderId) {
     xhr.open('GET', '../../db_handler/fetch_messages.php?senderId=' + senderId, true);
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
-            console.log(xhr.responseText);
             let messages = JSON.parse(xhr.responseText);
             displayMessages(messages);
         }
     };
     xhr.send();
 }
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     const send_button = document.querySelector(".user-message-button");
-//     send_button.addEventListener('click',function(){
-//         let userId = this.dataset.userid;
-
-//         //Cria um objeto do tipo XHR
-//         let xhr = new XMLHttpRequest();
-
-//         //Abre um type, url/file ou async
-//         let url = "../../db_handler/fetch_messages.php?userId" + userId;
-
-//         xhr.open('GET',url,true);
-
-//         xhr.onload = function(){
-//             if(this.status >= 200 && this.status < 300){ //Significa que funcionou (OK)
-
-//                 let data = JSON.parse(xhr.responseText);
-
-//                 displayMessage(data);
-                
-//             }else{
-//                 console.error('Request failed with status:', xhr.status); //Request falhou
-//             }
-//         }
-
-//         xhr.send();
-
-//     });
-// });
