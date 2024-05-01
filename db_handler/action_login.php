@@ -13,7 +13,7 @@ $dbh = $db->get_database_connection();
 
 if(verify_user($dbh, $_POST['email'], $_POST['password'])){
     $_SESSION['email'] = $_POST['email'];
-    $dB = new Database();
+    $dB = new Database("../database/database.db");
     $user = $dB->getUserByEmail($_POST['email']);
     $userId = $user->getId();
     $_SESSION['userId'] = $userId;

@@ -1,3 +1,6 @@
+
+
+
 .item-container {
     width: 90%;
     margin: auto;
@@ -6,13 +9,13 @@
     padding: 20px;
   }
   
-  nav.item {
-    display: grid;
-    grid-template-columns: 0.8fr 1fr;
-    max-width: 134rem;
-    gap: 10px;
-    align-items: center;
-  }
+nav.item {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr;
+  max-width: 134rem;
+  gap: 10px;
+  align-items: center;
+}
   
   #item_image {
     max-width: 40%;

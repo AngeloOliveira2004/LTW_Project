@@ -24,13 +24,13 @@
             <?php
                 require_once '../db_handler/DB.php';
 
-                $db = new Database();
+                $db = new Database("../database/database.db");
 
                 $allItems = $db->getItems();
 
                 $categoryCounts = array();
                 foreach ($allItems as $item) {
-                    $category = $item->getCategory();
+                    $category = $item->getCategoryId();
                     if (!isset($categoryCounts[$category])) {
                         $categoryCounts[$category] = 0;
                     }
@@ -111,9 +111,9 @@
     <?php
         require_once '../db_handler/DB.php';
 
-        $db = new Database();
+        $db = new Database("../database/database.db");
 
-        $allItems = $db->getItems();
+        $allItems = $db->getItems("../database/database.db");
         $map = array();
 
         foreach ($allItems as $item) {
@@ -149,25 +149,30 @@
     <?php
 require_once '../db_handler/DB.php';
 
-$db = new Database();
+$db = new Database("../database/database.db");
 
-$randomItems = $db->getXRandItems(10);
+$randomItems = $db->getXRandItems(21);
 
 foreach ($randomItems as $item) {
     $name = $item->getName();
     $price = $item->getPrice();
-    $photo = $item->getPhoto();
     $brand = $item->getBrand();
 
-    if ($photo == null)
-        $photo = "assets/error.png";
-    else
-        $photo = "data:image/jpeg;base64," . base64_encode($photo);
     ?>
 
     <div class='item'>
+        <?php
+            $itemImagePath = "../assets/items/{$item->getId()}.png";
+            $errorImagePath = "../assets/items/error.png";
+
+            if (file_exists($itemImagePath)) {
+                $imageSrc = $itemImagePath;
+            } else {
+                $imageSrc = $errorImagePath;
+            }
+        ?>
         <a href='itempage.php?item=<?= $item->getId() ?>'>
-            <img src='../assets/items/<?= $item->getId() ?>.png' alt='<?= $item->getName() ?>'>
+            <img src="<?= $imageSrc ?>" alt='<?= $item->getName() ?>'>
         </a>
         <h3><?= $item->getName() ?></h3>
         <p>Price: <?= $item->getPrice() ?></p>

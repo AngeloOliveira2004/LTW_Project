@@ -21,7 +21,7 @@ declare(strict_types=1);
 
     <section class="container" id="container">
         <section class="form-container sign-up">
-            <form action="../db_handler/action_register.php" method="POST">
+            <form action="../../db_handler/action_register.php" method="POST">
                 <h1>Create Account</h1>
                 <section class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -40,7 +40,7 @@ declare(strict_types=1);
             </form>
         </section>
         <section class="form-container sign-in">
-            <form action="../db_handler/action_login.php" method="POST">
+            <form action="../../db_handler/action_login.php" method="POST">
                 <h1>Sign In</h1>
                 <section class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -71,7 +71,7 @@ declare(strict_types=1);
         </section>
     </section>
 
-    <script src="../../javascript/loginsignup.js"></script>
+    <script src="js/loginsignup.js"></script>
 </body>
 
 </html>

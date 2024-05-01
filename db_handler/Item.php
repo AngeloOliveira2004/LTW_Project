@@ -13,22 +13,30 @@ class Item {
     public $price;
     public $condition;
     public $available;
-    public $userId;
-    public $photo_img_col;
 
-    public function __construct($id, $name, $description, $brand, $category, $price, $condition, $available, $userId , $photo_img_col) {
+    public $available_for_delivery;
+    public $subCategory;
+    public $model;
+    public $size;
+
+    public $userId;
+
+
+    public function __construct($id, $name, $description, $brand , $model , $category, $size , $price, $condition, $available, $available_for_delivery, $subCategory , $userId ) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->brand = $brand;
+        $this->model = $model;
         $this->category = $category;
+        $this->size = $size;
         $this->price = $price;
         $this->condition = $condition;
         $this->available = $available;
         $this->userId = $userId;
-        $this->photo_img_col = $photo_img_col;
+        $this->available_for_delivery = $available_for_delivery;
+        $this->subCategory = $subCategory;
     }
-
     
     public function __constructer($id) {
         $this->id = $id;
@@ -51,6 +59,14 @@ class Item {
         echo "User Id: " . $this->userId . "<br>";
     }
 
+    public function isAvailableForDelivery(){
+        return $this->available_for_delivery;
+    }
+
+    public function getSubcategory() {
+        return $this->subCategory;
+    }
+
     public function getId() : int {
         return $this->id;
     }
@@ -67,7 +83,11 @@ class Item {
         return $this->description;
     }
 
-    public function getCategory() : string {
+    public function getSize() {
+        return $this->size;
+    }
+
+    public function getCategoryId() : string {
         return $this->category;
     }
 
@@ -75,7 +95,7 @@ class Item {
         return $this->price;
     }
 
-    public function getCondition() : string {
+    public function getConditionId() : string {
         return $this->condition;
     }
 
@@ -83,13 +103,14 @@ class Item {
         return $this->available;
     }
 
-    public function getPhoto(){
-        return $this->photo_img_col;
-    }
-
     public function getBrand(){
         return $this->brand;
     }
-}
+
+    public function getModel() : int {
+        return $this->model;
+    }
+
+}   
 ?>
 

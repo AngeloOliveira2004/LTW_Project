@@ -1,3 +1,5 @@
+
+
 let lastSuggestions = [];
 let allItems = [];
 
@@ -5,7 +7,10 @@ let searched_items = [];
 let current_filters = {
     "state": new Set(),
     "brand": new Set(),
-    "category": new Set()
+    "category": new Set(),
+    "subCategory": new Set(),
+    "onlyAdsWithImages": false,
+    "delivery": false,
 };
 
 function calculateSuggestions(inputVal , items){
@@ -14,8 +19,7 @@ function calculateSuggestions(inputVal , items){
     console.log(inputVal);
 
     if (inputVal.length === 0) {
-        console.log('empty input');
-        return [];
+        return items;
     } else {
         inputVal = inputVal.toLowerCase();
         
@@ -141,14 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultBox = document.querySelector('.result-box');
     const filterButtons = document.querySelectorAll('.filter_button');
     const searchButton = document.querySelector('.search_button'); 
-    const filterImage = document.getElementById('filter_image');
-    const deliveryFilter = document.getElementById('filter_delivery');
     const marcaFilter = document.getElementById('marca_filter');
     const estadoFilter = document.getElementById('estado_filter');
-    const precoFilter = document.getElementById('preco_filter');
     const sortFilter = document.getElementById('sort_filter');
     
-    // Booleans to check if buttons are active
     let isImageFilterActive = false;
     let isDeliveryFilterActive = false;
 
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let input = inputBox.value;
 
-        let result_ = getSuggestions(input, JSON.stringify(itemNames)); // Pass input along with itemNamesJson
+        let result_ = getSuggestions(input, JSON.stringify(itemNames)); 
 
         console.log(result_);
 
@@ -189,9 +189,11 @@ document.addEventListener('DOMContentLoaded', function() {
             button.classList.toggle('active');
             if(button.id == 'image_filter'){
                 isImageFilterActive = !isImageFilterActive;
+                current_filters['onlyAdsWithImages'] = isImageFilterActive;
             }
             else if(button.id == 'delivery_filter'){
                 isDeliveryFilterActive = !isDeliveryFilterActive;
+                current_filters['delivery'] = isDeliveryFilterActive;
             }
         });
     });
@@ -203,9 +205,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Failed to fetch data');
             }
             console.log('Data fetched successfully');
-
-            const allItems = await response.json(); 
             
+            const allItems = await response.json(); 
+            console.log(allItems);
+
             items =  [...allItems];
             console.log(items);
 
@@ -228,153 +231,86 @@ document.addEventListener('DOMContentLoaded', function() {
     marcaFilter.addEventListener('change', function() {
         const selectedMarca = marcaFilter.value;
         console.log('Selected Marca:', selectedMarca);
-        updateCurrentFilters(selectedMarca.input , 'Marca' , true);
+        updateCurrentFilters(selectedMarca , 'Marca' , true);
     });
 
     estadoFilter.addEventListener('change', function() {
         const selectedEstado = estadoFilter.value;
         console.log('Selected Estado:', selectedEstado);
-        updateCurrentFilters(selectedEstado.input , 'State' , true);
+        updateCurrentFilters(selectedEstado , 'State' , true);
         
-    });
-
-    fromPriceInput.addEventListener('change', function() {
-        const fromPrice = fromPriceInput.value;
-        console.log('From Price:', fromPrice);
-        updateCurrentFilters(fromPrice.input , 'Price' , true);
-        
-    });
-
-    toPriceInput.addEventListener('change', function() {
-        const toPrice = toPriceInput.value;
-        console.log('To Price:', toPrice);
-        updateCurrentFilters(toPrice.input , 'Price' , false);
     });
 
     sortFilter.addEventListener('change', function() {
         const selectedSort = sortFilter.value;
         console.log('Selected Sort:', selectedSort);
-        updateCurrentFilters(selectedSort.input , 'Sort' , true);
+        updateCurrentFilters(selectedSort , 'Sort' , true);
         
     });
 
     function updateCurrentFilters(input , indicator , from) {
-
         switch(indicator){
             case 'Marca':
-                currentFiltersDiv = document.querySelector('.current_filters');
-                currentFiltersDiv.innerHTML = '';
-                
-                if (input.value !== '' && input.value !== 'Marca') {
-                    const filterEntry = document.createElement('div');
-                    filterEntry.textContent = input.value;
-
-                    const removeButton = document.createElement('button');
-                    removeButton.textContent = 'X';
-                    removeButton.addEventListener('click', () => {
-                        filterEntry.remove();
-                        current_filters['brand'].delete(value);
-                    });
-                    filterEntry.appendChild(removeButton);
-                    currentFiltersDiv.appendChild(filterEntry);
-
+                if(input === 'Marca' || input === ''){
+                    current_filters['brand'].clear();
+                }else{
                     current_filters['brand'].add(input);
                 }
 
                 break;
             case 'State':
-                currentFiltersDiv = document.querySelector('.current_filters');
-                currentFiltersDiv.innerHTML = '';
-                
-                document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
-                    if (input.value !== '' && input.value !== 'Any') { 
-                        const filterEntry = document.createElement('div');
-                        filterEntry.textContent = input.value;
-            
-                        const removeButton = document.createElement('button');
-                        removeButton.textContent = 'X';
-                        removeButton.addEventListener('click', () => {
-                            filterEntry.remove();
-                            current_filters['state'].delete(value);
-                        });
-                        filterEntry.appendChild(removeButton);
-            
-                        currentFiltersDiv.appendChild(filterEntry);
-
-                        current_filters['state'].add(value);
-                    }
-                });
+                if(input == 'Any'){
+                    current_filters['state'].clear();
+                }else{
+                    current_filters['state'].add(input);
+                }
                 break;
             case 'Price':
                 if(from){
-                    currentFiltersDiv = document.querySelector('.current_filters');
-                    currentFiltersDiv.innerHTML = '';
-                    
-                    document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
-                        if (input.value !== '' && input.value !== '0') { 
-                            const filterEntry = document.createElement('div');
-                            filterEntry.textContent = input.value;
-                
-                            const removeButton = document.createElement('button');
-                            removeButton.textContent = 'X';
-                            removeButton.addEventListener('click', () => {
-                                filterEntry.remove();
-                                current_filters['state'].delete('From' + value);
-                            });
-                            filterEntry.appendChild(removeButton);
-                
-                            currentFiltersDiv.appendChild(filterEntry);
-                            current_filters['state'].add('From' + value);
-                        }
-                    });
-                }else{
-                    currentFiltersDiv = document.querySelector('.current_filters');
-                    currentFiltersDiv.innerHTML = '';
-                    
-                    document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
-                        if (input.value !== '' && input.value !== '1000') { 
-                            const filterEntry = document.createElement('div');
-                            filterEntry.textContent = input.value;
-                
-                            const removeButton = document.createElement('button');
-                            removeButton.textContent = 'X';
-                            removeButton.addEventListener('click', () => {
-                                filterEntry.remove();
-                                current_filters['state'].delete('To' + value);
-                            });
-                            filterEntry.appendChild(removeButton);
-                
-                            currentFiltersDiv.appendChild(filterEntry);
-
-                            current_filters['state'].add('To' + value);
-                        }
-                    });
+                    if (input !== '' && input !== '0') { 
+                        current_filters['state'].add('From' + input);
+                    }
+                } else {
+                    if (input !== '' && input !== '1000') { 
+                        current_filters['state'].add('To' + input);
+                    }
                 }
                 break;
             case 'Sort':
-                currentFiltersDiv = document.querySelector('.current_filters');
-                currentFiltersDiv.innerHTML = '';
-                
-                document.querySelectorAll('.filter_section select, .filter_section input').forEach(input => {
-                    if (input.value !== '' && input.value !== 'Ordenar Por') { 
-                        const filterEntry = document.createElement('div');
-                        filterEntry.textContent = input.value;
-            
-                        const removeButton = document.createElement('button');
-                        removeButton.textContent = 'X';
-                        removeButton.addEventListener('click', () => {
-                            filterEntry.remove();
-                            current_filters['state'].delete(value);
-                        });
-                        filterEntry.appendChild(removeButton);
-            
-                        currentFiltersDiv.appendChild(filterEntry);
-                        current_filters['state'].add(value);
-                    }
-                });
+                if (input !== '' && input !== 'Ordenar Por') { 
+                    current_filters['sort'] = input;
+                }
                 break;
         }
-    }    
+        console.log(input);
+        console.log(current_filters);
+        display_current_filters();
+    }
+        
+
+    function display_current_filters() {
+        const currentFiltersDiv = document.querySelector('.current_filters');
+        currentFiltersDiv.innerHTML = ''; 
+    
+        for (const key in current_filters) {
+            current_filters[key].forEach(value => {
+                const filterEntry = document.createElement('div');
+                filterEntry.textContent = `${key}: ${value}`;
+    
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'X';
+                removeButton.addEventListener('click', () => {
+                    filterEntry.remove();
+                    current_filters[key].delete(value);
+                    console.log(current_filters);
+                    display_current_filters();
+                });
+    
+                filterEntry.appendChild(removeButton);
+                currentFiltersDiv.appendChild(filterEntry);
+            });
+        }
+    }
 }); 
 
 
@@ -383,7 +319,7 @@ function display_result(result){
     const resultBox = document.querySelector('.result-box');
 
     const content = result.map((item) =>{
-        return "<li onclick = selectInput(this)>" + item + "</li>";
+        return "<li onclick = selectInput(this) class = 'searched_item'>" + item + "</li>";
     });
 
     resultBox.innerHTML = "<ul>" + content.join('') + "</ul>";
@@ -395,61 +331,57 @@ function selectInput(element){
     document.querySelector('.search_bar').value = element.innerHTML;
 }
 
+function imageExistsAsync(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+    });
+}
 
-function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
+async function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
-    const marcaFilter = document.getElementById('marca_filter');
-    const estadoFilter = document.getElementById('estado_filter');
     const sortFilter = document.getElementById('sort_filter');
     const precoMin = document.querySelector('.from');
     const precoMax = document.querySelector('.to');
     
-    const marcaValue = marcaFilter.value;
-    const estadoValue = estadoFilter.value;
     const precoMinValue = precoMin.value;
     const precoMaxValue = precoMax.value;
     const sortValue = sortFilter.value;
 
-    console.log("Image Filter:", isImageFilterActive);
-    console.log("Delivery Filter:", isDeliveryFilterActive);
-    console.log("Marca:", marcaValue);
-    console.log("Estado:", estadoValue);
-    console.log("Preço Mínimo:", precoMinValue);
-    console.log("Preço Máximo:", precoMaxValue);
-    console.log("Ordenar por:", sortValue);
-    console.log('buttonClicked');
-    //allItems = [[Id, Name, Description, Brand, Category, Price, Condition, Available, UserId , Deliverable ,photo_img_col] ,...]
-
+    //allItems = [[Id, Name, Description, Brand, CategoryId, Size, Price, ConditionId, Available, isAvailableForDelivery, getSubCategory ,UserId ,  ] ,...]
     let size = items.length;
     let size2 = items.length;
-    items = items.filter(item => {
 
-        const marcaMatch = marcaValue === '' || item[3] === marcaValue || marcaValue === 'Marca';
-        if(!marcaMatch){
-            console.log("marcou");
-        }
-        const estadoMatch = estadoValue === 'Any' || item[6] === estadoValue || estadoValue === '';
-        if(!estadoMatch){
-            console.log("estadou");
-        }
-        const precoMatch = (precoMinValue === '' || parseFloat(item[5]) >= parseFloat(precoMinValue)) &&
-                        (precoMaxValue === '' || parseFloat(item[5]) <= parseFloat(precoMaxValue));
-        if(!precoMatch){
-            console.log("preçou");
-        }
-        return marcaMatch && precoMatch && estadoMatch ;
+    items = items.filter(item => {
+        
+        const precoMatch = (precoMinValue === '' || parseFloat(item[6]) >= parseFloat(precoMinValue)) &&
+                        (precoMaxValue === '' || parseFloat(item[6]) <= parseFloat(precoMaxValue));
+
+        const brandMatch = current_filters['brand'].size === 0 || current_filters['brand'].has(item[3]);
+        const categoryMatch = current_filters['category'].size === 0 || current_filters['category'].has(item[4]);
+        const stateMatch = current_filters['state'].size === 0 || current_filters['state'].has(item[7]);
+
+        return  precoMatch && brandMatch && categoryMatch && stateMatch;
     });
 
     size2 = items.length;
 
     if(size > size2){
-        console.log("marca filter , estado filter , preço filter")
+        console.log("marcou filter , estado filter , preço filter")
     }
 
     size = size2;
 
-    if(isImageFilterActive){
-        items = items.filter(item => item[10] !== null);
+    if (current_filters['onlyAdsWithImages']) {
+        items = await Promise.all(items.map(async (item) => {
+            const filePath = `../assets/items/${item[0]}.png`;
+            const imageExists = await imageExistsAsync(filePath);
+            return imageExists ? item : null;
+        }));
+       
+        items = items.filter(item => item !== null);
     }
     
     size2 = items.length;
@@ -460,8 +392,8 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
 
     size = size2;
 
-    if(isDeliveryFilterActive){
-        items = items.filter(item => item[9] === 'true');
+    if(current_filters['delivery']){
+        items = items.filter(item => item[9] === 1);
     }
 
     size2 = items.length;
@@ -474,11 +406,11 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
 
     if (sortValue === 'price_asc') {
         items.sort(function(a, b) {
-            return parseFloat(a[5]) - parseFloat(b[5]);
+            return parseFloat(a[6]) - parseFloat(b[6]);
         });
     } else if (sortValue === 'price_desc') {
         items.sort(function(a, b) {
-            return parseFloat(b[5]) - parseFloat(a[5]);
+            return parseFloat(b[6]) - parseFloat(a[6]);
         });
     }
 
@@ -489,28 +421,107 @@ function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     render_items();
 }   
 
-function render_items(){
+function render_items() {
     const searchItemsDiv = document.querySelector('.search-items');
     searchItemsDiv.innerHTML = '';
 
     // Render found items
     searched_items.forEach(item => {
-        const itemElement = document.createElement('div');
-        itemElement.classList.add('searched-item');
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('searched-item-container');
 
-        const nameElement = document.createElement('h3');
-        nameElement.textContent = item[1]; // Assuming the item name is in the second index
+        // Fetch the item photo
+        const itemId = item[0]; // Assuming item id is in the first index
+        const itemPhotoUrl = `../assets/items/${itemId}.png`; // Construct the URL
+        const itemPhoto = document.createElement('img');
+        itemPhoto.src = itemPhotoUrl;
+        itemPhoto.classList.add('item-photo');
+        itemContainer.appendChild(itemPhoto);
 
+        // Item title
+        const titleElement = document.createElement('h3');
+        titleElement.textContent = item[1]; // Assuming item name is in the second index
+        titleElement.classList.add('item-title');
+        itemContainer.appendChild(titleElement);
+
+        // Item description
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = item[2]; // Assuming item description is in the third index
+        descriptionElement.classList.add('item-description');
+        itemContainer.appendChild(descriptionElement);
+
+        // Item price
         const priceElement = document.createElement('p');
-        priceElement.textContent = `Price: ${item[5]}`; // Assuming the price is in the sixth index
+        priceElement.textContent = `${item[6]}`; // Assuming price is in the sixth index
+        priceElement.classList.add('item-price');
+        itemContainer.appendChild(priceElement);
 
-        const brandElement = document.createElement('p');
-        brandElement.textContent = `Brand: ${item[3]}`; // Assuming the brand is in the fourth index
+        // Heart icon (for wishlist)
+        const heartIcon = document.createElement('i');
+        heartIcon.classList.add('fas', 'fa-heart', 'heart-icon');
+        heartIcon.addEventListener('click', function() {
+            heartIcon.classList.toggle('heart-active');
+        });
+        itemContainer.appendChild(heartIcon);
 
-        itemElement.appendChild(nameElement);
-        itemElement.appendChild(priceElement);
-        itemElement.appendChild(brandElement);
+        // Text for wishlist
+        const addToWishlistText = document.createElement('p');
+        addToWishlistText.textContent = "Add to Wishlist?";
+        addToWishlistText.classList.add('text-icon');
+        itemContainer.appendChild(addToWishlistText);
 
-        searchItemsDiv.appendChild(itemElement);
+        searchItemsDiv.appendChild(itemContainer);
+    });
+}
+function render_items() {
+    const searchItemsDiv = document.querySelector('.search-items');
+    searchItemsDiv.innerHTML = '';
+
+    // Render found items
+    searched_items.forEach(item => {
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('searched-item-container');
+
+        // Fetch the item photo
+        const itemId = item[0]; // Assuming item id is in the first index
+        const itemPhotoUrl = `../assets/items/${itemId}.png`; // Construct the URL
+        const itemPhoto = document.createElement('img');
+        itemPhoto.src = itemPhotoUrl;
+        itemPhoto.classList.add('item-photo');
+        itemContainer.appendChild(itemPhoto);
+
+        // Item title
+        const titleElement = document.createElement('h3');
+        titleElement.textContent = item[1]; // Assuming item name is in the second index
+        titleElement.classList.add('item-title');
+        itemContainer.appendChild(titleElement);
+
+        // Item description
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = item[2]; // Assuming item description is in the third index
+        descriptionElement.classList.add('item-description');
+        itemContainer.appendChild(descriptionElement);
+
+        // Item price
+        const priceElement = document.createElement('p');
+        priceElement.textContent = `Price: ${item[6]}`; // Assuming price is in the sixth index
+        priceElement.classList.add('item-price');
+        itemContainer.appendChild(priceElement);
+
+        // Heart icon (for wishlist)
+        const heartIcon = document.createElement('i');
+        heartIcon.classList.add('fas', 'fa-heart', 'heart-icon');
+        heartIcon.addEventListener('click', function() {
+            heartIcon.classList.toggle('heart-active');
+        });
+        itemContainer.appendChild(heartIcon);
+
+        // Text for wishlist
+        const addToWishlistText = document.createElement('p');
+        addToWishlistText.textContent = "Add to Wishlist?";
+        addToWishlistText.classList.add('text-icon');
+        itemContainer.appendChild(addToWishlistText);
+
+        searchItemsDiv.appendChild(itemContainer);
     });
 }
