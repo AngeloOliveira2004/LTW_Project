@@ -20,15 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const messageButton = document.getElementById('message_button');
 
-    // Add a click event listener to the button
     messageButton.addEventListener('click', function() {
-        // Toggle the 'clicked' class when the button is clicked
         this.classList.add('clicked');
         
-        // Remove the 'clicked' class after 0.5 seconds
         setTimeout(() => {
             this.classList.remove('clicked');
-        }, 100); // 500 milliseconds = 0.5 seconds
+        }, 100); 
     });
 
     for (let i = 1; i <= numberOfPhotos; i++) {

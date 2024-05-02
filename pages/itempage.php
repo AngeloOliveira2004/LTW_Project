@@ -112,16 +112,21 @@
 </section>
 
 
-            <section class = "title_price_section">
-                <div class = "title_price_section_box">
-                    <p class = "Item_name">Nome: <?= $name ?></p>
-                    <p class = "Item_Price">Preço: <?= $price ?> EUR</p>
-
-                    <button class = "Price_Proposal">Propor Preço</button>
-
-
+            <section class="title_price_section">
+                <div class="title_price_section_box">
+                    <div class="item_details">
+                        <p class="Item_name">Nome: <?= $name ?></p>
+                        <p class="Item_Price">Preço: <?= $price ?> EUR</p>
+                    </div>
+                    <div class="button_container">
+                        <input type="text" placeholder="Propor Outro Preço" class="price_input">
+                        <button class="propose_button">Propor Preço</button>
+                    </div>
+                    <i class="fa-regular fa-heart" data-item-id="<?= $item->getId() ?>"></i>
                 </div>
+                
             </section>
+
 
             <section class = "vendedor_section">
                 <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>" id="user_image">

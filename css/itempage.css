@@ -151,6 +151,7 @@
   border: 1px solid black; 
   margin-right: 1em;
   padding: 0.5em;
+
 }
 
 
@@ -178,13 +179,15 @@
 .shipping{
   border-radius: 0.6250em; 
   border: 1px solid black; 
-  max-width: 3.75em;
-  max-height: 3.75em;
+  max-width: 3em;
+  max-height: 3em;
+  min-width: 3em;
+  min-height: 3em;
   padding: 0.5em;
 }
 
 
-/*contact user section*/
+/*----------------------------------------*/
 
 .contact_user_section {
   display: flex;
@@ -253,4 +256,59 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add a box shadow */
 }
 
-/* Your existing button styles */
+/*--------------------------------*/
+
+.title_price_section {
+  display: flex;
+  flex-direction: column;
+}
+
+.title_price_section_box {
+  position: relative; 
+  width: 100%; 
+  margin-bottom: 0.625em; 
+}
+
+.item_details {
+  flex: 1;
+}
+
+.Item_name{
+  font-size: 2em;
+  color: #0B6E4F;
+  margin: 0;
+}
+
+.Item_Price{
+  font-size: 2em;
+  color: #0B6E4F;
+  margin: 0;
+}
+
+.button_container {
+  display: flex;
+  align-items: center;
+}
+
+.price_input {
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.propose_button {
+  padding: 0.625em;
+  background-color: #0B6E4F;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.fa-heart {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  font-size: 24px; 
+}
