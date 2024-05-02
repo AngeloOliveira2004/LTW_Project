@@ -1,4 +1,5 @@
 let senderId;
+let itemId;
 
 
 function displayMessages(messages) {
@@ -37,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
     users.forEach(function(user) {
         user.addEventListener('click', function() {
             senderId = user.getAttribute('data-user-id');
+            itemId = user.getAttribute('data-item-id');
             fetchMessagesFromSender(senderId);
         });
     });
@@ -53,3 +55,30 @@ function fetchMessagesFromSender(senderId) {
     };
     xhr.send();
 }
+
+
+document.addEventListener("DOMContentLoaded", function(){
+    const messageForm = document.querySelector('.text-box');
+    messageForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const messageInput = document.getElementById('user-message-input').value;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../db_handler/action_send_message.php', true);
+
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send('message=' + encodeURIComponent(messageInput)
+        + '&receiverId=' + encodeURIComponent(senderId)
+        + '&itemId=' + encodeURIComponent(itemId));
+
+        fetchMessagesFromSender(senderId);
+    });
+
+});

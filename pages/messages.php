@@ -34,14 +34,13 @@
                 $sender = $message->getSender();
                 $item = $message->getItemId();
                 ?>
-                    <div class="user-box" data-user-id="<?php echo $sender->getId(); ?>">
+                    <div class="user-box" data-user-id="<?php echo $sender->getId(); ?>" data-item-id="<?php echo $item->getId(); ?>">
                         <div class="user-container">
                             <img src="../assets/users/<?php echo $sender->getId(); ?>.png" alt="<?php echo $sender->getUsername(); ?>" id="user_image">
                             <img src="../assets/items/<?php echo $item->getId(); ?>-1.png" alt="<?php echo $item->getName(); ?>" id="item_image">
                             <h4><?php echo $item->getName(); ?></h4>
                             <h4><?php echo $message->printTimestamp(); ?></h4>
                         </div>
-                        <p><?php echo $message->getContent(); ?></p>
                     </div>
                 <?php
             }
@@ -54,10 +53,10 @@
             <h2>Messages Hub</h2>
             <div class="user-messages">
             </div>    
-            <form class = "text-box" action="../database/action_send_message.php">
+            <form class = "text-box" action="../db_handler/action_send_message.php">
                 <div class="text-box-container">
                     <input type="text" id="user-message-input" placeholder="Type a message here:">
-                    <button type="submit" class="user-message-button"><i class="fa fa-paper-plane"></i></button>
+                    <button type="submit" value="Submit" class="user-message-button"><i class="fa fa-paper-plane"></i></button>
                 </div>
             </form>
         </article>

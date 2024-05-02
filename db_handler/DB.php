@@ -407,6 +407,21 @@
             
             return $messages;
         }
+
+        public function saveMessagesDb($senderId,$receiverId,$itemId,$message){
+            $timestamp = date("Y-m-d H:i:s");
+
+            $stmt = $this->conn->prepare("INSERT INTO Messages (Sender, Receiver, ItemId, Content, Timestamp) VALUES (:senderId, :receiverId, :itemId, :message_content, :time_now)");
+
+            $variable_temp = 2; //Change this after tests
+            $stmt->bindParam(':senderId', $variable_temp);
+            $stmt->bindParam(':receiverId', $receiverId);
+            $stmt->bindParam(':message_content', $message);
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->bindParam(':time_now', $timestamp);
+
+            $stmt->execute();
+        }
     }
 ?>
 
