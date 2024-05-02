@@ -121,6 +121,10 @@
                     <div class="button_container">
                         <input type="text" placeholder="Propor Outro Preço" class="price_input">
                         <button class="propose_button">Propor Preço</button>
+                        <button class = "checkout"> 
+                            Adicionar ao carrinho?
+                            <img src="../assets/cart.png" class ="shopping_cart" alt="shopping_cart">
+                        </button>
                     </div>
                     <i class="fa-regular fa-heart" data-item-id="<?= $item->getId() ?>"></i>
                 </div>
@@ -130,9 +134,10 @@
 
             <section class = "vendedor_section">
                 <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>" id="user_image">
-                <p>Utilizador</p>
-                <p><?= $user_username ?></p>
-                <p>to be added : reviews</p>
+                <div class="user_details">
+                    <p class="user_name"><?= $user_username ?></p>
+                    <p class="reviews">to be added: reviews</p>
+                </div>
             </section>
 
             <section class = "location_section">

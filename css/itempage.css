@@ -290,6 +290,7 @@
 .button_container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .price_input {
@@ -309,6 +310,22 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 1em;
+
+}
+
+.checkout{
+  margin-top: 4em;
+  margin-left: 2.4em;
+  padding: 0.625em;
+  font-size: 1.5em;
+  background-color: #0B6E4F;
+  color: #fff;
+}
+
+.shopping_cart{
+  max-height: 50%;
+  max-width: 50%;
+  font-size: large;
 }
 
 .fa-heart {
@@ -319,4 +336,35 @@
   margin-top: 0.9em;
   margin-right: 0.9em;
   color: #0B6E4F;
+}
+
+
+/*-------------------------------------*/
+
+.vendedor_section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+#user_image {
+  margin-left: 5%;
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%; /* To make it circular */
+  margin-right: 10px; /* Adjust margin as needed */
+}
+
+.user_details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user_name {
+  font-weight: bold;
+  margin-bottom: 5px; /* Adjust margin as needed */
+}
+
+.reviews {
+  color: #888; /* Adjust color as needed */
 }
