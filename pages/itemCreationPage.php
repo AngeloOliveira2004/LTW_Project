@@ -10,7 +10,7 @@
         <?php
             include 'templates/header.php';
         ?>
-
+        <div class = "ItemCreation">
         <p>Publicar Anúncio</p>
 
         <section class = "Item-Title-And-Categories">
@@ -85,10 +85,11 @@
 
             <button class ="Publicar"> Publicar anúncio</button>
         </section>
-
+        </div>
         <?php
             include 'templates/footer.php';
         ?>
+
 </body>
 
 
