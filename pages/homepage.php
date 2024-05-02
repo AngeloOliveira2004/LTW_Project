@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>homepage</title>
 
-    <link href="../css/homepage.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/homepage.js"></script>
-    
-</head> 
-<body>
-    <?php
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>homepage</title>
+
+        <link href="../css/homepage.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/homepage.js"></script>
+
+    </head>
+
+    <body>
+        <?php
         include 'templates/header.php';
     ?>
 
-    <span class="search_table">
-        <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
+        <span class="search_table">
+            <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
             <?php
                 require_once '../db_handler/DB.php';
 
@@ -49,66 +54,66 @@
                 echo '</select>';
             ?>
 
-        <button class="search_button">
-            Pesquisar
-            <img src="assets/search-interface-symbol.png" alt="search-icon" class = "search_icon">
-        </button>
-    </span>
-    
-    <span class = "Categorias_Principais">
-        Categorias Principais
-    </span>
+            <button class="search_button">
+                Pesquisar
+                <img src="assets/search-interface-symbol.png" alt="search-icon" class="search_icon">
+            </button>
+        </span>
 
-    <div class = "Categories">
+        <span class="Categorias_Principais">
+            Categorias Principais
+        </span>
+
+        <div class="Categories">
             <a href="">
-        <div class="image-container">
-            <img src="assets/carro-removebg-preview.png" alt="car">
-            <span>Veihicles</span>
+                <div class="image-container">
+                    <img src="assets/carro-removebg-preview.png" alt="car">
+                    <span>Veihicles</span>
+                </div>
+            </a>
+            <a href="">
+                <div class="image-container">
+                    <img src="assets/bola-removebg-preview.png" alt="ball">
+                    <span>Sports</span>
+                </div>
+            </a>
+            <a href="">
+                <div class="image-container">
+                    <img src="assets/chair-removebg-preview.png" alt="chair">
+                    <span>Furniture</span>
+                </div>
+            </a>
+            <a href="">
+                <div class="image-container">
+                    <img src="assets/tshirt.png" alt="tshirt">
+                    <span>Clothes</span>
+                </div>
+            </a>
+            <a href="">
+                <div class="image-container">
+                    <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
+                    <span>Mobile Phones</span>
+                </div>
+            </a>
+            <a href="">
+                <div class="image-container">
+                    <img src="assets/computer-removebg-preview.png" alt="computer">
+                    <span>Technology</span>
+                </div>
+            </a>
+            <a href="">
+                <div class="image-container">
+                    <img src="assets/guitar-removebg-preview.png" alt="guitar">
+                    <span>Music</span>
+                </div>
+            </a>
         </div>
-        </a>
-        <a href="">
-        <div class="image-container">
-            <img src="assets/bola-removebg-preview.png" alt="ball">
-            <span>Sports</span>
-        </div>
-        </a>
-        <a href="">
-        <div class="image-container">
-            <img src="assets/chair-removebg-preview.png" alt="chair">
-            <span>Furniture</span>
-        </div>
-        </a>
-        <a href="">
-        <div class="image-container">
-            <img src="assets/tshirt.png" alt="tshirt">
-            <span>Clothes</span>
-        </div>
-        </a>
-        <a href="">
-        <div class="image-container">
-            <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
-            <span>Mobile Phones</span>
-        </div>
-        </a>
-        <a href="">
-        <div class="image-container">
-            <img src="assets/computer-removebg-preview.png" alt="computer">
-            <span>Technology</span>
-        </div>
-        </a>
-        <a href="">
-        <div class="image-container">
-            <img src="assets/guitar-removebg-preview.png" alt="guitar">
-            <span>Music</span>
-        </div>
-        </a>
-    </div>
-    
-    <span class = "Buy_From_Brand">
-        Compre pela marca
-    </span>
 
-    <?php
+        <span class="Buy_From_Brand">
+            Compre pela marca
+        </span>
+
+        <?php
         require_once '../db_handler/DB.php';
 
         $db = new Database("../database/database.db");
@@ -140,13 +145,13 @@
         echo "</div>";
     ?>
 
-    <span class = "Feed">
-        Posts
-    </span>
-    
-    <div class = "Items" >
+        <span class="Feed">
+            Posts
+        </span>
 
-    <?php
+        <div class="Items">
+
+            <?php
 require_once '../db_handler/DB.php';
 
 $db = new Database("../database/database.db");
@@ -160,8 +165,8 @@ foreach ($randomItems as $item) {
 
     ?>
 
-    <div class='item'>
-        <?php
+            <div class='item'>
+                <?php
             $itemImagePath = "../assets/items/{$item->getId()}.png";
             $errorImagePath = "../assets/items/error.png";
 
@@ -171,24 +176,25 @@ foreach ($randomItems as $item) {
                 $imageSrc = $errorImagePath;
             }
         ?>
-        <a href='itempage.php?item=<?= $item->getId() ?>'>
-            <img src="<?= $imageSrc ?>" alt='<?= $item->getName() ?>'>
-        </a>
-        <h3><?= $item->getName() ?></h3>
-        <p>Price: <?= $item->getPrice() ?></p>
-        <p>Brand: <?= $item->getBrand() ?></p>
-        <i class="fa-regular fa-heart" data-item-id="<?= $item->getId(1) ?>"></i>
+                <a href='itempage.php?item=<?= $item->getId() ?>'>
+                    <img src="<?= $imageSrc ?>" alt='<?= $item->getName() ?>'>
+                </a>
+                <h3><?= $item->getName() ?></h3>
+                <p>Price: <?= $item->getPrice() ?></p>
+                <p>Brand: <?= $item->getBrand() ?></p>
+                <i class="fa-regular fa-heart" data-item-id="<?= $item->getId(1) ?>"></i>
 
-    </div>
+            </div>
 
-    <?php } ?>
+            <?php } ?>
 
-    </div>
+        </div>
 
-    <div class = "search-items"> </div>
-    
-    <?php
+        <div class="search-items"> </div>
+
+        <?php
         include 'templates/footer.php';
     ?>
     </body>
+
 </html>

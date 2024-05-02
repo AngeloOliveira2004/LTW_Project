@@ -337,7 +337,6 @@
             }
             
             return $messages;
-        }
+        }        
     }
 ?>
-

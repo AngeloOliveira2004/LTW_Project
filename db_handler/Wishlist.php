@@ -10,6 +10,20 @@ class WishlistItem {
         $this->UserId = $UserId;
         $this->ItemId = $ItemId;
     }
+
+    public function getWishlistId()
+    {
+        return $this->WishlistId;
+    }
+    public function getUserId()
+    {
+        return $this->UserId;
+    }
+    public function getItemId()
+    {
+        return $this->ItemId;
+    }
+    
 }
 
 
