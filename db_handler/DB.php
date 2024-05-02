@@ -238,6 +238,32 @@
             $stmt->execute();
         }
 
+        public function getAllUserItems(int $id){
+            $stmt = $this->conn->prepare("SELECT * FROM items WHERE UserId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $items = [];
+            while ($row = $stmt->fetch()) {
+                $items[] = new Item(
+                    $row['Id'],
+                    $row['Name'],
+                    $row['Description'],
+                    $row['Brand'],
+                    $row['Model'],
+                    $row['CategoryId'],
+                    $row['Size'],
+                    $row['Price'],
+                    $row['ConditionId'],
+                    $row['Available'],
+                    $row['AvailableForDelivery'],
+                    $row['SubCategory'],
+                    $row['NumberOfImages'],
+                    $row['UserId']
+                );
+            }
+            return $items;
+        }
+
         public function getXRandItems(int $x) : array {
             $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY RANDOM() LIMIT :x");
             $stmt->bindParam(':x', $x);

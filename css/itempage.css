@@ -276,7 +276,7 @@
 .Item_name{
   font-size: 2em;
   color: #0B6E4F;
-  margin-right: 2em;
+  margin-right: 5em;
   padding-bottom: 0.5em;
   font-weight: 500;
 }
@@ -367,4 +367,75 @@
 
 .reviews {
   color: #888; /* Adjust color as needed */
+}
+
+
+/*--------------Ohter Items From the Same User------------------*/
+
+.other_items_of_the_user {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.items_container {
+  display: flex;
+  overflow-x: auto;
+  gap: 2em; /* Adjust as needed */
+  padding: 0.5em;
+}
+
+.item {
+  width: 300px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.item h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.item p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+
+.arrows {
+  border: none;
+  background: none;
+  font-size: 36px; /* Increased font size to make the arrows bigger */
+  cursor: pointer;
+  align-self: center; /* Centering the arrows vertically */
+  background-color: white;
+  color: white;
+
+}
+
+
+.fa-regular {
+  /* Add your regular heart icon styles here */
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  font-size: 1.5625em; 
+  margin-top: 0.9em;
+  margin-right: 0.9em;
+  color: #0B6E4F;
+  cursor: pointer;
+}
+
+.fa-heart-filled {
+  /* Add your filled heart icon styles here */
+  color: red; /* Change the color as desired for the filled heart */
 }

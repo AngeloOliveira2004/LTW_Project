@@ -3,6 +3,20 @@ let email_value_save = "";
 let isContentHiddenEmail = true;
 let isContentHiddenPassword = true;
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Get all heart icons
+    const heartIcons = document.querySelectorAll('.fa-heart');
+
+    // Loop through each heart icon
+    heartIcons.forEach(function(icon) {
+        // Add click event listener
+        icon.addEventListener('click', function() {
+            toggleHeart(icon);
+        });
+    });
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const prevButton = document.getElementById("prev-image");
     const nextButton = document.getElementById("next-image");
@@ -19,6 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(numberOfPhotos);    
     
     const messageButton = document.getElementById('message_button');
+    // Function to toggle heart icon
+    function toggleHeart(icon) {
+        icon.classList.toggle("fa-heart");
+        icon.classList.toggle("fa-heart-filled");
+    }
 
     messageButton.addEventListener('click', function() {
         this.classList.add('clicked');
@@ -96,3 +115,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+/*
+const prevPageBtn = document.getElementById("prevPage");
+    const nextPageBtn = document.getElementById("nextPage");
+
+    const itemsPerPage = 5;
+    let currentPage = 1;
+
+    function displayItems() {
+        const items = document.querySelectorAll('.item');
+        items.forEach((item, index) => {
+            if (index >= (currentPage - 1) * itemsPerPage && index < currentPage * itemsPerPage) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    prevPageBtn.addEventListener('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayItems();
+        }
+    });
+
+    nextPageBtn.addEventListener('click', function() {
+        const totalItems = document.querySelectorAll('.item').length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            displayItems();
+        }
+    });
+
+    displayItems();
+    */
