@@ -47,4 +47,26 @@ function saveWishlist(wishlist) {
 
 document.addEventListener('DOMContentLoaded', function () {
     toggleHeartColor();
+
+    $('.search_button').click(function() {
+
+        console.log('search button clicked');
+        // Retrieve the values of the search bar and dropdown menu
+        var searchBarValue = $('.search_bar').val();
+        var categoryDropdownValue = $('.category_dropdown').val();
+    
+        console.log(categoryDropdownValue);
+        
+        if(categoryDropdownValue === 'Todas as Categorias' || categoryDropdownValue === "") {
+            categoryDropdownValue = 'All';
+        }
+        // Log the values
+        console.log('Search bar value: ' + searchBarValue);
+        console.log('Category dropdown value: ' + categoryDropdownValue);
+
+        var searchPageURL = 'search_page.php?search=' + encodeURIComponent(searchBarValue) + '&category=' + encodeURIComponent(categoryDropdownValue);
+
+        // Redirect to the search page
+        window.location.href = searchPageURL;
+    });
 });
