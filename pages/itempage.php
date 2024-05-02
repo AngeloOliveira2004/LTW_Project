@@ -13,7 +13,7 @@
             include 'templates/header.php';
         ?>
 
-        <div class="item-container">
+        <section class="item-container">
 
             <?php
                 require_once '../db_handler/DB.php';
@@ -30,15 +30,6 @@
                 $user = $item->getUserId();
                 $number_of_photos = $item->getNumberOfImages();
                 
-                $currentImageIndex = 1; 
-
-                if ($numberOfImages !== null && $numberOfImages >= 1) {
-                    if (isset($_GET['image'])) {
-                        $currentImageIndex = max(1, min($_GET['image'], $numberOfImages));
-                    }
-
-                    $imageUrl = "../assets/items/{$item->getId()}-{$currentImageIndex}.png";
-                }
 
                 $user_details = $db->getUserById($user);
                 $user_username = $user_details->getUsername();
@@ -46,8 +37,7 @@
                 $user_email = $user_details->getEmail();
 
             ?>
-            
-
+        
             
             <section class="image_section">
                 <div class="main_image_container">
@@ -69,13 +59,39 @@
             
             <section class = "description_and_rest_section">
                 <div class = "item_details">
-                    <p>Categoria: <?= $item->getCategoryId() ?></p>
-                    <p>Marca: <?= $brand ?></p>
-                    <p>Subcategoria: <?= $item->getSubcategory() ?></p>
-                    <p>Disponível para entrega: <?= $item->isAvailableForDelivery() ? 'Sim' : 'Não' ?></p>
+                    <p class = "Item_Category"> 
+                        <?= 
+                            require_once '../db_handler/DB.php';
+
+                            $db = new Database("../database/database.db");
+                            
+                            $categoryId = $item->getCategoryId(); 
+                            
+                            $category = $db->getCategoryById($categoryId);
+                            
+                            $categoryName = $category->getName();
+
+                            $categoryName = $category->getName();
+                            
+                            $categoryName = preg_replace('/^\d+/', '', $categoryName);
+
+
+                            echo $categoryName;
+                        ?>
+                    </p>
+                    <p class = "Item_Brand"> <?= $brand ?></p>
+                    <p> <?= $item->getSubcategory() ?></p>
+
+                    <?php if (!$item->isAvailableForDelivery()): ?>
+                        <img src="../assets/local_shipping_FILL0_wght400_GRAD0_opsz24.png" alt="shipping" class="shipping">
+                    <?php else: ?>
+                        <img src="../assets/no_shipping.png" alt="no shipping" class="shipping">
+                    <?php endif; ?>
                 </div>
-                <p>Descrição</p>
-                <p><?= $item->getDescription() ?></p>
+                <div class = "Item_Description_div">
+                    <p class = "Item_Description">Descrição</p>
+                    <p class = "Item_Description_Text"><?= $item->getDescription() ?></p>
+                </div>
             </section>
 
             <section class = "contact_user_section">
@@ -108,7 +124,7 @@
                 <?= $user_details->getAddress() ?>
             </section>              
         
-        </div>
+        </section>
     <?php
         include 'templates/footer.php';
     ?>

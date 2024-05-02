@@ -8,6 +8,10 @@
     require_once 'Wishlist.php';
     require_once 'Reviews.php';
     require_once 'Message.php';
+    require_once 'Categories.php';
+    require_once 'Conditions.php';
+    require_once 'SubCategory.php';
+    require_once 'SIzes.php';
     
     class Database {
         private static $instance = null;
@@ -56,7 +60,23 @@
                 $row['UserId']
             );
         }
+
+        public function getSubCategoryById($id) : SubCategory {
+            $stmt = $this->conn->prepare("SELECT * FROM subcategories WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return new SubCategory($row['SUbCategoryId'], $row['ParentCategory'] , $row['Name']);
+        }
         
+        public function getCategoryById($id) : Category {
+            $stmt = $this->conn->prepare("SELECT * FROM categories WHERE CategoryId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return new Category($row['CategoryId'], $row['Name']);
+        }
+
         public function getItemsName() : array {
             $stmt = $this->conn->prepare("SELECT * FROM items");
             $stmt->execute();
