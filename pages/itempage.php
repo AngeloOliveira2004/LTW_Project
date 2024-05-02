@@ -91,6 +91,7 @@
                 <div class = "Item_Description_div">
                     <p class = "Item_Description">Descrição</p>
                     <p class = "Item_Description_Text"><?= $item->getDescription() ?></p>
+                    <div class = "line"></div>
                 </div>
             </section>
 
