@@ -115,8 +115,8 @@
             <section class="title_price_section">
                 <div class="title_price_section_box">
                     <div class="item_details">
-                        <p class="Item_name">Nome: <?= $name ?></p>
-                        <p class="Item_Price">Preço: <?= $price ?> EUR</p>
+                        <p class="Item_name"> <?= $name ?></p>
+                        <p class="Item_Price"> <?= $price ?> EUR</p>
                     </div>
                     <div class="button_container">
                         <input type="text" placeholder="Propor Outro Preço" class="price_input">

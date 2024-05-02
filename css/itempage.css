@@ -276,13 +276,15 @@
 .Item_name{
   font-size: 2em;
   color: #0B6E4F;
-  margin: 0;
+  margin-right: 2em;
+  padding-bottom: 0.5em;
+  font-weight: 500;
 }
 
 .Item_Price{
-  font-size: 2em;
-  color: #0B6E4F;
-  margin: 0;
+  font-size: 2.5em;
+  color: #0B6E4F; 
+  font-weight: 500;
 }
 
 .button_container {
@@ -295,6 +297,8 @@
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-left: 2.2em;
+  font-size: 1em;
 }
 
 .propose_button {
@@ -304,11 +308,15 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1em;
 }
 
 .fa-heart {
   position: absolute; 
   top: 0; 
   right: 0; 
-  font-size: 24px; 
+  font-size: 1.5625em; 
+  margin-top: 0.9em;
+  margin-right: 0.9em;
+  color: #0B6E4F;
 }
