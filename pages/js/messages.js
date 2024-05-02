@@ -64,6 +64,10 @@ document.addEventListener("DOMContentLoaded", function(){
 
         const messageInput = document.getElementById('user-message-input').value;
 
+        if (messageInput.trim() === '') {
+            return;
+        }
+
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '../../db_handler/action_send_message.php', true);
 
@@ -78,7 +82,12 @@ document.addEventListener("DOMContentLoaded", function(){
         + '&receiverId=' + encodeURIComponent(senderId)
         + '&itemId=' + encodeURIComponent(itemId));
 
+        const userMessageInput = document.getElementById('user-message-input');
+
+        userMessageInput.value = "";
+
         fetchMessagesFromSender(senderId);
+
     });
 
 });
