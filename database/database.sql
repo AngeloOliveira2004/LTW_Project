@@ -60,9 +60,9 @@ CREATE TABLE Items (
     Available BOOLEAN NOT NULL,
     AvailableForDelivery BOOLEAN NOT NULL , 
     SubCategory VARCHAR(50),
-    HasImage BOOLEAN NOT NULL,
-    UserId INTEGER NOT NULL,
+    NumberOfImages INTEGER,
 
+    UserId INTEGER NOT NULL,
     FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
 );
 
@@ -158,29 +158,29 @@ VALUES
     ('jessica_white', 'jessica@example.com', '098f6bcd4621d373cade4e832627b4f6', 'Jessica', 'White', '852 Oak St, City, Country', '321789456');
     
 -- Inserting data into the Items table
-INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, AvailableForDelivery, Available, UserId)
+INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, AvailableForDelivery, Available, NumberOfImages , UserId)
 VALUES
-    ('Smartphone', 'High-end smartphone with advanced features', 'Samsung', 1, 799.99, 1, true, true, 1),
-    ('Laptop', 'Powerful laptop for work and entertainment', 'Dell', 1, 1299.99, 1, true, true, 1),
-    ('Headphones', 'Noise-cancelling headphones for immersive audio experience', 'Sony', 1, 249.99, 1, true, true, 2),
-    ('Book', 'Best-selling novel by a renowned author', 'Penguin', 2, 19.99, 1, true, true, 2),
-    ('Smartwatch', 'Smartwatch with health and fitness tracking features', 'Apple', 1, 299.99, 1, true, true, 3),
-    ('Tablet', 'Portable tablet for productivity and entertainment', 'Microsoft', 1, 499.99, 1, true, true, 3),
-    ('Camera', 'High-quality camera for capturing memories', 'Canon', 1, 699.99, 1, true, true, 4),
-    ('Gaming Console', 'Next-gen gaming console for immersive gaming experience', 'Nintendo', 1, 399.99, 1, true, true, 4),
-    ('Backpack', 'Durable backpack for everyday use', 'Jansport', 3, 49.99, 1, true, true, 5),
-    ('Sneakers', 'Stylish sneakers for casual wear', 'Nike', 3, 89.99, 1, true, true, 5),
-    ('Smart Speaker', 'Voice-controlled smart speaker for home entertainment', 'Amazon', 1, 129.99, 1, true, true, 6),
-    ('T-shirt', 'Comfortable cotton t-shirt for everyday wear', 'Adidas', 3, 29.99, 1, true, true, 6),
-    ('Coffee Maker', 'Automatic coffee maker for brewing delicious coffee', 'Keurig', 4, 149.99, 1, true, true, 7),
-    ('Vacuum Cleaner', 'High-powered vacuum cleaner for efficient cleaning', 'Dyson', 4, 299.99, 1, true, true, 7),
-    ('Wireless Mouse', 'Ergonomic wireless mouse for smooth navigation', 'Logitech', 1, 39.99, 1, true, true, 8),
-    ('Keyboard', 'Mechanical keyboard with customizable RGB lighting', 'Razer', 1, 99.99, 1, true, true, 8),
-    ('Hiking Boots', 'Sturdy hiking boots for outdoor adventures', 'Merrell', 3, 129.99, 1, true, true, 9),
-    ('Camping Tent', 'Spacious camping tent for overnight trips', 'Coleman', 5, 199.99, 1, true, true, 9),
-    ('Guitar', 'Acoustic guitar for playing beautiful melodies', 'Fender', 6, 399.99, 1, true, true, 10),
-    ('Drone', 'High-performance drone for aerial photography', 'DJI', 1, 799.99, 1, true, true, 10),
-    ('Large Description Item', 'This is a very large description item that is used to test long descriptions in the database. It may contain multiple paragraphs of text to demonstrate the handling of large text fields in the database.', 'TestBrand', 1, 999.99, 1, true, true, 1);
+    ('Smartphone', 'High-end smartphone with advanced features', 'Samsung', 1, 799.99, 1, true, true,5, 1),
+    ('Laptop', 'Powerful laptop for work and entertainment', 'Dell', 1, 1299.99, 1, true, true,1, 1),
+    ('Headphones', 'Noise-cancelling headphones for immersive audio experience', 'Sony', 1, 249.99, 1, true, true,1, 2),
+    ('Book', 'Best-selling novel by a renowned author', 'Penguin', 2, 19.99, 1, true, true,1, 2),
+    ('Smartwatch', 'Smartwatch with health and fitness tracking features', 'Apple', 1, 299.99, 1, true, true,1, 3),
+    ('Tablet', 'Portable tablet for productivity and entertainment', 'Microsoft', 1, 499.99, 1, true, true,1, 3),
+    ('Camera', 'High-quality camera for capturing memories', 'Canon', 1, 699.99, 1, true, true,1, 4),
+    ('Gaming Console', 'Next-gen gaming console for immersive gaming experience', 'Nintendo', 1, 399.99, 1, true, true,1, 4),
+    ('Backpack', 'Durable backpack for everyday use', 'Jansport', 3, 49.99, 1, true, true,1, 5),
+    ('Sneakers', 'Stylish sneakers for casual wear', 'Nike', 3, 89.99, 1, true, true,1, 5),
+    ('Smart Speaker', 'Voice-controlled smart speaker for home entertainment', 'Amazon', 1, 129.99, 1, true, true,1, 6),
+    ('T-shirt', 'Comfortable cotton t-shirt for everyday wear', 'Adidas', 3, 29.99, 1, true, true,1, 6),
+    ('Coffee Maker', 'Automatic coffee maker for brewing delicious coffee', 'Keurig', 4, 149.99, 1, true, true,1, 7),
+    ('Vacuum Cleaner', 'High-powered vacuum cleaner for efficient cleaning', 'Dyson', 4, 299.99, 1, true, true,1, 7),
+    ('Wireless Mouse', 'Ergonomic wireless mouse for smooth navigation', 'Logitech', 1, 39.99, 1, true, true,1, 8),
+    ('Keyboard', 'Mechanical keyboard with customizable RGB lighting', 'Razer', 1, 99.99, 1, true, true,1, 8),
+    ('Hiking Boots', 'Sturdy hiking boots for outdoor adventures', 'Merrell', 3, 129.99, 1, true, true,1, 9),
+    ('Camping Tent', 'Spacious camping tent for overnight trips', 'Coleman', 5, 199.99, 1, true, true,1, 9),
+    ('Guitar', 'Acoustic guitar for playing beautiful melodies', 'Fender', 6, 399.99, 1, true, true,1, 10),
+    ('Drone', 'High-performance drone for aerial photography', 'DJI', 1, 799.99, 1, true, true,1, 10),
+    ('Large Description Item', 'This is a very large description item that is used to test long descriptions in the database. It may contain multiple paragraphs of text to demonstrate the handling of large text fields in the database.', 'TestBrand', 1, 999.99, 1, true, true,1, 1);
 
 -- Inserting data into the OrderHistory table
 INSERT INTO OrderHistory (UserId, OrderDate, TotalPrice, Status)
