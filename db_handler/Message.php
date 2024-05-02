@@ -5,13 +5,15 @@ require_once 'Users.php';
 class Message {
     public $messageId;
     public $sender;
+    public $itemId;
     public $receiver;
     public $text;
     public $timestamp;
 
-    public function __construct($messageId, $sender, $receiver, $text, $timestamp) {
+    public function __construct($messageId, $sender, $receiver,$itemId, $text, $timestamp) {
         $this->messageId = $messageId;
         $this->sender = $sender;
+        $this->itemId = $itemId;
         $this->receiver = $receiver;
         $this->text = $text;
         $this->timestamp = $timestamp;
@@ -21,12 +23,17 @@ class Message {
         echo "Message Id: " . $this->messageId . "<br>";
         echo "Sender: " . $this->sender . "<br>";
         echo "Receiver: " . $this->receiver . "<br>";
+        echo "Item Id: " . $this->itemId . "<br>";
         echo "Text: " . $this->text . "<br>";
         echo "Timestamp: " . $this->timestamp . "<br>";
     }
 
     public function getMessageId() : int {
         return $this->messageId;
+    }
+    
+    public function getItemId() : Item {
+        return $this->itemId;
     }
 
     public function getContent() : string {

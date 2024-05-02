@@ -354,10 +354,13 @@
             while($message = $stmt->fetch()) {
                 $sender = $this->getUserById($message['Sender']);
                 $receiver = $this->getUserById($message['Receiver']);
+                $item = $this->getItemById($message['ItemId']);
+                
                 $new_message = new Message(
                     $message['MessageId'],
                     $sender,
                     $receiver,
+                    $item,
                     $message['Content'],
                     $message['Timestamp']
                 );
@@ -388,10 +391,12 @@
             while($message = $stmt->fetch()) {
                 $sender = $this->getUserById($message['Sender']);
                 $receiver = $this->getUserById($message['Receiver']);
+                $item = $this->getItemById($message['ItemId']);
                 $new_message = new Message(
                     $message['MessageId'],
                     $sender,
                     $receiver,
+                    $item,
                     $message['Content'],
                     $message['Timestamp']
                 );

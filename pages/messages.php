@@ -32,11 +32,13 @@
             
             foreach ($messages as $message) {
                 $sender = $message->getSender();
+                $item = $message->getItemId();
                 ?>
                     <div class="user-box" data-user-id="<?php echo $sender->getId(); ?>">
                         <div class="user-container">
-                            <img src="../assets/users/<?php echo $sender->getId(); ?>.png" alt="<?php echo $sender->getUsername(); ?>" id="item_image">
-                            <h4><?php echo $sender->getUsername(); ?></h4>
+                            <img src="../assets/users/<?php echo $sender->getId(); ?>.png" alt="<?php echo $sender->getUsername(); ?>" id="user_image">
+                            <img src="../assets/items/<?php echo $item->getId(); ?>-1.png" alt="<?php echo $item->getName(); ?>" id="item_image">
+                            <h4><?php echo $item->getName(); ?></h4>
                             <h4><?php echo $message->printTimestamp(); ?></h4>
                         </div>
                         <p><?php echo $message->getContent(); ?></p>
