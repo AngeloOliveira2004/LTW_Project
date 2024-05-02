@@ -183,6 +183,74 @@
   padding: 0.5em;
 }
 
-.line{
-  
+
+/*contact user section*/
+
+.contact_user_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
 }
+
+.user_info {
+  display: flex;
+  align-items: center;
+}
+
+.user_image_container {
+  margin-right: 10px;
+}
+
+.user_image {
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  border-radius: 50%; /* To make it circular */
+}
+
+.user_details {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.last_online {
+  color: #888;
+}
+
+.phone_container {
+  display: flex;
+  align-items: center;
+}
+
+.phone_icon {
+  width: 20px; /* Adjust as needed */
+  height: 20px; /* Adjust as needed */
+  margin-right: 5px;
+}
+
+.phone_number {
+  margin: 0;
+}
+
+.message_button {
+  padding: 10px 20px;
+  background-color: #0B6E4F;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clicked {
+  background-color: #0056b3; /* Change background color */
+  color: #fff; /* Change text color */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add a box shadow */
+}
+
+/* Your existing button styles */
