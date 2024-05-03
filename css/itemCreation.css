@@ -1,17 +1,15 @@
-*{
+* {
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
 
-
-.ItemCreation{
+.ItemCreation {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: column;
     position: relative;
-
     margin-left: 10%;
     margin-right: 10%;
     background-color: #f9f9f9;
@@ -19,24 +17,22 @@
     margin-bottom: 2em;
 }
 
-/*--------------------------------*/
-
-.publish{
+.publish {
     font-size: 3em;
     color: #0B6E4F;
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     margin-left: 4.2em;
     margin-top: 3.2em;
     margin-bottom: 1em;
+    font-weight: 550;
 }
 
-.Item-Title-And-Categories{
+.Item-Title-And-Categories {
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-
     padding: 2em;
     background-color: #CBE896;
     margin-top: 5em;
@@ -44,23 +40,85 @@
     width: 80%;
 }
 
-.Item-Title{
+.Item-Title {
     color: #0B6E4F;
     font-size: 2em;
     flex-grow: 1;
 }
 
-.box_title{
+.images{
+    margin-right: 80%;
+    padding-bottom: 1em;
+    font-size: 2em;
+    color: #0B6E4F;
+    font-weight: 600;
+}
+
+.images_text{
+    padding-bottom: 1em ;
+    padding-right: 5%;
+    font-size: 1.5em;
+    color: #0B6E4F;
+    margin-bottom: 0;
+}
+
+/*------- Item Images-------------------------*/
+
+.Item-Images {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    padding: 2em;
+    background-color: #CBE896;
+    margin-top: 5em;
+    margin-bottom: 1em;
+    width: 80%;
 
 }
 
-/*--------------------------------------------*/
+.image_inputer{
+    margin: 1em;
+}
 
-.Item-Images{
+.image_icon img {
+    padding-top: 1em;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: white;
+    filter: invert(99%);
+  }
+
+.Item-Images input[type="file"] {
+    display: none;
+}
+
+.Item-Images label {
+    display: block;
+    width: calc(25% - 10px); 
+    padding: 8px 12px;
+    background-color: #0B6E4F;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px; 
+    text-align: center;
+    min-height: 5em;
+}
+
+.selected_image {
+    margin-top: 10px;
+  }
+  .selected_image img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+  }
+/*------- Item Description -------------------------*/
+.Item-Description {
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-
     padding: 2em;
     background-color: #CBE896;
     margin-top: 5em;
@@ -68,16 +126,10 @@
     width: 80%;
 }
 
-
-
-
-/*---------------------------------------------*/
-
-.Item-Description{
+.Item-Price-Trade {
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-
     padding: 2em;
     background-color: #CBE896;
     margin-top: 5em;
@@ -85,33 +137,10 @@
     width: 80%;
 }
 
-
-
-/*----------------------------------------------*/
-
-.Item-Price-Trade{
+.Additional-Info {
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-
-    padding: 2em;
-    background-color: #CBE896;
-    margin-top: 5em;
-    margin-bottom: 1em;
-    width: 80%;
-}
-
-
-
-
-/*------------------------------------------------*/
-
-
-.Aditional-Info{
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-
     padding: 2em;
     background-color: #CBE896;
     margin-top: 5em;

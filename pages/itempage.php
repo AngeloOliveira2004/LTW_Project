@@ -27,14 +27,24 @@
                 $name = $item->getName();
                 $price = $item->getPrice();
                 $brand = $item->getBrand();
-                $user = $item->getUserId();
+                $userId = $item->getUserId();
                 $number_of_photos = $item->getNumberOfImages();
                 
 
-                $user_details = $db->getUserById($user);
+                $user_details = $db->getUserById($userId);
                 $user_username = $user_details->getUsername();
                 $user_phonenumber = $user_details->getPhoneNumber();
                 $user_email = $user_details->getEmail();
+
+                $Reviews = $db->getReviewByReviewedUserId($userId);
+
+                $reviewsCount = count($Reviews);
+
+                if($reviewsCount == 0){
+                    $average = 0;
+                }else{
+                    $average = number_format(array_reduce($Reviews, function ($carry, $review) {return $carry + $review->getRating();}, 0) / $reviewsCount,2);
+                }
 
             ?>
         
@@ -70,11 +80,9 @@
                             $category = $db->getCategoryById($categoryId);
                             
                             $categoryName = $category->getName();
-
-                            $categoryName = $category->getName();
                             
                             $categoryName = preg_replace('/^\d+/', '', $categoryName);
-
+                            
 
                             echo $categoryName;
                         ?>
@@ -132,13 +140,35 @@
             </section>
 
 
-            <section class = "vendedor_section">
+            <section class="vendedor_section">
                 <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>" id="user_image">
                 <div class="user_details">
                     <p class="user_name"><?= $user_username ?></p>
-                    <p class="reviews">to be added: reviews</p>
+                    <div class="Averages">
+                       
+                        Average rating: <?= $average ?> 
+                        <span class='stars' style='--rating: $rating;'></span> <br>
+                        <?php
+                            $icon = "";
+                            $message = "";  
+                            if ($average > 4) {
+                                $icon = "😊"; 
+                                $message = "This user has had really positive reviews";
+                            } elseif ($average >= 2.5 && $average <= 3.99) {
+                                $icon = "😐"; 
+                                $message = "This user's reviews are neutral";
+                            } else {
+                                $icon = "😞"; 
+                                $message = "This user's reviews are negative";
+                            }
+                            echo "Reviews: " . $icon;
+                            echo "<br>";
+                            echo $message;
+                        ?>
+                    </div>
                 </div>
             </section>
+
 
             <section class = "location_section">
                 <?= $user_details->getAddress() ?>
@@ -146,7 +176,11 @@
         
         </section>
 
+
+        <p class = "Items_From_The_Same_User">Other Items from the same User:</p> 
+        <div class = "line"></div>
         <section class="other_items_of_the_user">
+
     <div class="arrows">
         <button id="prevPage">&larr;</button>
     </div>
