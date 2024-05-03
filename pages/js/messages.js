@@ -1,7 +1,8 @@
 let senderId;
 let itemId;
 
-setInterval(fetchMessagesFromSender(senderId), 5000);
+// setInterval(function() {fetchMessagesFromSender(senderId);}, 5000);
+// setInterval(function() {fetchSideMessages();}, 5000);
 
 
 function displayMessages(messages) {
@@ -97,4 +98,62 @@ document.addEventListener("DOMContentLoaded", function(){
 function scrollToBottom() {
     let scrollToBottom = document.querySelector(".user-messages");
     scrollToBottom.scrollTop = scrollToBottom.scrollHeight;
+}
+
+
+function fetchSideMessages() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../../db_handler/fetch_side_messages.php?' ,true);
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            let messages = JSON.parse(xhr.responseText);
+            displaySideMessages(messages);
+        }
+    };
+    xhr.send();
+}
+
+function displaySideMessages(messages) {
+    let messagesContainer = document.querySelector('.user-messages');
+    messagesContainer.innerHTML = '';
+
+    messages.forEach(function(message) {
+        let sender = message.sender;
+        let item = message.itemId;
+
+        let messageDiv = document.createElement('div');
+        messageDiv.classList.add('user-box');
+        messageDiv.setAttribute('data-user-id', sender.id);
+        messageDiv.setAttribute('data-item-id', item.id);
+
+        let userContainer = document.createElement('div');
+        userContainer.classList.add('user-container');
+
+        let userImage = document.createElement('img');
+        userImage.src = `../assets/users/${sender.id}.png`;
+        userImage.alt = sender.username;
+        userImage.id = 'user_image';
+
+        let itemImage = document.createElement('img');
+        itemImage.src = `../assets/items/${item.id}-1.png`;
+        itemImage.alt = item.name;
+        itemImage.id = 'item_image';
+
+        let itemName = document.createElement('h4');
+        itemName.textContent = item.name;
+
+        let timestamp = document.createElement('h4');
+        timestamp.textContent = message.timestamp;
+
+        userContainer.appendChild(userImage);
+        userContainer.appendChild(itemImage);
+        userContainer.appendChild(itemName);
+        userContainer.appendChild(timestamp);
+
+        messageDiv.appendChild(userContainer);
+
+        messagesContainer.appendChild(messageDiv);
+    });
+
+    scrollToBottom();
 }
