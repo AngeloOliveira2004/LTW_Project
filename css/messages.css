@@ -10,6 +10,10 @@
     overflow-y: auto;
 }
 
+.message-content{
+    word-wrap: break-word;
+}
+
 
 .users-rectangle,
 .open-messages {
@@ -134,5 +138,9 @@ article.open-messages{
     border-radius: 50%;
     width: 2em;
     height: 2em;
+    margin-right: 0.5em;
 }
 
+.message-sent h5 , .message-received h5{
+    margin-bottom: 0.5em;
+}
