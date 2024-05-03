@@ -1,8 +1,8 @@
 .messages-section {
     display: flex;
-    justify-content: space-between;
     width: auto;
     height: 40em;
+    justify-content: center;
 }
 
 .messages-content {
@@ -15,7 +15,7 @@
 .open-messages {
     position: relative;
     width: 45%;
-    height: 90%;
+    height: 88%;
     padding: 20px;
     border: 2px solid #CBE896;
     border-radius: 5px;
@@ -24,8 +24,13 @@
     margin-bottom: 20px;
 }
 
+.user-messages{
+    overflow-y: scroll;
+    max-height: 80%;
+}
+
 article.open-messages{
-    margin-top: 3em;
+    margin-top: 4em;
 }
 
 .messages-rectangle{
@@ -43,7 +48,6 @@ article.open-messages{
 .user-box{
     background-color: #f9f9f9;
     cursor: pointer;
-    border-radius: 5%;
     border-bottom: 2px solid #CBE896;
     transition: 0.5s ease;
 }
@@ -55,8 +59,21 @@ article.open-messages{
 .user-container > img{
     width: 3em;
     height: 3em;
-    border-radius: 50%;
-    margin: 0.5em 1em 0.5em 1em;
+    margin: 0.5em 0em 0.5em 0em;
+}
+
+.user-container > img#user_image{
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    margin-left: 1em;
+}
+
+.user-container > img#item_image{
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    margin-right: 1em;
+    margin-bottom: 2em;
+    border-left: 2px solid #0B6E4F;
 }
 
 .user-container{
@@ -67,6 +84,7 @@ article.open-messages{
 .user-container h4:nth-of-type(2){
     margin-left: auto;
     padding-right: 1em;
+    padding-left: 2em;
 }
 
 .user-box h3{
@@ -109,8 +127,8 @@ article.open-messages{
 
 .message-sent{
     text-align: right;
+    padding-right: 2em;
 }
-
 
 .message-sent img , .message-received img{
     border-radius: 50%;

@@ -8,9 +8,11 @@ if(isset($_SESSION['userId'])) {
     
     $userId = (int) $_SESSION['userId'];
 
+    $itemId = (int) $_GET['itemId'];
+
     $db = new Database("../database/database.db");
 
-    $messages = $db->getMessagesSenderToUser(2,$senderId); // Vai buscar as mensagens mandadas pelo outro para o log-in user
+    $messages = $db->getMessagesSenderToUser(2,$senderId,$itemId); // Vai buscar as mensagens mandadas pelo outro para o log-in user
 
     header('Content-Type: application/json');
     echo json_encode($messages);

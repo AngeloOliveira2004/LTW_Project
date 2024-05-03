@@ -116,10 +116,12 @@ CREATE TABLE Messages(
     MessageId INTEGER PRIMARY KEY AUTOINCREMENT,
     Sender INTEGER,
     Receiver INTEGER,
+    ItemId INTEGER,
     Content TEXT,
     Timestamp DATETIME,
     FOREIGN KEY (Receiver) REFERENCES Users(Id),
-    FOREIGN KEY (Sender) REFERENCES Users(Id)
+    FOREIGN KEY (Sender) REFERENCES Users(Id),
+    FOREIGN KEY (ItemId) REFERENCES Items(Id)
 );
 
 
@@ -207,17 +209,18 @@ INSERT INTO Reviews (Rating, Comment, Author, UserReviewed, ReviewDate) VALUES
 (5.0, 'Excellent service!', 2, 1, '2024-04-22');
 
 -- Inserting data into the Messages table
-INSERT INTO Messages (Sender, Receiver, Content, Timestamp) VALUES
-    (1, 2, "Hey Jane, did you receive my email?", '2024-04-01 08:30:00'),
-    (2, 2, "Yes John, I got it. I'll reply soon.", '2024-04-02 10:15:00'),
-    (3, 2, "Hello John, just checking in on the progress.", '2024-04-03 11:45:00'),
-    (6, 2, "Hi Alex, the project is going well. Any updates from your end?", '2024-04-04 14:20:00'),
-    (4, 2, "Hi John, could you please review the latest draft?", '2024-04-05 16:30:00'),
-    (1, 2, "Hey Emily, can you attend the meeting tomorrow?", '2024-04-06 09:45:00'),
-    (5, 2, "John, don't forget about the deadline for the report.", '2024-04-07 13:10:00'),
-    (1, 2, "Sarah, could you provide the latest sales figures?", '2024-04-08 17:00:00'),
-    (7, 2, "John, can we discuss the budget for next quarter?", '2024-04-09 10:30:00'),
-    (8, 2, "Lisa, have you finalized the contracts?", '2024-04-10 14:45:00'),
-    (9, 2, "Hey John, when are you available for a catch-up?", '2024-04-11 16:15:00'),
-    (2, 9, "Hey Joy, when are you available for a catch-up?", '2024-04-11 16:20:00'),
-    (7, 2, "Jessica, could you review the presentation slides?", '2024-04-12 11:00:00');
+INSERT INTO Messages (Sender, Receiver, ItemId, Content, Timestamp) VALUES
+    (1, 2, 2, "Hey Jane, did you receive my email?", '2024-04-01 08:30:00'),
+    (2, 2, 2, "Yes John, I got it. I'll reply soon.", '2024-04-02 10:15:00'),
+    (3, 2, 2, "Hello John, just checking in on the progress.", '2024-04-03 11:45:00'),
+    (6, 2, 2, "Hi Alex, the project is going well. Any updates from your end?", '2024-04-04 14:20:00'),
+    (4, 2, 2, "Hi John, could you please review the latest draft?", '2024-04-05 16:30:00'),
+    (1, 2, 2, "Hey Emily, can you attend the meeting tomorrow?", '2024-04-06 09:45:00'),
+    (5, 2, 2, "John, don't forget about the deadline for the report.", '2024-04-07 13:10:00'),
+    (1, 2, 2, "Sarah, could you provide the latest sales figures?", '2024-04-08 17:00:00'),
+    (7, 2, 2, "John, can we discuss the budget for next quarter?", '2024-04-09 10:30:00'),
+    (8, 2, 2, "Lisa, have you finalized the contracts?", '2024-04-10 14:45:00'),
+    (9, 2, 2, "Hey John, when are you available for a catch-up?", '2024-04-11 16:15:00'),
+    (9, 2, 1, "Hey John, when are you available for a catch-up?", '2024-04-11 16:15:00'),
+    (2, 9, 2, "Hey Joy, when are you available for a catch-up?", '2024-04-11 16:20:00'),
+    (7, 2, 2, "Jessica, could you review the presentation slides?", '2024-04-12 11:00:00');

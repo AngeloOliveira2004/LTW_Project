@@ -369,7 +369,7 @@
             $stmt = $this->conn->prepare("
             SELECT * FROM Messages
             WHERE Receiver = :userId
-            GROUP BY Sender
+            GROUP BY Sender,ItemId
             ORDER BY Timestamp DESC
         ");
             $stmt->bindParam(':userId', $userId);
@@ -380,10 +380,13 @@
             while($message = $stmt->fetch()) {
                 $sender = $this->getUserById($message['Sender']);
                 $receiver = $this->getUserById($message['Receiver']);
+                $item = $this->getItemById($message['ItemId']);
+                
                 $new_message = new Message(
                     $message['MessageId'],
                     $sender,
                     $receiver,
+                    $item,
                     $message['Content'],
                     $message['Timestamp']
                 );
@@ -396,17 +399,18 @@
         }
 
 
-        public function getMessagesSenderToUser($userId,$senderId) : array {
+        public function getMessagesSenderToUser($userId,$senderId,$itemId) : array {
             $stmt = $this->conn->prepare("
             SELECT * FROM Messages
-            WHERE Sender = :userId AND Receiver = :senderId
+            WHERE Sender = :userId AND Receiver = :senderId AND ItemId = :itemId
             UNION
             SELECT * FROM Messages
-            WHERE Sender = :senderId AND Receiver = :userId
+            WHERE Sender = :senderId AND Receiver = :userId AND ItemId = :itemId
             ORDER BY Timestamp ASC");
 
             $stmt->bindParam(':userId', $userId);
             $stmt->bindParam(':senderId', $senderId);
+            $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
 
             $messages = [];
@@ -414,10 +418,12 @@
             while($message = $stmt->fetch()) {
                 $sender = $this->getUserById($message['Sender']);
                 $receiver = $this->getUserById($message['Receiver']);
+                $item = $this->getItemById($message['ItemId']);
                 $new_message = new Message(
                     $message['MessageId'],
                     $sender,
                     $receiver,
+                    $item,
                     $message['Content'],
                     $message['Timestamp']
                 );
@@ -427,6 +433,21 @@
             }
             
             return $messages;
+        }
+
+        public function saveMessagesDb($senderId,$receiverId,$itemId,$message){
+            $timestamp = date("Y-m-d H:i:s");
+
+            $stmt = $this->conn->prepare("INSERT INTO Messages (Sender, Receiver, ItemId, Content, Timestamp) VALUES (:senderId, :receiverId, :itemId, :message_content, :time_now)");
+
+            $variable_temp = 2; //Change this after tests
+            $stmt->bindParam(':senderId', $variable_temp);
+            $stmt->bindParam(':receiverId', $receiverId);
+            $stmt->bindParam(':message_content', $message);
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->bindParam(':time_now', $timestamp);
+
+            $stmt->execute();
         }
     }
 ?>
