@@ -15,12 +15,8 @@
     <body>
         <?php
             include 'templates/header.php';
-        ?>x
+        ?>
 
-        <div class="item-container">
-            <?php
-        
-        require_once '../db_handler/DB.php';
         <section class="item-container">
 
             <?php
@@ -136,8 +132,8 @@
                 <?= $user_details->getAddress() ?>
             </section>
 
-            </section>
-            <?php
+        </section>
+        <?php
         include 'templates/footer.php';
     ?>
 
