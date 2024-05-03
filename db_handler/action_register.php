@@ -5,6 +5,7 @@ session_start();
 
 require_once(__DIR__ . '/connection.php');
 require_once(__DIR__ . '/user_Reg_info.php');
+require_once (__DIR__ . '/DB.php');
 
 $db = new DB();
 $dbh = $db->get_database_connection();

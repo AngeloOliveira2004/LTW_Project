@@ -1,3 +1,3 @@
 <?php 
-$login = 'userReg.php';
+$login = '/pages/userReg.php';
 header("Location: $login"); ?>

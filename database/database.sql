@@ -60,9 +60,9 @@ CREATE TABLE Items (
     Available BOOLEAN NOT NULL,
     AvailableForDelivery BOOLEAN NOT NULL , 
     SubCategory VARCHAR(50),
-    HasImage BOOLEAN NOT NULL,
-    UserId INTEGER NOT NULL,
+    NumberOfImages INTEGER,
 
+    UserId INTEGER NOT NULL,
     FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
 );
 
@@ -116,9 +116,12 @@ CREATE TABLE Messages(
     MessageId INTEGER PRIMARY KEY AUTOINCREMENT,
     Sender INTEGER,
     Receiver INTEGER,
+    ItemId INTEGER,
     Content TEXT,
+    Timestamp DATETIME,
     FOREIGN KEY (Receiver) REFERENCES Users(Id),
-    FOREIGN KEY (Sender) REFERENCES Users(Id)
+    FOREIGN KEY (Sender) REFERENCES Users(Id),
+    FOREIGN KEY (ItemId) REFERENCES Items(Id)
 );
 
 
@@ -157,29 +160,29 @@ VALUES
     ('jessica_white', 'jessica@example.com', '098f6bcd4621d373cade4e832627b4f6', 'Jessica', 'White', '852 Oak St, City, Country', '321789456');
     
 -- Inserting data into the Items table
-INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, AvailableForDelivery, Available, UserId)
+INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, AvailableForDelivery, Available, NumberOfImages , UserId)
 VALUES
-    ('Smartphone', 'High-end smartphone with advanced features', 'Samsung', 1, 799.99, 1, true, true, 1),
-    ('Laptop', 'Powerful laptop for work and entertainment', 'Dell', 1, 1299.99, 1, true, true, 1),
-    ('Headphones', 'Noise-cancelling headphones for immersive audio experience', 'Sony', 1, 249.99, 1, true, true, 2),
-    ('Book', 'Best-selling novel by a renowned author', 'Penguin', 2, 19.99, 1, true, true, 2),
-    ('Smartwatch', 'Smartwatch with health and fitness tracking features', 'Apple', 1, 299.99, 1, true, true, 3),
-    ('Tablet', 'Portable tablet for productivity and entertainment', 'Microsoft', 1, 499.99, 1, true, true, 3),
-    ('Camera', 'High-quality camera for capturing memories', 'Canon', 1, 699.99, 1, true, true, 4),
-    ('Gaming Console', 'Next-gen gaming console for immersive gaming experience', 'Nintendo', 1, 399.99, 1, true, true, 4),
-    ('Backpack', 'Durable backpack for everyday use', 'Jansport', 3, 49.99, 1, true, true, 5),
-    ('Sneakers', 'Stylish sneakers for casual wear', 'Nike', 3, 89.99, 1, true, true, 5),
-    ('Smart Speaker', 'Voice-controlled smart speaker for home entertainment', 'Amazon', 1, 129.99, 1, true, true, 6),
-    ('T-shirt', 'Comfortable cotton t-shirt for everyday wear', 'Adidas', 3, 29.99, 1, true, true, 6),
-    ('Coffee Maker', 'Automatic coffee maker for brewing delicious coffee', 'Keurig', 4, 149.99, 1, true, true, 7),
-    ('Vacuum Cleaner', 'High-powered vacuum cleaner for efficient cleaning', 'Dyson', 4, 299.99, 1, true, true, 7),
-    ('Wireless Mouse', 'Ergonomic wireless mouse for smooth navigation', 'Logitech', 1, 39.99, 1, true, true, 8),
-    ('Keyboard', 'Mechanical keyboard with customizable RGB lighting', 'Razer', 1, 99.99, 1, true, true, 8),
-    ('Hiking Boots', 'Sturdy hiking boots for outdoor adventures', 'Merrell', 3, 129.99, 1, true, true, 9),
-    ('Camping Tent', 'Spacious camping tent for overnight trips', 'Coleman', 5, 199.99, 1, true, true, 9),
-    ('Guitar', 'Acoustic guitar for playing beautiful melodies', 'Fender', 6, 399.99, 1, true, true, 10),
-    ('Drone', 'High-performance drone for aerial photography', 'DJI', 1, 799.99, 1, true, true, 10),
-    ('Large Description Item', 'This is a very large description item that is used to test long descriptions in the database. It may contain multiple paragraphs of text to demonstrate the handling of large text fields in the database.', 'TestBrand', 1, 999.99, 1, true, true, 1);
+    ('Smartphone', 'High-end smartphone with advanced features', 'Samsung', 1, 799.99, 1, true, true,5, 1),
+    ('Laptop', 'Powerful laptop for work and entertainment', 'Dell', 1, 1299.99, 1, true, true,1, 1),
+    ('Headphones', 'Noise-cancelling headphones for immersive audio experience', 'Sony', 1, 249.99, 1, true, true,1, 2),
+    ('Book', 'Best-selling novel by a renowned author', 'Penguin', 2, 19.99, 1, true, true,1, 2),
+    ('Smartwatch', 'Smartwatch with health and fitness tracking features', 'Apple', 1, 299.99, 1, true, true,1, 3),
+    ('Tablet', 'Portable tablet for productivity and entertainment', 'Microsoft', 1, 499.99, 1, true, true,1, 3),
+    ('Camera', 'High-quality camera for capturing memories', 'Canon', 1, 699.99, 1, true, true,1, 4),
+    ('Gaming Console', 'Next-gen gaming console for immersive gaming experience', 'Nintendo', 1, 399.99, 1, true, true,1, 4),
+    ('Backpack', 'Durable backpack for everyday use', 'Jansport', 3, 49.99, 1, true, true,1, 5),
+    ('Sneakers', 'Stylish sneakers for casual wear', 'Nike', 3, 89.99, 1, true, true,1, 5),
+    ('Smart Speaker', 'Voice-controlled smart speaker for home entertainment', 'Amazon', 1, 129.99, 1, true, true,1, 6),
+    ('T-shirt', 'Comfortable cotton t-shirt for everyday wear', 'Adidas', 3, 29.99, 1, true, true,1, 6),
+    ('Coffee Maker', 'Automatic coffee maker for brewing delicious coffee', 'Keurig', 4, 149.99, 1, true, true,1, 7),
+    ('Vacuum Cleaner', 'High-powered vacuum cleaner for efficient cleaning', 'Dyson', 4, 299.99, 1, true, true,1, 7),
+    ('Wireless Mouse', 'Ergonomic wireless mouse for smooth navigation', 'Logitech', 1, 39.99, 1, true, true,1, 8),
+    ('Keyboard', 'Mechanical keyboard with customizable RGB lighting', 'Razer', 1, 99.99, 1, true, true,1, 8),
+    ('Hiking Boots', 'Sturdy hiking boots for outdoor adventures', 'Merrell', 3, 129.99, 1, true, true,1, 9),
+    ('Camping Tent', 'Spacious camping tent for overnight trips', 'Coleman', 5, 199.99, 1, true, true,1, 9),
+    ('Guitar', 'Acoustic guitar for playing beautiful melodies', 'Fender', 6, 399.99, 1, true, true,1, 10),
+    ('Drone', 'High-performance drone for aerial photography', 'DJI', 1, 799.99, 1, true, true,1, 10),
+    ('Large Description Item', 'This is a very large description item that is used to test long descriptions in the database. It may contain multiple paragraphs of text to demonstrate the handling of large text fields in the database.', 'TestBrand', 1, 999.99, 1, true, true,1, 1);
 
 -- Inserting data into the OrderHistory table
 INSERT INTO OrderHistory (UserId, OrderDate, TotalPrice, Status)
@@ -206,16 +209,18 @@ INSERT INTO Reviews (Rating, Comment, Author, UserReviewed, ReviewDate) VALUES
 (5.0, 'Excellent service!', 2, 1, '2024-04-22');
 
 -- Inserting data into the Messages table
-INSERT INTO Messages (Sender, Receiver, Content) VALUES
-    (1, 2, "Hey Jane, did you receive my email?"),
-    (2, 1, "Yes John, I got it. I'll reply soon."),
-    (3, 1, "Hello John, just checking in on the progress."),
-    (1, 3, "Hi Alex, the project is going well. Any updates from your end?"),
-    (4, 1, "Hi John, could you please review the latest draft?"),
-    (1, 4, "Hey Emily, can you attend the meeting tomorrow?"),
-    (5, 1, "John, don't forget about the deadline for the report."),
-    (1, 6, "Sarah, could you provide the latest sales figures?"),
-    (7, 1, "John, can we discuss the budget for next quarter?"),
-    (1, 8, "Lisa, have you finalized the contracts?"),
-    (9, 1, "Hey John, when are you available for a catch-up?"),
-    (1, 10, "Jessica, could you review the presentation slides?");
+INSERT INTO Messages (Sender, Receiver, ItemId, Content, Timestamp) VALUES
+    (1, 2, 2, "Hey Jane, did you receive my email?", '2024-04-01 08:30:00'),
+    (2, 2, 2, "Yes John, I got it. I'll reply soon.", '2024-04-02 10:15:00'),
+    (3, 2, 2, "Hello John, just checking in on the progress.", '2024-04-03 11:45:00'),
+    (6, 2, 2, "Hi Alex, the project is going well. Any updates from your end?", '2024-04-04 14:20:00'),
+    (4, 2, 2, "Hi John, could you please review the latest draft?", '2024-04-05 16:30:00'),
+    (1, 2, 2, "Hey Emily, can you attend the meeting tomorrow?", '2024-04-06 09:45:00'),
+    (5, 2, 2, "John, don't forget about the deadline for the report.", '2024-04-07 13:10:00'),
+    (1, 2, 2, "Sarah, could you provide the latest sales figures?", '2024-04-08 17:00:00'),
+    (7, 2, 2, "John, can we discuss the budget for next quarter?", '2024-04-09 10:30:00'),
+    (8, 2, 2, "Lisa, have you finalized the contracts?", '2024-04-10 14:45:00'),
+    (9, 2, 2, "Hey John, when are you available for a catch-up?", '2024-04-11 16:15:00'),
+    (9, 2, 1, "Hey John, when are you available for a catch-up?", '2024-04-11 16:15:00'),
+    (2, 9, 2, "Hey Joy, when are you available for a catch-up?", '2024-04-11 16:20:00'),
+    (7, 2, 2, "Jessica, could you review the presentation slides?", '2024-04-12 11:00:00');

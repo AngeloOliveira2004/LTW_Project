@@ -18,6 +18,7 @@
             $item->getAvailable(),
             $item->isAvailableForDelivery(), 
             $item->getSubCategory(), 
+            $item->getNumberOfImages(),
             $item->getUserId(),
         ];
     }

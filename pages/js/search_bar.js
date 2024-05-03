@@ -432,7 +432,7 @@ function render_items() {
 
         // Fetch the item photo
         const itemId = item[0]; // Assuming item id is in the first index
-        const itemPhotoUrl = `../assets/items/${itemId}.png`; // Construct the URL
+        const itemPhotoUrl = `../assets/items/${itemId}-1.png`; // Construct the URL
         const itemPhoto = document.createElement('img');
         itemPhoto.src = itemPhotoUrl;
         itemPhoto.classList.add('item-photo');
@@ -484,7 +484,7 @@ function render_items() {
 
         // Fetch the item photo
         const itemId = item[0]; // Assuming item id is in the first index
-        const itemPhotoUrl = `../assets/items/${itemId}.png`; // Construct the URL
+        const itemPhotoUrl = `../assets/items/${itemId}-1.png`; // Construct the URL
         const itemPhoto = document.createElement('img');
         itemPhoto.src = itemPhotoUrl;
         itemPhoto.classList.add('item-photo');

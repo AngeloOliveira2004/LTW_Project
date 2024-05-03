@@ -168,6 +168,9 @@ foreach ($randomItems as $item) {
             <div class='item'>
                 <?php
             $itemImagePath = "../assets/items/{$item->getId()}.png";
+    <div class='item'>
+        <?php
+            $itemImagePath = "../assets/items/{$item->getId()}-1.png";
             $errorImagePath = "../assets/items/error.png";
 
             if (file_exists($itemImagePath)) {
