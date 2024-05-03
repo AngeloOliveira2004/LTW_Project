@@ -1,6 +1,8 @@
 let senderId;
 let itemId;
 
+setInterval(fetchMessagesFromSender(senderId), 5000);
+
 
 function displayMessages(messages) {
     let messagesContainer = document.querySelector('.user-messages');
@@ -21,7 +23,7 @@ function displayMessages(messages) {
         }
 
         let messageHTML = `
-            <img src="../assets/users/${senderId2}.png">
+            <h5><img src="../assets/users/${senderId2}.png"> @${message.sender.Username}</h5>
             <div class="message-content">${messageText}</div>
             <div class="message-timestamp">${timestamp}</div>
         `;
