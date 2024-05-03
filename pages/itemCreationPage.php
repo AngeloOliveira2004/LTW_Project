@@ -6,6 +6,7 @@
     <title>ItemCreationPage</title>
 
     <link href="../../css/itemCreation.css" rel="stylesheet">
+    <script src="js/itemCreation.js"></script>
     
 </head>
 
@@ -39,8 +40,14 @@
             <p class = "images">Imagens</p>
             <p class = "images_text">A primeira imagem é a foto principal do teu anúncio. Podes inserir outras 15</p>
             <?php for ($i = 1; $i <= 15; $i++): ?>
+                
                 <input class ="image_inputer" type="file" id="image<?= $i ?>" name="image<?= $i ?>" accept="image/*">
-                <label class = "image_icon" for="image<?= $i ?>"><img src="../assets/camera.png" alt="Camera Icon"></label><br>
+                <label class="image_icon" for="image<?= $i ?>">
+                    <img src="../assets/camera.png" alt="Camera Icon" id ="selected_image<?= $i ?>" class="selected_image<?= $i ?>" >
+
+                </label><br>
+                </label><br>
+                
             <?php endfor; ?>
         </section>
 
