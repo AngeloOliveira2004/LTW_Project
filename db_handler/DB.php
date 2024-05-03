@@ -343,7 +343,7 @@
             $stmt = $this->conn->prepare("
             SELECT * FROM Messages
             WHERE Receiver = :userId
-            GROUP BY Sender
+            GROUP BY Sender,ItemId
             ORDER BY Timestamp DESC
         ");
             $stmt->bindParam(':userId', $userId);
@@ -373,17 +373,18 @@
         }
 
 
-        public function getMessagesSenderToUser($userId,$senderId) : array {
+        public function getMessagesSenderToUser($userId,$senderId,$itemId) : array {
             $stmt = $this->conn->prepare("
             SELECT * FROM Messages
-            WHERE Sender = :userId AND Receiver = :senderId
+            WHERE Sender = :userId AND Receiver = :senderId AND ItemId = :itemId
             UNION
             SELECT * FROM Messages
-            WHERE Sender = :senderId AND Receiver = :userId
+            WHERE Sender = :senderId AND Receiver = :userId AND ItemId = :itemId
             ORDER BY Timestamp ASC");
 
             $stmt->bindParam(':userId', $userId);
             $stmt->bindParam(':senderId', $senderId);
+            $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
 
             $messages = [];

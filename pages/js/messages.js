@@ -9,7 +9,6 @@ function displayMessages(messages) {
     messages.forEach(function(message) {
         let messageDiv = document.createElement('div');
 
-
         let receiverId = message.receiver.Id;
         let senderId2 = message.sender.Id;
         let messageText = message.text;
@@ -31,6 +30,8 @@ function displayMessages(messages) {
 
         messagesContainer.appendChild(messageDiv);
     });
+
+    scrollToBottom();
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function fetchMessagesFromSender(senderId) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../db_handler/fetch_messages.php?senderId=' + senderId, true);
+    xhr.open('GET', '../../db_handler/fetch_messages.php?senderId=' + senderId + '&itemId=' + itemId, true);
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
             let messages = JSON.parse(xhr.responseText);
@@ -55,7 +56,6 @@ function fetchMessagesFromSender(senderId) {
     };
     xhr.send();
 }
-
 
 document.addEventListener("DOMContentLoaded", function(){
     const messageForm = document.querySelector('.text-box');
@@ -91,3 +91,8 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 });
+
+function scrollToBottom() {
+    let scrollToBottom = document.querySelector(".user-messages");
+    scrollToBottom.scrollTop = scrollToBottom.scrollHeight;
+}
