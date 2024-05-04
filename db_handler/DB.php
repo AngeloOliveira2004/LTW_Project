@@ -343,7 +343,8 @@
             return $reviews;
         }
 
-        public function getUserByEmail($email) : User {
+        public function 
+        getUserByEmail($email) : User {
             $stmt = $this->conn->prepare("SELECT * FROM Users WHERE Email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
