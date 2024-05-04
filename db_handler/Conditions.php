@@ -1,6 +1,6 @@
 <?php
 
-class Conditions {
+class Condition {
     private $id;
     private $name;
 

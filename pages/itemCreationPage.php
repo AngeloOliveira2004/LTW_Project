@@ -18,7 +18,7 @@
 
         $db = new Database("../database/database.db");
 
-        $allItems = $db->getItems();
+                $allItems = $db->getItems();
 
         $categoryCounts = array();
         foreach ($allItems as $item) {
@@ -33,27 +33,17 @@
 
         $topCategories = array_slice($categoryCounts, 0, 7);
 
-
-
+        $topCategoriesNames = array(); 
         foreach ($topCategories as $category => $count) {
-            $catName = $db->getCategoryById($category);
-            $topCategoriesNames[] = $catName;
+            $catName = $db->getCategoryNameById($category);
+            if($catName != null)
+                $topCategoriesNames[$catName] = $count;
         }
+
 
         $topCategories = $topCategoriesNames;
 
-        $subCategoryCounts = array();
-        foreach ($allItems as $item) {
-            $subCategory = $item->getSubcategory();
-            if (!isset($subCategoryCounts[$subCategory])) {
-                $subCategoryCounts[$subCategory] = 0;
-            }
-            $subCategoryCounts[$subCategory]++;
-        }
-
-        arsort($subCategoryCounts);
-
-        $topSubCategories = array_slice($subCategoryCounts, 0, 7);
+       
     ?>
     
 
@@ -61,23 +51,20 @@
     <div class="ItemCreation">
 
     <section class="Item-Title-And-Categories">
-        <p>Primeiro, introduz um título*</p>
+        <p class="title">Primeiro, introduz um título*</p>
         <p class="box_title">Tenta ser o mais descritivo e apelativo possível</p>
         <input type="text" class="Item-Title">
         
+        <div class = "words-details">
+            <p>Introduz pelo menos 1 caractér</p>
+            <p class = "word-count">0/50 letras</p>
+        </div>
+
         <div class="category-container">
-            <p class="Category_choice">Escolha até 3 Categorias</p>
+            <p class="Category_choice">Escolha uma Categorias</p>
             <input type="text" placeholder="Escolhe uma categoria?" class="search_category">
             <div class="suggestions">
                 <?php
-                foreach ($topCategories as $category => $count) {
-                    echo "<div class='category-option' value='$category'>$category</div>";
-                }
-
-                foreach ($topCategories as $category => $count) {
-                    echo "<div class='category-option' value='$category'>$category</div>";
-                }
-
                 foreach ($topCategories as $category => $count) {
                     echo "<div class='category-option' value='$category'>$category</div>";
                 }
@@ -89,6 +76,18 @@
         <input type="text" placeholder="Escolhe uma categoria?" class="sub_search_category">
         <div class="sub_suggestions">
             <?php
+            $selectedCategoryId = isset($_POST['selected_category_id']) ? $_POST['selected_category_id'] : null;
+
+            $topSubCategories = array();
+    
+            if ($selectedCategoryId !== null) {
+                $subCategories = $db->getSubCategoriesByParent($selectedCategoryId);
+    
+                foreach ($subCategories as $subcategory) {
+                    $topSubCategories[$subcategory['Name']] = $subcategory['Count'];
+                }
+            } 
+
             foreach ($topSubCategories as $category => $count) {
                 echo "<div class='category-option' value='$category'>$category</div>";
             }
@@ -108,29 +107,63 @@
         </section>
 
         <section class="Item-Description">
-            <p>Introduza uma boa descrição do item!*</p>
-            <input type="text" class="Item-Description">
-            <p>Introduza no mínimo 10 caracteres e no máximo 1000</p>
+            <p class = "item-description">Introduza uma boa descrição do item!<span>*</span></p>
+            <textarea class="description-text" placeholder="Introduza no mínimo 10 caracteres e no máximo 1000"></textarea>
+            <div class="word-details">
+                <p class = "min_words">Introduz pelo menos 10 caracteres</p>
+                <p class="word-counter">0/200 palavras</p>
+            </div>
         </section>
+
 
         <section class="Item-Price-Trade">
-            <p class="Preço">Preço:</p>
-            <input type="text" class="Preço">
-            <button class="Negociável">Negociável</button>
+            <p class="Preço">Preço (EUR) :</p>
+            <input type="text" class="Preço_">
+            <div class="toggle-button-wrapper">
+                <p class ="Negociável" > Negociável: </p>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
         </section>
 
-        <section class="Additional-Info">
-            <p>Tamanho</p>
-            <ul class="sizes"></ul>
 
-            <p>Marca*</p>
+
+        <section class="Additional-Info">
+            <?php
+                require_once '../db_handler/DB.php';
+
+                $db = new Database("../database/database.db");
+
+                $allSizes = $db->getSizes();
+                $allModels = $db->getConditions();
+
+
+            ?>
+
+            <p class = "size">Tamanho</p>
+            <input type="text" class="Tamanho">
+            <ul class="sizes">
+                <?php 
+                    foreach ($allSizes as $size) {
+                        echo "<li class='size_list' value='{$size->getId()}'>{$size->getName()}</li>";
+                    }
+                ?>
+            </ul>
+
+            <p id = "brand">Marca*</p>
             <input type="text" class="Marca">
 
-            <p>Modelo</p>
-            <input type="text" class="Modelo">
-
-            <p>Estado*</p>
+            <p class = "condition" >Estado*</p>
             <input type="text" class="Estado">
+            <ul class = "conditions">
+                <?php 
+                    foreach ($allModels as $model) {
+                        echo "<li class='condition_list' value='{$model->getId()}'>{$model->getName()}</li>";
+                    }
+                ?>
+            </ul>
         </section>
 
         <section>

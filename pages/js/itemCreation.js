@@ -1,5 +1,8 @@
 let inputedImages = [];
 
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
   var searchInput = document.querySelector(".search_category");
   var suggestions = document.querySelector(".suggestions");
@@ -89,4 +92,151 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var searchInput = document.querySelector(".search_category");
+  var suggestions = document.querySelector(".suggestions");
+  var suggestionOptions = suggestions.querySelectorAll(".category-option");
+
+  searchInput.addEventListener("input", function() {
+      var searchText = searchInput.value.toLowerCase();
+      suggestionOptions.forEach(function(option) {
+          var optionText = option.textContent.toLowerCase();
+          if (optionText.includes(searchText)) {
+              option.style.display = "block";
+          } else {
+              option.style.display = "none";
+          }
+      });
+  });
+
+  suggestionOptions.forEach(function(option) {
+      option.addEventListener("click", function() {
+          searchInput.value = option.textContent;
+          suggestions.style.display = "none";
+      });
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var subSearchInput = document.querySelector(".sub_search_category");
+  var subSuggestions = document.querySelector(".sub_suggestions");
+  var subSuggestionOptions = subSuggestions.querySelectorAll(".subcategory-option");
+
+  subSearchInput.addEventListener("input", function() {
+      var searchText = subSearchInput.value.toLowerCase();
+      subSuggestionOptions.forEach(function(option) {
+          var optionText = option.textContent.toLowerCase();
+          if (optionText.includes(searchText)) {
+              option.style.display = "block";
+          } else {
+              option.style.display = "none";
+          }
+      });
+  });
+
+  subSuggestionOptions.forEach(function(option) {
+      option.addEventListener("click", function() {
+          subSearchInput.value = option.textContent;
+          subSuggestions.style.display = "none";
+      });
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var subSearchInput = document.querySelector(".sub_search_category");
+
+  subSearchInput.addEventListener("click", function() {
+      var inputValue = subSearchInput.value.trim(); 
+    
+      if (inputValue === "") {
+          alert("You must pick a valid category first.");
+      }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var titleInput = document.querySelector(".Item-Title");
+  var wordCount = document.querySelector(".word-count");
+
+  titleInput.addEventListener("input", function(event) {
+      var inputLength = titleInput.value.length;
+
+      wordCount.textContent = inputLength + "/50 letras";
+
+      if (inputLength >= 50) {
+          event.preventDefault();
+          titleInput.value = titleInput.value.substring(0, 50);
+      }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var descriptionInput = document.querySelector(".description-text");
+  var wordCount = document.querySelector(".word-counter");
+
+
+  descriptionInput.addEventListener("input", function() {
+      var words = descriptionInput.value.trim().split(/\s+/).filter(Boolean); 
+      var wordLength = words.length;
+
+      wordCount.textContent = wordLength + "/200 palavras";
+
+      if (wordLength > 200) {
+          event.preventDefault();
+          descriptionInput.value = words.slice(0, 200).join(" ");
+          
+      }
+  });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var tamanhoInput = document.querySelector(".Tamanho");
+  var tamanhoDropdown = document.querySelector(".sizes");
+  var estadoInput = document.querySelector(".Estado");
+  var conditionsDropdown = document.querySelector(".conditions");
+
+  
+  tamanhoInput.addEventListener("click", function() {
+      tamanhoDropdown.style.display = tamanhoDropdown.style.display === "block" ? "none" : "block";
+  });
+
+
+  estadoInput.addEventListener("click", function() {
+      conditionsDropdown.style.display = conditionsDropdown.style.display === "block" ? "none" : "block";
+  });
+
+  tamanhoInput.addEventListener("keydown", function(event) {
+      event.preventDefault();
+  });
+
+  estadoInput.addEventListener("keydown", function(event) {
+      event.preventDefault();
+  });
+
+  tamanhoDropdown.addEventListener("click", function(event) {
+    var clickedElement = event.target.closest("li.size_list");
+    if (clickedElement) {
+        tamanhoInput.value = clickedElement.textContent;
+        tamanhoDropdown.style.display = "none";
+    }
+});
+
+conditionsDropdown.addEventListener("click", function(event) {
+    var clickedElement = event.target.closest("li.condition_list");
+    if (clickedElement) {
+        estadoInput.value = clickedElement.textContent;
+        conditionsDropdown.style.display = "none";
+    }
+});
+
 });
