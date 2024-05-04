@@ -115,6 +115,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    const reveal_button = document.getElementById("message_button");
+    reveal_button.addEventListener("click", sendMessage);
+
+    function sendMessage() {
+        const user_info = document.getElementById("user_info");
+        const itemImage = document.getElementById("item_image");
+        id_plus_numberOfphotos = itemImage.className;
+        const itemId = itemImage.className.split("-")[0];
+        let receiverId = user_info.getAttribute('data-user-id');
+        console.log(itemId);
+        console.log(receiverId);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../db_handler/send_message_item.php', true);
+
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                console.log(xhr.responseText);
+                window.location.href = "../pages/messages.php";
+            }
+        };
+        xhr.send('receiverId=' + encodeURIComponent(receiverId)
+        + '&itemId=' + encodeURIComponent(itemId));
+    }
+});
+
+
+
+
 /*
 const prevPageBtn = document.getElementById("prevPage");
     const nextPageBtn = document.getElementById("nextPage");

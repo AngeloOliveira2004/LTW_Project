@@ -103,7 +103,7 @@
             </section>
 
             <section class="contact_user_section">
-    <div class="user_info">
+    <div class="user_info" id="user_info" data-user-id="<?=$user_details->getId() ?>">
         <div class="user_image_container">
             <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>" id="user_image">
         </div>
@@ -121,7 +121,7 @@
 
 
             <section class="title_price_section">
-                <div class="title_price_section_box">
+                <div class="title_price_section_box" id="item-id" data-item-id="<?= $item->getId() ?>">
                     <div class="item_details">
                         <p class="Item_name"> <?= $name ?></p>
                         <p class="Item_Price"> <?= $price ?> EUR</p>
@@ -134,7 +134,7 @@
                             <img src="../assets/cart.png" class ="shopping_cart" alt="shopping_cart">
                         </button>
                     </div>
-                    <i class="fa-regular fa-heart" data-item-id="<?= $item->getId() ?>"></i>
+                    <i class="fa-regular fa-heart"></i>
                 </div>
                 
             </section>
