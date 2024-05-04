@@ -1,8 +1,7 @@
 let senderId;
 let itemId;
 
-// setInterval(function() {fetchMessagesFromSender(senderId);}, 5000);
-// setInterval(function() {fetchSideMessages();}, 5000);
+setInterval(function() {fetchMessagesFromSender(senderId);}, 5000);
 
 
 function displayMessages(messages) {
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function fetchMessagesFromSender(senderId) {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('GET', '../../db_handler/fetch_messages.php?senderId=' + senderId + '&itemId=' + itemId, true);
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
@@ -102,7 +101,7 @@ function scrollToBottom() {
 
 
 function fetchSideMessages() {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('GET', '../../db_handler/fetch_side_messages.php?' ,true);
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
@@ -115,7 +114,6 @@ function fetchSideMessages() {
 
 function displaySideMessages(messages) {
     let messagesContainer = document.querySelector('.user-messages');
-    messagesContainer.innerHTML = '';
 
     messages.forEach(function(message) {
         let sender = message.sender;
@@ -157,3 +155,4 @@ function displaySideMessages(messages) {
 
     scrollToBottom();
 }
+
