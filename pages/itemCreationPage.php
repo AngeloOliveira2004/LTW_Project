@@ -166,10 +166,13 @@
             </ul>
         </section>
 
-        <section>
-            <p>Pré Visualizar</p>
-            <button class ="Publicar">Publicar anúncio</button>
+        <section >
+            <div class ="pre_visualizar_publicar_section">
+                <p class ="pre_visualizar">Pré Visualizar</p>
+                <button class ="Publicar">Publicar anúncio</button>
+            </div>
         </section>
+
         </div>
         <?php
             include 'templates/footer.php';

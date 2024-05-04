@@ -525,3 +525,44 @@ li{
     padding-left: 0;
     padding-bottom: 1em;
 }
+
+/*-----------------Publicar-----------------*/
+
+.pre_visualizar_publicar_section{
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    padding: 2em;
+    background-color: #CBE896;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 45%;
+    width: 100%;
+}
+
+.pre_visualizar {
+    font-size: 1.5em;
+    color: #0B6E4F;
+    font-weight: 600;
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    padding-left: 0;
+    padding-bottom: 0.1em;
+    margin-right: 3em;
+    margin-left: 1em;
+}
+
+.pre_visualizar:hover {
+    cursor: pointer;
+    transform: scale(0.95); 
+}
+
+.Publicar{
+    font-size: 1.5em;
+    color: #0B6E4F;
+    font-weight: 600;
+    padding: 0.5em;
+    background-color: white;
+    margin-right: 1em;
+    cursor: pointer;
+}

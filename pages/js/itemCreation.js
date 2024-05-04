@@ -240,3 +240,72 @@ conditionsDropdown.addEventListener("click", function(event) {
 });
 
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var publicarBtn = document.querySelector(".Publicar");
+
+  publicarBtn.addEventListener("click", function() {
+      // Gather all the information from the form fields
+      var title = document.querySelector(".Item-Title").value;
+      var category = document.querySelector(".search_category").value;
+      var subCategory = document.querySelector(".sub_search_category").value;
+      var description = document.querySelector(".description-text").value;
+      var price = document.querySelector(".Preço_").value;
+      var negociavel = document.querySelector(".toggle-button-wrapper input[type='checkbox']").checked;
+      var tamanho = document.querySelector(".Tamanho").value;
+      var marca = document.querySelector(".Marca").value;
+      var estado = document.querySelector(".Estado").value;
+
+      if (title.trim() === "" || category.trim() === "" || description.trim() === "" || price.trim() === "" || marca.trim() === "" || estado.trim() === "") {
+          alert("Por favor, preencha todos os campos obrigatórios.");
+          return;
+      }
+
+
+      let numberOfImages = 0;
+      let imageFiles = [];
+
+      for (let i = 1; i <= 15; i++) {
+        const imageHolder = document.getElementById('selected_image' + i);
+        const src = imageHolder.src;
+        const fileName = src.substring(src.lastIndexOf('/') + 1);
+
+        if (fileName === 'camera.png') {
+          continue;
+        } else {
+          numberOfImages++;
+          imageFiles.push(imageHolder.files[0]);
+        }
+      }
+
+      inputedImages.forEach(function(image, index) {
+        if (image.name !== 'camera.png') {
+
+          var formData = new FormData();
+          
+          formData.append('image', image);
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '../assets', true);
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              console.log('Image ' + (index + 1) + ' saved successfully');
+            }
+          };
+          xhr.send(formData);
+        }
+      });
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "js/add_item.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              console.log(xhr.responseText);
+          }
+      };
+      xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&negociavel=" + (negociavel ? "1" : "0") + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
+        + "&imagesSizes=" + numberOfImages + "&images=" + imageFiles);
+      
+  });
+});
