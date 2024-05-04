@@ -96,7 +96,7 @@
                     <p class="Item_Brand"> <?= $brand ?></p>
                     <p> <?= $item->getSubcategory() ?></p>
 
-                    <?php if (!$item->isAvailableForDelivery()): ?>
+                    <?php if ($item->isAvailableForDelivery()): ?>
                     <img src="../assets/local_shipping_FILL0_wght400_GRAD0_opsz24.png" alt="shipping" class="shipping">
                     <?php else: ?>
                     <img src="../assets/no_shipping.png" alt="no shipping" class="shipping">
@@ -109,23 +109,44 @@
             </section>
 
             <section class="contact_user_section">
-                <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>"
-                    id="user_image">
-                <p><?= $user_details->getUsername() ?></p>
-                <p>last time online</p>
-                <button>
-                    Enviar Mensagem
-                </button>
+                <div class="user_info">
+                    <div class="user_image_container">
+                        <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>"
+                            id="user_image">
+                    </div>
+                    <div class="user_details">
+                        <p class="username"><?= $user_details->getUsername() ?></p>
+                        <p class="last_online">last time online</p>
+                        <div class="phone_container">
+                            <img src="../assets/phone.png" alt="Phone Icon" class="phone_icon">
+                            <p class="phone_number"><?= $user_phonenumber ?></p>
+                        </div>
+                    </div>
+                </div>
+                <button id="message_button" class="message_button">Enviar Mensagem</button>
             </section>
 
+
             <section class="title_price_section">
-                <p>Nome: <?= $name ?></p>
-                <p>Preço: <?= $price ?> EUR</p>
+                <div class="title_price_section_box">
+                    <div class="item_details">
+                        <p class="Item_name"> <?= $name ?></p>
+                        <p class="Item_Price"> <?= $price ?> EUR</p>
+                    </div>
+                    <div class="button_container">
+                        <input type="text" placeholder="Propor Outro Preço" class="price_input">
+                        <button class="propose_button">Propor Preço</button>
+                        <form class="shoppingcart" action="../../db_handler/action_shoppingcart.php" method="post">
+                            <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
+                            <button class="checkout">
+                                Adicionar ao carrinho?
+                                <img src="../assets/cart.png" class="shopping_cart" alt="shopping_cart">
+                            </button>
+                        </form>
+                    </div>
+                    <i class="fa-regular fa-heart" data-item-id="<?= $item->getId() ?>"></i>
+                </div>
 
-                <button>Propor Preço</button>
-
-                <span id="user_phonenumber"><?= $user_phonenumber ?></span>
-                <button id="reveal-num-button">Reveal Number</button>
             </section>
 
 

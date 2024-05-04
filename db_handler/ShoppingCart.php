@@ -14,12 +14,12 @@ class ShoppingCartItem {
     {
         return $this->CartItemId;
     }
-    public function setUserId($UserId)
-    {
-        $this->UserId = $UserId;
-    }
+
     public function getUserId(){
         return $this->UserId;
+    }
+    public function getItemId(){
+        return $this->ItemId;
     }
 }
 

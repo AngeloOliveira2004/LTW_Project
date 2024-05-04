@@ -13,13 +13,20 @@ if (!isset($_SESSION['userId'])) {
     exit();
 }
 
-$userId = $_SESSION["userId"];
+// Obtém o ID do usuário logado
+$userId = $_SESSION['userId'];
 
-$itemId = $_POST["itemId"] ?? null;
-
+// Obtém o ID do item a ser adicionado à Wishlist
+$itemId = $_POST['itemId'] ?? null; 
+$dB = new Database("../database/database.db");
 $db = new DB();
 
 $dbh = $db->get_database_connection();
 
-$wishlistItem = new WishlistItem(null, $itemId, $userId);
+$shoppingcartItem = new ShoppingCartItem(null, $userId, $itemId);
+
+add_item_shopping_cart($dbh, $shoppingcartItem);
+header("Location: ../pages/shopping.php");
+
+exit();
 ?>

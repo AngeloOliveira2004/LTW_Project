@@ -11,11 +11,10 @@ function add_item_to_wishlist($dbh, WishlistItem $wishlistItem): void {
 }
 
 
-function add_item_shopping_cart($dbh, $CartItemId, ShoppingCartItem $shoppingCartItem): void
+function add_item_shopping_cart($dbh,ShoppingCartItem $shoppingCartItem): void
 {
-$query = $dbh->prepare('INSERT INTO ShoppingCart(UserId, ItemId);');
-$query->execute(array($shoppingCartItem->getUserId()));
-header('Location: Shoppingcart.php');
+        $query = $dbh->prepare('INSERT INTO ShoppingCart (UserId, ItemId) VALUES (?, ?);');
+        $query->execute([$shoppingCartItem->getUserId(), $shoppingCartItem->getItemId()]);
 }
 
 ?>

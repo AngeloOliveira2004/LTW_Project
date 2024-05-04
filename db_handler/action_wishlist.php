@@ -33,7 +33,7 @@ $wishlistItem = new WishlistItem(null, $userId, $itemId);
 add_item_to_wishlist($dbh, $wishlistItem);
 
 // Redireciona de volta para a página de origem
-header("Location: ../pages/wishlist.php");
+header("Location: ../pages/homepage.php");
 exit();
 
 ?>
