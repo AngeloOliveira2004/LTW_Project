@@ -343,8 +343,8 @@
             $stmt = $this->conn->prepare("
             SELECT * FROM Messages
             WHERE Receiver = :userId
-            GROUP BY Sender,ItemId
-            ORDER BY Timestamp DESC
+            GROUP BY Sender,Receiver,ItemId
+            ORDER BY MAX(Timestamp) DESC
         ");
             $stmt->bindParam(':userId', $userId);
             $stmt->execute();
