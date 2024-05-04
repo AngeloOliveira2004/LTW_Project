@@ -121,6 +121,7 @@ a{
     background-color: #CBE896;
     border-radius: 50%;
 }
+
 .image-container:after {
     content: "";
     display: block;

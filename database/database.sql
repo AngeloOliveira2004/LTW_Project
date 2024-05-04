@@ -19,7 +19,7 @@ CREATE TABLE Categories (
 );
 
 CREATE TABLE Subcategory(
-    SUbCategoryId INTEGER PRIMARY KEY AUTOINCREMENT,
+    SubCategoryId INTEGER PRIMARY KEY AUTOINCREMENT,
     ParentCategory INTEGER,
     Name VARCHAR(50) UNIQUE NOT NULL,
     FOREIGN KEY (ParentCategory) REFERENCES Categories(CategoryId)
