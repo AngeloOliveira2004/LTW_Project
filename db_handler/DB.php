@@ -38,6 +38,23 @@
             return $this->conn;
         }
 
+        public function getCategoryNameById($id) : string{
+            $stmt = $this->conn->prepare("SELECT * FROM categories WHERE CategoryId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return $row['Name'];
+        }
+
+        public function getSubCategoryNameById($id) : string{
+            $stmt = $this->conn->prepare("SELECT * FROM Subcategory WHERE SUbCategoryId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return $row['Name'];
+        }
+
+
         public function getItemById($id) : Item {
             $stmt = $this->conn->prepare("SELECT * FROM items WHERE id = :id");
             $stmt->bindParam(':id', $id);
@@ -59,6 +76,31 @@
                 $row['NumberOfImages'],
                 $row['UserId']
             );
+        }
+
+        public function getXRandomSubCategories(int $x) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Subcategory ORDER BY RANDOM() LIMIT :x");
+            $stmt->bindParam(':x', $x);
+            $stmt->execute();
+            $subCategories = [];
+            while ($row = $stmt->fetch()) {
+                $subCategories[] = new SubCategory($row['SUbCategoryId'], $row['ParentCategory'], $row['Name']);
+            }
+            return $subCategories;
+        }
+
+        public function getXRandomCategories(int $x) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM categories ORDER BY RANDOM() LIMIT :x");
+            $stmt->bindParam(':x', $x);
+            $stmt->execute();
+            $categories = [];
+            while ($row = $stmt->fetch()) {
+                $categories[] = [
+                    'id' => $row['CategoryId'],
+                    'name' => $row['Name']
+                ];
+            }
+            return $categories;
         }
 
         public function getSubCategoryById($id) : SubCategory {
