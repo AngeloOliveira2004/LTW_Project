@@ -1,6 +1,6 @@
 <?php
 
-class Sizes {
+class Size {
     private $id;
     private $name;
 

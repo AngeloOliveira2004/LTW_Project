@@ -112,6 +112,9 @@
   grid-row: 2;
   grid-column: 2;
   background-color: #CBE896;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .location_section {
@@ -207,10 +210,11 @@
   margin-right: 10px;
 }
 
-.user_image {
-  width: 50px; /* Adjust as needed */
-  height: 50px; /* Adjust as needed */
-  border-radius: 50%; /* To make it circular */
+#user_image {
+  width: 70px; /* Adjust image size as needed */
+  height: 70px; /* Adjust image size as needed */
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .user_details {
@@ -218,10 +222,20 @@
   flex-direction: column;
 }
 
-.username {
+.user_name {
   font-weight: bold;
 }
 
+.Averages {
+  margin-top: 5px;
+}
+
+/* Adjust these styles for the star icon */
+.starIcon {
+  color: gold;
+}
+
+/*------------------------------------*/
 .last_online {
   color: #888;
 }
@@ -438,4 +452,43 @@
 .fa-heart-filled {
   /* Add your filled heart icon styles here */
   color: red; /* Change the color as desired for the filled heart */
+}
+
+.user_name {
+  font-weight: bold;
+  font-size: 1.25em; 
+}
+
+.Averages {
+  margin-top: 0.625em;
+  font-size: 1.125em; 
+}
+
+
+.stars::before {
+  content: "★★★★★";
+  color: #0B6E4F;
+}
+
+.stars {
+  position: relative;
+  display: inline-block;  
+  overflow: hidden;
+}
+
+
+.Items_From_The_Same_User{
+  font-size: 2em;
+  font-weight: 500;
+  color: #0B6E4F;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  margin-left: 10%;
+}
+
+.line{
+  border: 1px solid #0B6E4F;
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 1em;
 }
