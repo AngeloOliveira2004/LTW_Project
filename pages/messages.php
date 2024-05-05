@@ -28,7 +28,7 @@
             $db = new Database("../database/database.db");
             $userId = $_SESSION['userId'];
 
-            $messages = $db->getMessagesUser(2);
+            $messages = $db->getMessagesUser($userId);
             
             foreach ($messages as $message) {
                 $sender = $message->getSender();

@@ -14,6 +14,11 @@ if (isset($_POST['message'])) {
 
     $db = new Database("../database/database.db");
 
+    if($receiverUser == $currentUser){
+        $item = $db->getItemById($itemId);
+        $receiverUser = $item->getUserId();
+    }
+
     $db->saveMessagesDb($currentUser, $receiverUser, $itemId, $message);
 
     echo $message;

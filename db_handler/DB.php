@@ -449,10 +449,20 @@
 
         public function getMessagesUser($userId) : array {
             $stmt = $this->conn->prepare("
-            SELECT * FROM Messages
+            SELECT m.*
+            FROM Messages m
+            JOIN (
+            SELECT Sender, Receiver, ItemId, MAX(Timestamp) AS MaxTimestamp
+            FROM Messages
             WHERE Receiver = :userId
-            GROUP BY Sender,Receiver,ItemId
-            ORDER BY MAX(Timestamp) DESC
+            GROUP BY Sender, Receiver, ItemId
+            UNION
+            SELECT Sender, Receiver, ItemId, MAX(Timestamp) AS MaxTimestamp
+            FROM Messages
+            WHERE Sender = :userId AND Content = 'Hello, is this item still available?'
+            GROUP BY Sender, Receiver, ItemId
+            ) AS MaxMsg ON m.Sender = MaxMsg.Sender AND m.Receiver = MaxMsg.Receiver AND m.ItemId = MaxMsg.ItemId AND m.Timestamp = MaxMsg.MaxTimestamp
+            ORDER BY MaxMsg.MaxTimestamp DESC;
         ");
             $stmt->bindParam(':userId', $userId);
             $stmt->execute();
