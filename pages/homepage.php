@@ -182,12 +182,10 @@ foreach ($randomItems as $item) {
                 <h3><?= $item->getName() ?></h3>
                 <p>Price: <?= $item->getPrice() ?></p>
                 <p>Brand: <?= $item->getBrand() ?></p>
-                <form action="../../db_handler/action_wishlist.php" method="POST">
-                    <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
+                <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
 
-                    <button class="wishilist_send"><i class="fa-regular fa-heart"
-                            data-item-id="<?= $item->getId(1) ?>"></i></button>
-                </form>
+                <button class="wishilist_send"><i class="fa-regular fa-heart"
+                        data-item-id="<?= $item->getId(1) ?>"></i></button>
             </div>
 
             <?php } ?>

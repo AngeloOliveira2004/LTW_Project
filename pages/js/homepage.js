@@ -1,24 +1,44 @@
-function toggleHeartColor() {
+function toggleHeartColor(wishlistItems) {
     let heartIcons = document.querySelectorAll('.fa-heart');
 
     heartIcons.forEach(function (icon) {
         icon.addEventListener('click', function () {
             let itemId = icon.getAttribute('data-item-id');
-            
-            if (icon.classList.contains('fa-regular')) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid'); 
-                console.log(`add item to wishlist ${itemId}`); // Use console.log instead of print
-            } else {
-                icon.classList.remove('fa-solid');
-                icon.classList.add('fa-regular');
-            }
+            let isInWishlist = wishlistItems.includes(itemId);
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', isInWishlist ? '../../db_handler/action_remove_wishlist.php' : '../../db_handler/action_add_wishlist.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log(xhr.responseText);
+
+                    wishlistItems = JSON.parse(xhr.responseText).wishlistItems;
+
+                    if (wishlistItems.includes(itemId)) {
+                        icon.classList.remove('fa-regular');
+                        icon.classList.add('fa-solid');
+                    } else {
+                        icon.classList.remove('fa-solid');
+                        icon.classList.add('fa-regular');
+                    }
+
+                    console.log(`Item ${itemId} toggled`);
+                }
+            };
+
+            xhr.send('itemId=' + encodeURIComponent(itemId));
         });
     });
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
-    toggleHeartColor();
+    let wishlistItems = [];
+    toggleHeartColor(wishlistItems);
+
 
     $('.search_button').click(function() {
 

@@ -151,3 +151,13 @@ const prevPageBtn = document.getElementById("prevPage");
 
     displayItems();
     */
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const cartIcon = document.getElementById('cartIcon');
+
+    checkoutBtn.addEventListener('click', function () {
+        checkoutBtn.innerHTML = 'View Cart';
+    })
+}); 
