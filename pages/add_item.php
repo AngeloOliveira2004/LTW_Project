@@ -28,8 +28,8 @@ echo "Marca: $marca <br>";
 echo "Estado: $estado <br>";
 echo "Number of images: $numberOfImages <br>";
 
-$item = new Item(sizeof($allItems) + 1, $title, $description, $marca, $model, $category, $size, $price, $condition, true, $available_for_delivery, $subCategory, $numberOfImages, 1);
+$item = new Item(-1, $title, $description, $marca, $model, $category, $size, $price, $condition, true, $available_for_delivery, $subCategory, $numberOfImages, 1);
 
-$db->insertItem($item);
+$db->insertItem($title , $description,$marca, null , $category, $tamanho, $price, $estado, true,$available_for_delivery, $subCategory, $numberOfImages, 1);
 
 ?>

@@ -245,16 +245,16 @@
             return $items;
         }        
 
-        public function insertItem(Item $item) {
+        public function insertItem($name , $description , $brand , $model , $category , $size , $price , $condition , $available , $available_for_delivery , $subCategory , $numberOfImages , $userId) {
             $stmt = $this->conn->prepare("INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, Available, UserId) VALUES (:name, :description, :brand, :category, :price, :condition, :available, :userId)");
-            $stmt->bindParam(':name', $item->name);
-            $stmt->bindParam(':description', $item->description);
-            $stmt->bindParam(':brand', $item->brand);
-            $stmt->bindParam(':category', $item->category);
-            $stmt->bindParam(':price', $item->price);
-            $stmt->bindParam(':condition', $item->condition);
-            $stmt->bindParam(':available', $item->available);
-            $stmt->bindParam(':userId', $item->userId);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':brand', $brand);
+            $stmt->bindParam(':category', $category);
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':condition', $condition);
+            $stmt->bindParam(':available', $available);
+            $stmt->bindParam(':userId', $userId);
             $stmt->execute();
         }
 
