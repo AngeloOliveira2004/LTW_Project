@@ -43,7 +43,11 @@
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $row = $stmt->fetch();
-            return $row['Name'];
+            if ($row !== false) {
+                return $row['Name'];
+            } else {
+                return null; 
+            }
         }
 
         public function getSizes(){
@@ -242,7 +246,7 @@
         }        
 
         public function insertItem(Item $item) {
-            $stmt = $this->conn->prepare("INSERT INTO items (Name, Description, Category, Brand ,price, condition, available, userId) VALUES (:name, :description, :category, :price, :condition, :available, :userId)");
+            $stmt = $this->conn->prepare("INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, Available, UserId) VALUES (:name, :description, :brand, :category, :price, :condition, :available, :userId)");
             $stmt->bindParam(':name', $item->name);
             $stmt->bindParam(':description', $item->description);
             $stmt->bindParam(':brand', $item->brand);
