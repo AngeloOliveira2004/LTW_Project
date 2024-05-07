@@ -18,11 +18,12 @@ class Item {
     public $subCategory;
     public $model;
     public $size;
+    public $NumberOfImages;
 
     public $userId;
 
 
-    public function __construct($id, $name, $description, $brand , $model , $category, $size , $price, $condition, $available, $available_for_delivery, $subCategory , $userId ) {
+    public function __construct($id, $name, $description, $brand , $model , $category, $size , $price, $condition, $available, $available_for_delivery, $subCategory ,$NumberOfImages, $userId) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
@@ -36,6 +37,7 @@ class Item {
         $this->userId = $userId;
         $this->available_for_delivery = $available_for_delivery;
         $this->subCategory = $subCategory;
+        $this->NumberOfImages = $NumberOfImages;
     }
     
     public function __constructer($id) {
@@ -59,6 +61,10 @@ class Item {
         echo "User Id: " . $this->userId . "<br>";
     }
 
+    public function getNumberOfImages() {
+        return $this->NumberOfImages;
+    }
+     
     public function isAvailableForDelivery(){
         return $this->available_for_delivery;
     }

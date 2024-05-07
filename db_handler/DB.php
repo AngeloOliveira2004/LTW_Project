@@ -8,6 +8,10 @@
     require_once 'Wishlist.php';
     require_once 'Reviews.php';
     require_once 'Message.php';
+    require_once 'Categories.php';
+    require_once 'Conditions.php';
+    require_once 'SubCategory.php';
+    require_once 'SIzes.php';
     
     class Database {
         private static $instance = null;
@@ -34,6 +38,63 @@
             return $this->conn;
         }
 
+        public function getCategoryNameById($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM categories WHERE CategoryId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return $row['Name'];
+        }
+
+        public function getSizes(){
+            $stmt = $this->conn->prepare("SELECT * FROM Sizes");
+            $stmt->execute();
+            $sizes = [];
+            while ($row = $stmt->fetch()) {
+                $sizes[] = new Size($row['SizeId'], $row['Name']);
+            }
+            return $sizes;
+        }
+
+        public function getConditions(){
+            $stmt = $this->conn->prepare("SELECT * FROM Conditions");
+            $stmt->execute();
+            $conditions = [];
+            while ($row = $stmt->fetch()) {
+                $conditions[] = new Condition($row['ConditionId'], $row['Name']);
+            }
+            return $conditions;
+        }
+        public function getSubCategoriesByParent($parent) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Subcategory WHERE ParentCategory = :parent");
+            $stmt->bindParam(':parent', $parent);
+            $stmt->execute();
+            $subCategories = [];
+            while ($row = $stmt->fetch()) {
+                $subCategories[] = new SubCategory($row['SUbCategoryId'], $row['ParentCategory'], $row['Name']);
+            }
+            return $subCategories;
+        }
+
+        public function getAllSubCategories() : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Subcategory");
+            $stmt->execute();
+            $subCategories = [];
+            while ($row = $stmt->fetch()) {
+                $subCategories[] = new SubCategory($row['SUbCategoryId'], $row['ParentCategory'], $row['Name']);
+            }
+            return $subCategories;
+        }
+
+        public function getSubCategoryNameById($id) : string{
+            $stmt = $this->conn->prepare("SELECT * FROM Subcategory WHERE SUbCategoryId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return $row['Name'];
+        }
+
+
         public function getItemById($id) : Item {
             $stmt = $this->conn->prepare("SELECT * FROM items WHERE id = :id");
             $stmt->bindParam(':id', $id);
@@ -52,10 +113,52 @@
                 $row['Available'],
                 $row['AvailableForDelivery'],
                 $row['SubCategory'],
+                $row['NumberOfImages'],
                 $row['UserId']
             );
         }
+
+        public function getXRandomSubCategories(int $x) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Subcategory ORDER BY RANDOM() LIMIT :x");
+            $stmt->bindParam(':x', $x);
+            $stmt->execute();
+            $subCategories = [];
+            while ($row = $stmt->fetch()) {
+                $subCategories[] = new SubCategory($row['SUbCategoryId'], $row['ParentCategory'], $row['Name']);
+            }
+            return $subCategories;
+        }
+
+        public function getXRandomCategories(int $x) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM categories ORDER BY RANDOM() LIMIT :x");
+            $stmt->bindParam(':x', $x);
+            $stmt->execute();
+            $categories = [];
+            while ($row = $stmt->fetch()) {
+                $categories[] = [
+                    'id' => $row['CategoryId'],
+                    'name' => $row['Name']
+                ];
+            }
+            return $categories;
+        }
+
+        public function getSubCategoryById($id) : SubCategory {
+            $stmt = $this->conn->prepare("SELECT * FROM subcategories WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return new SubCategory($row['SUbCategoryId'], $row['ParentCategory'] , $row['Name']);
+        }
         
+        public function getCategoryById($id) : Category {
+            $stmt = $this->conn->prepare("SELECT * FROM categories WHERE CategoryId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            return new Category($row['CategoryId'], $row['Name']);
+        }
+
         public function getItemsName() : array {
             $stmt = $this->conn->prepare("SELECT * FROM items");
             $stmt->execute();
@@ -84,6 +187,7 @@
                 $row['Available'],
                 $row['AvailableForDelivery'],
                 $row['SubCategory'],
+                $row['NumberOfImages'],
                 $row['UserId']
             );
             }
@@ -130,6 +234,7 @@
                     $row['Available'],
                     $row['AvailableForDelivery'],
                     $row['SubCategory'],
+                    $row['NumberOfImages'],
                     $row['UserId']
                 );
             }
@@ -215,6 +320,32 @@
             $stmt->execute();
         }
 
+        public function getAllUserItems(int $id){
+            $stmt = $this->conn->prepare("SELECT * FROM items WHERE UserId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $items = [];
+            while ($row = $stmt->fetch()) {
+                $items[] = new Item(
+                    $row['Id'],
+                    $row['Name'],
+                    $row['Description'],
+                    $row['Brand'],
+                    $row['Model'],
+                    $row['CategoryId'],
+                    $row['Size'],
+                    $row['Price'],
+                    $row['ConditionId'],
+                    $row['Available'],
+                    $row['AvailableForDelivery'],
+                    $row['SubCategory'],
+                    $row['NumberOfImages'],
+                    $row['UserId']
+                );
+            }
+            return $items;
+        }
+
         public function getXRandItems(int $x) : array {
             $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY RANDOM() LIMIT :x");
             $stmt->bindParam(':x', $x);
@@ -234,6 +365,7 @@
                     $row['Available'],
                     $row['AvailableForDelivery'],
                     $row['SubCategory'],
+                    $row['NumberOfImages'],
                     $row['UserId']
                 );
             }
@@ -316,7 +448,22 @@
         }
 
         public function getMessagesUser($userId) : array {
-            $stmt = $this->conn->prepare("SELECT * FROM Messages WHERE Receiver = :userId");
+            $stmt = $this->conn->prepare("
+            SELECT m.*
+            FROM Messages m
+            JOIN (
+            SELECT Sender, Receiver, ItemId, MAX(Timestamp) AS MaxTimestamp
+            FROM Messages
+            WHERE Receiver = :userId
+            GROUP BY Sender, Receiver, ItemId
+            UNION
+            SELECT Sender, Receiver, ItemId, MAX(Timestamp) AS MaxTimestamp
+            FROM Messages
+            WHERE Sender = :userId AND Content = 'Hello, is this item still available?'
+            GROUP BY Sender, Receiver, ItemId
+            ) AS MaxMsg ON m.Sender = MaxMsg.Sender AND m.Receiver = MaxMsg.Receiver AND m.ItemId = MaxMsg.ItemId AND m.Timestamp = MaxMsg.MaxTimestamp
+            ORDER BY MaxMsg.MaxTimestamp DESC;
+        ");
             $stmt->bindParam(':userId', $userId);
             $stmt->execute();
 
@@ -325,11 +472,15 @@
             while($message = $stmt->fetch()) {
                 $sender = $this->getUserById($message['Sender']);
                 $receiver = $this->getUserById($message['Receiver']);
+                $item = $this->getItemById($message['ItemId']);
+                
                 $new_message = new Message(
                     $message['MessageId'],
                     $sender,
                     $receiver,
-                    $message['Content']
+                    $item,
+                    $message['Content'],
+                    $message['Timestamp']
                 );
 
                 $messages[] = $new_message;
@@ -338,6 +489,75 @@
             
             return $messages;
         }
+
+
+        public function getMessagesSenderToUser($userId,$senderId,$itemId) : array {
+            $stmt = $this->conn->prepare("
+            SELECT * FROM Messages
+            WHERE Sender = :userId AND Receiver = :senderId AND ItemId = :itemId
+            UNION
+            SELECT * FROM Messages
+            WHERE Sender = :senderId AND Receiver = :userId AND ItemId = :itemId
+            ORDER BY Timestamp ASC");
+
+            $stmt->bindParam(':userId', $userId);
+            $stmt->bindParam(':senderId', $senderId);
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+
+            $messages = [];
+            
+            while($message = $stmt->fetch()) {
+                $sender = $this->getUserById($message['Sender']);
+                $receiver = $this->getUserById($message['Receiver']);
+                $item = $this->getItemById($message['ItemId']);
+                $new_message = new Message(
+                    $message['MessageId'],
+                    $sender,
+                    $receiver,
+                    $item,
+                    $message['Content'],
+                    $message['Timestamp']
+                );
+
+                $messages[] = $new_message;
+
+            }
+            
+            return $messages;
+        }
+
+        public function saveMessagesDb($senderId,$receiverId,$itemId,$message){
+            $timestamp = date("Y-m-d H:i:s");
+
+            $stmt = $this->conn->prepare("INSERT INTO Messages (Sender, Receiver, ItemId, Content, Timestamp) VALUES (:senderId, :receiverId, :itemId, :message_content, :time_now)");
+
+            $stmt->bindParam(':senderId', $senderId);
+            $stmt->bindParam(':receiverId', $receiverId);
+            $stmt->bindParam(':message_content', $message);
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->bindParam(':time_now', $timestamp);
+
+            $stmt->execute();
+        }
+
+
+        public function saveProfileChanges($first_name,$last_name,$username,$email,$address,$phone_number,$password,$userId){
+
+            $stmt = $this->conn->prepare("UPDATE users SET FirstName = :first_name, LastName = :last_name, Email = :email,Username = :username, Address = :address, PhoneNumber = :phone_number, PasswordHash = :password WHERE Id = :user_id");
+
+            $stmt->bindParam(':first_name', $first_name);
+            $stmt->bindParam(':last_name', $last_name);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':user_id', $userId);
+            $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':phone_number', $phone_number);
+            $stmt->bindParam(':password', $password);
+
+            $stmt->execute();
+        }
+
     }
 ?>
 

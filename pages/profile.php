@@ -48,7 +48,7 @@
                             <li><img src='assets/profile/product.png' alt='product icon'> Items sold: 20</li>
                         </ul>
                     </div>
-                <button class='edit_profile'><img src='assets/profile/editpencil.png' alt='pencil'> Edit Profile</button>
+                <button class='edit_profile' id='edit_profile'><img src='assets/profile/editpencil.png' alt='pencil'> Edit Profile</button>
                 </section>";
             } else {
                 echo "User not found.";
@@ -91,13 +91,11 @@
      
              $name = $item->getName();
              $price = $item->getPrice();
-             $photo = $item->getPhoto();
+             $photo = "../../assets/items/{$item->getId()}-1.png";
              $brand = $item->getBrand();
              
              if($photo == null)
                  $photo = "assets/error.png";
-             else
-                 $photo = "data:image/jpeg;base64," . base64_encode($photo);
          
              echo "<span class='item'>
                      <img src='$photo' alt='$name'>

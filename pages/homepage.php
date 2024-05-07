@@ -162,7 +162,7 @@ foreach ($randomItems as $item) {
 
     <div class='item'>
         <?php
-            $itemImagePath = "../assets/items/{$item->getId()}.png";
+            $itemImagePath = "../assets/items/{$item->getId()}-1.png";
             $errorImagePath = "../assets/items/error.png";
 
             if (file_exists($itemImagePath)) {
@@ -177,7 +177,7 @@ foreach ($randomItems as $item) {
         <h3><?= $item->getName() ?></h3>
         <p>Price: <?= $item->getPrice() ?></p>
         <p>Brand: <?= $item->getBrand() ?></p>
-        <i class="fa-regular fa-heart" data-item-id="<?= $item->getId() ?>"></i>
+        <i class="fa-regular fa-heart" data-item-id="<?= $item->getId(1) ?>"></i>
 
     </div>
 

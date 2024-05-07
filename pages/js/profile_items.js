@@ -31,3 +31,12 @@ document.addEventListener('DOMContentLoaded', function() {
         reviews_count.style.display = 'none';
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    let editProfileButton = document.getElementById("edit_profile");
+
+    editProfileButton.addEventListener("click", function() {
+        window.location.href = "editprofile.php";
+    });
+});

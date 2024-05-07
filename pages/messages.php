@@ -6,6 +6,7 @@
         <title>Messages</title>
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
         <link href="../css/messages.css" rel="stylesheet">
+        <script src="js/messages.js"></script>
     </head>
     <body>
         <?php
@@ -17,31 +18,47 @@
             <?php
                 include 'templates/header.php';
             ?>
-        <header>
+        </header>
 
     <section class="messages-section">
         <article class="messages-rectangle">
-            <h2>Users</h2>
+            <h2>Messages</h2>
+            <div class="messages-content">
             <?php 
             $db = new Database("../database/database.db");
             $userId = $_SESSION['userId'];
 
-            $messages = $db->getMessagesUser(2);
+            $messages = $db->getMessagesUser($userId);
             
             foreach ($messages as $message) {
                 $sender = $message->getSender();
-                echo '<div class="user-box">';
-                echo '<h3><img src="../assets/users/' . $sender->getId() . '.png" alt="' . $sender->getUsername() . '" id="item_image">' . $sender->getUsername() . '</h3>';
-                echo '<p>Content: ' . $message->getContent() . '</p>';
-                echo '</div>';
+                $item = $message->getItemId();
+                ?>
+                    <div class="user-box" data-user-id="<?php echo $sender->getId(); ?>" data-item-id="<?php echo $item->getId(); ?>">
+                        <div class="user-container">
+                            <img src="../assets/users/<?php echo $sender->getId(); ?>.png" alt="<?php echo $sender->getUsername(); ?>" id="user_image">
+                            <img src="../assets/items/<?php echo $item->getId(); ?>-1.png" alt="<?php echo $item->getName(); ?>" id="item_image">
+                            <h4><?php echo $item->getName(); ?></h4>
+                            <h4><?php echo $message->printTimestamp(); ?></h4>
+                        </div>
+                    </div>
+                <?php
             }
             ?>
+            </div>
 
         </article>
 
         <article class="open-messages">
             <h2>Messages Hub</h2>
-            <form action="">
+            <div class="user-messages">
+            </div>    
+            <form class = "text-box" action="../db_handler/action_send_message.php">
+                <div class="text-box-container">
+                    <input type="text" id="user-message-input" placeholder="Type a message here:">
+                    <button type="submit" value="Submit" class="user-message-button"><i class="fa fa-paper-plane"></i></button>
+                </div>
+            </form>
         </article>
     </section>
         
@@ -52,4 +69,3 @@
         </footer>
     </body>
     </html>
-

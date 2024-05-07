@@ -13,76 +13,216 @@
             include 'templates/header.php';
         ?>
 
-        <div class="item-container">
-        <?php
+        <section class="item-container">
+
+            <?php
+                require_once '../db_handler/DB.php';
+
+                $db = new Database("../database/database.db");
+
+                $itemId = $_GET['item'];
+
+                $item = $db->getItemById($itemId);
+            
+                $name = $item->getName();
+                $price = $item->getPrice();
+                $brand = $item->getBrand();
+                $userId = $item->getUserId();
+                $number_of_photos = $item->getNumberOfImages();
+                
+
+                $user_details = $db->getUserById($userId);
+                $user_username = $user_details->getUsername();
+                $user_phonenumber = $user_details->getPhoneNumber();
+                $user_email = $user_details->getEmail();
+
+                $Reviews = $db->getReviewByReviewedUserId($userId);
+
+                $reviewsCount = count($Reviews);
+
+                if($reviewsCount == 0){
+                    $average = 0;
+                }else{
+                    $average = number_format(array_reduce($Reviews, function ($carry, $review) {return $carry + $review->getRating();}, 0) / $reviewsCount,2);
+                }
+
+            ?>
         
+            
+            <section class="image_section">
+                <div class="main_image_container">
+                    <img src="../assets/items/<?= $item->getId()?>-1.png" class="<?= $item->getId() . '-' . $item->getNumberOfImages() ?>" alt="<?= $name?>" id="item_image">
+                </div>
+                <div class = "preview_images_container">
+                    <button id="prev-image">&larr;</button>
+                    <div class="preview_images">
+                        <?php
+                            for ($i = 1; $i <= $item->getNumberOfImages(); $i++) {
+                                echo '<img src="../assets/items/' . $item->getId() . '-' . $i . '.png" class="prev-image'. $i . '" alt="' . $name . '" id="preview_image">';
+                            }
+                        ?>
+                    </div>
+                    <button id="next-image">&rarr;</button>
+                </div>
+            </section>
+
+            
+            <section class = "description_and_rest_section">
+                <div class = "item_details">
+                    <p class = "Item_Category"> 
+                        <?= 
+                            require_once '../db_handler/DB.php';
+
+                            $db = new Database("../database/database.db");
+                            
+                            $categoryId = $item->getCategoryId(); 
+                            
+                            $category = $db->getCategoryById($categoryId);
+                            
+                            $categoryName = $category->getName();
+                            
+                            $categoryName = preg_replace('/^\d+/', '', $categoryName);
+                            
+
+                            echo $categoryName;
+                        ?>
+                    </p>
+                    <p class = "Item_Brand"> <?= $brand ?></p>
+                    <p> <?= $item->getSubcategory() ?></p>
+
+                    <?php if ($item->isAvailableForDelivery()): ?>
+                        <img src="../assets/local_shipping_FILL0_wght400_GRAD0_opsz24.png" alt="shipping" class="shipping">
+                    <?php else: ?>
+                        <img src="../assets/no_shipping.png" alt="no shipping" class="shipping">
+                    <?php endif; ?>
+                </div>
+                <div class = "Item_Description_div">
+                    <p class = "Item_Description">Descrição</p>
+                    <p class = "Item_Description_Text"><?= $item->getDescription() ?></p>
+                </div>
+            </section>
+
+            <section class="contact_user_section">
+    <div class="user_info" id="user_info" data-user-id="<?=$user_details->getId() ?>">
+        <div class="user_image_container">
+            <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>" id="user_image">
+        </div>
+        <div class="user_details">
+            <p class="username"><?= $user_details->getUsername() ?></p>
+            <p class="last_online">last time online</p>
+            <div class="phone_container">
+                <img src="../assets/phone.png" alt="Phone Icon" class="phone_icon">
+                <p class="phone_number"><?= $user_phonenumber ?></p>
+            </div>
+        </div>
+    </div>
+    <button id= "message_button" class="message_button">Enviar Mensagem</button>
+</section>
+
+
+            <section class="title_price_section">
+                <div class="title_price_section_box" id="item-id" data-item-id="<?= $item->getId() ?>">
+                    <div class="item_details">
+                        <p class="Item_name"> <?= $name ?></p>
+                        <p class="Item_Price"> <?= $price ?> EUR</p>
+                    </div>
+                    <div class="button_container">
+                        <input type="text" placeholder="Propor Outro Preço" class="price_input">
+                        <button class="propose_button">Propor Preço</button>
+                        <button class = "checkout"> 
+                            Adicionar ao carrinho?
+                            <img src="../assets/cart.png" class ="shopping_cart" alt="shopping_cart">
+                        </button>
+                    </div>
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                
+            </section>
+
+
+            <section class="vendedor_section">
+                <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>" id="user_image">
+                <div class="user_details">
+                    <p class="user_name"><?= $user_username ?></p>
+                    <div class="Averages">
+                       
+                        Average rating: <?= $average ?> 
+                        <span class='stars' style='--rating: $rating;'></span> <br>
+                        <?php
+                            $icon = "";
+                            $message = "";  
+                            if ($average > 4) {
+                                $icon = "😊"; 
+                                $message = "This user has had really positive reviews";
+                            } elseif ($average >= 2.5 && $average <= 3.99) {
+                                $icon = "😐"; 
+                                $message = "This user's reviews are neutral";
+                            } else {
+                                $icon = "😞"; 
+                                $message = "This user's reviews are negative";
+                            }
+                            echo "Reviews: " . $icon;
+                            echo "<br>";
+                            echo $message;
+                        ?>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class = "location_section">
+                <?= $user_details->getAddress() ?>
+            </section>              
+        
+        </section>
+
+
+        <p class = "Items_From_The_Same_User">Other Items from the same User:</p> 
+        <div class = "line"></div>
+        <section class="other_items_of_the_user">
+
+    <div class="arrows">
+        <button id="prevPage">&larr;</button>
+    </div>
+    <div class="items_container">
+        <?php
         require_once '../db_handler/DB.php';
 
         $db = new Database("../database/database.db");
 
-        $itemId = $_GET['item'];
+        $userItems = $db->getAllUserItems($user_details->getId());
 
-        $item = $db->getItemById($itemId);
-        
+        $itemsPerPage = 5;
+        $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $startIndex = ($currentPage - 1) * $itemsPerPage;
+        $endIndex = $startIndex + $itemsPerPage;
+
+        for ($i = $startIndex; $i < $endIndex && $i < count($userItems); $i++) {
+            $item = $userItems[$i];
             $name = $item->getName();
             $price = $item->getPrice();
             $brand = $item->getBrand();
-            $user = $item->getUserId();
 
-        $user_details = $db->getUserById($user);
-            $user_username = $user_details->getUsername();
-            $user_phonenumber = $user_details->getPhoneNumber();
-            $user_email = $user_details->getEmail();
+            $itemImagePath = "../assets/items/{$item->getId()}-1.png";
+            $errorImagePath = "../assets/items/error.png";
+            $imageSrc = file_exists($itemImagePath) ? $itemImagePath : $errorImagePath;
         ?>
-            <nav class='item'>
-
-                <section class = "image_section">
-                    <button>
-                        seta para a direita
-                    </button>
-                    <img src='../assets/items/<?= $item->getId()?>.png' alt='<?= $name ?>' id="item_image">
-                    <button>
-                        seta para a esquerda
-                    </button>
-                </section>
-                
-                <section class = "description_and_rest_section">
-                    <div class = "item_details">
-                        <p>Categoria: <?= $item->getCategoryId() ?></p>
-                        <p>Marca: <?= $brand ?></p>
-                        <p>Subcategoria: <?= $item->getSubcategory() ?></p>
-                        <p>Disponível para entrega: <?= $item->isAvailableForDelivery() ? 'Sim' : 'Não' ?></p>
-                    </div>
-                    <p>Descrição</p>
-                    <p><?= $item->getDescription() ?></p>
-                </section>
-
-                <section class = "title_price_section">
-                    <p>Nome: <?= $name ?></p>
-                    <p>Preço: <?= $price ?> EUR</p>
-
-                    <button>Send Message</button>
-
-                    <span id="user_phonenumber"><?= $user_phonenumber ?></span>
-                    <button id="reveal-num-button">Reveal Number</button>
-                </section>
-
-                <section class = "vendedor_section">
-                    <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>" id="user_image">
-                    <p>Utilizador</p>
-                    <p><?= $user_username ?></p>
-                </section>
-
-                <section class = "location_section">
-                    <button>
-                        Add location
-                    </button>
-                </section>              
-            </nav>
+        <div class='item'>
+            <a href='itempage.php?item=<?= $item->getId() ?>'>
+                <img src="<?= $imageSrc ?>" alt='<?= $item->getName() ?>'>
+            </a>
+            <h3><?= $item->getName() ?></h3>
+            <p>Price: <?= $item->getPrice() ?></p>
+            <p>Brand: <?= $item->getBrand() ?></p>
         </div>
-
-
-
+        <?php
+        }
+        ?>
+    </div>
+    <div class="arrows">
+        <button id="nextPage">&rarr;</button>
+    </div>
+</section>
 
 
     <?php
