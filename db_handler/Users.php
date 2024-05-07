@@ -46,10 +46,10 @@ class User {
     public function getEmail(): string {
         return $this->Email;
     }
+    
     public function getPasswordHash(): string {
         return $this->PasswordHash;
     }
-
 
     public function getFirstName(): string {
         return $this->FirstName;

@@ -10,8 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/homepage.js"></script>
+    <script src="js/editprofile.js"></script>
 </head>
 <body>
     <?php
@@ -36,7 +35,7 @@
         <h2>Edit Profile</h2>
         <form action="../../db_handler/update_user_details.php" method="POST" enctype="multipart/form-data">
 
-            <img src="../../assets/users/<?php echo $_SESSION['userId']; ?>.png">
+            <img src="../../assets/users/<?php echo $_SESSION['userId']; ?>.png" id="profile-image">
 
             <label for="first-name">First Name:</label>
             <input type="text" id="first-name" value="<?php echo $current_first_name; ?>" name="first_name" required>
@@ -57,10 +56,10 @@
             <input type="text" id="address"value="<?php echo $current_address; ?>" name="address" required>
 
             <label for="phone-number">Phone Number:</label>
-            <input type="text" id="phone-number"value="<?php echo  $current_phone_number; ?>" name="phone-number" required>
+            <input type="text" id="phone-number"value="<?php echo $current_phone_number; ?>" name="phone-number" required>
             
             <label for="profile-picture">Profile Picture:</label>
-            <input type="file" id="profile-picture" accept="image/*" onchange="previewImage(event)">
+            <input type="file" id="profile-picture" accept="image/*">
             
             <button type="submit">Save Changes</button>
         </form>
