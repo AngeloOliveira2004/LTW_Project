@@ -43,7 +43,11 @@
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $row = $stmt->fetch();
-            return $row['Name'];
+            if ($row !== false) {
+                return $row['Name'];
+            } else {
+                return null; 
+            }
         }
 
         public function getSizes(){
@@ -241,16 +245,20 @@
             return $items;
         }        
 
-        public function insertItem(Item $item) {
-            $stmt = $this->conn->prepare("INSERT INTO items (Name, Description, Category, Brand ,price, condition, available, userId) VALUES (:name, :description, :category, :price, :condition, :available, :userId)");
-            $stmt->bindParam(':name', $item->name);
-            $stmt->bindParam(':description', $item->description);
-            $stmt->bindParam(':brand', $item->brand);
-            $stmt->bindParam(':category', $item->category);
-            $stmt->bindParam(':price', $item->price);
-            $stmt->bindParam(':condition', $item->condition);
-            $stmt->bindParam(':available', $item->available);
-            $stmt->bindParam(':userId', $item->userId);
+        public function insertItem($name , $description , $brand , $model , $category , $size , $price , $condition , $available , $available_for_delivery , $subCategory , $numberOfImages , $userId) {
+            $stmt = $this->conn->prepare("INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, Available, AvailableForDelivery,SubCategory,NumberOfImages,UserId) VALUES (:name, :description, :brand, :category, :price, :condition, :available, :delivery, :subCategory, :numImages, :userId)");
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':brand', $brand);
+            $stmt->bindParam(':category', $category);
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':condition', $condition);
+            $stmt->bindParam(':available', $available);
+            $stmt->bindParam(':userId', $userId);
+            $stmt->bindParam(':delivery', $available_for_delivery);
+            $stmt->bindParam(':subCategory', $subCategory);
+            $stmt->bindParam(':numImages', $numberOfImages);
+
             $stmt->execute();
         }
 

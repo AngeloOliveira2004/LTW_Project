@@ -99,10 +99,12 @@
             <p class="images">Imagens</p>
             <p class="images_text">A primeira imagem é a foto principal do teu anúncio. Podes inserir outras 15</p>
             <?php for ($i = 1; $i <= 15; $i++): ?>
-                <input class="image_inputer" type="file" id="image<?= $i ?>" name="image<?= $i ?>" accept="image/*">
-                <label id="image_icon<?= $i ?>" class="image_icon" for="image<?= $i ?>">
-                    <img src="../assets/camera.png" alt="Camera Icon" id="selected_image<?= $i ?>" class="selected_image<?= $i ?>">
-                </label><br>
+                <form class = "form" id="myForm<?= $i ?>" method=POST enctype=multipart/form-data>
+                    <input class="image_inputer" type="file" id="image<?= $i ?>" name="image<?= $i ?>" accept="image/*">
+                    <label id="image_icon<?= $i ?>" class="image_icon" for="image<?= $i ?>">
+                        <img src="../assets/camera.png" alt="Camera Icon" id="selected_image<?= $i ?>" class="selected_image<?= $i ?>">
+                    </label><br>
+                </form>
             <?php endfor; ?>
         </section>
 
@@ -120,7 +122,7 @@
             <p class="Preço">Preço (EUR) :</p>
             <input type="text" class="Preço_">
             <div class="toggle-button-wrapper">
-                <p class ="Negociável" > Negociável: </p>
+                <p class ="Negociável" > Disponível para entrega: </p>
                 <label class="switch">
                     <input type="checkbox" checked>
                     <span class="slider round"></span>

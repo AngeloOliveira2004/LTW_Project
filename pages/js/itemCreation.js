@@ -246,66 +246,83 @@ document.addEventListener("DOMContentLoaded", function() {
   var publicarBtn = document.querySelector(".Publicar");
 
   publicarBtn.addEventListener("click", function() {
-      // Gather all the information from the form fields
-      var title = document.querySelector(".Item-Title").value;
-      var category = document.querySelector(".search_category").value;
-      var subCategory = document.querySelector(".sub_search_category").value;
-      var description = document.querySelector(".description-text").value;
-      var price = document.querySelector(".Preço_").value;
-      var negociavel = document.querySelector(".toggle-button-wrapper input[type='checkbox']").checked;
-      var tamanho = document.querySelector(".Tamanho").value;
-      var marca = document.querySelector(".Marca").value;
-      var estado = document.querySelector(".Estado").value;
+      
+      console.log('Publish button clicked');
+
+      let title = document.querySelector(".Item-Title").value;
+      let category = document.querySelector(".search_category").value;
+      let subCategory = document.querySelector(".sub_search_category").value;
+      let description = document.querySelector(".description-text").value;
+      let price = document.querySelector(".Preço_").value;
+      let negociavel = document.querySelector(".toggle-button-wrapper input[type='checkbox']").checked;
+      let tamanho = document.querySelector(".Tamanho").value;
+      let marca = document.querySelector(".Marca").value;
+      let estado = document.querySelector(".Estado").value;
+      let numberOfImages = inputedImages.length;
+
+      console.log('Title:', title);
+      console.log('Category:', category);
+      console.log('Subcategory:', subCategory);
+      console.log('Description:', description);
+      console.log('Price:', price);
+      console.log('Negociavel:', negociavel);
+      console.log('Tamanho:', tamanho);
+      console.log('Marca:', marca);
+      console.log('Estado:', estado);
 
       if (title.trim() === "" || category.trim() === "" || description.trim() === "" || price.trim() === "" || marca.trim() === "" || estado.trim() === "") {
           alert("Por favor, preencha todos os campos obrigatórios.");
           return;
       }
 
+      const formElements = document.querySelectorAll('.form');
 
-      let numberOfImages = 0;
-      let imageFiles = [];
-
-      for (let i = 1; i <= 15; i++) {
-        const imageHolder = document.getElementById('selected_image' + i);
-        const src = imageHolder.src;
-        const fileName = src.substring(src.lastIndexOf('/') + 1);
-
-        if (fileName === 'camera.png') {
-          continue;
-        } else {
-          numberOfImages++;
-          imageFiles.push(imageHolder.files[0]);
-        }
-      }
-
-      inputedImages.forEach(function(image, index) {
-        if (image.name !== 'camera.png') {
-
-          var formData = new FormData();
-          
-          formData.append('image', image);
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', '../assets', true);
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-              console.log('Image ' + (index + 1) + ' saved successfully');
-            }
-          };
-          xhr.send(formData);
-        }
+      formElements.forEach(formElement => {
+          formElement.submit();
       });
 
+      console.log('Form submitted');
+
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "js/add_item.php", true);
+      xhr.open("POST", "add_item.php", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
               console.log(xhr.responseText);
           }
       };
+      
       xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&negociavel=" + (negociavel ? "1" : "0") + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
-        + "&imagesSizes=" + numberOfImages + "&images=" + imageFiles);
+        + "&imagesSizes=" + numberOfImages);
       
   });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  const formelements = document.querySelectorAll('.form');
+
+  formelements.forEach((formElement, index) => {
+    formElement.addEventListener('submit', (event) => {
+    
+    const imageInp = document.getElementById('image'+(index+1)); 
+
+    event.preventDefault();
+
+    const endpoint = "uploadImages.php";
+    const formData  = new FormData();
+
+    console.log("Image input:", imageInp.files[0])
+
+    formData.append('inpFile', imageInp.files[0]); 
+
+    fetch(endpoint, {
+        method: 'post',
+        body: formData
+    }).catch(console.error);
+  });
+});
+
 });
