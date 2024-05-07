@@ -40,3 +40,9 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "editprofile.php";
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('log_out').addEventListener('click', function() {
+        window.location.href = '../../db_handler/action_logout.php';
+    });
+});

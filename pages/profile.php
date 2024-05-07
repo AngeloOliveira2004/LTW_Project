@@ -6,6 +6,7 @@
         <title>Profile page</title>
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../css/profile.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-********************" crossorigin="anonymous" />
         <script src="js/profile_items.js"></script>
     </head>
     <body>
@@ -48,7 +49,10 @@
                             <li><img src='assets/profile/product.png' alt='product icon'> Items sold: 20</li>
                         </ul>
                     </div>
-                <button class='edit_profile' id='edit_profile'><img src='assets/profile/editpencil.png' alt='pencil'> Edit Profile</button>
+                <div class='buttons'>    
+                    <button class='edit_profile' id='edit_profile'><img src='assets/profile/editpencil.png' alt='pencil'> Edit Profile</button>
+                    <button class='log_out' id='log_out'><i class='fa-solid fa-right-from-bracket'></i>Log out</button>
+                </div>
                 </section>";
             } else {
                 echo "User not found.";

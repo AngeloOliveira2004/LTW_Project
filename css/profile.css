@@ -44,7 +44,7 @@ section.profile_info {
     list-style-type: none;
 }
 
-.profile_info .edit_profile {
+.profile_info .edit_profile, .profile_info .log_out {
     background-color: #CBE896;
     border: none;
     color: white;
@@ -56,6 +56,12 @@ section.profile_info {
     margin-top: 1.2em;
     cursor: pointer;
     border-radius: 8px;
+    right: 0;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
 }
 
 .profile_option ul {
@@ -196,4 +202,8 @@ a {
 
 .review h4{
     float: right;
+}
+
+button i{
+    padding-right: 0.5em;
 }
