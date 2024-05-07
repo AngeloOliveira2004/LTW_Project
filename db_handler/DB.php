@@ -540,6 +540,23 @@
 
             $stmt->execute();
         }
+
+
+        public function saveProfileChanges($first_name,$last_name,$username,$email,$address,$phone_number,$userId){
+
+            $stmt = $this->conn->prepare("UPDATE users SET FirstName = :first_name, LastName = :last_name, Email = :email,Username = :username, Address = :address, PhoneNumber = :phone_number WHERE Id = :user_id");
+
+            $stmt->bindParam(':first_name', $first_name);
+            $stmt->bindParam(':last_name', $last_name);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':user_id', $userId);
+            $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':phone_number', $phone_number);
+
+            $stmt->execute();
+        }
+
     }
 ?>
 

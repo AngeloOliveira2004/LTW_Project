@@ -27,29 +27,37 @@
         $current_last_name = $user->getLastName();
         $current_username = $user->getUsername();
         $current_email = $user->getEmail();
+        $current_address = $user->getAddress();
+        $current_phone_number = $user->getPhoneNumber();
 
     ?>
     
     <div class="edit-profile-container">
         <h2>Edit Profile</h2>
-        <form action="update_profile.php" method="POST" enctype="multipart/form-data">
+        <form action="../../db_handler/update_user_details.php" method="POST" enctype="multipart/form-data">
 
             <img src="../../assets/users/<?php echo $_SESSION['userId']; ?>.png">
 
             <label for="first-name">First Name:</label>
-            <input type="text" id="first-name" value="<?php echo $current_first_name; ?>" required>
+            <input type="text" id="first-name" value="<?php echo $current_first_name; ?>" name="first_name" required>
 
             <label for="last-name">Last Name:</label>
-            <input type="text" id="last-name"value="<?php echo $current_last_name; ?>" required>
+            <input type="text" id="last-name"value="<?php echo $current_last_name; ?>" name="last_name" required>
             
             <label for="username">Username:</label>
-            <input type="text" id="username"value="<?php echo $current_username; ?>" required>
+            <input type="text" id="username"value="<?php echo $current_username; ?>" name="username" required>
             
             <label for="password">Password:</label>
-            <input type="password" id="password"required>
+            <input type="password" id="password" name="password">
             
             <label for="email">Email:</label>
-            <input type="email" id="email"value="<?php echo $current_email; ?>" required>
+            <input type="email" id="email"value="<?php echo $current_email; ?>" name="email" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address"value="<?php echo $current_address; ?>" name="address" required>
+
+            <label for="phone-number">Phone Number:</label>
+            <input type="text" id="phone-number"value="<?php echo  $current_phone_number; ?>" name="phone-number" required>
             
             <label for="profile-picture">Profile Picture:</label>
             <input type="file" id="profile-picture" accept="image/*" onchange="previewImage(event)">

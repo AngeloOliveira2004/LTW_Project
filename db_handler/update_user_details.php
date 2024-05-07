@@ -1,17 +1,21 @@
 <?php
-$db = new PDO('mysql:host=localhost;dbname=your_database', 'username', 'password');
+require_once (__DIR__ . '/DB.php');
 
-$stmt = $db->prepare("UPDATE users SET first_name = :first_name, last_name = :last_name WHERE user_id = :user_id");
-$stmt->bindParam(':first_name', $_POST['first_name']);
-$stmt->bindParam(':last_name', $_POST['last_name']);
-$stmt->bindParam(':user_id', $_SESSION['userId']);
-$stmt->execute();
+$db = new Database("../database/database.db");
 
+session_start();
 
-if ($stmt->rowCount() > 0) {
-    echo "Changes saved successfully.";
-} else {
-    echo "No changes were made.";
-}
+$first_name = $_POST['first_name'];
+$last_name = $_POST['last_name'];
+$userId = $_SESSION['userId'];
+$username = $_POST['username'];
+$email = $_POST['email'];
+$address = $_POST['address'];
+$phone_number = $_POST['phone-number'];
+
+$db->saveProfileChanges($first_name,$last_name,$username,$email,$address,$phone_number,$userId);
+
+header("Location: ../pages/profile.php");
+exit();
 
 ?>
