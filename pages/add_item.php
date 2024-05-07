@@ -15,6 +15,7 @@ $available_for_delivery = $_POST['negociavel'];
 $tamanho = $_POST['tamanho'];
 $marca = $_POST['marca'];
 $estado = $_POST['estado'];
+$model = $_POST['model'];
 $numberOfImages = $_POST['imagesSizes']; 
 
 echo "Title: $title <br>";
@@ -28,8 +29,6 @@ echo "Marca: $marca <br>";
 echo "Estado: $estado <br>";
 echo "Number of images: $numberOfImages <br>";
 
-$item = new Item(-1, $title, $description, $marca, $model, $category, $size, $price, $condition, true, $available_for_delivery, $subCategory, $numberOfImages, 1);
-
-$db->insertItem($title , $description,$marca, null , $category, $tamanho, $price, $estado, true,$available_for_delivery, $subCategory, $numberOfImages, 1);
+$db->insertItem($title , $description, $marca, null , $category, $tamanho, $price, $estado, true,$available_for_delivery, $subCategory, $numberOfImages, 1);
 
 ?>

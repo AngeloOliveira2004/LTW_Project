@@ -258,6 +258,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let tamanho = document.querySelector(".Tamanho").value;
       let marca = document.querySelector(".Marca").value;
       let estado = document.querySelector(".Estado").value;
+      let numberOfImages = inputedImages.length;
 
       console.log('Title:', title);
       console.log('Category:', category);
