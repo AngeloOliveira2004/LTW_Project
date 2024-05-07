@@ -243,3 +243,8 @@
     </body>
 
 </html>
+
+dá fetch primeiro
+e pull tambem
+
+consegues ver a terminal?
