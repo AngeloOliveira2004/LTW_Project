@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const reveal_button = document.getElementById("profile-picture");
     reveal_button.addEventListener("change", previewAndUploadImage);
-
-    const clearButton = document.getElementById("profile-picture");
-    clearButton.addEventListener("click", clearInputFile);
 });
 
 function previewAndUploadImage(event) {
@@ -22,14 +19,4 @@ function previewAndUploadImage(event) {
         }
     };
     xhr.send(formData);
-}
-
-function clearInputFile(event) {
-    const inputFile = document.getElementById("profile-picture");
-
-    if (inputFile.files.length > 0) {
-        inputFile.value = '';
-    }
-
-    event.target.files[0] = '';
 }
