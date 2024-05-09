@@ -10,6 +10,17 @@ class ShoppingCartItem {
         $this->UserId = $UserId;
         $this->ItemId = $ItemId;
     }
+    public function getCartItemId()
+    {
+        return $this->CartItemId;
+    }
+
+    public function getUserId(){
+        return $this->UserId;
+    }
+    public function getItemId(){
+        return $this->ItemId;
+    }
 }
 
 ?>

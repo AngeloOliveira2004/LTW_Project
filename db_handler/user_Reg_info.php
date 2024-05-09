@@ -21,4 +21,4 @@ function verify_user(PDO $dbh, string $email, string $password): bool{
         return false;
     }
 }
-?> 
+?>

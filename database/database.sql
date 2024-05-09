@@ -86,7 +86,7 @@ CREATE TABLE OrderItems (
 );
 
 CREATE TABLE ShoppingCart (
-    CartItemId INT PRIMARY KEY,
+    CartItemId INTEGER PRIMARY KEY AUTOINCREMENT,
     UserId INT NOT NULL,
     ItemId INT NOT NULL,
     FOREIGN KEY (UserId) REFERENCES Users(Id),
@@ -94,7 +94,7 @@ CREATE TABLE ShoppingCart (
 );
 
 CREATE TABLE Wishlist (
-    WishlistId INT PRIMARY KEY,
+    WishlistId INTEGER PRIMARY KEY AUTOINCREMENT,
     UserId INT NOT NULL,
     ItemId INT NOT NULL,
     FOREIGN KEY (UserId) REFERENCES Users(Id),
