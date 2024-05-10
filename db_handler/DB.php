@@ -245,7 +245,24 @@
             return $items;
         }        
 
-        
+        public function getAllUsers() : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Users");
+            $stmt->execute();
+            $users = [];
+            while ($row = $stmt->fetch()) {
+                $users[] = new User(
+                    $row['Id'],
+                    $row['Username'],
+                    $row['Email'],
+                    $row['PasswordHash'],
+                    $row['FirstName'],
+                    $row['LastName'],
+                    $row['Address'],
+                    $row['PhoneNumber']
+                );
+            }
+            return $users;
+        }
 
         public function getAllCategoriesName() : array{
             $stmt = $this->conn->prepare("SELECT * FROM Categories");
