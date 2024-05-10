@@ -14,7 +14,7 @@ if (isset($_FILES['item_image']) && $_FILES['item_image']['error'] === UPLOAD_ER
     
     $index = $_POST['index'];
 
-    $filename = $arraySize . '-' . $index . '.png';
+    $filename = $arraySize . '-' . $index+1 . '.png';
 
     $targetPath = $uploadDir . $filename;
 
