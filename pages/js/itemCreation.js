@@ -1,3 +1,4 @@
+
 let inputedImages = [];
 
 
@@ -38,60 +39,91 @@ document.addEventListener("DOMContentLoaded", function() {
 
   inputElements.forEach(inputElement => {
     inputElement.addEventListener('change', (event) => {
-      console.log("image input changed");
+        console.log("image input changed");
 
-      const file = event.target.files[0];
-      inputedImages.push(file);
+        const file = event.target.files[0];
+        inputedImages.push(file);
 
-      const reader = new FileReader();
-      let originalHolder = event.target.id;
+        const reader = new FileReader();
+        let originalHolder = event.target.id;
 
-      for (let i = 1; i <= 15; i++) {
-        const imageHolder = document.getElementById('selected_image' + i);
-        const src = imageHolder.src;
-        const fileName = src.substring(src.lastIndexOf('/') + 1);
-        console.log("Image " + i + ":", fileName);
+        for (let i = 1; i <= 15; i++) {
+            const imageHolder = document.getElementById('selected_image' + i);
+            const src = imageHolder.src;
+            const fileName = src.substring(src.lastIndexOf('/') + 1);
+            console.log("Image " + i + ":", fileName);
 
-        if (fileName === 'camera.png') {
-          imageHolder.src = URL.createObjectURL(file);
-          const frame = document.getElementById('image_icon' + i);
-          frame.classList.remove('image_icon');
-          frame.classList.add('new_image');
+            if (fileName === 'camera.png') {
+                imageHolder.src = URL.createObjectURL(file);
+                const frame = document.getElementById('image_icon' + i);
+                frame.classList.remove('image_icon');
+                frame.classList.add('new_image');
 
-          frame.addEventListener('mouseenter', () => {
-            const closeIcon = document.createElement('span');
-            closeIcon.innerHTML = 'Remove Image';
-            closeIcon.classList.add('close_icon');
-            frame.appendChild(closeIcon);
+                frame.addEventListener('mouseenter', () => {
+                  let closeIcon = frame.querySelector('.close_icon');
+                  console.log('Close Icon:', closeIcon);
+                  if (!closeIcon) {
+                      closeIcon = document.createElement('span');
+                      closeIcon.innerHTML = 'Remove Image';
+                      closeIcon.classList.add('close_icon');
+                      frame.appendChild(closeIcon);
+                  }else{
+                    frame.removeChild(closeIcon);
+                  }
+              
+                  closeIcon.addEventListener('click', () => {
+                      
+                      imageHolder.src = '../assets/camera.png';
+                      frame.classList.remove('new_image');
+                      frame.classList.add('image_icon');
+                      removeAllChildNodes();
+                  });
+              });
+              
+              frame.addEventListener('mouseleave', () => {
+                  const closeIcon = frame.querySelector('.close_icon');
+                  if (closeIcon) {
+                      frame.removeChild(closeIcon);
+                  }
+              });
 
-            closeIcon.addEventListener('click', () => {
-              imageHolder.src = '../assets/camera.png';
-              frame.classList.remove('new_image');
-              frame.classList.add('image_icon');
-              frame.removeChild(closeIcon);
-            });
-          });
+                break;
+            }
 
-          frame.addEventListener('mouseleave', () => {
-            const closeIcon = frame.querySelector('.close_icon');
-            frame.removeChild(closeIcon);
-          });
-
-          break;
+            if (i === 15) {
+                let originalHolderNumber = originalHolder.replace(/\D/g, '');
+                let newHolder = document.getElementById('selected_image' + originalHolderNumber);
+                newHolder.src = URL.createObjectURL(file);
+                newHolder.style.width = '100%';
+                newHolder.style.height = '100%';
+                newHolder.style.objectFit = 'cover';
+                break;
+            }
         }
-
-        if (i === 15) {
-          let originalHolderNumber = originalHolder.replace(/\D/g, '');
-          let newHolder = document.getElementById('selected_image' + originalHolderNumber);
-          newHolder.src = URL.createObjectURL(file);
-          newHolder.style.width = '100%';
-          newHolder.style.height = '100%';
-          newHolder.style.objectFit = 'cover';
-          break;
-        }
-      }
     });
-  });
+});
+
+function removeAllChildNodes(){
+
+  console.log('Removing all child nodes');
+
+  for (let i = 1; i <= 15; i++) {
+
+    const frame = document.getElementById('image_icon' + i);
+
+    let closeIcon = frame.querySelector('.close_icon');
+
+    console.log('Close Icon:', closeIcon);
+    if (!closeIcon) {
+      continue;
+    }else{
+      console.log('Removing close icon');
+      frame.removeChild(closeIcon);
+    }
+
+  }
+}
+
 });
 
 
@@ -146,20 +178,6 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   });
 });
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  var subSearchInput = document.querySelector(".sub_search_category");
-
-  subSearchInput.addEventListener("click", function() {
-      var inputValue = subSearchInput.value.trim(); 
-    
-      if (inputValue === "") {
-          alert("You must pick a valid category first.");
-      }
-  });
-});
-
 
 document.addEventListener("DOMContentLoaded", function() {
   var titleInput = document.querySelector(".Item-Title");
@@ -295,34 +313,26 @@ document.addEventListener("DOMContentLoaded", function() {
       xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&negociavel=" + (negociavel ? "1" : "0") + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
         + "&imagesSizes=" + numberOfImages);
       
-  });
-});
 
-
-
-document.addEventListener("DOMContentLoaded", function() {
-
-  const formelements = document.querySelectorAll('.form');
-
-  formelements.forEach((formElement, index) => {
-    formElement.addEventListener('submit', (event) => {
+      inputedImages.forEach((image, index) => {
+        const formData = new FormData();
+        formData.append('item_image', image);
+        formData.append('index', index); 
     
-    const imageInp = document.getElementById('image'+(index+1)); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../db_handler/uploadItemImage.php');
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                document.getElementById('profile-image').src = xhr.responseText;
+            } else {
+                console.error(xhr.responseText);
+            }
+        };
+        xhr.send(formData);
+    });
+      
 
-    event.preventDefault();
-
-    const endpoint = "uploadImages.php";
-    const formData  = new FormData();
-
-    console.log("Image input:", imageInp.files[0])
-
-    formData.append('inpFile', imageInp.files[0]); 
-
-    fetch(endpoint, {
-        method: 'post',
-        body: formData
-    }).catch(console.error);
+    
   });
 });
 
-});
