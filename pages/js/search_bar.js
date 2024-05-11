@@ -323,7 +323,6 @@ function display_result(result){
     });
 
     resultBox.innerHTML = "<ul>" + content.join('') + "</ul>";
-
 }
 
 
@@ -473,6 +472,7 @@ function render_items() {
         searchItemsDiv.appendChild(itemContainer);
     });
 }
+
 function render_items() {
     const searchItemsDiv = document.querySelector('.search-items');
     searchItemsDiv.innerHTML = '';

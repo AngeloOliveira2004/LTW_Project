@@ -26,6 +26,4 @@
     $jsonItems = json_encode($itemsArray);
 
     echo $jsonItems;
-
-    
 ?>

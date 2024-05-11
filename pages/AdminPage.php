@@ -6,6 +6,7 @@
     <title>AdminPage</title>
 
     <link href="../css/adminPage.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -73,7 +74,7 @@
                             <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
                         </div>
 
-                        <div class="result-box">
+                        <div class="result-box" id = "result-box-users">
                             <ul class="result">
 
                             </ul>
@@ -102,7 +103,7 @@
 
                 $db = new Database('../database/database.db');
 
-                $users = $db->getAllUsers();
+                $users = $db->getItems();
                 ?>
 
 
@@ -113,7 +114,7 @@
                             <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
                         </div>
 
-                        <div class="result-box">
+                        <div class="result-box" id = "result-box-items">
                             <ul class="result">
 
                             </ul>
@@ -179,6 +180,16 @@
             </section>
             </div>
         </div>
+
+    <div class = "options-icons">
+        <i class="fas fa-trash trash-icon" ></i>
+        <i class="fas fa-arrow-up up-arrow-icon" ></i>
+        <i class="fas fa-arrow-down down-arrow-icon"></i>
+    </div>
+
+    <div class = "search-items"></div>
+
+    <div class = "search-users"></div>
 
 
     <?php

@@ -95,7 +95,7 @@
                     <img src="assets/search-interface-symbol.png" alt="search-icon" class = "search_icon">
                 </button>
             </span>
-        </span>
+    </span>
     
     <div class="filter_section">
         <span class="filter_text" id="filter_image">
