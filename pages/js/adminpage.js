@@ -12,6 +12,11 @@ let filteredItems = [];
 let suggestedUsers = [];
 let suggestedItems = [];
 
+let allCategories = [];
+let allSubCategories = [];
+let allSizes = [];
+let allConditions = [];
+
 document.addEventListener("DOMContentLoaded", async function() {
     await loadInitialContent();
 });
@@ -21,6 +26,10 @@ async function loadInitialContent() {
 
     let allItemsJSON = [];
     let allUsersJSON = [];
+    let allCategoriesJSON = [];
+    let allSubCategoriesJSON = [];
+    let allSizesJSON = [];
+    let allConditionsJSON = [];
 
     try {
         const response = await fetch('js/get_all_items.php');
@@ -50,11 +59,67 @@ async function loadInitialContent() {
         console.error('Error fetching data:', error);
     }
 
+    try {
+        const response = await fetch('js/get_all_Categories.php');
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        console.log('Data fetched successfully');
+        
+        allCategoriesJSON = await response.json(); 
+    }catch(error){
+        console.error('Error fetching data:', error);
+    }
+
+    try {
+        const response = await fetch('js/get_all_conditions.php');
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        console.log('Data fetched successfully');
+        
+        allConditionsJSON = await response.json(); 
+    }catch(error){
+        console.error('Error fetching data:', error);
+    }
+
+    try {
+        const response = await fetch('js/get_all_sizes.php');
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        console.log('Data fetched successfully');
+        
+        allSizesJSON = await response.json(); 
+    }catch(error){
+        console.error('Error fetching data:', error);
+    }
+
+    try {
+        const response = await fetch('js/get_all_subCategories.php');
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        console.log('Data fetched successfully');
+        
+        allSubCategoriesJSON = await response.json(); 
+    }catch(error){
+        console.error('Error fetching data:', error);
+    }
+
     console.log(allUsersJSON);
     console.log(allItemsJSON);
 
     allUsers = [...allUsersJSON];
     allItems = [...allItemsJSON];
+    allCategories = [...allCategoriesJSON];
+    allConditions = [...allConditionsJSON];
+    allSizes = [...allSizesJSON];
+    allSubCategories = [...allSubCategoriesJSON];
 
     console.log(allUsers);
     console.log(allItems);
@@ -118,18 +183,21 @@ document.addEventListener("DOMContentLoaded", function() {
         selectedOption = 'users';
         cleanSearchItemsDiv();
         cleanSearchUsersDiv();
+        cleanMiscelaneousStuffDiv();
         showIcons();
-        reaload();
+        
     });
 
     document.getElementById('items').addEventListener('click', function() {
+        
         showContent('itemsContent');
         selectedOption = 'items';
-        console.log('Selected option: ' + selectedOption);
+        console.log("Selected option: " + selectedOption);
         cleanSearchItemsDiv();
         cleanSearchUsersDiv();
+        cleanMiscelaneousStuffDiv();
         showIcons();
-        reaload();
+        
     });
 
     document.getElementById('categories').addEventListener('click', function() {
@@ -138,7 +206,8 @@ document.addEventListener("DOMContentLoaded", function() {
         hideIcons();
         cleanSearchItemsDiv();
         cleanSearchUsersDiv();
-        reaload();
+        cleanMiscelaneousStuffDiv();
+        showIcons();
     });
 });
 
@@ -174,12 +243,9 @@ function searchUsers(inputVal, users) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    reaload();
-});
-
-
-function reaload(){
     showContent('usersContent');
+    console.log("Realoading1");
+
     var optionButtons = document.querySelectorAll('.option button');
 
     optionButtons.forEach(function(button) {
@@ -189,86 +255,90 @@ function reaload(){
         });
     });
 
+    console.log("Realoading2");
+
     const inputBox = document.querySelector('.search_bar');
     suggestedUsers[0] = inputBox.value;
     const resultBoxUsers = document.getElementById('result-box-users');
     const resultBoxItems = document.getElementById('result-box-items');
     const searchButton = document.querySelector('.search_button');
 
+    console.log(inputBox);
+    console.log(searchButton);
+
+    console.log("allItemsName: " + allItemsNames);
+
     inputBox.addEventListener('keyup', function() {
-        const input = inputBox.value.trim(); // Trim to remove leading and trailing spaces
+        const input = inputBox.value.trim(); 
         let result;
-        
-        console.log("Key was pressed");
 
-        console.log("allUsersName: " + allUsersNames);
-        console.log("allItemsName: " + allItemsNames);
-
-
-        console.log("Selected option: " + selectedOption);
-
-        switch (selectedOption) {
-            case 'users':
-
-                if(input.length === 0) {
-                    suggestedUsers = allUsersNames;
-                    break;
-                }else{
-                    suggestedUsers = getSuggestions(input, allUsersNames); 
-                }
-                break;
-            case 'items':
-
-                if(input.length === 0) {
-                    suggestedItems = allItemsNames;
-                    
-                    break;
-                }else{
-                    suggestedItems = getSuggestions(input, allItemsNames); 
-                }
-                
-                break;
-            default:
-                break;
-        }
-
-        if(selectedOption === 'users'){
-            result = suggestedUsers;
-            console.log("Result Names: " + result);
-            display_result(result);
+        if(input.length === 0) {
+            suggestedUsers = allUsersNames;
+            
         }else{
-            result = suggestedItems;
-            console.log("Result Items: " + result);
-            display_result(result);
-        }       
-        
-        console.log("Suggested: " + suggestedItems);
+            suggestedUsers = getSuggestions(input, allUsersNames); 
+        }
+          
+        result = suggestedUsers;
+        console.log("Result Names: " + result);
+        display_result(result);
     });
 
     inputBox.addEventListener('click', function(event) {
         event.stopPropagation();
-        if (selectedOption === 'users') {
-            resultBoxUsers.style.display = 'block';
-        } else {
-            resultBoxItems.style.display = 'block';
-        }
+        resultBoxItems.style.display = 'block';
+        resultBoxUsers.style.display = 'block';
     });
     
 
     document.addEventListener('click', function(event) {
         const clickedElement = event.target;
         if (!inputBox.contains(clickedElement)) {
-            
-            if (selectedOption === 'users') {
-                resultBoxUsers.style.display = 'none';
-            }else{
-                resultBoxItems.style.display = 'none';
-            }
+            resultBoxUsers.style.display = 'none';
+            resultBoxItems.style.display = 'none';
         }
     });
 
     searchButton.addEventListener('click', async function() {
+        suggestedUsers = getSuggestions(inputBox.value.trim() , allUsersNames); 
+        console.log(suggestedUsers);
+        filteredUsers = searchUsers(suggestedUsers); 
+        render_users();    
+    });
+
+
+    const inputBoxItem = document.getElementById("search-bar-item");
+
+    console.log("input box" + inputBoxItem);
+
+    inputBoxItem.addEventListener('keyup', function() {
+        const input2 = inputBoxItem.value.trim(); 
+        let result;
         
+        console.log("Key was pressed here");
+        console.log("input2: " + input2);
+
+        console.log("allItemsName: " + allItemsNames);
+
+        suggestedItems = getSuggestions(input2, allItemsNames); 
+        
+        result = suggestedItems;
+        console.log("Result Items: " + result);
+        display_result(result);
+    
+        console.log("Suggested: " + suggestedItems);
+    });
+
+    inputBoxItem.addEventListener('click', function(event) {
+        event.stopPropagation();
+        resultBoxItems.style.display = 'block';
+    });
+
+    const searchButtonItem = document.getElementById("search-bar-item-button");
+
+    console.log(searchButtonItem);
+
+    searchButtonItem.addEventListener('click', async function() {
         console.log("Search button clicked");
 
         console.log('Selected option: ' + selectedOption);
@@ -283,15 +353,20 @@ function reaload(){
             case 'items':
                 console.log("Searching items");
                 console.log("SuggestedItems: " + suggestedItems)
+                suggestedItems = getSuggestions(inputBoxItem.value.trim(), allItemsNames); 
                 filteredItems = searchItems(suggestedItems); 
                 render_items();
                 break;
             default:
                 break;
-        }        
+        }       
     });
 
-}
+
+    console.log("Realoading7");
+});
+
+
 
 function searchUsers(suggestedWords){
     let searchResults = [];
@@ -337,7 +412,7 @@ function getItemsBySuggestion(suggestedWords){
 }
 
 function getSuggestions(input, allNames) {
-   
+    console.log("Getting suggestions");
     return allNames.filter(function(name) {
         return name.toLowerCase().startsWith(input.toLowerCase());
     });
@@ -352,6 +427,10 @@ function display_result(results) {
     console.log("ID: " + id);
     const resultBox = document.getElementById(id);
 
+    if(resultBox.style.display === 'none'){
+        resultBox.style.display = 'block';
+    }
+
     console.log(resultBox);
     console.log(results); 
 
@@ -363,11 +442,20 @@ function display_result(results) {
     }
 
     const content = results.map(item => {
-        return "<li onclick='selectInput(this)' class='searched_item'>" + item + "</li>";
+        if(selectedOption === 'users'){
+            return "<li onclick='selectInput(this)' class='searched_item'>" + item + "</li>";
+        }else{
+            return "<li onclick='selectInputItem(this)' class='searched_item'>" + item + "</li>";
+        }
     });
 
     resultBox.innerHTML = "<ul>" + content.join('') + "</ul>";
 }
+
+function selectInputItem(element){
+    document.getElementById('search-bar-item').value = element.innerHTML;
+}
+
 
 function selectInput(element){
     document.querySelector('.search_bar').value = element.innerHTML;
@@ -439,6 +527,27 @@ function render_items() {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('searched-item-container');
 
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'A';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', function() {
+            // Toggle background color of the button
+            if (deleteButton.classList.contains('selected')) {
+                deleteButton.classList.remove('selected');
+                deleteButton.style.backgroundColor = 'transparent';
+            } else {
+                deleteButton.classList.add('selected');
+                deleteButton.style.backgroundColor = '#0B6E4F';
+            }
+        
+            // Toggle background color of the user container
+            if (itemContainer.classList.contains('selected')) {
+                itemContainer.classList.remove('selected');
+            } else {
+                itemContainer.classList.add('selected');
+            }
+        });
+        itemContainer.appendChild(deleteButton);
         // Fetch the item photo
         const itemId = item[0]; // Assuming item id is in the first index
         const itemPhotoUrl = `../assets/items/${itemId}-1.png`; // Construct the URL
@@ -448,7 +557,7 @@ function render_items() {
         itemContainer.appendChild(itemPhoto);
 
         // Item title
-        const titleElement = document.createElement('h3');
+        const titleElement = document.createElement('h4');
         titleElement.textContent = item[1]; // Assuming item name is in the second index
         titleElement.classList.add('item-title');
         itemContainer.appendChild(titleElement);
@@ -465,19 +574,6 @@ function render_items() {
         priceElement.classList.add('item-price');
         itemContainer.appendChild(priceElement);
 
-        // Heart icon (for wishlist)
-        const heartIcon = document.createElement('i');
-        heartIcon.classList.add('fas', 'fa-heart', 'heart-icon');
-        heartIcon.addEventListener('click', function() {
-            heartIcon.classList.toggle('heart-active');
-        });
-        itemContainer.appendChild(heartIcon);
-
-        // Text for wishlist
-        const addToWishlistText = document.createElement('p');
-        addToWishlistText.textContent = "Add to Wishlist?";
-        addToWishlistText.classList.add('text-icon');
-        itemContainer.appendChild(addToWishlistText);
 
         searchItemsDiv.appendChild(itemContainer);
     });
@@ -542,4 +638,305 @@ function render_users(){
 
         searchUsersDiv.appendChild(userContainer);
     });
+}
+
+
+
+
+//MISCELANEOUS PART OF THE CODE (CONDITIONS , SIZES ETC)
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const showAllCategoriesBtn = document.querySelector('.showAllCateogiries button');
+    const showAllSubCategoriesBtn = document.querySelector('.showAllSubCateogiries button');
+    const showAllSizesBtn = document.querySelector('.showAllSizes button');
+    const showAllConditionsBtn = document.querySelector('.showAllConditions button');
+    const addCategoryBtn = document.querySelector('.AddCategory button');
+    const addSubCategoryBtn = document.querySelector('.AddSubCategory button');
+    const addSizeBtn = document.querySelector('.AddSize button');
+    const addConditionBtn = document.querySelector('.AddCondition button');
+    const deleteCategoryBtn = document.querySelector('.DeleteCategory button');
+    const deleteSubCategoryBtn = document.querySelector('.DeleteSubCategory button');
+    const deleteSizeBtn = document.querySelector('.DeleteSize button');
+    const deleteConditionBtn = document.querySelector('.DeleteCondition button');
+
+    // Add click event listeners to each button
+    showAllCategoriesBtn.addEventListener('click', () => {
+        render_categories();
+    });
+
+    showAllSubCategoriesBtn.addEventListener('click', () => {
+        render_subcategories();
+    });
+
+    showAllSizesBtn.addEventListener('click', () => {
+        render_sizes();
+    });
+
+    showAllConditionsBtn.addEventListener('click', () => {
+        render_conditions();
+    });
+
+    addCategoryBtn.addEventListener('click', () => {
+        addAdder("Category");
+    });
+
+    addSubCategoryBtn.addEventListener('click', () => {
+        addAdder("SubCategory");
+    });
+
+    addSizeBtn.addEventListener('click', () => {
+        addAdder("Size");
+    });
+
+    addConditionBtn.addEventListener('click', () => {
+        addAdder("Condition");
+    });
+
+    deleteCategoryBtn.addEventListener('click', () => {
+        // Your click event handling logic for Delete Category button here
+    });
+
+    deleteSubCategoryBtn.addEventListener('click', () => {
+        // Your click event handling logic for Delete Sub Category button here
+    });
+
+    deleteSizeBtn.addEventListener('click', () => {
+        // Your click event handling logic for Delete Size button here
+    });
+
+    deleteConditionBtn.addEventListener('click', () => {
+        // Your click event handling logic for Delete Condition button here
+    });
+
+
+});
+
+
+function cleanMiscelaneousStuffDiv(){
+    const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
+    miscelaneousStuffDiv.innerHTML = '';
+}
+
+function render_categories() {
+    cleanMiscelaneousStuffDiv();
+    showIcons();
+
+    const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
+
+    allCategories.forEach(category => {
+
+        const categoriesContainer = document.createElement('div');
+        categoriesContainer.classList.add('category');
+        
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'A';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', function() {
+            
+            if (deleteButton.classList.contains('selected')) {
+                deleteButton.classList.remove('selected');
+                deleteButton.style.backgroundColor = 'transparent';
+            } else {
+                deleteButton.classList.add('selected');
+                deleteButton.style.backgroundColor = '#0B6E4F';
+            }
+        
+            if (categoriesContainer.classList.contains('selected')) {
+                categoriesContainer.classList.remove('selected');
+            } else {
+                categoriesContainer.classList.add('selected');
+            }
+        });
+
+        const categoryId = category[0];
+        const categoryName = category[1];
+
+        const ID = document.createElement('h3');
+        ID.textContent = categoryId;
+        
+        const categoryNameElement = document.createElement('h3');
+        categoryNameElement.textContent = categoryName;
+
+        categoriesContainer.appendChild(deleteButton);
+        categoriesContainer.appendChild(ID);
+        categoriesContainer.appendChild(categoryNameElement);
+
+        miscelaneousStuffDiv.appendChild(categoriesContainer);
+    });
+}
+
+function render_subcategories() {
+    cleanMiscelaneousStuffDiv();
+    showIcons();
+
+    const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
+
+    allSubCategories.forEach(subCategory => {
+
+        const categoriesContainer = document.createElement('div');
+        categoriesContainer.classList.add('subCategory');
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'A';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', function() {
+            
+            if (deleteButton.classList.contains('selected')) {
+                deleteButton.classList.remove('selected');
+                deleteButton.style.backgroundColor = 'transparent';
+            } else {
+                deleteButton.classList.add('selected');
+                deleteButton.style.backgroundColor = '#0B6E4F';
+            }
+        
+            if (categoriesContainer.classList.contains('selected')) {
+                categoriesContainer.classList.remove('selected');
+            } else {
+                categoriesContainer.classList.add('selected');
+            }
+        });
+
+
+        const subCategoryContainer = document.createElement('div');
+        subCategoryContainer.classList.add('subCategory');
+        
+        const subCategoryId = subCategory[0];
+        const subCategoryName = subCategory[1];
+
+        const subCategoryID = document.createElement('h3');
+        subCategoryID.textContent = subCategoryId;
+        
+        const subCategoryNameElement = document.createElement('h3');
+        subCategoryNameElement.textContent = subCategoryName;
+
+        subCategoryContainer.appendChild(subCategoryID);
+        subCategoryContainer.appendChild(subCategoryNameElement);
+
+        miscelaneousStuffDiv.appendChild(subCategoryContainer);
+    });
+}
+
+function render_sizes() {
+    cleanMiscelaneousStuffDiv();
+    showIcons();
+
+    const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
+
+    allSizes.forEach(size => {
+
+        const sizesContainer = document.createElement('div');
+        sizesContainer.classList.add('size');
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'A';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', function() {
+            
+            if (deleteButton.classList.contains('selected')) {
+                deleteButton.classList.remove('selected');
+                deleteButton.style.backgroundColor = 'transparent';
+            } else {
+                deleteButton.classList.add('selected');
+                deleteButton.style.backgroundColor = '#0B6E4F';
+            }
+        
+            if (sizesContainer.classList.contains('selected')) {
+                sizesContainer.classList.remove('selected');
+            } else {
+                sizesContainer.classList.add('selected');
+            }
+        });
+
+        const sizeId = size[0];
+        const sizeName = size[1];
+
+        const ID = document.createElement('h3');
+        ID.textContent = sizeId;
+        
+        const sizeNameElement = document.createElement('h3');
+        sizeNameElement.textContent = sizeName;
+
+        sizesContainer.appendChild(deleteButton);
+        sizesContainer.appendChild(ID);
+        sizesContainer.appendChild(sizeNameElement);
+
+        miscelaneousStuffDiv.appendChild(sizesContainer);
+    });
+}
+
+function render_conditions() {
+    cleanMiscelaneousStuffDiv();
+    showIcons();
+
+    const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
+
+    allConditions.forEach(condition => {
+
+        const conditionContainer = document.createElement('div');
+        conditionContainer.classList.add('size');
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'A';
+        deleteButton.classList.add('delete-button');
+        
+        deleteButton.addEventListener('click', function() {
+            
+            if (deleteButton.classList.contains('selected')) {
+                deleteButton.classList.remove('selected');
+                deleteButton.style.backgroundColor = 'transparent';
+            } else {
+                deleteButton.classList.add('selected');
+                deleteButton.style.backgroundColor = '#0B6E4F';
+            }
+        
+            if (conditionContainer.classList.contains('selected')) {
+                conditionContainer.classList.remove('selected');
+            } else {
+                conditionContainer.classList.add('selected');
+            }
+        });
+
+        const conditionId = condition[0];
+        const conditionName = condition[1];
+
+        const ID = document.createElement('h3');
+        ID.textContent = conditionId;
+        
+        const sizeNameElement = document.createElement('h3');
+        sizeNameElement.textContent = conditionName;
+
+        conditionContainer.appendChild(deleteButton);
+        conditionContainer.appendChild(ID);
+        conditionContainer.appendChild(sizeNameElement);
+
+        miscelaneousStuffDiv.appendChild(conditionContainer);
+    });
+}
+
+
+function addAdder(exibitText){
+    cleanMiscelaneousStuffDiv();
+    hideIcons();
+
+    const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
+
+    const adder = document.createElement('div');
+    adder.classList.add('adder');
+
+    const text = document.createElement('p');
+    text.innerHTML = "Please Introduce a " + exibitText;
+    adder.appendChild(text);
+
+    const input = document.createElement('input');
+    input.classList.add('input');
+    adder.appendChild(input);
+
+    const addButton = document.createElement('button');
+    addButton.classList.add('add-button');
+    addButton.textContent = 'Add';
+    adder.appendChild(addButton);
+
+    miscelaneousStuffDiv.appendChild(adder);
 }

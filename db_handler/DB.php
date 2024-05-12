@@ -147,6 +147,16 @@
             return $categories;
         }
 
+        public function getCategories() : array {
+            $stmt = $this->conn->prepare("SELECT * FROM categories");
+            $stmt->execute();
+            $categories = [];
+            while ($row = $stmt->fetch()) {
+                $categories[] = new Category($row['CategoryId'], $row['Name']);
+            }
+            return $categories;
+        }
+
         public function getSubCategoryById($id) : SubCategory {
             $stmt = $this->conn->prepare("SELECT * FROM subcategories WHERE id = :id");
             $stmt->bindParam(':id', $id);

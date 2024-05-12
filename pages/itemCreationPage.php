@@ -7,6 +7,7 @@
 
     <link href="../../css/itemCreation.css" rel="stylesheet">
     <script src="js/itemCreation.js"></script>
+    <link rel="shortcut icon" href="#">
     
 </head>
 

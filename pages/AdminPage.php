@@ -111,7 +111,7 @@
 
                     <div class="search-box">
                         <div class="row">
-                            <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
+                            <input type="text" placeholder="O que Procuras?" class="search_bar" id = "search-bar-item"> </input>
                         </div>
 
                         <div class="result-box" id = "result-box-items">
@@ -122,7 +122,7 @@
                     </div>
 
 
-                    <button class="search_button">
+                    <button class="search_button" id = "search-bar-item-button">
                         Pesquisar
                         <img src="assets/search-interface-symbol.png" alt="search-icon" class="search_icon">
                     </button>
@@ -151,6 +151,20 @@
                 </button>
             </section>
 
+            <section class = "showAllSizes">
+                <button>
+                    <h4>Show all Sizes</h4>
+                    <i class="fa fa-list"></i>
+                </button>
+            </section>
+
+            <section class = "showAllConditions">
+                <button>
+                    <h4>Show all Conditions</h4>
+                    <i class="fa fa-list"></i>
+                </button>
+            </section>
+
             <section class = "AddCategory">
                 <button>
                     <h4>Add Category</h4>
@@ -165,19 +179,20 @@
                 </button>
             </section>
 
-            <section class = "DeleteCategory">
+            <section class = "AddSize">
                 <button>
-                    <h4>Delete Category</h4>
-                    <i class="fa fa-trash" ></i>
+                    <h4>Add Size</h4>
+                    <i class="fa fa-plus" ></i>
                 </button>
             </section>
 
-            <section class = "DeleteSubCategory">
+            <section class = "AddCondition">
                 <button>
-                    <h4>Delete Sub Category</h4>
-                    <i class="fa fa-trash" ></i>
+                    <h4>Add Condition</h4>
+                    <i class="fa fa-plus" ></i>
                 </button>
             </section>
+
             </div>
         </div>
 
@@ -191,6 +206,7 @@
 
     <div class = "search-users"></div>
 
+    <div class = "miscelaneousStuff"></div>
 
     <?php
         include 'templates/footer.php';

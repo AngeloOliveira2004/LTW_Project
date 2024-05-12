@@ -196,9 +196,6 @@ body{
 .CategoriesSections{
     display: flex;
     justify-content: center;
-    margin-left: 10%;
-    margin-right: 10%;
-    width: 80%;
     margin-top: 2em;
     margin-bottom: 2em;
     gap: 2em;
@@ -332,6 +329,10 @@ body{
     background-color: #ccc;
 }
 
+.searched-item-container.selected {
+    background-color: #ccc;
+}
+
 .options-icons {
     display: flex;
     justify-content: center;
@@ -355,4 +356,121 @@ body{
     background-color: #CBE896;
     padding: 1em;
     margin-bottom: 2em;
+}
+
+
+.searched-item-container {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    position: relative; 
+    overflow: hidden;
+}
+
+.item-photo {
+    flex-basis: 100%;
+    max-width: 20%;
+    max-height: 100%;
+    margin-right: 0.3em;
+    margin-bottom: 0.5em; 
+}
+
+.item-title {
+    font-size: 1.2em;
+    margin-bottom: 0.2em; 
+}
+
+.item-description {
+    position: absolute;
+    margin-top: 3%;
+    margin-left: 22.5%;
+    margin-bottom: 0.5em; 
+
+}
+
+.item-price {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    margin-right: 2%;
+    margin-top: 2%;
+}
+
+
+
+.category,
+.subCategory,
+.size,
+.condition {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+}
+
+h3{
+    font-size: 2em;
+    color: #A4969B;
+    margin-left: 13%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.selected{
+    background-color: #ccc;
+}
+
+.adder{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: 1px solid #ccc;
+    width: 80%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    gap: 2em;
+}
+
+.adder p{
+    font-size: 1.5em;
+    color: #A4969B;
+    margin-top: 2em;
+}
+
+.adder input{
+    font-size: 1.5em;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.adder button{
+    background-color: white;
+    color: black;
+    padding: 0.5em 2em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-bottom: 2em;
+}
+
+.adder button:hover{
+    background-color: #D3D3D3;
+}
+
+.adder button:active{
+    background-color: #A4969B;
+    color: white;
 }
