@@ -194,3 +194,23 @@ document.addEventListener('DOMContentLoaded', function () {
         checkoutBtn.innerHTML = 'View Cart';
     })
 }); 
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("reviewForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        let formData = new FormData(this);
+        
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "../../db_handler/action_send_review.php", true);
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                alert(xhr.responseText);
+            } else {
+                alert("An error occurred while processing your review.");
+            }
+        };
+        xhr.send(formData);
+    });
+});
+

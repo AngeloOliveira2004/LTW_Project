@@ -646,5 +646,19 @@
             $stmt->execute();
         }
 
+        public function saveReviewsDb($rating,$comment,$author,$userReviewed){
+            $timestamp = date("Y-m-d H:i:s");
+
+            $stmt = $this->conn->prepare("INSERT INTO Reviews(Rating, Comment, Author, UserReviewed, ReviewDate) VALUES (:rating, :comment, :author, :userReviewed, :time_now)");
+
+            $stmt->bindParam(':rating', $rating);
+            $stmt->bindParam(':comment', $comment);
+            $stmt->bindParam(':author', $author);
+            $stmt->bindParam(':userReviewed', $userReviewed);
+            $stmt->bindParam(':time_now', $timestamp);
+
+            $stmt->execute();
+        }
+
     }
 ?>

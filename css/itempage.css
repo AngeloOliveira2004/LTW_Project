@@ -477,7 +477,7 @@
 }
 
 
-.Items_From_The_Same_User{
+.Items_From_The_Same_User,.review_text{
   font-size: 2em;
   font-weight: 500;
   color: #0B6E4F;
@@ -492,3 +492,27 @@
   margin-left: 10%;
   margin-bottom: 1em;
 }
+
+.form_review{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.rating_number{
+  margin-bottom: 1em;
+}
+
+.submit_button{
+  margin-bottom: 2em;
+}
+
+.label_message{
+  margin-bottom: 1em;
+}
+
+.review_message{
+  margin-bottom: 1em;
+}
+

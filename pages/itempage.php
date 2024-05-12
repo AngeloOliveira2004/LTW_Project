@@ -237,15 +237,23 @@
         </section>
 
 
+        <p class="review_text">Leave a review to this user</p>
+        <div class="line"></div>
+        <form class="form_review" id="reviewForm" method="post">
+            <input type="hidden" name="userReviewed" value="<?php echo $userId; ?>">
+            <label for="message" class="label_message">Message:</label>
+            <textarea id="message" class="review_message" name="message" rows="4" cols="50"></textarea>
+
+            <label for="rating" class="label_message">Rating (0 - 5.0):</label>
+            <input type="number" class ="rating_number" id="rating" name="rating" step="0.1" min="0" max="5.0" required>
+
+            <input type="submit" class="submit_button" value="Submit">
+        </form>
+
         <?php
         include 'templates/footer.php';
-    ?>
+        ?>
 
     </body>
 
 </html>
-
-dá fetch primeiro
-e pull tambem
-
-consegues ver a terminal?

@@ -102,7 +102,7 @@ CREATE TABLE Wishlist (
 );
 
 CREATE TABLE Reviews (
-    ReviewId INT PRIMARY KEY,
+    ReviewId INTEGER PRIMARY KEY AUTOINCREMENT,
     Rating DECIMAL NOT NULL,
     Comment TEXT NOT NULL,
     Author INT,
