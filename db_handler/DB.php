@@ -147,6 +147,36 @@
             return $categories;
         }
 
+        public function deleteConditionById($id) {
+            $stmt = $this->conn->prepare("DELETE FROM Conditions WHERE ConditionId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+        public function deleteSizeById($id) {
+            $stmt = $this->conn->prepare("DELETE FROM Sizes WHERE SizeId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+        public function deleteSubCategoryById($id) {
+            $stmt = $this->conn->prepare("DELETE FROM Subcategory WHERE SUbCategoryId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+        public function deleteCategoryById($id) {
+            $stmt = $this->conn->prepare("DELETE FROM Categories WHERE CategoryId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+        public function deteleUserbyId($id) {
+            $stmt = $this->conn->prepare("DELETE FROM Users WHERE Id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
         public function getCategories() : array {
             $stmt = $this->conn->prepare("SELECT * FROM categories");
             $stmt->execute();
