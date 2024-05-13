@@ -161,12 +161,6 @@
             $stmt->execute();
         }
 
-        public function deteleUserbyId($id) {
-            $stmt = $this->conn->prepare("DELETE FROM Users WHERE Id = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-        }
-
         public function getCategories() : array {
             $stmt = $this->conn->prepare("SELECT * FROM categories");
             $stmt->execute();
@@ -454,7 +448,7 @@
             $stmt->bindParam(':userId', $userId);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if ($user) {
                 return new User(
                     $user['Id'],
@@ -463,6 +457,7 @@
                     $user['PasswordHash'],
                     $user['FirstName'],
                     $user['LastName'],
+                    $user['AdminStatus'],
                     $user['Address'],
                     $user['PhoneNumber']
                 );
@@ -502,8 +497,7 @@
             return $reviews;
         }
 
-        public function 
-        getUserByEmail($email) : User {
+        public function getUserByEmail($email) : User {
             $stmt = $this->conn->prepare("SELECT * FROM Users WHERE Email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
@@ -517,6 +511,7 @@
                     $user['PasswordHash'],
                     $user['FirstName'],
                     $user['LastName'],
+                    $user['AdminStatus'],
                     $user['Address'],
                     $user['PhoneNumber']
                 );
@@ -667,5 +662,46 @@
             $stmt->execute();
         }
 
+        public function deteleUserbyId($id) {
+            $stmt = $this->conn->prepare("DELETE FROM Users WHERE Id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+        public function deleteUserMessages($userId) {
+            $stmt = $this->conn->prepare("DELETE FROM Messages WHERE Sender = :userId OR Receiver = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+        }
+
+        public function deleteUserReviews($userId) {
+            $stmt = $this->conn->prepare("DELETE FROM Reviews WHERE Author = :userId OR UserReviewed = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+        }
+
+        public function deleteUserWishlist($userId) {
+            $stmt = $this->conn->prepare("DELETE FROM Wishlist WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+        }
+
+        public function deleteUserShoppingCart($userId) {
+            $stmt = $this->conn->prepare("DELETE FROM ShoppingCart WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+        }
+
+        public function deleteUserOrderHistory($userId) {
+            $stmt = $this->conn->prepare("DELETE FROM OrderHistory WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+        }
+
+        public function deleteUserOrderItems($userId) {
+            $stmt = $this->conn->prepare("DELETE FROM OrderItems WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+        }
     }
 ?>

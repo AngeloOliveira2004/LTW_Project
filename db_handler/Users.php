@@ -8,17 +8,19 @@ class User {
     public $PasswordHash;
     public $FirstName;
     public $LastName;
+    public $status;
     public $Address;
     public $PhoneNumber;
 
     // Constructor with all attributes
-    public function __construct($Id, $Username, $Email, $PasswordHash, $FirstName, $LastName, $Address, $PhoneNumber) {
+    public function __construct($Id, $Username, $Email, $PasswordHash, $FirstName, $LastName, $status , $Address, $PhoneNumber) {
         $this->Id = $Id;
         $this->Username = $Username;
         $this->Email = $Email;
         $this->PasswordHash = $PasswordHash;
         $this->FirstName = $FirstName;
         $this->LastName = $LastName;
+        $this->status = $status;
         $this->Address = $Address;
         $this->PhoneNumber = $PhoneNumber;
     }
@@ -66,6 +68,13 @@ class User {
     public function getPhoneNumber(): string {
         return $this->PhoneNumber;
     }
-}
 
+    public function getUserStatus() {
+        return $this->status;
+    }
+
+    public function setUserStatus($status) {
+        $this->status = $status;
+    }
+}
 ?>

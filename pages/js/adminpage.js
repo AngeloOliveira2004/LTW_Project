@@ -1074,3 +1074,102 @@ function deleteParameter(table,main_class){
             size++;
         }
 }
+
+function deleteUsers() {
+
+    console.log(selectedUsersGlobal);
+
+    selectedUsersGlobal.forEach(user => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', "../../db_handler/action_delete_users_admin.php", true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send('id=' + encodeURIComponent(user));
+    }); 
+
+    allUsers = allUsers.filter(user => !selectedUsersGlobal.includes(user[0]));
+
+    selectedUsersGlobal = [];
+
+    render_users();
+}
+
+function elevateUserStatus() {
+
+    console.log(selectedUsersGlobal);
+
+    selectedUsersGlobal.forEach(user => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', "../../db_handler/action_elevate_user_status.php", true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send('id=' + encodeURIComponent(user));
+    }); 
+
+    allUsers = allUsers.filter(user => !selectedUsersGlobal.includes(user[0]));
+
+    selectedUsersGlobal = [];
+}
+
+function downgradeUserStatus() {
+
+    console.log(selectedUsersGlobal);
+
+    selectedUsersGlobal.forEach(user => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', "../../db_handler/action_downgrade_user_status.php", true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send('id=' + encodeURIComponent(user));
+    }); 
+
+    allUsers = allUsers.filter(user => !selectedUsersGlobal.includes(user[0]));
+
+    selectedUsersGlobal = [];
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const deleteButton = document.getElementById("delete_button");
+    const arrowUpButton = document.getElementById("arrow_up");
+    const arrowDownButton = document.getElementById("arrow_down");
+
+    deleteButton.addEventListener('click', () => {
+
+        switch(selectedOption){
+            case 'users':
+                deleteUsers();
+                break;
+            case 'items':
+                deleteItems();
+                break;
+            default:
+                break;
+        }
+
+    });
+
+    arrowUpButton.addEventListener('click', () => {
+        switch(selectedOption){
+            case 'users':
+                elevateUserStatus();
+                break;
+            case 'items':
+                //todo
+                break;
+            default:
+                break;
+        }
+    });
+
+    arrowDownButton.addEventListener('click', () => {
+        switch(selectedOption){
+            case 'users':
+                downgradeUserStatus();
+                break;
+            case 'items':
+                //todo
+                break;
+            default:
+                break;
+        }
+    });
+
+});
