@@ -185,7 +185,10 @@ document.addEventListener("DOMContentLoaded", function() {
         cleanSearchUsersDiv();
         cleanMiscelaneousStuffDiv();
         showIcons();
-        
+        const arrowUpButton = document.getElementById("arrow_up");
+        const arrowDownButton = document.getElementById("arrow_down");
+        arrowDownButton.style.display = "block";
+        arrowUpButton.style.display = "block";
     });
 
     document.getElementById('items').addEventListener('click', function() {
@@ -197,6 +200,10 @@ document.addEventListener("DOMContentLoaded", function() {
         cleanSearchUsersDiv();
         cleanMiscelaneousStuffDiv();
         showIcons();
+        const arrowUpButton = document.getElementById("arrow_up");
+        const arrowDownButton = document.getElementById("arrow_down");
+        arrowDownButton.style.display = "block";
+        arrowUpButton.style.display = "block";
         
     });
 
@@ -208,6 +215,10 @@ document.addEventListener("DOMContentLoaded", function() {
         cleanSearchUsersDiv();
         cleanMiscelaneousStuffDiv();
         showIcons();
+        const arrowUpButton = document.getElementById("arrow_up");
+        const arrowDownButton = document.getElementById("arrow_down");
+        arrowDownButton.style.display = "none";
+        arrowUpButton.style.display = "none";
     });
 });
 
@@ -655,10 +666,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const addSubCategoryBtn = document.querySelector('.AddSubCategory button');
     const addSizeBtn = document.querySelector('.AddSize button');
     const addConditionBtn = document.querySelector('.AddCondition button');
-    const deleteCategoryBtn = document.querySelector('.deleteCategory button');
-    const deleteSubCategoryBtn = document.querySelector('.deleteSubCategory button');
-    const deleteSizeBtn = document.querySelector('.deleteSize button');
-    const deleteConditionBtn = document.querySelector('.deleteCondition button');
 
     // Add click event listeners to each button
     showAllCategoriesBtn.addEventListener('click', () => {
@@ -692,24 +699,6 @@ document.addEventListener("DOMContentLoaded", function() {
     addConditionBtn.addEventListener('click', () => {
         addAdder("Condition");
     });
-
-    deleteCategoryBtn.addEventListener('click', () => {
-        deleteParameter("Category");
-    });
-
-    deleteSubCategoryBtn.addEventListener('click', () => {
-        deleteParameter("SubCategory");
-    });
-
-    deleteSizeBtn.addEventListener('click', () => {
-        deleteParameter("Size");
-    });
-
-    deleteConditionBtn.addEventListener('click', () => {
-        deleteParameter("Condition");
-    });
-
-
 });
 
 
@@ -723,13 +712,14 @@ function render_categories() {
     showIcons();
 
     const deleteButton = document.getElementById("delete_button");
-    const arrowUpButton = document.getElementById("arrow_up");
-    const arrowDownButton = document.getElementById("arrow_down");
 
     deleteButton.className = "deleteCategory";
-    arrowUpButton.className = "arrowUpCategory";
-    arrowDownButton.className = "arrowDownCategory";
 
+    deleteButton.style.display = "block";
+
+    deleteButton.addEventListener('click', () => {
+        deleteParameter("Categories","category");
+    });
 
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
 
@@ -781,12 +771,14 @@ function render_subcategories() {
     showIcons();
 
     const deleteButton = document.getElementById("delete_button");
-    const arrowUpButton = document.getElementById("arrow_up");
-    const arrowDownButton = document.getElementById("arrow_down");
 
     deleteButton.className = "deleteSubCategory";
-    arrowUpButton.className = "arrowUpSubCategory";
-    arrowDownButton.className = "arrowDownSubCategory";
+
+    deleteButton.style.display = "block";
+
+    deleteButton.addEventListener('click', () => {
+        deleteParameter("Subcategory",'subCategory');
+    });
 
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
 
@@ -840,12 +832,14 @@ function render_sizes() {
     showIcons();
 
     const deleteButton = document.getElementById("delete_button");
-    const arrowUpButton = document.getElementById("arrow_up");
-    const arrowDownButton = document.getElementById("arrow_down");
 
     deleteButton.className = "deleteSize";
-    arrowUpButton.className = "arrowUpSize";
-    arrowDownButton.className = "arrowDownSize";
+
+    deleteButton.style.display = "block";
+
+    deleteButton.addEventListener('click', () => {
+        deleteParameter("Sizes",'size');
+    });
 
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
 
@@ -896,14 +890,16 @@ function render_conditions() {
     showIcons();
 
     const deleteButton = document.getElementById("delete_button");
-    const arrowUpButton = document.getElementById("arrow_up");
-    const arrowDownButton = document.getElementById("arrow_down");
 
     deleteButton.className= "deleteCondition";
-    arrowUpButton.className = "arrowUpCondition";
-    arrowDownButton.className ="arrowDownCondition";
+
+    deleteButton.style.display = "block";
 
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
+
+    deleteButton.addEventListener('click', () => {
+        deleteParameter("Conditions",'condition');
+    });
 
     allConditions.forEach(condition => {
 
@@ -952,6 +948,10 @@ function render_conditions() {
 function addAdder(exibitText){
     cleanMiscelaneousStuffDiv();
     hideIcons();
+
+    const deleteButton = document.getElementById("delete_button");
+
+    deleteButton.style.display = "none";
 
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
 
@@ -1020,31 +1020,37 @@ function addNewItem(table,newItem) {
         + '&newItem=' + encodeURIComponent(newItem));
 }
 
-function deleteParameter(table){
+function deleteParameter(table,main_class){
 
         const selectedItems = [];
         const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
-        const items = miscelaneousStuffDiv.querySelectorAll('[selected]');
+        const items = miscelaneousStuffDiv.querySelectorAll("." + main_class + '.selected');
         items.forEach(item => {
-            const secondH3 = item.querySelectorAll('h3')[1];
+            const secondH3 = item.querySelector('h3:nth-child(3)');
             selectedItems.push(secondH3.textContent);
         });
 
-        const formData = new FormData();
-        formData.append('table', table);
-        formData.append('selectedItems', JSON.stringify(selectedItems));
+        size = 0;
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', "../../db_handler/action_delete_parameter_admin.php", true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            const response = JSON.parse(xhr.responseText);
-            console.log('Parameters deleted successfully:', response);
-        } else {
-            console.error('Failed to delete parameters. Status:', xhr.status);
+        while(size != selectedItems.length - 1){
+
+            itemName = selectedItems[size];
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', "../../db_handler/action_delete_parameter_admin.php", true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                const response = JSON.parse(xhr.responseText);
+                console.log('Parameters deleted successfully:', response);
+            } else {
+                console.error('Failed to delete parameters. Status:', xhr.status);
+            }
+            };
+
+            xhr.send('table=' + encodeURIComponent(table)
+        + '&itemName=' + encodeURIComponent(itemName));
+
+            size++;
         }
-    };
-
-    xhr.send(formData);
 }
