@@ -938,5 +938,51 @@ function addAdder(exibitText){
     addButton.textContent = 'Add';
     adder.appendChild(addButton);
 
+    addButton.addEventListener('click', function() {
+        const inputValue = input.value.trim();
+        if (inputValue !== '') {
+            table: "";
+            newItem: "";
+            switch (exibitText) {
+                case 'Category':
+                        table =  "Categories";
+                        newItem = inputValue;
+                    break;
+                case 'SubCategory':
+                        table = "Subcategory";
+                        newItem = inputValue;
+                    break;
+                case 'Size':
+                        table = "Sizes";
+                        newItem = inputValue;
+                    break;
+                case 'Condition':
+                        table = "Conditions";
+                        newItem = inputValue;
+                    break;
+                default:
+                    break;
+            }
+            addNewItem(table,newItem);
+            input.value = '';
+        }
+    });
+
     miscelaneousStuffDiv.appendChild(adder);
+}
+
+function addNewItem(table,newItem) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', "../../db_handler/action_add_new_parameter_admin.php", true);
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.onload = function() {
+            if (xhr.status  >= 200 && xhr.status < 300) {
+                const response = JSON.parse(xhr.responseText);
+                console.log('Item added successfully:', response);
+            } else {
+                console.error('Failed to add item. Status:', xhr.status);
+            }
+    };
+    xhr.send('table=' + encodeURIComponent(table)
+        + '&newItem=' + encodeURIComponent(newItem));
 }

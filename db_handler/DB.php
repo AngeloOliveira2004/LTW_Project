@@ -660,5 +660,14 @@
             $stmt->execute();
         }
 
+
+        public function addParameterAdmin($table,$parameter){
+            $stmt = $this->conn->prepare("INSERT INTO $table('Name') VALUES (:parameter)");
+
+            $stmt->bindParam(':parameter', $parameter);
+
+            $stmt->execute();
+        }
+
     }
 ?>
