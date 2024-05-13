@@ -655,10 +655,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const addSubCategoryBtn = document.querySelector('.AddSubCategory button');
     const addSizeBtn = document.querySelector('.AddSize button');
     const addConditionBtn = document.querySelector('.AddCondition button');
-    const deleteCategoryBtn = document.querySelector('.DeleteCategory button');
-    const deleteSubCategoryBtn = document.querySelector('.DeleteSubCategory button');
-    const deleteSizeBtn = document.querySelector('.DeleteSize button');
-    const deleteConditionBtn = document.querySelector('.DeleteCondition button');
+    const deleteCategoryBtn = document.querySelector('.deleteCategory button');
+    const deleteSubCategoryBtn = document.querySelector('.deleteSubCategory button');
+    const deleteSizeBtn = document.querySelector('.deleteSize button');
+    const deleteConditionBtn = document.querySelector('.deleteCondition button');
 
     // Add click event listeners to each button
     showAllCategoriesBtn.addEventListener('click', () => {
@@ -722,6 +722,15 @@ function render_categories() {
     cleanMiscelaneousStuffDiv();
     showIcons();
 
+    const deleteButton = document.getElementById("delete_button");
+    const arrowUpButton = document.getElementById("arrow_up");
+    const arrowDownButton = document.getElementById("arrow_down");
+
+    deleteButton.className = "deleteCategory";
+    arrowUpButton.className = "arrowUpCategory";
+    arrowDownButton.className = "arrowDownCategory";
+
+
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
 
     allCategories.forEach(category => {
@@ -770,6 +779,14 @@ function render_categories() {
 function render_subcategories() {
     cleanMiscelaneousStuffDiv();
     showIcons();
+
+    const deleteButton = document.getElementById("delete_button");
+    const arrowUpButton = document.getElementById("arrow_up");
+    const arrowDownButton = document.getElementById("arrow_down");
+
+    deleteButton.className = "deleteSubCategory";
+    arrowUpButton.className = "arrowUpSubCategory";
+    arrowDownButton.className = "arrowDownSubCategory";
 
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
 
@@ -822,6 +839,14 @@ function render_sizes() {
     cleanMiscelaneousStuffDiv();
     showIcons();
 
+    const deleteButton = document.getElementById("delete_button");
+    const arrowUpButton = document.getElementById("arrow_up");
+    const arrowDownButton = document.getElementById("arrow_down");
+
+    deleteButton.className = "deleteSize";
+    arrowUpButton.className = "arrowUpSize";
+    arrowDownButton.className = "arrowDownSize";
+
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
 
     allSizes.forEach(size => {
@@ -869,6 +894,14 @@ function render_sizes() {
 function render_conditions() {
     cleanMiscelaneousStuffDiv();
     showIcons();
+
+    const deleteButton = document.getElementById("delete_button");
+    const arrowUpButton = document.getElementById("arrow_up");
+    const arrowDownButton = document.getElementById("arrow_down");
+
+    deleteButton.className= "deleteCondition";
+    arrowUpButton.className = "arrowUpCondition";
+    arrowDownButton.className ="arrowDownCondition";
 
     const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
 

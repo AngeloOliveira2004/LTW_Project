@@ -197,9 +197,9 @@
         </div>
 
     <div class = "options-icons">
-        <i class="fas fa-trash trash-icon" ></i>
-        <i class="fas fa-arrow-up up-arrow-icon" ></i>
-        <i class="fas fa-arrow-down down-arrow-icon"></i>
+        <button id="delete_button"><i class="fas fa-trash trash-icon" ></i></button>
+        <button id="arrow_up"><i class="fas fa-arrow-up up-arrow-icon" ></i></button>
+        <button id="arrow_down"><i class="fas fa-arrow-down down-arrow-icon"></i></button>
     </div>
 
     <div class = "search-items"></div>
