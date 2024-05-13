@@ -1010,7 +1010,7 @@ function addNewItem(table,newItem) {
     xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
     xhr.onload = function() {
             if (xhr.status  >= 200 && xhr.status < 300) {
-                const response = JSON.parse(xhr.responseText);
+                const response = xhr.responseText;
                 console.log('Item added successfully:', response);
             } else {
                 console.error('Failed to add item. Status:', xhr.status);
@@ -1032,8 +1032,7 @@ function deleteParameter(table,main_class){
 
         size = 0;
 
-        while(size != selectedItems.length - 1){
-
+        if(items.length == 1){
             itemName = selectedItems[size];
 
             const xhr = new XMLHttpRequest();
@@ -1041,7 +1040,7 @@ function deleteParameter(table,main_class){
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
-                const response = JSON.parse(xhr.responseText);
+                const response = xhr.responseText;
                 console.log('Parameters deleted successfully:', response);
             } else {
                 console.error('Failed to delete parameters. Status:', xhr.status);
@@ -1050,7 +1049,25 @@ function deleteParameter(table,main_class){
 
             xhr.send('table=' + encodeURIComponent(table)
         + '&itemName=' + encodeURIComponent(itemName));
+        }
 
+        while (size < selectedItems.length) {
+            itemName = selectedItems[size];
+        
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', "../../db_handler/action_delete_parameter_admin.php", true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    const response = xhr.responseText;
+                    console.log('Parameter deleted successfully:', response);
+                } else {
+                    console.error('Failed to delete parameter. Status:', xhr.status);
+                }
+            };
+        
+            xhr.send('table=' + encodeURIComponent(table) + '&itemName=' + encodeURIComponent(itemName));
+        
             size++;
         }
 }

@@ -660,7 +660,7 @@
         }
 
         public function deleteParameterAdmin($table,$parameter){
-            $stmt = $this->conn->prepare("DELETE FROM $table WHERE 'Name' = :parameter");
+            $stmt = $this->conn->prepare("DELETE FROM $table WHERE Name = :parameter");
 
             $stmt->bindParam(':parameter', $parameter);
 
