@@ -25,10 +25,10 @@
                     <div class="footer-column">
                         <h4>RetroRags</h4>
                         <ul>
-                            <li><a href="#">about us</a></li>
-                            <li><a href="#">our services</a></li>
-                            <li><a href="#">privacy policy</a></li>
-                            <li><a href="#">affiliate program</a></li>
+                            <li><a href="about.php#about">about us</a></li>
+                            <li><a href="about.php#services">our services</a></li>
+                            <li><a href="about.php#privacy-policy">privacy policy</a></li>
+                            <li><a href="about.php#affiliate-program">affiliate program</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
