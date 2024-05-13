@@ -18,6 +18,7 @@ let allSizes = [];
 let allConditions = [];
 
 let selectedUsersGlobal = [];
+let selectedItemsGlobal = [];
 
 document.addEventListener("DOMContentLoaded", async function() {
     await loadInitialContent();
@@ -197,7 +198,6 @@ document.addEventListener("DOMContentLoaded", function() {
         
         showContent('itemsContent');
         selectedOption = 'items';
-        console.log("Selected option: " + selectedOption);
         cleanSearchItemsDiv();
         cleanSearchUsersDiv();
         cleanMiscelaneousStuffDiv();
@@ -553,12 +553,16 @@ function render_items() {
                 deleteButton.style.backgroundColor = '#0B6E4F';
             }
         
-            // Toggle background color of the user container
             if (itemContainer.classList.contains('selected')) {
+                selectedItemsGlobal = selectedItemsGlobal.filter(item => item !== item[0]);
                 itemContainer.classList.remove('selected');
+                console.log("Selected items: " + selectedItemsGlobal);
             } else {
+                selectedItemsGlobal.push(item[0]);
                 itemContainer.classList.add('selected');
+                console.log("Selected items: " + selectedItemsGlobal);
             }
+            
         });
         itemContainer.appendChild(deleteButton);
         // Fetch the item photo
@@ -1162,7 +1166,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 elevateUserStatus();
                 break;
             case 'items':
-                //todo
+                elevateItemStatus();
                 break;
             default:
                 break;
@@ -1175,7 +1179,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 downgradeUserStatus();
                 break;
             case 'items':
-                //todo
+                downgradeItemStatus();
                 break;
             default:
                 break;
@@ -1183,3 +1187,58 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
+
+function deleteItems() {
+
+    console.log(selectedItemsGlobal);
+
+    selectedItemsGlobal.forEach(item => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', "../../db_handler/action_delete_items_admin.php", true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send('itemId=' + encodeURIComponent(item));
+    }); 
+
+    allItems = allItems.filter(item => !selectedItemsGlobal.includes(item[0]));
+
+    selectedItemsGlobal = [];
+
+    render_items();
+}
+
+function elevateItemStatus() {
+
+    console.log("Elevating item status");
+    console.log(selectedItemsGlobal);
+
+    selectedItemsGlobal.forEach(item => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', "../../db_handler/action_elevate_item_status.php", true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send('itemId=' + encodeURIComponent(item));
+    }); 
+
+    allItems = allItems.filter(item => !selectedItemsGlobal.includes(item[0]));
+
+    selectedItemsGlobal = [];
+
+    render_items();
+}
+
+function downgradeItemStatus() {
+
+    console.log(selectedItemsGlobal);
+
+    selectedItemsGlobal.forEach(item => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', "../../db_handler/action_downgrade_item_status.php", true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send('itemId=' + encodeURIComponent(item));
+    }); 
+
+    allItems = allItems.filter(item => !selectedItemsGlobal.includes(item[0]));
+
+    selectedItemsGlobal = [];
+
+    render_items();
+}

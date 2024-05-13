@@ -108,6 +108,7 @@
                 $row['AvailableForDelivery'],
                 $row['SubCategory'],
                 $row['NumberOfImages'],
+                $row['Highlighted'],
                 $row['UserId']
             );
         }
@@ -198,7 +199,7 @@
         }
 
         public function getItems() : array {
-            $stmt = $this->conn->prepare("SELECT * FROM Items");
+            $stmt = $this->conn->prepare("SELECT * FROM Items ORDER BY Highlighted DESC");
             $stmt->execute();
             $items = [];
             while ($row = $stmt->fetch()) {
@@ -216,6 +217,7 @@
                 $row['AvailableForDelivery'],
                 $row['SubCategory'],
                 $row['NumberOfImages'],
+                $row['Highlighted'],
                 $row['UserId']
             );
             }
@@ -263,6 +265,7 @@
                     $row['AvailableForDelivery'],
                     $row['SubCategory'],
                     $row['NumberOfImages'],
+                    $row['Highlighted'],
                     $row['UserId']
                 );
             }
@@ -412,6 +415,7 @@
                     $row['AvailableForDelivery'],
                     $row['SubCategory'],
                     $row['NumberOfImages'],
+                    $row['Highlighted'],
                     $row['UserId']
                 );
             }
@@ -419,7 +423,7 @@
         }
 
         public function getXRandItems(int $x) : array {
-            $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY RANDOM() LIMIT :x");
+            $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY highlighted DESC,RANDOM() LIMIT :x");
             $stmt->bindParam(':x', $x);
             $stmt->execute();
             $items = [];
@@ -438,6 +442,7 @@
                     $row['AvailableForDelivery'],
                     $row['SubCategory'],
                     $row['NumberOfImages'],
+                    $row['Highlighted'],
                     $row['UserId']
                 );
             }
@@ -709,6 +714,13 @@
             $stmt = $this->conn->prepare("UPDATE Users SET AdminStatus = :adminStatus WHERE Id = :userId");
             $stmt->bindParam(':adminStatus', $adminStatus);
             $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+        }
+
+        public function UpdateItemHighlighted($itemId,$highlighted){
+            $stmt = $this->conn->prepare("UPDATE Items SET Highlighted = :highlighted WHERE Id = :itemId");
+            $stmt->bindParam(':highlighted', $highlighted);
+            $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
         }
 

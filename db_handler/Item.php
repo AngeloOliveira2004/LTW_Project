@@ -23,7 +23,7 @@ class Item {
     public $userId;
 
 
-    public function __construct($id, $name, $description, $brand , $model , $category, $size , $price, $condition, $available, $available_for_delivery, $subCategory ,$NumberOfImages, $userId) {
+    public function __construct($id, $name, $description, $brand , $model , $category, $size , $price, $condition, $available, $available_for_delivery, $subCategory ,$NumberOfImages,$highlighted, $userId) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
@@ -38,6 +38,7 @@ class Item {
         $this->available_for_delivery = $available_for_delivery;
         $this->subCategory = $subCategory;
         $this->NumberOfImages = $NumberOfImages;
+        $this->highlighted = $highlighted;
     }
     
     public function __constructer($id) {
@@ -49,6 +50,7 @@ class Item {
         $this->condition = "";
         $this->available = false;
         $this->userId = -1;
+        $this->highlighted = 0;
     }
     // Method to display car details
     public function displayDetails() {
@@ -59,6 +61,7 @@ class Item {
         echo "Condition: " . $this->condition . "<br>";
         echo "Available: " . $this->available . "<br>";
         echo "User Id: " . $this->userId . "<br>";
+        echo "Highlighted: " . $this->highlighted . "<br>";
     }
 
     public function getNumberOfImages() {
@@ -115,6 +118,10 @@ class Item {
 
     public function getModel() : int {
         return $this->model;
+    }
+
+    public function getHighlighted() : int {
+        return $this->highlighted;
     }
 
 }   
