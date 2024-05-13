@@ -281,7 +281,7 @@
                     $row['PasswordHash'],
                     $row['FirstName'],
                     $row['LastName'],
-                    $user['AdminStatus'],
+                    $row['AdminStatus'],
                     $row['Address'],
                     $row['PhoneNumber']
                 );
@@ -666,6 +666,12 @@
         public function deteleUserbyId($id) {
             $stmt = $this->conn->prepare("DELETE FROM Users WHERE Id = :id");
             $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+        public function deleteUserItems($userId) {
+            $stmt = $this->conn->prepare("DELETE FROM Items WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
             $stmt->execute();
         }
 
