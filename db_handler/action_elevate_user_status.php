@@ -15,9 +15,9 @@
 
     if($myUser->getUserStatus() > $user->getUserStatus()){
 
-        $user->setUserStatus($user->getUserStatus() + 1);  
-        
         $db->UpdateUserAdminStatus($user->getId(),$user->getUserStatus() + 1);
+
+        $user->setUserStatus($user->getUserStatus() + 1);  
         
         echo "success";
         
