@@ -790,6 +790,7 @@ function render_subcategories() {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'A';
         deleteButton.classList.add('delete-button');
+        
         deleteButton.addEventListener('click', function() {
             
             if (deleteButton.classList.contains('selected')) {
@@ -800,13 +801,12 @@ function render_subcategories() {
                 deleteButton.style.backgroundColor = '#0B6E4F';
             }
         
-            if (categoriesContainer.classList.contains('selected')) {
-                categoriesContainer.classList.remove('selected');
+            if (subCategoryContainer.classList.contains('selected')) {
+                subCategoryContainer.classList.remove('selected');
             } else {
-                categoriesContainer.classList.add('selected');
+                subCategoryContainer.classList.add('selected');
             }
         });
-
 
         const subCategoryContainer = document.createElement('div');
         subCategoryContainer.classList.add('subCategory');
@@ -820,6 +820,7 @@ function render_subcategories() {
         const subCategoryNameElement = document.createElement('h3');
         subCategoryNameElement.textContent = subCategoryName;
 
+        subCategoryContainer.appendChild(deleteButton);
         subCategoryContainer.appendChild(subCategoryID);
         subCategoryContainer.appendChild(subCategoryNameElement);
 
@@ -1012,12 +1013,14 @@ function addNewItem(table,newItem) {
             if (xhr.status  >= 200 && xhr.status < 300) {
                 const response = xhr.responseText;
                 console.log('Item added successfully:', response);
+                location.reload();
             } else {
                 console.error('Failed to add item. Status:', xhr.status);
             }
     };
     xhr.send('table=' + encodeURIComponent(table)
         + '&newItem=' + encodeURIComponent(newItem));
+ 
 }
 
 function deleteParameter(table,main_class){
