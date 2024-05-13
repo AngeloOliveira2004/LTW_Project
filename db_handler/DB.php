@@ -69,23 +69,13 @@
             }
             return $conditions;
         }
-        public function getSubCategoriesByParent($parent) : array {
-            $stmt = $this->conn->prepare("SELECT * FROM Subcategory WHERE ParentCategory = :parent");
-            $stmt->bindParam(':parent', $parent);
-            $stmt->execute();
-            $subCategories = [];
-            while ($row = $stmt->fetch()) {
-                $subCategories[] = new SubCategory($row['SUbCategoryId'], $row['ParentCategory'], $row['Name']);
-            }
-            return $subCategories;
-        }
-
+        
         public function getAllSubCategories() : array {
             $stmt = $this->conn->prepare("SELECT * FROM Subcategory");
             $stmt->execute();
             $subCategories = [];
             while ($row = $stmt->fetch()) {
-                $subCategories[] = new SubCategory($row['SUbCategoryId'], $row['ParentCategory'], $row['Name']);
+                $subCategories[] = new SubCategory($row['SubCategoryId'], $row['Name']);
             }
             return $subCategories;
         }
@@ -663,6 +653,14 @@
 
         public function addParameterAdmin($table,$parameter){
             $stmt = $this->conn->prepare("INSERT INTO $table('Name') VALUES (:parameter)");
+
+            $stmt->bindParam(':parameter', $parameter);
+
+            $stmt->execute();
+        }
+
+        public function deleteParameterAdmin($table,$parameter){
+            $stmt = $this->conn->prepare("DELETE FROM $table WHERE 'Name' = :parameter");
 
             $stmt->bindParam(':parameter', $parameter);
 

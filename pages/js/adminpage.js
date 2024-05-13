@@ -694,19 +694,19 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     deleteCategoryBtn.addEventListener('click', () => {
-        // Your click event handling logic for Delete Category button here
+        deleteParameter("Category");
     });
 
     deleteSubCategoryBtn.addEventListener('click', () => {
-        // Your click event handling logic for Delete Sub Category button here
+        deleteParameter("SubCategory");
     });
 
     deleteSizeBtn.addEventListener('click', () => {
-        // Your click event handling logic for Delete Size button here
+        deleteParameter("Size");
     });
 
     deleteConditionBtn.addEventListener('click', () => {
-        // Your click event handling logic for Delete Condition button here
+        deleteParameter("Condition");
     });
 
 
@@ -875,7 +875,7 @@ function render_conditions() {
     allConditions.forEach(condition => {
 
         const conditionContainer = document.createElement('div');
-        conditionContainer.classList.add('size');
+        conditionContainer.classList.add('condition');
         
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'A';
@@ -985,4 +985,33 @@ function addNewItem(table,newItem) {
     };
     xhr.send('table=' + encodeURIComponent(table)
         + '&newItem=' + encodeURIComponent(newItem));
+}
+
+function deleteParameter(table){
+
+        const selectedItems = [];
+        const miscelaneousStuffDiv = document.querySelector('.miscelaneousStuff');
+        const items = miscelaneousStuffDiv.querySelectorAll('[selected]');
+        items.forEach(item => {
+            const secondH3 = item.querySelectorAll('h3')[1];
+            selectedItems.push(secondH3.textContent);
+        });
+
+        const formData = new FormData();
+        formData.append('table', table);
+        formData.append('selectedItems', JSON.stringify(selectedItems));
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', "../../db_handler/action_delete_parameter_admin.php", true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            const response = JSON.parse(xhr.responseText);
+            console.log('Parameters deleted successfully:', response);
+        } else {
+            console.error('Failed to delete parameters. Status:', xhr.status);
+        }
+    };
+
+    xhr.send(formData);
 }

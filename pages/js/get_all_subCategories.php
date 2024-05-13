@@ -8,7 +8,6 @@
     foreach ($subCategories as $subCategory) {
         $subCategoriesArray[] = [
             $subCategory->getSubCategoryId(),
-            $subCategory->getParentCategory(),
             $subCategory->getName(),
         ];
     }
