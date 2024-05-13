@@ -724,5 +724,23 @@
             $stmt->execute();
         }
 
+        public function deleteItemMessages($itemId) {
+            $stmt = $this->conn->prepare("DELETE FROM Messages WHERE ItemId = :itemId");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
+
+        public function deleteItemWishlist($itemId) {
+            $stmt = $this->conn->prepare("DELETE FROM Wishlist WHERE ItemId = :itemId");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
+
+        public function deleteItemShoppingCart($itemId) {
+            $stmt = $this->conn->prepare("DELETE FROM ShoppingCart WHERE ItemId = :itemId");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
+
     }
 ?>
