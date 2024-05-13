@@ -705,10 +705,5 @@
             $stmt->execute();
         }
 
-        public function deleteUserOrderItems($userId) {
-            $stmt = $this->conn->prepare("DELETE FROM OrderItems WHERE UserId = :userId");
-            $stmt->bindParam(':userId', $userId);
-            $stmt->execute();
-        }
     }
 ?>

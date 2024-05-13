@@ -20,14 +20,19 @@
         $db->deleteUserWishlist($id);
         $db->deleteUserShoppingCart($id);
         $db->deleteUserOrderHistory($id);
-        $db->deleteUserOrderItems($id);
         $db->deleteUserItems($id);
         $db->deteleUserbyId($id);
 
         echo "success";
 
     }else{
+        
+        echo $myUser->getUserStatus();
+        echo $user->getUserStatus();
+
         echo "You are not authorized to delete an admin";
+
         exit();
+
     }
 ?>

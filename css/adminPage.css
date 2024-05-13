@@ -295,7 +295,8 @@ body{
 }
 
 .trash-icon,
-.up-arrow-icon {
+.up-arrow-icon ,
+.down-arrow-icon{
     cursor: pointer;
     font-size: 1.5em; 
     color: #888;
@@ -470,4 +471,15 @@ h3{
 .adder button:active{
     background-color: #A4969B;
     color: white;
+}
+
+
+.trash-icon:active,
+.up-arrow-icon:active
+.down-arrow-icon:active{
+    color: #333;
+}
+
+.options-icons button{
+    margin-bottom: 2em;
 }
