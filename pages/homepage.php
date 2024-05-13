@@ -66,7 +66,7 @@
             <a href="">
                 <div class="image-container">
                     <img src="assets/carro-removebg-preview.png" alt="car">
-                    <span>Veihicles</span>
+                    <span>Vehicles</span>
                 </div>
             </a>
             <a href="">

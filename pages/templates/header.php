@@ -22,26 +22,30 @@
         <div class = "navdiv"> 
             <div class = "logo"> 
                 <a href="../../pages/homepage.php">
-                        RetroRags
+                        <img src="../../assets/logo.png" alt="logo" class="logo">
                 </a>
             </div>
             <ul>
                 <li>
+                    <i class="fa-solid fa-heart"></i>
                     <a href="../../pages/wishlist.php"> 
                         Wishlist
                     </a>
                 </li>
                 <li>
+                    <i class="fa-solid fa-user"></i>
                     <a href="../../pages/profile.php"> 
                         Profile
                     </a>
                 </li>
                 <li>
+                    <i class="fa-solid fa-envelope"></i>
                     <a href="../../pages/messages.php"> 
                         Messages
                     </a>
                 </li>
                 <li>
+                    <i class="fa-solid fa-shopping-cart"></i>   
                     <a href="../../pages/shopping.php"> 
                        Checkout
                     </a>
