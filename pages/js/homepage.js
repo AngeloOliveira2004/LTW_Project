@@ -39,19 +39,23 @@ document.addEventListener('DOMContentLoaded', function () {
     let wishlistItems = [];
     toggleHeartColor(wishlistItems);
 
+    // Select the search button element
+    var searchButton = document.querySelector('.search_button');
 
-    $('.search_button').click(function() {
-
+    // Add click event listener to the search button
+    searchButton.addEventListener('click', function() {
         console.log('search button clicked');
+        
         // Retrieve the values of the search bar and dropdown menu
-        var searchBarValue = $('.search_bar').val();
-        var categoryDropdownValue = $('.category_dropdown').val();
-    
+        var searchBarValue = document.querySelector('.search_bar').value;
+        var categoryDropdownValue = document.querySelector('.category_dropdown').value;
+        
         console.log(categoryDropdownValue);
         
         if(categoryDropdownValue === 'Todas as Categorias' || categoryDropdownValue === "") {
             categoryDropdownValue = 'All';
         }
+        
         // Log the values
         console.log('Search bar value: ' + searchBarValue);
         console.log('Category dropdown value: ' + categoryDropdownValue);
@@ -62,4 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = searchPageURL;
     });
 });
+
+
 
