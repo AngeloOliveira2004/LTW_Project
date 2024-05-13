@@ -40,6 +40,7 @@ CREATE TABLE Users (
     PasswordHash VARCHAR(255) NOT NULL,
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
+    AdminStatus INTEGER DEFAULT 0 NOT NULL CHECK (AdminStatus <= 2),
     Address VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(9)
 );
