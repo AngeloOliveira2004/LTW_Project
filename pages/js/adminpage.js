@@ -1100,6 +1100,7 @@ function deleteUsers() {
 
 function elevateUserStatus() {
 
+    console.log("Elevating user status");
     console.log(selectedUsersGlobal);
 
     selectedUsersGlobal.forEach(user => {
@@ -1112,6 +1113,8 @@ function elevateUserStatus() {
     allUsers = allUsers.filter(user => !selectedUsersGlobal.includes(user[0]));
 
     selectedUsersGlobal = [];
+
+    render_users();
 }
 
 function downgradeUserStatus() {
@@ -1128,6 +1131,8 @@ function downgradeUserStatus() {
     allUsers = allUsers.filter(user => !selectedUsersGlobal.includes(user[0]));
 
     selectedUsersGlobal = [];
+
+    render_users();
 }
 
 document.addEventListener("DOMContentLoaded", function() {

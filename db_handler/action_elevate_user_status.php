@@ -20,6 +20,7 @@
         echo "success";
         
     }else{
+        
         echo "You are not authorized to elevate this user status admin";
         exit();
     }
