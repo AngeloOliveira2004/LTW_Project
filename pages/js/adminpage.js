@@ -17,6 +17,8 @@ let allSubCategories = [];
 let allSizes = [];
 let allConditions = [];
 
+let selectedUsersGlobal = [];
+
 document.addEventListener("DOMContentLoaded", async function() {
     await loadInitialContent();
 });
@@ -618,9 +620,13 @@ function render_users(){
         
             // Toggle background color of the user container
             if (userContainer.classList.contains('selected')) {
+                selectedUsersGlobal = selectedUsersGlobal.filter(item => item !== user[0]);
                 userContainer.classList.remove('selected');
+                console.log("Selected items: " + selectedUsersGlobal);
             } else {
+                selectedUsersGlobal.push(user[0]);
                 userContainer.classList.add('selected');
+                console.log("Selected items: " + selectedUsersGlobal);
             }
         });
         userContainer.appendChild(deleteButton);
@@ -650,7 +656,6 @@ function render_users(){
         searchUsersDiv.appendChild(userContainer);
     });
 }
-
 
 
 

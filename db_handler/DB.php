@@ -281,6 +281,7 @@
                     $row['PasswordHash'],
                     $row['FirstName'],
                     $row['LastName'],
+                    $user['AdminStatus'],
                     $row['Address'],
                     $row['PhoneNumber']
                 );

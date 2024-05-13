@@ -145,18 +145,18 @@ INSERT INTO Conditions (Name) VALUES
     ('Refurbished');
 
 -- Inserting data into the Users table
-INSERT INTO Users (Username, Email, PasswordHash, FirstName, LastName, Address, PhoneNumber)
+INSERT INTO Users (Username, Email, PasswordHash, FirstName, LastName, AdminStatus, Address, PhoneNumber)
 VALUES
-    ('john_doe', 'john@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'John', 'Doe', '123 Main St, California, USA', '123456789'),
-    ('jane_smith', 'jane@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'Jane', 'Smith', '456 Elm St, City, Country', '987654321'),
-    ('alex_jones', 'alex@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'Alex', 'Jones', '789 Oak St, State, Country', '456123789'),
-    ('emily_brown', 'emily@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'Emily', 'Brown', '987 Pine St, City, Country', '321654987'),
-    ('mike_wilson', 'mike@example.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mike', 'Wilson', '654 Maple St, Town, Country', '789456123'),
-    ('sarah_green', 'sarah@example.com', 'f899139df5e1059396431415e770c6dd', 'Sarah', 'Green', '321 Birch St, Town, Country', '147258369'),
-    ('chris_taylor', 'chris@example.com', 'c33367701511b4f6020ec61ded352059', 'Chris', 'Taylor', '852 Cedar St, City, Country', '963852741'),
-    ('lisa_johnson', 'lisa@example.com', '5d41402abc4b2a76b9719d911017c592', 'Lisa', 'Johnson', '963 Walnut St, State, Country', '789123654'),
-    ('ryan_miller', 'ryan@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'Ryan', 'Miller', '741 Pine St, Town, Country', '654789123'),
-    ('jessica_white', 'jessica@example.com', '098f6bcd4621d373cade4e832627b4f6', 'Jessica', 'White', '852 Oak St, City, Country', '321789456');
+    ('john_doe', 'john@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'John', 'Doe',0, '123 Main St, California, USA', '123456789'),
+    ('jane_smith', 'jane@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'Jane', 'Smith',0, '456 Elm St, City, Country', '987654321'),
+    ('alex_jones', 'alex@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'Alex', 'Jones',0, '789 Oak St, State, Country', '456123789'),
+    ('emily_brown', 'emily@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'Emily', 'Brown',0, '987 Pine St, City, Country', '321654987'),
+    ('mike_wilson', 'mike@example.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mike', 'Wilson',0, '654 Maple St, Town, Country', '789456123'),
+    ('sarah_green', 'sarah@example.com', 'f899139df5e1059396431415e770c6dd', 'Sarah', 'Green',0, '321 Birch St, Town, Country', '147258369'),
+    ('chris_taylor', 'chris@example.com', 'c33367701511b4f6020ec61ded352059', 'Chris', 'Taylor',0, '852 Cedar St, City, Country', '963852741'),
+    ('lisa_johnson', 'lisa@example.com', '5d41402abc4b2a76b9719d911017c592', 'Lisa', 'Johnson',0, '963 Walnut St, State, Country', '789123654'),
+    ('ryan_miller', 'ryan@example.com', '07dd38dbbb755e1a476a782f3606cd3e99df3266', 'Ryan', 'Miller',1, '741 Pine St, Town, Country', '654789123'),
+    ('jessica_white', 'jessica@example.com', '098f6bcd4621d373cade4e832627b4f6', 'Jessica', 'White',0, '852 Oak St, City, Country', '321789456');
     
 -- Inserting data into the Items table
 INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, AvailableForDelivery, Available, NumberOfImages , UserId)
