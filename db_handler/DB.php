@@ -705,5 +705,12 @@
             $stmt->execute();
         }
 
+        public function UpdateUserAdminStatus($userId,$adminStatus){
+            $stmt = $this->conn->prepare("UPDATE Users SET AdminStatus = :adminStatus WHERE Id = :userId");
+            $stmt->bindParam(':adminStatus', $adminStatus);
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+        }
+
     }
 ?>
