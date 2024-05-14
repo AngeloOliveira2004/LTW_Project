@@ -63,19 +63,40 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleHeartColor(wishlistItems);
 
     // Select the search button element
-    var searchButton = document.querySelector('.search_button');
+    let searchButton = document.querySelector('.search_button');
 
     // Add click event listener to the search button
     searchButton.addEventListener('click', function () {
         // Retrieve the values of the search bar and dropdown menu
-        var searchBarValue = document.querySelector('.search_bar').value;
-        var categoryDropdownValue = document.querySelector('.category_dropdown').value;
+        let searchBarValue = document.querySelector('.search_bar').value;
+        let categoryDropdownValue = document.querySelector('.category_dropdown').value;
 
         // Construct the search page URL with search parameters
-        var searchPageURL = 'search_page.php?search=' + encodeURIComponent(searchBarValue) + '&location=' + encodeURIComponent(categoryDropdownValue);
+        let searchPageURL = 'search_page.php?search=' + encodeURIComponent(searchBarValue) + '&location=' + encodeURIComponent(categoryDropdownValue);
 
         // Redirect to the search page with search parameters
         window.location.href = searchPageURL;
+    });
+
+    let brandButtons = document.querySelectorAll('.brands button');
+
+    // Add click event listener to each brand button
+    brandButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            let brandName = button.textContent.trim();
+            let searchPageURL = 'search_page.php?brand=' + encodeURIComponent(brandName);
+            window.location.href = searchPageURL;
+        });
+    });
+
+    let categoryContainers = document.querySelectorAll('.Categories .image-container');
+
+    categoryContainers.forEach(function(container) {
+        container.addEventListener('click', function() {
+            let categoryValue = container.querySelector('span').textContent.trim();
+            let searchPageURL = 'search_page.php?category=' + encodeURIComponent(categoryValue);
+            window.location.href = searchPageURL;
+        });
     });
 });
 

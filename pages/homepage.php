@@ -58,48 +58,37 @@
         </span>
 
         <div class="Categories">
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/carro-removebg-preview.png" alt="car">
-                    <span>Vehicles</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/bola-removebg-preview.png" alt="ball">
-                    <span>Sports</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/chair-removebg-preview.png" alt="chair">
-                    <span>Furniture</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/tshirt.png" alt="tshirt">
-                    <span>Clothes</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
-                    <span>Mobile Phones</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/computer-removebg-preview.png" alt="computer">
-                    <span>Technology</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/guitar-removebg-preview.png" alt="guitar">
-                    <span>Music</span>
-                </div>
-            </a>
+            <div class="image-container">
+                <img src="assets/carro-removebg-preview.png" alt="car">
+                <span>Vehicles</span>
+            </div>
+            <div class="image-container">
+                <img src="assets/bola-removebg-preview.png" alt="ball">
+                <span>Sports</span>
+            </div>
+            <div class="image-container">
+                <img src="assets/chair-removebg-preview.png" alt="chair">
+                <span>Furniture</span>
+            </div>
+            <div class="image-container">
+                <img src="assets/tshirt.png" alt="tshirt">
+                <span>Clothes</span>
+            </div>
+            <div class="image-container">
+                <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
+                <span>Mobile Phones</span>
+            </div>
+        
+            <div class="image-container">
+                <img src="assets/computer-removebg-preview.png" alt="computer">
+                <span>Technology</span>
+            </div>
+        
+            <div class="image-container">
+                <img src="assets/guitar-removebg-preview.png" alt="guitar">
+                <span>Music</span>
+            </div>
+        
         </div>
 
         <span class="Buy_From_Brand">

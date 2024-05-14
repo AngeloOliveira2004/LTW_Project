@@ -145,7 +145,7 @@
         </select>
         <span class = "price">Preço: </span>
         <input type="text" value="0" class="from">
-        <input type="text" value="1000" class = "to">
+        <input type="text" value="10000" class = "to">
         
         <div class = "line"></div>
 

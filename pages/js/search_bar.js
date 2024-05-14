@@ -20,6 +20,10 @@ function calculateSuggestions(inputVal , items){
     console.log(items);
     console.log(inputVal);
 
+    if(inputVal === null){
+        return items;
+    }
+
     if (inputVal.length === 0) {
         return items;
     } else {
@@ -38,23 +42,6 @@ function calculateSuggestions(inputVal , items){
         let filteredItemsNames = allItemNames.filter(function (item) {
             return item.startsWith(inputVal);
         });
-
-        console.log('filtered items');
-        console.log(filteredItemsNames);
-    
-        let suggestionsMap = filteredItems.reduce(function (map, item) {
-            var differences = 0;
-            for (var i = 0; i < inputVal.length; i++) {
-                if (item[i] !== inputVal[i]) {
-                    differences++;
-                }
-            }
-            map[item] = differences;
-            return map;
-        }, {});
-        
-        console.log(filteredItems);
-        console.log(filteredItemsNames);
 
         recommendations = [];
 
@@ -303,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         current_filters['state'].add('From' + input);
                     }
                 } else {
-                    if (input !== '' && input !== '1000') { 
+                    if (input !== '' && input !== '10000') { 
                         current_filters['state'].add('To' + input);
                     }
                 }
@@ -349,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (const key in current_filters) {
             console.log(typeof current_filters[key]);
             
-            if(typeof current_filters[key] !== 'boolean'){
+            if(typeof current_filters[key] !== 'boolean' && current_filters[key] !== null){
                 current_filters[key].forEach(value => {
                     console.log(key, value);
                     const filterEntry = document.createElement('div');
@@ -401,6 +388,9 @@ function imageExistsAsync(url) {
 
 async function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
+    console.log('search_algorithm');
+    console.log(current_filters);
+
     const sortFilter = document.getElementById('sort_filter');
     const precoMin = document.querySelector('.from');
     const precoMax = document.querySelector('.to');
@@ -605,7 +595,38 @@ function render_items() {
     });
 }
 
-async function initialSearch(searchInput , locationInput){
+
+
+function display_current_filters() {
+    const currentFiltersDiv = document.querySelector('.current_filters');
+    currentFiltersDiv.innerHTML = ''; 
+
+    for (const key in current_filters) {
+        console.log(typeof current_filters[key]);
+        
+        if(typeof current_filters[key] !== 'boolean' && current_filters[key] !== null){
+            current_filters[key].forEach(value => {
+                console.log(key, value);
+                const filterEntry = document.createElement('div');
+                filterEntry.textContent = `${key}: ${value}`;
+    
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'X';
+                removeButton.addEventListener('click', () => {
+                    filterEntry.remove();
+                    current_filters[key].delete(value);
+                    console.log(current_filters);
+                    display_current_filters();
+                });
+    
+                filterEntry.appendChild(removeButton);
+                currentFiltersDiv.appendChild(filterEntry);
+            });
+        }
+    }
+}
+
+async function initialSearch(searchInput , locationInput , brandInput , categoryInput){
     try {
         const response = await fetch('js/get_all_items.php');
         if (!response.ok) {
@@ -618,13 +639,23 @@ async function initialSearch(searchInput , locationInput){
 
         items =  [...allItems];
         console.log(items);
-        if(searchInput === null || searchInput === ''){
-            render_items();
-        }else{
-            if(locationInput !== null && locationInput !== ''){
-                current_filters['location'] = locationInput;
-            }
+
+        if(locationInput !== null && locationInput !== ''){
+            current_filters['location'] = locationInput;
+        } 
+        if(brandInput !== null && brandInput !== ''){
+            current_filters['brand'].add(brandInput);
         }
+        if(categoryInput !== null && categoryInput !== ''){
+            current_filters['category'].add(categoryInput);
+        }
+
+        if(searchInput === null || searchInput === ''){
+            display_current_filters();
+            render_items();
+        }
+
+        display_current_filters();
         const recommendad_items = calculateSuggestions(searchInput, items);
         console.log("after suggestions");
         console.log(recommendad_items);
@@ -639,16 +670,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function getUrlParams() {
         var searchParams = new URLSearchParams(window.location.search);
-        var searchValue = searchParams.get('search');
-        var locationValue = searchParams.get('location');
-        return { search: searchValue, location: locationValue };
+        var searchValue = searchParams.has('search') ? searchParams.get('search') : null;
+        var locationValue = searchParams.has('location') ? searchParams.get('location') : null;
+        var brandValue = searchParams.has('brand') ? searchParams.get('brand') : null;
+        var categoryValue = searchParams.has('category') ? searchParams.get('category') : null;
+        return { search: searchValue, location: locationValue , brand: brandValue  , category: categoryValue};
     }
 
     function performInitialSearch() {
         var urlParams = getUrlParams();
         var searchInput = urlParams.search;
         var locationInput = urlParams.location;
-        initialSearch(searchInput, locationInput);
+        var brandInput = urlParams.brand;
+        var categoryInput = urlParams.category;
+        initialSearch(searchInput, locationInput , brandInput , categoryInput);
     }
 
     performInitialSearch();
