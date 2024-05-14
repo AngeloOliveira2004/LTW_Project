@@ -34,9 +34,32 @@ function toggleHeartColor(wishlistItems) {
     });
 }
 
+function fetchItemsAndUpdateHearts(wishlistItems) {
+    const xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', '../../db_handler/action_get_all_wishlisted_items.php', true);
+    
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            wishlistItems = JSON.parse(xhr.responseText);
+            
+            wishlistItems.forEach(function(item) {
+                let itemElement = document.querySelector('.fa-heart[data-item-id="' + item + '"]');
+                if (itemElement) {
+                    itemElement.classList.remove('fa-regular');
+                    itemElement.classList.add('fa-solid');
+                }
+            });
+        }
+    };
+
+    xhr.send();
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
     let wishlistItems = [];
+    fetchItemsAndUpdateHearts(wishlistItems);
     toggleHeartColor(wishlistItems);
 
     // Select the search button element

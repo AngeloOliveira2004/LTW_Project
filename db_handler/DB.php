@@ -729,5 +729,16 @@
             $stmt->execute();
         }
 
+        public function getWishlistItems($userId) : array {
+            $stmt = $this->conn->prepare("SELECT * FROM Wishlist WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $wishlistItems = [];
+            while ($row = $stmt->fetch()) {
+                $wishlistItems[] = $row['ItemId'];
+            }
+            return $wishlistItems;
+        }
+
     }
 ?>

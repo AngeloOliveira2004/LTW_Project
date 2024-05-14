@@ -23,7 +23,7 @@ function get_wishlist_items_ids($dbh, $userId) {
         $stmt->execute();
         $wishlistItems = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $wishlistItems[] = $row['itemId'];
+            $wishlistItems[] = $row['ItemId'];
         }
         return $wishlistItems;
 }
