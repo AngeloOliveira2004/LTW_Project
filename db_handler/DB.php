@@ -752,5 +752,19 @@
                 return null;
             }
         }
+
+        public function EliminateItemProposal($itemId,$price){
+            $stmt = $this->conn->prepare("DELETE FROM PriceProposals WHERE ItemId = :itemId AND Price = :price");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->bindParam(':price', $price);
+            $stmt->execute();
+        }
+
+        public function UpdateItemPrice($itemId,$newPrice){
+            $stmt = $this->conn->prepare("UPDATE Items SET Price = :newPrice WHERE Id = :itemId");
+            $stmt->bindParam(':newPrice', $newPrice);
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
     }
 ?>

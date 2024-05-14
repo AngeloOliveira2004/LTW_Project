@@ -111,8 +111,8 @@
                      <p>Brand: $brand</p>";  
             if ($priceproposal != null) {
                 echo "<p>Price Proposal: $proposalPrice</p>
-                              <button class='accept-proposal'>Yes</button>
-                              <button class='reject-proposal'>No</button>";
+                              <button class='accept-proposal' data-item-id='$id'>Yes</button>
+                              <button class='reject-proposal' data-item-id='$id'>No</button>";
             }
             echo "</span>";          
             }

@@ -46,3 +46,71 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = '../../db_handler/action_logout.php';
     });
 });
+
+function handleAcceptProposalClick(event) {
+    let button = event.target;
+    let itemId = button.getAttribute('data-item-id');
+    
+    let itemContainer = button.parentElement;
+
+    let price = itemContainer.querySelector('p').textContent;
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '../../db_handler/action_change_price.php', true);
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('Proposal changed:', xhr.responseText);
+            location.reload();
+        } else {
+            console.error('Error changing proposal:', xhr.statusText);
+            location.reload();
+        }
+    };
+
+    xhr.send('itemId=' + encodeURIComponent(itemId)
+        + '&price=' + encodeURIComponent(price)
+        + '&type=' + encodeURIComponent("accept"));
+}
+
+function handleRejectProposalClick(event) {
+    let button = event.target;
+    let itemId = button.getAttribute('data-item-id');
+    
+    let itemContainer = button.parentElement;
+
+    let price = itemContainer.querySelector('p').textContent;
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '../../db_handler/action_change_price.php', true);
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('Proposal changed:', xhr.responseText);
+            location.reload();
+        } else {
+            console.error('Error changing proposal:', xhr.statusText);
+            location.reload();
+            
+        }
+    };
+
+    xhr.send('itemId=' + encodeURIComponent(itemId)
+        + '&price=' + encodeURIComponent(price)
+        + '&type=' + encodeURIComponent("reject"));
+
+}
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('accept-proposal')) {
+        handleAcceptProposalClick(event);
+    }
+
+    if(event.target.classList.contains('reject-proposal')) {
+        handleRejectProposalClick(event);
+    }
+});
