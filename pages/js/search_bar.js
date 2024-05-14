@@ -10,6 +10,7 @@ let current_filters = {
     "category": new Set(),
     "subCategory": new Set(),
     "tamanho": new Set(),
+    "location": null,
     "onlyAdsWithImages": false,
     "delivery": false,
 };
@@ -154,7 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const subCateogriasFilter =  document.getElementById('subCategorias');  
     const categoriasFilter = document.getElementById('Categorias');
 
-    
+    const locationFilter = document.querySelector('.category_dropdown');
+
     let isImageFilterActive = false;
     let isDeliveryFilterActive = false;
 
@@ -180,6 +182,12 @@ document.addEventListener('DOMContentLoaded', function() {
     inputBox.addEventListener('click', function(event) {
         event.stopPropagation(); 
         resultBox.style.display = 'block'; 
+    });
+
+    locationFilter.addEventListener('change', function() {
+        const selectedLocation = locationFilter.value;
+        console.log('Selected Location:', selectedLocation);
+        current_filters['location'] = selectedLocation;
     });
 
     document.addEventListener('click', function(event) {
@@ -425,6 +433,8 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
     items.filter(item => {
         const tamanhoMatch = current_filters['tamanho'].size === 0 || current_filters['tamanho'].has(item[5]) || item[5] === null;//|| item[5] === null;
         const subCategoryMatch = current_filters['subCategory'].size === 0 || current_filters['subCategory'].has(item[10]);
+
+        //const locationMatch = current_filters['location'] === null || current_filters['location'] === item[12];
 
         return tamanhoMatch && subCategoryMatch && item[8];
     });
