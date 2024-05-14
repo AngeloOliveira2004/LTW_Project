@@ -163,7 +163,10 @@
                         <?php
                             $icon = "";
                             $message = "";  
-                            if ($average > 4) {
+                            if($average == 0){
+                                $icon = "😐"; 
+                                $message = "This user has no reviews yet";
+                            }elseif ($average > 4) {
                                 $icon = "😊"; 
                                 $message = "This user has had really positive reviews";
                             } elseif ($average >= 2.5 && $average <= 3.99) {
