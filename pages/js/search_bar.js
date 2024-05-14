@@ -385,6 +385,7 @@ function display_result(result){
 }
 
 
+
 function selectInput(element){
     document.querySelector('.search_bar').value = element.innerHTML;
 }
@@ -603,3 +604,53 @@ function render_items() {
         searchItemsDiv.appendChild(itemContainer);
     });
 }
+
+async function initialSearch(searchInput , locationInput){
+    try {
+        const response = await fetch('js/get_all_items.php');
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        console.log('Data fetched successfully');
+        
+        const allItems = await response.json(); 
+        console.log(allItems);
+
+        items =  [...allItems];
+        console.log(items);
+        if(searchInput === null || searchInput === ''){
+            render_items();
+        }else{
+            if(locationInput !== null && locationInput !== ''){
+                current_filters['location'] = locationInput;
+            }
+        }
+        const recommendad_items = calculateSuggestions(searchInput, items);
+        console.log("after suggestions");
+        console.log(recommendad_items);
+
+        search_algorithm(recommendad_items, false , false);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+} 
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    function getUrlParams() {
+        var searchParams = new URLSearchParams(window.location.search);
+        var searchValue = searchParams.get('search');
+        var locationValue = searchParams.get('location');
+        return { search: searchValue, location: locationValue };
+    }
+
+    function performInitialSearch() {
+        var urlParams = getUrlParams();
+        var searchInput = urlParams.search;
+        var locationInput = urlParams.location;
+        initialSearch(searchInput, locationInput);
+    }
+
+    performInitialSearch();
+});
+

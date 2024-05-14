@@ -66,26 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var searchButton = document.querySelector('.search_button');
 
     // Add click event listener to the search button
-    searchButton.addEventListener('click', function() {
-        console.log('search button clicked');
-        
+    searchButton.addEventListener('click', function () {
         // Retrieve the values of the search bar and dropdown menu
         var searchBarValue = document.querySelector('.search_bar').value;
         var categoryDropdownValue = document.querySelector('.category_dropdown').value;
-        
-        console.log(categoryDropdownValue);
-        
-        if(categoryDropdownValue === 'Todas as Categorias' || categoryDropdownValue === "") {
-            categoryDropdownValue = 'All';
-        }
-        
-        // Log the values
-        console.log('Search bar value: ' + searchBarValue);
-        console.log('Category dropdown value: ' + categoryDropdownValue);
 
-        var searchPageURL = 'search_page.php?search=' + encodeURIComponent(searchBarValue) + '&category=' + encodeURIComponent(categoryDropdownValue);
+        // Construct the search page URL with search parameters
+        var searchPageURL = 'search_page.php?search=' + encodeURIComponent(searchBarValue) + '&location=' + encodeURIComponent(categoryDropdownValue);
 
-        // Redirect to the search page
+        // Redirect to the search page with search parameters
         window.location.href = searchPageURL;
     });
 });
