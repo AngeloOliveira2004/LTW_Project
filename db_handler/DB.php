@@ -109,6 +109,7 @@
                 $row['SubCategory'],
                 $row['NumberOfImages'],
                 $row['Highlighted'],
+                
                 $row['UserId']
             );
         }
@@ -199,7 +200,7 @@
         }
 
         public function getItems() : array {
-            $stmt = $this->conn->prepare("SELECT * FROM Items ORDER BY Highlighted DESC");
+            $stmt = $this->conn->prepare("SELECT * FROM Items");
             $stmt->execute();
             $items = [];
             while ($row = $stmt->fetch()) {
@@ -218,6 +219,7 @@
                 $row['SubCategory'],
                 $row['NumberOfImages'],
                 $row['Highlighted'],
+
                 $row['UserId']
             );
             }
@@ -266,6 +268,7 @@
                     $row['SubCategory'],
                     $row['NumberOfImages'],
                     $row['Highlighted'],
+
                     $row['UserId']
                 );
             }
@@ -416,6 +419,7 @@
                     $row['SubCategory'],
                     $row['NumberOfImages'],
                     $row['Highlighted'],
+
                     $row['UserId']
                 );
             }
@@ -423,7 +427,7 @@
         }
 
         public function getXRandItems(int $x) : array {
-            $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY highlighted DESC,RANDOM() LIMIT :x");
+            $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY RANDOM() LIMIT :x");
             $stmt->bindParam(':x', $x);
             $stmt->execute();
             $items = [];
@@ -443,6 +447,7 @@
                     $row['SubCategory'],
                     $row['NumberOfImages'],
                     $row['Highlighted'],
+
                     $row['UserId']
                 );
             }
@@ -709,7 +714,7 @@
             $stmt->bindParam(':userId', $userId);
             $stmt->execute();
         }
-
+        
         public function UpdateUserAdminStatus($userId,$adminStatus){
             $stmt = $this->conn->prepare("UPDATE Users SET AdminStatus = :adminStatus WHERE Id = :userId");
             $stmt->bindParam(':adminStatus', $adminStatus);
@@ -717,27 +722,9 @@
             $stmt->execute();
         }
 
-        public function UpdateItemHighlighted($itemId,$highlighted){
-            $stmt = $this->conn->prepare("UPDATE Items SET Highlighted = :highlighted WHERE Id = :itemId");
-            $stmt->bindParam(':highlighted', $highlighted);
-            $stmt->bindParam(':itemId', $itemId);
-            $stmt->execute();
-        }
-
-        public function deleteItemMessages($itemId) {
-            $stmt = $this->conn->prepare("DELETE FROM Messages WHERE ItemId = :itemId");
-            $stmt->bindParam(':itemId', $itemId);
-            $stmt->execute();
-        }
-
-        public function deleteItemWishlist($itemId) {
-            $stmt = $this->conn->prepare("DELETE FROM Wishlist WHERE ItemId = :itemId");
-            $stmt->bindParam(':itemId', $itemId);
-            $stmt->execute();
-        }
-
-        public function deleteItemShoppingCart($itemId) {
-            $stmt = $this->conn->prepare("DELETE FROM ShoppingCart WHERE ItemId = :itemId");
+        public function UpdateItemPriority($itemId,$priority){
+            $stmt = $this->conn->prepare("UPDATE Items SET Priority = :priority WHERE Id = :itemId");
+            $stmt->bindParam(':priority', $priority);
             $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
         }
