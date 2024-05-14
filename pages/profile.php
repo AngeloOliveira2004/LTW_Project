@@ -90,13 +90,16 @@
          $db = new Database("../database/database.db");
          
          $Items = $db->getItemByUserId($userId);
-         
+
          foreach ($Items as $item) {
-     
+             $id = $item->getId();
+             $priceproposal = $db->getPriceProposalByUserId($id);
+
              $name = $item->getName();
              $price = $item->getPrice();
              $photo = "../../assets/items/{$item->getId()}-1.png";
              $brand = $item->getBrand();
+             $proposalPrice = $priceproposal->getPrice();
              
              if($photo == null)
                  $photo = "assets/error.png";
@@ -105,9 +108,14 @@
                      <img src='$photo' alt='$name'>
                      <h3>$name</h3>
                      <p>Price: $price</p>
-                     <p>Brand: $brand</p>
-                 </span>";
-             }
+                     <p>Brand: $brand</p>";  
+            if ($priceproposal != null) {
+                echo "<p>Price Proposal: $proposalPrice</p>
+                              <button class='accept-proposal'>Yes</button>
+                              <button class='reject-proposal'>No</button>";
+            }
+            echo "</span>";          
+            }
          ?>
         </div>
 

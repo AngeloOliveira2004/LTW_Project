@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS Categories;
 DROP TABLE IF EXISTS Subcategory;
 DROP TABLE IF EXISTS Sizes;
 DROP TABLE IF EXISTS Conditions;
+DROP TABLE IF EXISTS PriceProposals;
 
 CREATE TABLE Categories (
     CategoryId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -83,6 +84,16 @@ CREATE TABLE OrderItems (
     Price DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (OrderId) REFERENCES OrderHistory(OrderId),
     FOREIGN KEY (ItemId) REFERENCES Items(Id)
+);
+
+CREATE TABLE PriceProposals(
+    ProposalId INTEGER PRIMARY KEY AUTOINCREMENT,
+    ItemId INTEGER NOT NULL,
+    UserId INTEGER NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    Status TEXT CHECK(Status IN ('Pending', 'Accepted')) NOT NULL,
+    FOREIGN KEY (ItemId) REFERENCES Items(Id),
+    FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
 
 CREATE TABLE ShoppingCart (
@@ -224,3 +235,15 @@ INSERT INTO Messages (Sender, Receiver, ItemId, Content, Timestamp) VALUES
     (9, 2, 1, "Hey John, when are you available for a catch-up?", '2024-04-11 16:15:00'),
     (2, 9, 2, "Hey Joy, when are you available for a catch-up?", '2024-04-11 16:20:00'),
     (7, 2, 2, "Jessica, could you review the presentation slides?", '2024-04-12 11:00:00');
+
+INSERT INTO PriceProposals (ItemId, UserId, Price, Status) VALUES
+    (1, 2, 749.99, 'Pending'),
+    (2, 1, 1199.99, 'Pending'),
+    (3, 3, 199.99, 'Pending'),
+    (4, 1, 14.99, 'Pending'),
+    (5, 2, 279.99, 'Pending'),
+    (6, 3, 449.99, 'Pending'),
+    (7, 4, 649.99, 'Pending'),
+    (8, 1, 349.99, 'Pending'),
+    (9, 2, 39.99, 'Pending'),
+    (10, 3, 79.99, 'Pending');

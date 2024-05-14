@@ -12,6 +12,7 @@
     require_once 'Conditions.php';
     require_once 'SubCategory.php';
     require_once 'SIzes.php';
+    require_once 'PriceProposal.php';
     
     class Database {
         private static $instance = null;
@@ -740,5 +741,16 @@
             return $wishlistItems;
         }
 
+        public function getPriceProposalByUserId($itemId){
+            $stmt = $this->conn->prepare("SELECT * FROM PriceProposals WHERE ItemId = :itemId AND Status='Pending' ORDER BY Price ASC LIMIT 1");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+            $priceProposal = $stmt->fetch();
+            if ($priceProposal) {
+                return new PriceProposal($priceProposal['ProposalId'], $priceProposal['Price'], $priceProposal['UserId'], $priceProposal['ItemId'], $priceProposal['Status']);
+            } else {
+                return null;
+            }
+        }
     }
 ?>

@@ -174,7 +174,7 @@ foreach ($randomItems as $item) {
                 $imageSrc = $errorImagePath;
             }
         ?>
-                <a href='itempage.php?item=<?= $item->getId() ?>'>
+                <a href='itempage.php?item=<?=$item->getId() ?>'>
                     <img src="<?= $imageSrc ?>" alt='<?= $item->getName() ?>'>
                 </a>
                 <h3><?= $item->getName() ?></h3>
