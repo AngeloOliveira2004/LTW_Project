@@ -51,9 +51,23 @@
                     </a>
                 </li>
                 
-                <a href="../../pages/shopping_cart.php"> 
-                    <button>Anuncie Agora</button>
-                </a>
+                <?php
+
+                    session_start();
+
+                    if(isset($_SESSION['userId'])){
+
+                        echo '<a href="../../pages/itemCreationPage.php"> 
+                                <button>Anuncie Agora</button>
+                            </a>';
+                    }else{
+                        echo '<a href="../../pages/userReg.php"> 
+                                <button>Anuncie Agora</button>
+                            </a>';
+                    
+                    }
+
+                ?>
             </ul>
         </div>
       </nav>
