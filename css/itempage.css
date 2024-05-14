@@ -342,7 +342,7 @@
   font-size: large;
 }
 
-.fa-heart {
+.title_price_section > .fa-heart {
   position: absolute; 
   top: 0; 
   right: 0; 

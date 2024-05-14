@@ -74,7 +74,7 @@ body{
     line-height: 2px;
 }
 
-i {
+li i {
     filter: invert(100%);
     padding-right: 0.5em;
 }
