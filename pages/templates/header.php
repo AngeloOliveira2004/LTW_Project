@@ -32,11 +32,21 @@
                         Wishlist
                     </a>
                 </li>
-                <li>
+                <li class = "profile-item">
                     <i class="fa-solid fa-user"></i>
-                    <a href="../../pages/profile.php"> 
+                    <a href="../../pages/profile.php" class = "ProfileWord"> 
                         Profile
                     </a>
+
+                    <ul class = "profile-options">
+                        <li class = "profile-option"><a class = "option"  href="../../pages/AdminPage.php">Página de Administrador</a></li>
+                        <li class = "profile-option"><a class = "option" id="logout" href="../../pages/userReg.php">Entrar noutra conta</a></li>
+                        <li class = "profile-option">
+                            <a class = "option" id="logout" href="../../pages/homepage.php">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <i class="fa-solid fa-envelope"></i>

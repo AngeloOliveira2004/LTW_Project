@@ -6,7 +6,7 @@ It works as intended though, so I'm happy with it for now
 
 <?php
 // Include required files
-
+/*
 if (isset($_POST['execute'])) {
     require_once '../../db_handler/Item.php';
     require_once '../../db_handler/OrderHistory.php';
@@ -27,7 +27,7 @@ if (isset($_POST['execute'])) {
         // Do something with each item
         echo $item->getName() . '<br>';
     }
-    */
+    
 
     function generate_item_listing($item) {
         // Initialize the listing HTML
@@ -60,5 +60,5 @@ if (isset($_POST['execute'])) {
 echo $item_listing;
 }
 
-
+*/
 ?>
