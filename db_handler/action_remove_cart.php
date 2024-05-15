@@ -4,7 +4,7 @@ declare(strict_types=1);
 session_start();
 
 require_once(__DIR__ . '/connection.php');
-require_once(__DIR__ . '/Wishlist.php');
+require_once(__DIR__ . '/ShoppingCart.php');
 require_once(__DIR__ . '/DB.php');
 require_once(__DIR__ . '/itemmove.php');
 
@@ -20,11 +20,12 @@ $dB = new Database("../database/database.db");
 $db = new DB();
 $dbh = $db->get_database_connection();
 
-$wishlistItem = new WishlistItem(null, $userId, $itemId);
+$shoppingcartItem = new shoppingcartItem(null, $userId, $itemId);
 
-remove_from_wishilist($dbh, $wishlistItem);
+remove_from_shoppingcart($dbh, $shoppingcartItem);
 
-$wishlistItems = get_wishlist_items_ids($dbh, $userId);
+$shoppingcartItem = get_cart_items_ids($dbh, $userId);
 
-echo json_encode(['wishlistItems' => $wishlistItems, 'message' => 'Sucesso']);
+
+echo json_encode(['wishlistItems' => $itemId, 'message' => 'Sucesso']);
 ?>
