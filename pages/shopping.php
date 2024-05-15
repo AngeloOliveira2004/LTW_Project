@@ -7,7 +7,8 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="../css/Shopping.css">
+        <link rel="stylesheet" href="../css/shopping.css">
+        <script src="js/shopping_cart.js"></script>
         <title>Cart</title>
     </head>
 
@@ -18,18 +19,6 @@
 
         <h1>Shopping Cart</h1>
         <section id="banner-conatainer">
-
-        </section>
-        <section class="option">
-            <h3>sort by</h3>
-            <select name=" sorting" id="sorting">
-                <option value="on sale">on sale</option>
-                <option value="recently added">recently added</option>
-                <option value="recently added">Alphabetical</option>
-                <option value="recently added">Price: Low to High</option>
-                <option value="recently added">Price: High to Low</option>
-            </select>
-        </section>
 
         <?php
         require_once (__DIR__ . '/../db_handler/DB.php');
@@ -76,27 +65,60 @@
                         <img src="<?= $imageSrc ?>" alt="<?= $name ?>">
                     </a>
                     <h3><?= $name ?></h3>
-                    <p>Price: <?= $price ?></p>
-                    <p>Brand: <?= $brand ?></p>
+                    <p>Price: <?= $price ?>€</p>
                     <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
                     <button class="Remove_cart" data-item-id="<?= $item->getId() ?>">Remove
                     </button>
                 </div>
                 <?php endforeach; ?>
             </div>
+            
 
             <section class="checkout zone">
-                <span>checkout</span>
-                <span>price</span>
-
-
+                <div class="summary">
+                    <span>Summary</span>
+                    <div class="line"></div>
+                    <div class="item-count">
+                        <span>Number of Items:</span>
+                        <span class="item-count-value">0</span>
+                    </div>
+                    <div class="total-price">
+                        <span>Total Price:</span>
+                        <span class="total-item-price-value">0.00€</span>
+                    </div>
+                </div>
+                <div class="shipping">
+                    <span>Shipping:</span>
+                    <select class="text-dropdown">
+                        <option value="standard">Standard Shipping</option>
+                        <option value="express">Express Shipping</option>
+                        <option value="next-day">Next-Day Delivery</option>
+                        <option value="international">International Shipping</option>
+                    </select>
+                </div>
+                <div class="payment-method">
+                    <span>Payment Method:</span>
+                    <select class="text-dropdown">
+                        <option value="credit-card">Credit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="apple-pay">Apple Pay</option>
+                        <option value="mb-way">Mb Way</option>
+                    </select>
+                </div>
+                <div class="total-price">
+                    <span>Total Price:</span>
+                    <span class="total-price-value">0.00€</span>
+                </div>
+                <button class="checkout-button">Checkout</button>
             </section>
+
+            
         </section>
+    </section>
 
         <?php
         include 'templates/footer.php';
-        ?> <script src="js/shopping_cart.js">
-        </script>
+        ?>
     </body>
 
 </html>
