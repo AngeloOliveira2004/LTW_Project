@@ -9,6 +9,8 @@ let current_filters = {
     "brand": new Set(),
     "category": new Set(),
     "subCategory": new Set(),
+    "tamanho": new Set(),
+    "location": null,
     "onlyAdsWithImages": false,
     "delivery": false,
 };
@@ -148,7 +150,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const marcaFilter = document.getElementById('marca_filter');
     const estadoFilter = document.getElementById('estado_filter');
     const sortFilter = document.getElementById('sort_filter');
-    
+
+    const tamanhoFilter = document.getElementById('Tamanhos');
+    const subCateogriasFilter =  document.getElementById('subCategorias');  
+    const categoriasFilter = document.getElementById('Categorias');
+
+    const locationFilter = document.querySelector('.category_dropdown');
+
     let isImageFilterActive = false;
     let isDeliveryFilterActive = false;
 
@@ -174,6 +182,12 @@ document.addEventListener('DOMContentLoaded', function() {
     inputBox.addEventListener('click', function(event) {
         event.stopPropagation(); 
         resultBox.style.display = 'block'; 
+    });
+
+    locationFilter.addEventListener('change', function() {
+        const selectedLocation = locationFilter.value;
+        console.log('Selected Location:', selectedLocation);
+        current_filters['location'] = selectedLocation;
     });
 
     document.addEventListener('click', function(event) {
@@ -248,6 +262,24 @@ document.addEventListener('DOMContentLoaded', function() {
         
     });
 
+    tamanhoFilter.addEventListener('change', function() {
+        const selectedTamanho = tamanhoFilter.value;
+        console.log('Selected Tamanho:', selectedTamanho);
+        updateCurrentFilters(selectedTamanho , 'Tamanho' , true);
+    });
+
+    subCateogriasFilter.addEventListener('change', function() {
+        const selectedSubCategoria = subCateogriasFilter.value;
+        console.log('Selected SubCategoria:', selectedSubCategoria);
+        updateCurrentFilters(selectedSubCategoria , 'SubCategoria' , true);
+    });
+
+    categoriasFilter.addEventListener('change', function() {
+        const selectedCategoria = categoriasFilter.value;
+        console.log('Selected Categoria:', selectedCategoria);
+        updateCurrentFilters(selectedCategoria , 'Categoria' , true);
+    });
+
     function updateCurrentFilters(input , indicator , from) {
         switch(indicator){
             case 'Marca':
@@ -281,6 +313,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     current_filters['sort'] = input;
                 }
                 break;
+            case 'Tamanho':
+                if(input !== '' && input !== 'Qualquer Uma' && input !== 'Tamanho'){
+                    current_filters['tamanho'].add(input);
+                }else if(input === 'Qualquer Um' || input === ''){
+                    current_filters['tamanho'].clear();
+                }
+                break;
+            case 'SubCategoria':
+                if(input !== '' && input !== 'SubCategoria' && input !== 'Qualquer Uma'){
+                    current_filters['subCategory'].add(input);
+                }else if(input === 'Qualquer Uma' || input === ''){
+                    current_filters['subCategory'].clear();
+                }
+                break;
+            case 'Categoria':
+                if(input !== '' && input !== 'Categoria' && input !== 'Qualquer Uma'){
+                    current_filters['category'].add(input);
+                }else if(input === 'Qualquer Uma' || input === ''){
+                    console.log('clearing category');
+                    current_filters['category'].clear();
+                }
+                break;
         }
         console.log(input);
         console.log(current_filters);
@@ -293,22 +347,27 @@ document.addEventListener('DOMContentLoaded', function() {
         currentFiltersDiv.innerHTML = ''; 
     
         for (const key in current_filters) {
-            current_filters[key].forEach(value => {
-                const filterEntry = document.createElement('div');
-                filterEntry.textContent = `${key}: ${value}`;
-    
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'X';
-                removeButton.addEventListener('click', () => {
-                    filterEntry.remove();
-                    current_filters[key].delete(value);
-                    console.log(current_filters);
-                    display_current_filters();
+            console.log(typeof current_filters[key]);
+            
+            if(typeof current_filters[key] !== 'boolean'){
+                current_filters[key].forEach(value => {
+                    console.log(key, value);
+                    const filterEntry = document.createElement('div');
+                    filterEntry.textContent = `${key}: ${value}`;
+        
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'X';
+                    removeButton.addEventListener('click', () => {
+                        filterEntry.remove();
+                        current_filters[key].delete(value);
+                        console.log(current_filters);
+                        display_current_filters();
+                    });
+        
+                    filterEntry.appendChild(removeButton);
+                    currentFiltersDiv.appendChild(filterEntry);
                 });
-    
-                filterEntry.appendChild(removeButton);
-                currentFiltersDiv.appendChild(filterEntry);
-            });
+            }
         }
     }
 }); 
@@ -349,7 +408,7 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
     const precoMaxValue = precoMax.value;
     const sortValue = sortFilter.value;
 
-    //allItems = [[Id, Name, Description, Brand, CategoryId, Size, Price, ConditionId, Available, isAvailableForDelivery, getSubCategory ,UserId ,  ] ,...]
+    //allItems = [[Id, Name, Description, Brand, CategoryId, Size, Price, ConditionId, Available, isAvailableForDelivery, getSubCategory , Highlighted, location UserId ,  ] ,...]
     let size = items.length;
     let size2 = items.length;
 
@@ -370,6 +429,15 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
     if(size > size2){
         console.log("marcou filter , estado filter , preço filter")
     }
+
+    items.filter(item => {
+        const tamanhoMatch = current_filters['tamanho'].size === 0 || current_filters['tamanho'].has(item[5]) || item[5] === null;//|| item[5] === null;
+        const subCategoryMatch = current_filters['subCategory'].size === 0 || current_filters['subCategory'].has(item[10]);
+
+        //const locationMatch = current_filters['location'] === null || current_filters['location'] === item[12];
+
+        return tamanhoMatch && subCategoryMatch && item[8];
+    });
 
     size = size2;
 
@@ -405,11 +473,21 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
 
     if (sortValue === 'price_asc') {
         items.sort(function(a, b) {
-            return parseFloat(a[6]) - parseFloat(b[6]);
+            return (parseFloat(a[6]) - parseFloat(b[6]));
         });
     } else if (sortValue === 'price_desc') {
         items.sort(function(a, b) {
-            return parseFloat(b[6]) - parseFloat(a[6]);
+            return (parseFloat(b[6]) - parseFloat(a[6]));
+        });
+    } else{
+        items.sort(function(a, b) {
+            if (a[11] && !b[11]) {
+                return -1;
+            } else if (!a[11] && b[11]) {
+                return 1;
+            } else {
+                return 0;
+            }
         });
     }
 

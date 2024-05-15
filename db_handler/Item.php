@@ -20,6 +20,7 @@ class Item {
     public $size;
     public $NumberOfImages;
 
+    public $highlighted;
     public $userId;
 
 
