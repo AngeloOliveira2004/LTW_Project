@@ -9,7 +9,6 @@
 # TODO
 
 * Finalizar Wishlist e Shopping Cart. Meter Report de compra
-* Trocar o hover do profile para ter lá as opções todas
 * Não deixar o user ver o seu perfil e os seus items
 * adicionar hrefs aonde faltar
 * Deixar site dinâmico em termos de CSS
