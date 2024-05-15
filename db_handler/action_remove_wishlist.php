@@ -26,6 +26,5 @@ remove_from_wishilist($dbh, $wishlistItem);
 
 $wishlistItems = get_wishlist_items_ids($dbh, $userId);
 
-
 echo json_encode(['wishlistItems' => $wishlistItems, 'message' => 'Sucesso']);
 ?>

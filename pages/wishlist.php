@@ -32,12 +32,59 @@
         </section>
 
         <?php
-       
+        require_once(__DIR__.'/../db_handler/DB.php');
+        require_once(__DIR__.'/../db_handler/itemmove.php');
+
+        session_start();
+        $dB = new DB();
+        $db = new Database("../database/database.db");
+        
+        $user = $_SESSION['userId'];
+        $dbh = $dB->get_database_connection();
+        
+        $wishlistItemsIds = $db->getWishlistItems($user);
+        $wishlistItemsDetails = array();
+        foreach ($wishlistItemsIds as $itemId) {
+            $itemDetails = $db->getItemById($itemId);
+            if ($itemDetails) {
+                $wishlistItemsDetails[] = $itemDetails;
+            }
+        }
     ?>
+        <div class="wishlist-items">
+            <?php foreach ($wishlistItemsDetails as $item): ?>
+            <div class="item">
+                <?php
+            $name = $item->getName();
+            $price = $item->getPrice();
+            $brand = $item->getBrand();
+
+            $itemImagePath = "../assets/items/{$item->getId()}-1.png";
+            $errorImagePath = "../assets/items/error.png";
+
+            if (file_exists($itemImagePath)) {
+                $imageSrc = $itemImagePath;
+            } else {
+                $imageSrc = $errorImagePath;
+            }
+            ?>
+                <a href="itempage.php?item=<?= $item->getId() ?>">
+                    <img src="<?= $imageSrc ?>" alt="<?= $name ?>">
+                </a>
+                <h3><?= $name ?></h3>
+                <p>Price: <?= $price ?></p>
+                <p>Brand: <?= $brand ?></p>
+                <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
+                <button class="wishilist_send"><i class="fa-regular fa-heart"
+                        data-item-id="<?= $item->getId() ?>"></i></button>
+            </div>
+            <?php endforeach; ?>
+        </div>
 
         <?php
         include 'templates/footer.php';
     ?>
+        <script src="js/wishlist.js"></script>
     </body>
 
 </html>
