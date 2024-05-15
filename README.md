@@ -9,10 +9,11 @@
 # TODO
 
 * Finalizar Wishlist e Shopping Cart. Meter Report de compra
-* Não deixar o user ver o seu perfil e os seus items
+
 * adicionar hrefs aonde faltar
 * Deixar site dinâmico em termos de CSS
 * Deixar site seguro
+
 * Adicionar href to the página do item quando se clica no item no próprio perfil
 * Alterar todos os sessions starts para isset session start para saber se já se iniciou a sessão(session abort to end)
 

@@ -542,90 +542,58 @@ function render_items() {
     searched_items.forEach(item => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('searched-item-container');
-
-        // Fetch the item photo
-        const itemId = item[0]; // Assuming item id is in the first index
-        const itemPhotoUrl = `../assets/items/${itemId}-1.png`; // Construct the URL
-        const itemPhoto = document.createElement('img');
-        itemPhoto.src = itemPhotoUrl;
-        itemPhoto.classList.add('item-photo');
-        itemContainer.appendChild(itemPhoto);
-
-        // Item title
-        const titleElement = document.createElement('h3');
-        titleElement.textContent = item[1]; // Assuming item name is in the second index
-        titleElement.classList.add('item-title');
-        itemContainer.appendChild(titleElement);
-
-        // Item description
-        const descriptionElement = document.createElement('p');
-        descriptionElement.textContent = item[2]; // Assuming item description is in the third index
-        descriptionElement.classList.add('item-description');
-        itemContainer.appendChild(descriptionElement);
-
-        // Item price
-        const priceElement = document.createElement('p');
-        priceElement.textContent = `${item[6]}`; // Assuming price is in the sixth index
-        priceElement.classList.add('item-price');
-        itemContainer.appendChild(priceElement);
-
-        // Heart icon (for wishlist)
-        const heartIcon = document.createElement('i');
-        heartIcon.classList.add('fas', 'fa-heart', 'heart-icon');
-        heartIcon.addEventListener('click', function() {
-            heartIcon.classList.toggle('heart-active');
+        
+        itemContainer.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
         });
-        itemContainer.appendChild(heartIcon);
-
-        // Text for wishlist
-        const addToWishlistText = document.createElement('p');
-        addToWishlistText.textContent = "Add to Wishlist?";
-        addToWishlistText.classList.add('text-icon');
-        itemContainer.appendChild(addToWishlistText);
-
-        searchItemsDiv.appendChild(itemContainer);
-    });
-}
-
-function render_items() {
-    const searchItemsDiv = document.querySelector('.search-items');
-    searchItemsDiv.innerHTML = '';
-
-    // Render found items
-    searched_items.forEach(item => {
-        const itemContainer = document.createElement('div');
-        itemContainer.classList.add('searched-item-container');
-
         // Fetch the item photo
         const itemId = item[0]; // Assuming item id is in the first index
         const itemPhotoUrl = `../assets/items/${itemId}-1.png`; // Construct the URL
         const itemPhoto = document.createElement('img');
         itemPhoto.src = itemPhotoUrl;
         itemPhoto.classList.add('item-photo');
+        itemPhoto.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
+        });
         itemContainer.appendChild(itemPhoto);
 
         // Item title
         const titleElement = document.createElement('h3');
         titleElement.textContent = item[1]; // Assuming item name is in the second index
         titleElement.classList.add('item-title');
+        titleElement.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
+        });
         itemContainer.appendChild(titleElement);
 
         // Item description
         const descriptionElement = document.createElement('p');
         descriptionElement.textContent = item[2]; // Assuming item description is in the third index
         descriptionElement.classList.add('item-description');
+        descriptionElement.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
+        });
         itemContainer.appendChild(descriptionElement);
 
         // Item price
         const priceElement = document.createElement('p');
         priceElement.textContent = `Price: ${item[6]}`; // Assuming price is in the sixth index
         priceElement.classList.add('item-price');
+        priceElement.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
+        });
         itemContainer.appendChild(priceElement);
 
         // Heart icon (for wishlist)
         const heartIcon = document.createElement('i');
         heartIcon.classList.add('fas', 'fa-heart', 'heart-icon');
         heartIcon.addEventListener('click', function() {
+            event.stopPropagation();
             heartIcon.classList.toggle('heart-active');
         });
         itemContainer.appendChild(heartIcon);
