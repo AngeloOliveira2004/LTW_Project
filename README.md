@@ -13,6 +13,7 @@
 * Deixar site dinâmico em termos de CSS
 * Deixar site seguro
 * Alterar todos os sessions starts para isset session start para saber se já se iniciou a sessão(session abort to end)
+* Validar HTML
 
 # Opcional 
 
