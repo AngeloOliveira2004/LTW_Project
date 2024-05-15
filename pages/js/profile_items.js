@@ -112,3 +112,19 @@ document.addEventListener('click', function(event) {
         handleRejectProposalClick(event);
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const allItems = document.querySelectorAll('.item');
+
+    allItems.forEach(item => {
+        item.addEventListener('click', function() {
+            console.log(item);
+            let acceptProposalButton = item.querySelector('.accept-proposal');
+            console.log(acceptProposalButton);
+            let buttonId = acceptProposalButton.getAttribute('id');
+            itemId = parseInt(buttonId);
+            window.location.href = 'itemPageUserProfile.php?item=' + itemId;
+        });
+    });
+});
