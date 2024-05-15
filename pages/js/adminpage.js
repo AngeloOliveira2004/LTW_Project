@@ -444,7 +444,10 @@ async function searchUsers(suggestedWords){
     return searchResults;
 }
 
-function searchItems(suggestedWords){
+async function searchItems(suggestedWords){
+
+    await checkLoginStatus();
+
     let searchResults = [];
 
     for(let i = 0 ; i < allItems.length; i++){
@@ -455,7 +458,16 @@ function searchItems(suggestedWords){
         }   
     }
 
-    console.log("SearchedItems" + searchResults);
+    console.log("SearchedUsers" + searchResults);
+    
+    console.log("IsLoggedIn: " + isLoggedIn);
+    for(let i = 0; i < searchResults.length; i++){
+        console.log("this user id = " + searchResults[i][14]);
+    }
+
+    if(isLoggedIn !== -1){
+        searchResults = searchResults.filter(item => item[14] !== isLoggedIn);
+    }
 
     return searchResults;
 }
