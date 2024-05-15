@@ -71,12 +71,18 @@
                 <a href="itempage.php?item=<?= $item->getId() ?>">
                     <img src="<?= $imageSrc ?>" alt="<?= $name ?>">
                 </a>
-                <h3><?= $name ?></h3>
-                <p>Price: <?= $price ?></p>
-                <p>Brand: <?= $brand ?></p>
-                <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
-                <button class="wishilist_send"><i class="fa-regular fa-heart"
-                        data-item-id="<?= $item->getId() ?>"></i></button>
+                <div class="item_descriptors">
+                    <h3><?= $name ?></h3>
+                    <p>Price: <?= $price ?></p>
+                    <p>Brand: <?= $brand ?></p>
+                </div>
+                <div class="item_buttons">
+                    <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
+                    <button class="wishilist_send"><i class="fa-solid fa-heart"
+                            data-item-id="<?= $item->getId() ?>"></i></button>
+                    <button class="cart_add"><i class="fa-solid fa-cart-shopping"
+                            data-item-id="<?= $item->getId() ?>"></i></button>
+                </div>
             </div>
             <?php endforeach; ?>
         </div>
