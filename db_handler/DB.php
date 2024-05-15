@@ -760,6 +760,14 @@
             $stmt->execute();
         }
 
+        public function InsertItemProposal($itemId,$userId,$price){
+            $stmt = $this->conn->prepare("INSERT INTO PriceProposals (Price, UserId, ItemId, Status) VALUES (:price, :userId, :itemId, 'Pending')");
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':userId', $userId);
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
+
         public function UpdateItemPrice($itemId,$newPrice){
             $stmt = $this->conn->prepare("UPDATE Items SET Price = :newPrice WHERE Id = :itemId");
             $stmt->bindParam(':newPrice', $newPrice);

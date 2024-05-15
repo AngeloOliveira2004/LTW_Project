@@ -134,9 +134,9 @@
                         <p class="Item_name"> <?= $name ?></p>
                         <p class="Item_Price"> <?= $price ?> EUR</p>
                     </div>
-                    <div class="button_container">
-                        <input type="text" placeholder="Propor Outro Preço" class="price_input">
-                        <button class="propose_button">Propor Preço</button>
+                    <div class="button_container" id="button_proposal_container">
+                        <input type="number" class="price_input" placeholder="Propor Outro Preço" id="item_proposal" name="proposal" step="0.1" min="0" max="<?php echo $item->getPrice(); ?>">
+                        <button class="propose_button" id="propose_button">Propor Preço</button>
                         <form class="shoppingcart" action="../../db_handler/action_shoppingcart.php" method="post">
                             <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
                             <button class="checkout">

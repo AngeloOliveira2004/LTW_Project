@@ -214,3 +214,38 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("propose_button").addEventListener("click", function() {
+        submitProposal();
+    });
+});
+
+
+
+
+function submitProposal() {
+    let proposalInput = document.getElementById("item_proposal").value;
+    let regex = /^\d+(\.\d{1,2})?$/;
+    let itemId = document.getElementById("item_image").className.split("-")[0];
+
+    if (!regex.test(proposalInput)) {
+        alert("Invalid proposal. Please enter a valid number.");
+        document.getElementById("item_proposal").value = "";
+        return;
+    }
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "../../db_handler/action_propose_item_new_price.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            document.getElementById('item_proposal').style.display = 'none';
+            document.getElementById('propose_button').style.display = 'none';
+            let successMessage = document.createElement('p');
+            successMessage.textContent = 'Proposal sent successfully';
+            document.getElementById("button_proposal_container").prepend(successMessage);
+        }
+    };
+    xhr.send("proposal=" + encodeURIComponent(proposalInput)
+    + '&itemId=' + encodeURIComponent(itemId));
+}
