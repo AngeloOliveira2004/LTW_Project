@@ -12,7 +12,8 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="js/homepage.js"></script>
 
     </head>
@@ -25,27 +26,27 @@
         <span class="search_table">
             <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
             <select class="category_dropdown">
-                    <option value="">Todas as Localizações</option>
-                    <option value="Aveiro">Aveiro</option>
-                    <option value="Beja">Beja</option>
-                    <option value="Braga">Braga</option>
-                    <option value="Bragança">Bragança</option>
-                    <option value="Castelo Branco">Castelo Branco</option>
-                    <option value="Coimbra">Coimbra</option>
-                    <option value="Évora">Évora</option>
-                    <option value="Faro">Faro</option>
-                    <option value="Guarda">Guarda</option>
-                    <option value="Leiria">Leiria</option>
-                    <option value="Lisboa">Lisboa</option>
-                    <option value="Portalegre">Portalegre</option>
-                    <option value="Porto">Porto</option>
-                    <option value="Santarém">Santarém</option>
-                    <option value="Setúbal">Setúbal</option>
-                    <option value="Viana do Castelo">Viana do Castelo</option>
-                    <option value="Vila Real">Vila Real</option>
-                    <option value="Viseu">Viseu</option>
-                 </select>
-            
+                <option value="">Todas as Localizações</option>
+                <option value="Aveiro">Aveiro</option>
+                <option value="Beja">Beja</option>
+                <option value="Braga">Braga</option>
+                <option value="Bragança">Bragança</option>
+                <option value="Castelo Branco">Castelo Branco</option>
+                <option value="Coimbra">Coimbra</option>
+                <option value="Évora">Évora</option>
+                <option value="Faro">Faro</option>
+                <option value="Guarda">Guarda</option>
+                <option value="Leiria">Leiria</option>
+                <option value="Lisboa">Lisboa</option>
+                <option value="Portalegre">Portalegre</option>
+                <option value="Porto">Porto</option>
+                <option value="Santarém">Santarém</option>
+                <option value="Setúbal">Setúbal</option>
+                <option value="Viana do Castelo">Viana do Castelo</option>
+                <option value="Vila Real">Vila Real</option>
+                <option value="Viseu">Viseu</option>
+            </select>
+
 
             <button class="search_button">
                 Pesquisar
@@ -78,17 +79,17 @@
                 <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
                 <span>Mobile Phones</span>
             </div>
-        
+
             <div class="image-container">
                 <img src="assets/computer-removebg-preview.png" alt="computer">
                 <span>Technology</span>
             </div>
-        
+
             <div class="image-container">
                 <img src="assets/guitar-removebg-preview.png" alt="guitar">
                 <span>Music</span>
             </div>
-        
+
         </div>
 
         <span class="Buy_From_Brand">
@@ -166,7 +167,7 @@ foreach ($randomItems as $item) {
                 <p>Brand: <?= $item->getBrand() ?></p>
                 <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
 
-                <button class="wishilist_send"><i class="fa-regular fa-heart"
+                <button class="wishlist_button wishilist_send"><i class="fa-regular fa-heart"
                         data-item-id="<?= $item->getId(1) ?>"></i></button>
             </div>
 

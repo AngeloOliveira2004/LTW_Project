@@ -235,8 +235,18 @@ a{
     margin: 0;
     background: none;
     border: none;
+    transition: transform 0.2s ease;
+  
 }
-
+.wishilist_send:hover{
+    transform: translateY(-3px); /* Translação para cima ao passar o mouse */
+}
+   
+.wishlist_button i {
+    color: #ff0000; /* Cor do coração */
+    font-size: 20px; /* Tamanho do ícone */
+    /* Outros estilos conforme desejado */
+}
 .Categories .image-container img, .Categories .image-container span{
     cursor: pointer;
 }

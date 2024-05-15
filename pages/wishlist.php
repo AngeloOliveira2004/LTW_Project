@@ -51,10 +51,11 @@
             }
         }
     ?>
-        <div class="wishlist-items">
-            <?php foreach ($wishlistItemsDetails as $item): ?>
-            <div class="item">
-                <?php
+        <div class="items">
+            <div class="wishlist-items">
+                <?php foreach ($wishlistItemsDetails as $item): ?>
+                <div class="item">
+                    <?php
             $name = $item->getName();
             $price = $item->getPrice();
             $brand = $item->getBrand();
@@ -68,25 +69,25 @@
                 $imageSrc = $errorImagePath;
             }
             ?>
-                <a href="itempage.php?item=<?= $item->getId() ?>">
-                    <img src="<?= $imageSrc ?>" alt="<?= $name ?>">
-                </a>
-                <div class="item_descriptors">
-                    <h3><?= $name ?></h3>
-                    <p>Price: <?= $price ?></p>
-                    <p>Brand: <?= $brand ?></p>
+                    <a href="itempage.php?item=<?= $item->getId() ?>">
+                        <img src="<?= $imageSrc ?>" alt="<?= $name ?>">
+                    </a>
+                    <div class="item_descriptors">
+                        <h3><?= $name ?></h3>
+                        <p>Price: <?= $price ?></p>
+                        <p>Brand: <?= $brand ?></p>
+                    </div>
+                    <div class="item_buttons">
+                        <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
+                        <button class="wishilist_send"><i class="fa-solid fa-heart"
+                                data-item-id="<?= $item->getId() ?>"></i></button>
+                        <button class="cart_add"><i class="fa-solid fa-cart-shopping"
+                                data-item-id="<?= $item->getId() ?>"></i></button>
+                    </div>
                 </div>
-                <div class="item_buttons">
-                    <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
-                    <button class="wishilist_send"><i class="fa-solid fa-heart"
-                            data-item-id="<?= $item->getId() ?>"></i></button>
-                    <button class="cart_add"><i class="fa-solid fa-cart-shopping"
-                            data-item-id="<?= $item->getId() ?>"></i></button>
-                </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
         </div>
-
         <?php
         include 'templates/footer.php';
     ?>
