@@ -3,6 +3,9 @@
 let lastSuggestions = [];
 let allItems = [];
 
+user_is_not_logged_in = true;
+user_id_ = -1;
+
 let searched_items = [];
 let current_filters = {
     "state": new Set(),
@@ -386,6 +389,36 @@ function imageExistsAsync(url) {
     });
 }
 
+function getUserLoginStatus() {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    let response = xhr.responseText;
+                    resolve(parseInt(response));
+                } else {
+                    reject(new Error("Request failed"));
+                }
+            }
+        };
+        xhr.open("GET", "../db_handler/action_is_user_logged_in.php", true);
+        xhr.send();
+    });
+}
+
+async function checkLoginStatus() {
+    try {
+        isLoggedIn = await getUserLoginStatus();// Assuming -1 denotes not logged in
+        user_id_ = isLoggedIn;
+
+ 
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
 async function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
     console.log('search_algorithm');
@@ -481,6 +514,18 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
             }
         });
     }
+
+    await checkLoginStatus();
+
+    console.log('user_id_ : ' + user_id_);
+
+    if(user_id_ !== -1){
+        items = items.filter(
+            item => item[14] !== user_id_,
+        );
+    }
+
+    user_id_ = -1;
 
     console.log(items);
 
@@ -665,6 +710,28 @@ async function initialSearch(searchInput , locationInput , brandInput , category
         console.error('Error fetching data:', error);
     }
 } 
+
+function checkLoggedInStatus() {
+
+    console.log('checkLoggedInStatus');
+
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let isLoggedIn = xhr.responseText;
+            console.log('isLoggedIn:', isLoggedIn);
+            console.log('isLoggedIn:', typeof isLoggedIn);
+            isLoggedIn = parseInt(isLoggedIn);
+            if (isLoggedIn !== -1) {
+                return isLoggedIn;
+            } else {
+                return -1;
+            }
+        }
+    };
+    xhr.open("GET", "../db_handler/action_is_user_logged_in.php", true);
+    xhr.send();
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     

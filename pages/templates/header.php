@@ -67,13 +67,13 @@
                                 </a>
                             </li>
                                 <li class = "profile-option">
-                                    <a class = "option" id="logout" href="../../pages/userReg.php">
+                                    <a class = "option" id="logout1" href="../../pages/userReg.php">
                                         <img src="../../assets/logout.png" class ="imageIcons" alt="">
                                         Entrar noutra conta
                                     </a>
                                 </li>
                                 <li class = "profile-option">
-                                    <a class = "option" id="logout" href="../../pages/homepage.php">
+                                    <a class = "option" id="logout2" href="../../pages/homepage.php">
                                         <img src="../../assets/exit.png" class ="imageIcons" alt="">
                                         Sair
                                     </a>
