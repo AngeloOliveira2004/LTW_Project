@@ -71,7 +71,6 @@ function handleAcceptProposalClick(event) {
     };
 
     xhr.send('itemId=' + encodeURIComponent(itemId)
-        + '&price=' + encodeURIComponent(price)
         + '&type=' + encodeURIComponent("accept"));
 }
 
@@ -100,7 +99,6 @@ function handleRejectProposalClick(event) {
     };
 
     xhr.send('itemId=' + encodeURIComponent(itemId)
-        + '&price=' + encodeURIComponent(price)
         + '&type=' + encodeURIComponent("reject"));
 
 }

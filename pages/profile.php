@@ -99,7 +99,9 @@
              $price = $item->getPrice();
              $photo = "../../assets/items/{$item->getId()}-1.png";
              $brand = $item->getBrand();
-             $proposalPrice = $priceproposal->getPrice();
+             if($priceproposal != null){
+                $proposalPrice = $priceproposal->getPrice();
+             }
              
              if($photo == null)
                  $photo = "assets/error.png";

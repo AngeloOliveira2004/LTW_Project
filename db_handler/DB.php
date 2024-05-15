@@ -742,7 +742,7 @@
         }
 
         public function getPriceProposalByUserId($itemId){
-            $stmt = $this->conn->prepare("SELECT * FROM PriceProposals WHERE ItemId = :itemId AND Status='Pending' ORDER BY Price ASC LIMIT 1");
+            $stmt = $this->conn->prepare("SELECT * FROM PriceProposals WHERE ItemId = :itemId AND Status='Pending' ORDER BY Price DESC LIMIT 1");
             $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
             $priceProposal = $stmt->fetch();
