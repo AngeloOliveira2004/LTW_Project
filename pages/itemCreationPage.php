@@ -54,17 +54,6 @@
         <input type="text" placeholder="Escolhe uma categoria?" class="sub_search_category">
         <div class="sub_suggestions">
             <?php
-            $selectedCategoryId = isset($_POST['selected_category_id']) ? $_POST['selected_category_id'] : null;
-
-            $topSubCategories = array();
-    
-            if ($selectedCategoryId !== null) {
-                $subCategories = $db->getSubCategoriesByParent($selectedCategoryId);
-    
-                foreach ($subCategories as $subcategory) {
-                    $topSubCategories[$subcategory['Name']] = $subcategory['Count'];
-                }
-            } 
 
             foreach ($allsubCategories as $category) {
                 echo "<div class='category-option' value='$category'>$category</div>";
@@ -149,7 +138,6 @@
 
         <section >
             <div class ="pre_visualizar_publicar_section">
-                <p class ="pre_visualizar">Pré Visualizar</p>
                 <button class ="Publicar">Publicar anúncio</button>
             </div>
         </section>

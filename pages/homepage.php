@@ -24,33 +24,28 @@
 
         <span class="search_table">
             <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
-            <?php
-                require_once '../db_handler/DB.php';
-
-                $db = new Database("../database/database.db");
-
-                $allItems = $db->getItems();
-
-                $categoryCounts = array();
-                foreach ($allItems as $item) {
-                    $category = $item->getCategoryId();
-                    if (!isset($categoryCounts[$category])) {
-                        $categoryCounts[$category] = 0;
-                    }
-                    $categoryCounts[$category]++;
-                }
-
-                arsort($categoryCounts);
-
-                $topCategories = array_slice($categoryCounts, 0, 7);
-
-                echo '<select class="category_dropdown">';
-                echo '<option value="">Todas as Categorias</option>';
-                foreach ($topCategories as $category => $count) {
-                    echo "<option value='$category'>$category</option>";
-                }
-                echo '</select>';
-            ?>
+            <select class="category_dropdown">
+                    <option value="">Todas as Localizações</option>
+                    <option value="Aveiro">Aveiro</option>
+                    <option value="Beja">Beja</option>
+                    <option value="Braga">Braga</option>
+                    <option value="Bragança">Bragança</option>
+                    <option value="Castelo Branco">Castelo Branco</option>
+                    <option value="Coimbra">Coimbra</option>
+                    <option value="Évora">Évora</option>
+                    <option value="Faro">Faro</option>
+                    <option value="Guarda">Guarda</option>
+                    <option value="Leiria">Leiria</option>
+                    <option value="Lisboa">Lisboa</option>
+                    <option value="Portalegre">Portalegre</option>
+                    <option value="Porto">Porto</option>
+                    <option value="Santarém">Santarém</option>
+                    <option value="Setúbal">Setúbal</option>
+                    <option value="Viana do Castelo">Viana do Castelo</option>
+                    <option value="Vila Real">Vila Real</option>
+                    <option value="Viseu">Viseu</option>
+                 </select>
+            
 
             <button class="search_button">
                 Pesquisar
@@ -63,48 +58,37 @@
         </span>
 
         <div class="Categories">
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/carro-removebg-preview.png" alt="car">
-                    <span>Vehicles</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/bola-removebg-preview.png" alt="ball">
-                    <span>Sports</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/chair-removebg-preview.png" alt="chair">
-                    <span>Furniture</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/tshirt.png" alt="tshirt">
-                    <span>Clothes</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
-                    <span>Mobile Phones</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/computer-removebg-preview.png" alt="computer">
-                    <span>Technology</span>
-                </div>
-            </a>
-            <a href="">
-                <div class="image-container">
-                    <img src="assets/guitar-removebg-preview.png" alt="guitar">
-                    <span>Music</span>
-                </div>
-            </a>
+            <div class="image-container">
+                <img src="assets/carro-removebg-preview.png" alt="car">
+                <span>Vehicles</span>
+            </div>
+            <div class="image-container">
+                <img src="assets/bola-removebg-preview.png" alt="ball">
+                <span>Sports</span>
+            </div>
+            <div class="image-container">
+                <img src="assets/chair-removebg-preview.png" alt="chair">
+                <span>Furniture</span>
+            </div>
+            <div class="image-container">
+                <img src="assets/tshirt.png" alt="tshirt">
+                <span>Clothes</span>
+            </div>
+            <div class="image-container">
+                <img src="assets/mobilePhone-removebg-preview.png" alt="mobile phone">
+                <span>Mobile Phones</span>
+            </div>
+        
+            <div class="image-container">
+                <img src="assets/computer-removebg-preview.png" alt="computer">
+                <span>Technology</span>
+            </div>
+        
+            <div class="image-container">
+                <img src="assets/guitar-removebg-preview.png" alt="guitar">
+                <span>Music</span>
+            </div>
+        
         </div>
 
         <span class="Buy_From_Brand">

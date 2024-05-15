@@ -51,46 +51,28 @@
                     </ul>
                 </div>
             </div>
-        
-            <?php
-                require_once '../db_handler/DB.php';
-
-                $db = new Database("../database/database.db");
-
-                $allItems = $db->getItems();
-
-                $categoryCounts = array();
-                foreach ($allItems as $item) {
-                    $category = $item->getCategoryId();
-                    if (!isset($categoryCounts[$category])) {
-                        $categoryCounts[$category] = 0;
-                    }
-                    $categoryCounts[$category]++;
-                }
-
-                arsort($categoryCounts);
-
-                $topCategories = array_slice($categoryCounts, 0, 8);
-                
-                if($categoryValue === 'All' || $categoryValue === '' || $categoryValue === null){
-                    echo '<select class="category_dropdown">';
-                    echo '<option value="">Todas as Categorias</option>';
-                } else {
-                    echo '<select class="category_dropdown">';
-                    echo '<option value="">Todas as Categorias</option>';
-                    echo '<option value="" selected>' .$categoryValue. '</option>';
-                }
-
-                foreach ($topCategories as $category => $count) {
-                    if($categoryValue === $category){
-                        continue;
-                    }
-                    echo "<option value='$category'>$category</option>";
-                }
-                
-                echo '</select>';
-            ?>
-
+                 <select class="category_dropdown">
+                    <option value="">Todas as Localizações</option>
+                    <option value="Aveiro">Aveiro</option>
+                    <option value="Beja">Beja</option>
+                    <option value="Braga">Braga</option>
+                    <option value="Bragança">Bragança</option>
+                    <option value="Castelo Branco">Castelo Branco</option>
+                    <option value="Coimbra">Coimbra</option>
+                    <option value="Évora">Évora</option>
+                    <option value="Faro">Faro</option>
+                    <option value="Guarda">Guarda</option>
+                    <option value="Leiria">Leiria</option>
+                    <option value="Lisboa">Lisboa</option>
+                    <option value="Portalegre">Portalegre</option>
+                    <option value="Porto">Porto</option>
+                    <option value="Santarém">Santarém</option>
+                    <option value="Setúbal">Setúbal</option>
+                    <option value="Viana do Castelo">Viana do Castelo</option>
+                    <option value="Vila Real">Vila Real</option>
+                    <option value="Viseu">Viseu</option>
+                 </select>
+            
                 <button class="search_button">
                     Pesquisar
                     <img src="assets/search-interface-symbol.png" alt="search-icon" class = "search_icon">
@@ -119,7 +101,8 @@
         <div class = "line"></div>
 
         <select name="marca" id="marca_filter">
-            <option value="" class="Marca">Marca</option>
+            <option value="" class="Marca" disabled>Marca</option>
+            <option value="">Qualquer Uma</option>
                 <?php
                     require_once '../db_handler/DB.php';
 
@@ -146,29 +129,90 @@
                     ?>
         </select>
         <select name="estado" id="estado_filter">
-                <option value="" disabled selected>Estado</option>
-                <option value="Any">Qualquer Um</option>
-                <option value="Novo">Novo</option>
-                <option value="Usado">Usado</option>
+            <option value="" disabled>Estado</option>
+            <option value="">Qualquer Um</option>
+                <?php 
+                require_once '../db_handler/DB.php';
+
+                $db = new Database("../database/database.db");
+
+                $allConditions = $db->getAllConditionsName();
+
+                foreach ($allConditions as $condition) {
+                    echo "<option value='{$condition}'>{$condition}</option>";
+                }
+            ?>
         </select>
         <span class = "price">Preço: </span>
         <input type="text" value="0" class="from">
-        <input type="text" value="1000" class = "to">
+        <input type="text" value="10000" class = "to">
         
-    
-        <select name="sort" id="sort_filter">
-            <option value="">Ordenar por</option>
-            <option value="price_asc">Preço (menor para maior)</option>
-            <option value="price_desc">Preço (maior para menor)</option>
-        </select>
-        
+        <div class = "line"></div>
+
+            <select name="categorias" id="Categorias">
+                <option value="" disabled>Categoria</option>
+                <option value="">Qualquer Uma</option>
+                <?php 
+                require_once '../db_handler/DB.php';
+
+                $db = new Database("../database/database.db");
+
+                $allConditions = $db->getAllCategoriesName();
+
+                foreach ($allConditions as $condition) {
+                    echo "<option value='{$condition}'>{$condition}</option>";
+                }
+                ?>
+            </select>
+
+            <select name="subCategorias" id="subCategorias">
+
+                <option value="" disabled>SubCategoria</option>
+                <option value="">Qualquer Uma</option>
+                <?php 
+                require_once '../db_handler/DB.php';
+
+                $db = new Database("../database/database.db");
+
+                $allConditions = $db->getAllSubCategoryName();
+
+                foreach ($allConditions as $condition) {
+                    echo "<option value='{$condition}'>{$condition}</option>";
+                }
+                ?>
+            </select>
+
+            <select name="Tamanhos" id="Tamanhos">
+
+                <option value="" disabled>Tamanho</option>
+                <option value="">Qualquer Um</option>
+                <?php 
+                require_once '../db_handler/DB.php';
+
+                $db = new Database("../database/database.db");
+
+                $allConditions = $db->getAllSizesNames();
+
+                foreach ($allConditions as $condition) {
+                    echo "<option value='{$condition}'>{$condition}</option>";
+                }
+                ?>
+            </select>
+
+            <select name="sort" id="sort_filter">
+                <option value="">Ordenar por</option>
+                <option value="price_asc">Preço (menor para maior)</option>
+                <option value="price_desc">Preço (maior para menor)</option>
+            </select>
+                
+
         <div class = "current_filters" >
-
+            
         </div>
-
+    
+        <div class = "line"></div>
     </div>
 
-    <div class = "line"></div>
     
     <div class = "search-items"></div>
 

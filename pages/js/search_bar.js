@@ -9,6 +9,8 @@ let current_filters = {
     "brand": new Set(),
     "category": new Set(),
     "subCategory": new Set(),
+    "tamanho": new Set(),
+    "location": null,
     "onlyAdsWithImages": false,
     "delivery": false,
 };
@@ -17,6 +19,10 @@ function calculateSuggestions(inputVal , items){
     console.log('beginning suggestions');
     console.log(items);
     console.log(inputVal);
+
+    if(inputVal === null){
+        return items;
+    }
 
     if (inputVal.length === 0) {
         return items;
@@ -36,23 +42,6 @@ function calculateSuggestions(inputVal , items){
         let filteredItemsNames = allItemNames.filter(function (item) {
             return item.startsWith(inputVal);
         });
-
-        console.log('filtered items');
-        console.log(filteredItemsNames);
-    
-        let suggestionsMap = filteredItems.reduce(function (map, item) {
-            var differences = 0;
-            for (var i = 0; i < inputVal.length; i++) {
-                if (item[i] !== inputVal[i]) {
-                    differences++;
-                }
-            }
-            map[item] = differences;
-            return map;
-        }, {});
-        
-        console.log(filteredItems);
-        console.log(filteredItemsNames);
 
         recommendations = [];
 
@@ -148,7 +137,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const marcaFilter = document.getElementById('marca_filter');
     const estadoFilter = document.getElementById('estado_filter');
     const sortFilter = document.getElementById('sort_filter');
-    
+
+    const tamanhoFilter = document.getElementById('Tamanhos');
+    const subCateogriasFilter =  document.getElementById('subCategorias');  
+    const categoriasFilter = document.getElementById('Categorias');
+
+    const locationFilter = document.querySelector('.category_dropdown');
+
     let isImageFilterActive = false;
     let isDeliveryFilterActive = false;
 
@@ -174,6 +169,12 @@ document.addEventListener('DOMContentLoaded', function() {
     inputBox.addEventListener('click', function(event) {
         event.stopPropagation(); 
         resultBox.style.display = 'block'; 
+    });
+
+    locationFilter.addEventListener('change', function() {
+        const selectedLocation = locationFilter.value;
+        console.log('Selected Location:', selectedLocation);
+        current_filters['location'] = selectedLocation;
     });
 
     document.addEventListener('click', function(event) {
@@ -248,6 +249,24 @@ document.addEventListener('DOMContentLoaded', function() {
         
     });
 
+    tamanhoFilter.addEventListener('change', function() {
+        const selectedTamanho = tamanhoFilter.value;
+        console.log('Selected Tamanho:', selectedTamanho);
+        updateCurrentFilters(selectedTamanho , 'Tamanho' , true);
+    });
+
+    subCateogriasFilter.addEventListener('change', function() {
+        const selectedSubCategoria = subCateogriasFilter.value;
+        console.log('Selected SubCategoria:', selectedSubCategoria);
+        updateCurrentFilters(selectedSubCategoria , 'SubCategoria' , true);
+    });
+
+    categoriasFilter.addEventListener('change', function() {
+        const selectedCategoria = categoriasFilter.value;
+        console.log('Selected Categoria:', selectedCategoria);
+        updateCurrentFilters(selectedCategoria , 'Categoria' , true);
+    });
+
     function updateCurrentFilters(input , indicator , from) {
         switch(indicator){
             case 'Marca':
@@ -271,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         current_filters['state'].add('From' + input);
                     }
                 } else {
-                    if (input !== '' && input !== '1000') { 
+                    if (input !== '' && input !== '10000') { 
                         current_filters['state'].add('To' + input);
                     }
                 }
@@ -279,6 +298,28 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'Sort':
                 if (input !== '' && input !== 'Ordenar Por') { 
                     current_filters['sort'] = input;
+                }
+                break;
+            case 'Tamanho':
+                if(input !== '' && input !== 'Qualquer Uma' && input !== 'Tamanho'){
+                    current_filters['tamanho'].add(input);
+                }else if(input === 'Qualquer Um' || input === ''){
+                    current_filters['tamanho'].clear();
+                }
+                break;
+            case 'SubCategoria':
+                if(input !== '' && input !== 'SubCategoria' && input !== 'Qualquer Uma'){
+                    current_filters['subCategory'].add(input);
+                }else if(input === 'Qualquer Uma' || input === ''){
+                    current_filters['subCategory'].clear();
+                }
+                break;
+            case 'Categoria':
+                if(input !== '' && input !== 'Categoria' && input !== 'Qualquer Uma'){
+                    current_filters['category'].add(input);
+                }else if(input === 'Qualquer Uma' || input === ''){
+                    console.log('clearing category');
+                    current_filters['category'].clear();
                 }
                 break;
         }
@@ -293,22 +334,27 @@ document.addEventListener('DOMContentLoaded', function() {
         currentFiltersDiv.innerHTML = ''; 
     
         for (const key in current_filters) {
-            current_filters[key].forEach(value => {
-                const filterEntry = document.createElement('div');
-                filterEntry.textContent = `${key}: ${value}`;
-    
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'X';
-                removeButton.addEventListener('click', () => {
-                    filterEntry.remove();
-                    current_filters[key].delete(value);
-                    console.log(current_filters);
-                    display_current_filters();
+            console.log(typeof current_filters[key]);
+            
+            if(typeof current_filters[key] !== 'boolean' && current_filters[key] !== null){
+                current_filters[key].forEach(value => {
+                    console.log(key, value);
+                    const filterEntry = document.createElement('div');
+                    filterEntry.textContent = `${key}: ${value}`;
+        
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'X';
+                    removeButton.addEventListener('click', () => {
+                        filterEntry.remove();
+                        current_filters[key].delete(value);
+                        console.log(current_filters);
+                        display_current_filters();
+                    });
+        
+                    filterEntry.appendChild(removeButton);
+                    currentFiltersDiv.appendChild(filterEntry);
                 });
-    
-                filterEntry.appendChild(removeButton);
-                currentFiltersDiv.appendChild(filterEntry);
-            });
+            }
         }
     }
 }); 
@@ -326,6 +372,7 @@ function display_result(result){
 }
 
 
+
 function selectInput(element){
     document.querySelector('.search_bar').value = element.innerHTML;
 }
@@ -341,6 +388,9 @@ function imageExistsAsync(url) {
 
 async function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
+    console.log('search_algorithm');
+    console.log(current_filters);
+
     const sortFilter = document.getElementById('sort_filter');
     const precoMin = document.querySelector('.from');
     const precoMax = document.querySelector('.to');
@@ -349,7 +399,7 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
     const precoMaxValue = precoMax.value;
     const sortValue = sortFilter.value;
 
-    //allItems = [[Id, Name, Description, Brand, CategoryId, Size, Price, ConditionId, Available, isAvailableForDelivery, getSubCategory ,UserId ,  ] ,...]
+    //allItems = [[Id, Name, Description, Brand, CategoryId, Size, Price, ConditionId, Available, isAvailableForDelivery, getSubCategory , Highlighted, location UserId ,  ] ,...]
     let size = items.length;
     let size2 = items.length;
 
@@ -370,6 +420,15 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
     if(size > size2){
         console.log("marcou filter , estado filter , preço filter")
     }
+
+    items.filter(item => {
+        const tamanhoMatch = current_filters['tamanho'].size === 0 || current_filters['tamanho'].has(item[5]) || item[5] === null;//|| item[5] === null;
+        const subCategoryMatch = current_filters['subCategory'].size === 0 || current_filters['subCategory'].has(item[10]);
+
+        //const locationMatch = current_filters['location'] === null || current_filters['location'] === item[12];
+
+        return tamanhoMatch && subCategoryMatch && item[8];
+    });
 
     size = size2;
 
@@ -405,11 +464,21 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
 
     if (sortValue === 'price_asc') {
         items.sort(function(a, b) {
-            return parseFloat(a[6]) - parseFloat(b[6]);
+            return (parseFloat(a[6]) - parseFloat(b[6]));
         });
     } else if (sortValue === 'price_desc') {
         items.sort(function(a, b) {
-            return parseFloat(b[6]) - parseFloat(a[6]);
+            return (parseFloat(b[6]) - parseFloat(a[6]));
+        });
+    } else{
+        items.sort(function(a, b) {
+            if (a[11] && !b[11]) {
+                return -1;
+            } else if (!a[11] && b[11]) {
+                return 1;
+            } else {
+                return 0;
+            }
         });
     }
 
@@ -525,3 +594,98 @@ function render_items() {
         searchItemsDiv.appendChild(itemContainer);
     });
 }
+
+
+
+function display_current_filters() {
+    const currentFiltersDiv = document.querySelector('.current_filters');
+    currentFiltersDiv.innerHTML = ''; 
+
+    for (const key in current_filters) {
+        console.log(typeof current_filters[key]);
+        
+        if(typeof current_filters[key] !== 'boolean' && current_filters[key] !== null){
+            current_filters[key].forEach(value => {
+                console.log(key, value);
+                const filterEntry = document.createElement('div');
+                filterEntry.textContent = `${key}: ${value}`;
+    
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'X';
+                removeButton.addEventListener('click', () => {
+                    filterEntry.remove();
+                    current_filters[key].delete(value);
+                    console.log(current_filters);
+                    display_current_filters();
+                });
+    
+                filterEntry.appendChild(removeButton);
+                currentFiltersDiv.appendChild(filterEntry);
+            });
+        }
+    }
+}
+
+async function initialSearch(searchInput , locationInput , brandInput , categoryInput){
+    try {
+        const response = await fetch('js/get_all_items.php');
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        console.log('Data fetched successfully');
+        
+        const allItems = await response.json(); 
+        console.log(allItems);
+
+        items =  [...allItems];
+        console.log(items);
+
+        if(locationInput !== null && locationInput !== ''){
+            current_filters['location'] = locationInput;
+        } 
+        if(brandInput !== null && brandInput !== ''){
+            current_filters['brand'].add(brandInput);
+        }
+        if(categoryInput !== null && categoryInput !== ''){
+            current_filters['category'].add(categoryInput);
+        }
+
+        if(searchInput === null || searchInput === ''){
+            display_current_filters();
+            render_items();
+        }
+
+        display_current_filters();
+        const recommendad_items = calculateSuggestions(searchInput, items);
+        console.log("after suggestions");
+        console.log(recommendad_items);
+
+        search_algorithm(recommendad_items, false , false);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+} 
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    function getUrlParams() {
+        var searchParams = new URLSearchParams(window.location.search);
+        var searchValue = searchParams.has('search') ? searchParams.get('search') : null;
+        var locationValue = searchParams.has('location') ? searchParams.get('location') : null;
+        var brandValue = searchParams.has('brand') ? searchParams.get('brand') : null;
+        var categoryValue = searchParams.has('category') ? searchParams.get('category') : null;
+        return { search: searchValue, location: locationValue , brand: brandValue  , category: categoryValue};
+    }
+
+    function performInitialSearch() {
+        var urlParams = getUrlParams();
+        var searchInput = urlParams.search;
+        var locationInput = urlParams.location;
+        var brandInput = urlParams.brand;
+        var categoryInput = urlParams.category;
+        initialSearch(searchInput, locationInput , brandInput , categoryInput);
+    }
+
+    performInitialSearch();
+});
+

@@ -51,6 +51,48 @@
             }
         }
 
+        public function deleteItemMessages($itemId)  {
+            $stmt = $this->conn->prepare("DELETE FROM Messages WHERE ItemId = :itemId");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
+
+        public function deleteItemShoppingCart($itemId){
+            $stmt = $this->conn->prepare("DELETE FROM ShoppingCart WHERE ItemId = :itemId");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
+
+        public function deleteItemWishlist($itemId){
+            $stmt = $this->conn->prepare("DELETE FROM Wishlist WHERE ItemId = :itemId");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
+
+        public function getConditionNameById($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM Conditions WHERE ConditionId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            if ($row !== false) {
+                return $row['Name'];
+            } else {
+                return null; 
+            }
+        }
+
+        public function getSizeNameById($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM Sizes WHERE SizeId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            if ($row !== false) {
+                return $row['Name'];
+            } else {
+                return null; 
+            }
+        }
+
         public function getSizes(){
             $stmt = $this->conn->prepare("SELECT * FROM Sizes");
             $stmt->execute();
@@ -304,6 +346,36 @@
                 $categories[] = $row['Name'];
             }
             return $categories;
+        }
+
+        public function getAllSizesNames(){
+            $stmt = $this->conn->prepare("SELECT * FROM Sizes");
+            $stmt->execute();
+            $sizes = [];
+            while ($row = $stmt->fetch()) {
+                $sizes[] = $row['Name'];
+            }
+            return $sizes;
+        }
+
+        public function getAllSubCategoryName() : array{
+            $stmt = $this->conn->prepare("SELECT * FROM Subcategory");
+            $stmt->execute();
+            $subCategories = [];
+            while ($row = $stmt->fetch()) {
+                $subCategories[] = $row['Name'];
+            }
+            return $subCategories;
+        }
+
+        public function getAllConditionsName() : array{
+            $stmt = $this->conn->prepare("SELECT * FROM Conditions");
+            $stmt->execute();
+            $conditions = [];
+            while ($row = $stmt->fetch()) {
+                $conditions[] = $row['Name'];
+            }
+            return $conditions;
         }
 
         public function getAllSubCategoriesNames() : array{

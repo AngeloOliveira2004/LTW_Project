@@ -6,19 +6,36 @@
 
     $itemsArray = [];
     foreach ($items as $item) {
+
+        $categoryId = $item->getCategoryId();
+        $category = $database->getCategoryNameById($categoryId);
+
+        $sizeId = $item->getSize();
+        $size = $database->getSizeNameById($sizeId);
+
+        $conditionId = $item->getConditionId();
+        $condition = $database->getConditionNameById($conditionId);
+
+        $user = $database->getUserById($item->getUserId());
+        $location = $user->getAddress();
+        $addressParts = explode(',', $location);
+        $district = trim(end($addressParts));
+
         $itemsArray[] = [
             $item->getId(),
             $item->getName(),
             $item->getDescription(),
             $item->getBrand(),
-            $item->getCategoryId(), 
-            $item->getSize(), 
+            $category, 
+            $size, 
             $item->getPrice(),
-            $item->getConditionId(), 
+            $condition, 
             $item->getAvailable(),
             $item->isAvailableForDelivery(), 
             $item->getSubCategory(), 
             $item->getNumberOfImages(),
+            $item->getHighlighted(),
+            $location,
             $item->getUserId(),
         ];
     }
