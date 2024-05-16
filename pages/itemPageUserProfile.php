@@ -133,11 +133,6 @@
                         <p class="Item_name"> <?= $name ?></p>
                         <p class="Item_Price"> <?= $price ?> EUR</p>
                     </div>
-                    <div class="button_container" id="button_proposal_container">
-                        <input type="number" class="price_input" placeholder="Propor Outro Preço" id="item_proposal" name="proposal" step="0.1" min="0" max="<?php echo $item->getPrice(); ?>">
-                        
-                    </div>
-                    
                 </div>
 
             </section>
@@ -215,7 +210,7 @@
             $imageSrc = file_exists($itemImagePath) ? $itemImagePath : $errorImagePath;
         ?>
                 <div class='item'>
-                    <a href='itempage.php?item=<?= $item->getId() ?>'>
+                    <a href='itemPageUserProfile.php?item=<?= $item->getId() ?>'>
                         <img src="<?= $imageSrc ?>" alt='<?= $item->getName() ?>'>
                     </a>
                     <h3><?= $item->getName() ?></h3>
