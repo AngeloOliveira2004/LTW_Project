@@ -964,5 +964,41 @@ class Database
             $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
         }
+
+        public function getCategoryIdByName($name){
+            $stmt = $this->conn->prepare("SELECT CategoryId FROM Categories WHERE Name = :name");
+            $stmt->bindParam(':name', $name);
+            $stmt->execute();
+            $category = $stmt->fetch();
+            if ($category) {
+                return $category['CategoryId'];
+            } else {
+                return null;
+            }
+        }
+
+        public function getSubCategoryIdByName($name){
+            $stmt = $this->conn->prepare("SELECT SubCategoryId FROM Subcategory WHERE Name = :name");
+            $stmt->bindParam(':name', $name);
+            $stmt->execute();
+            $subCategory = $stmt->fetch();
+            if ($subCategory) {
+                return $subCategory['SubCategoryId'];
+            } else {
+                return null;
+            }
+        }
+
+        public function getConditionIdByName($name){
+            $stmt = $this->conn->prepare("SELECT ConditionId FROM Conditions WHERE Name = :name");
+            $stmt->bindParam(':name', $name);
+            $stmt->execute();
+            $condition = $stmt->fetch();
+            if ($condition) {
+                return $condition['ConditionId'];
+            } else {
+                return null;
+            }
+        }
     }
 ?>

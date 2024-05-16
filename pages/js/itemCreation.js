@@ -2,8 +2,6 @@
 let inputedImages = [];
 
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
   var searchInput = document.querySelector(".search_category");
   var suggestions = document.querySelector(".suggestions");
@@ -260,6 +258,12 @@ conditionsDropdown.addEventListener("click", function(event) {
 });
 
 
+function sanitizeInput(input) {
+  input.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return DOMPurify.sanitize(input);
+}
+
+
 document.addEventListener("DOMContentLoaded", function() {
   var publicarBtn = document.querySelector(".Publicar");
 
@@ -267,15 +271,15 @@ document.addEventListener("DOMContentLoaded", function() {
       
       console.log('Publish button clicked');
 
-      let title = document.querySelector(".Item-Title").value;
-      let category = document.querySelector(".search_category").value;
-      let subCategory = document.querySelector(".sub_search_category").value;
-      let description = document.querySelector(".description-text").value;
-      let price = document.querySelector(".Preço_").value;
+      let title = sanitizeInput(document.querySelector(".Item-Title").value);
+      let category = sanitizeInput(document.querySelector(".search_category").value);
+      let subCategory = sanitizeInput(document.querySelector(".sub_search_category").value);
+      let description = sanitizeInput(document.querySelector(".description-text").value);
+      let price = sanitizeInput(document.querySelector(".Preço_").value);
       let negociavel = document.querySelector(".toggle-button-wrapper input[type='checkbox']").checked;
-      let tamanho = document.querySelector(".Tamanho").value;
-      let marca = document.querySelector(".Marca").value;
-      let estado = document.querySelector(".Estado").value;
+      let tamanho = sanitizeInput(document.querySelector(".Tamanho").value);
+      let marca = sanitizeInput(document.querySelector(".Marca").value);
+      let estado = sanitizeInput(document.querySelector(".Estado").value);
       let numberOfImages = inputedImages.length;
 
       console.log('Title:', title);
@@ -293,25 +297,31 @@ document.addEventListener("DOMContentLoaded", function() {
           return;
       }
 
-      const formElements = document.querySelectorAll('.form');
+      let formData = new FormData();
+        formData.append('title', title);
+        formData.append('category', category);
+        formData.append('subCategory', subCategory);
+        formData.append('description', description);
+        formData.append('price', price);
+        formData.append('negociavel', negociavel ? "1" : "0");
+        formData.append('tamanho', tamanho);
+        formData.append('marca', marca);
+        formData.append('estado', estado);
+        formData.append('imagesSizes', numberOfImages);
 
-      formElements.forEach(formElement => {
-          formElement.submit();
-      });
-
-      console.log('Form submitted');
-
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "add_item.php", true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-              console.log(xhr.responseText);
-          }
-      };
-      
-      xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&negociavel=" + (negociavel ? "1" : "0") + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
-        + "&imagesSizes=" + numberOfImages);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'add_item.php', true);
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                console.log(xhr.responseText);
+                alert('Item added successfully!');
+                
+            } else {
+                console.error(xhr.responseText);
+                alert('Failed to add item. Please try again.');
+            }
+        };
+        xhr.send(formData);
       
 
       inputedImages.forEach((image, index) => {

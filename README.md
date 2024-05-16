@@ -15,6 +15,7 @@
 * Deixar site seguro
 * Alterar todos os sessions starts para isset session start para saber se já se iniciou a sessão(session abort to end)
 * Validar HTML
+* Cant fetch user item when creating item
 
 # Opcional 
 
