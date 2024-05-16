@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
     <title>Shop Footer</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +12,13 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="../../css/footer.css" rel="stylesheet">
     
-  </head>
   
-    <body>
     <section class="body-footer">
         <footer class="footer">
             <nav class="container">
                 <div class="row">
                     <div class="footer-column">
-                        <h4>RetroRags</h4>
+                        <h4>Thrift Trove</h4>
                         <ul>
                             <li><a href="about.php#about">about us</a></li>
                             <li><a href="about.php#services">our services</a></li>
@@ -64,4 +59,3 @@
             </nav>
         </footer>
         </section>
-    </body>

@@ -559,3 +559,9 @@
   padding-left: 3em;
 }
 
+.location_section p {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #0B6E4F;
+  padding-bottom: 1em;
+}
