@@ -72,6 +72,8 @@ CREATE TABLE OrderHistory (
     UserId INTEGER NOT NULL,
     OrderDate TIMESTAMP NOT NULL,
     TotalPrice DECIMAL(10, 2) NOT NULL,
+    PaymentMethod VARCHAR(50) NOT NULL ,
+    ShippingMethod VARCHAR(50) NOT NULL,
     Status TEXT CHECK(Status IN ('Pending', 'Completed', 'Cancelled')) NOT NULL,
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
@@ -195,11 +197,10 @@ VALUES
     ('Drone', 'High-performance drone for aerial photography', 'DJI', 1, 799.99, 1, true, true,1,0, 10),
     ('Large Description Item', 'This is a very large description item that is used to test long descriptions in the database. It may contain multiple paragraphs of text to demonstrate the handling of large text fields in the database.', 'TestBrand', 1, 999.99, 1, true, true,1,0, 1);
 
--- Inserting data into the OrderHistory table
-INSERT INTO OrderHistory (UserId, OrderDate, TotalPrice, Status)
+INSERT INTO OrderHistory (UserId,OrderDate, TotalPrice, PaymentMethod, ShippingMethod, Status)
 VALUES
-    (1, '2024-04-01 10:30:00', 799.99, 'Completed'),
-    (2, '2024-04-02 15:45:00', 499.98, 'Pending');
+    (2,'2024-04-01 10:30:00', 799.99,'credit-card','standard', 'Completed'),
+    (2,'2024-04-02 15:45:00', 499.98,'mb-way','express', 'Completed');
 
 -- Inserting data into the ShoppingCart table
 INSERT INTO ShoppingCart (UserId, ItemId)

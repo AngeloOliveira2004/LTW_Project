@@ -24,7 +24,6 @@
         require_once (__DIR__ . '/../db_handler/DB.php');
         require_once (__DIR__ . '/../db_handler/itemmove.php');
 
-        session_start();
         $dB = new DB();
         $db = new Database("../database/database.db");
 

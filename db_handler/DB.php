@@ -846,5 +846,26 @@
             $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
         }
+
+        public function AddOrderHistory($userId,$totalPrice,$shippingMethod,$paymentMethod){
+            $stmt = $this->conn->prepare("INSERT INTO OrderHistory (UserId, OrderDate, PaymentMethod, ShippingMethod, TotalPrice, Status) VALUES (:userId, :orderDate, :payment, :shipping, :totalPrice, 'Complete')");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->bindParam(':orderDate', date("Y-m-d H:i:s"));
+            $stmt->bindParam(':totalPrice', $totalPrice);
+            $stmt->bindParam(':shipping', $shippingMethod);
+            $stmt->bindParam(':payment', $paymentMethod);
+            $stmt->execute();
+        }
+
+        public function RetrieveLastOrderHistory(){
+            $stmt = $this->conn->prepare("SELECT * FROM OrderHistory ORDER BY OrderId DESC LIMIT 1");
+            $stmt->execute();
+            $orderHistory = $stmt->fetch();
+            if ($orderHistory) {
+                return $orderHistory['OrderId'];
+            } else {
+                return null;
+            }
+        }
     }
 ?>

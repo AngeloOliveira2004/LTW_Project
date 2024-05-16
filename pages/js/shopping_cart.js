@@ -41,19 +41,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const checkoutButton = document.querySelector('.checkout-button');
     checkoutButton.addEventListener('click', function () {
 
+        let shoppingItems = document.querySelectorAll('.item');
+
+        let shoppingItemIds = [];
+
+        shoppingItems.forEach(function(item) {
+            let itemId = item.querySelector('.Remove_cart').getAttribute('data-item-id');
+            shoppingItemIds.push(itemId);
+        });
+
+        const shippingMethod = document.querySelector('.shipping select').value;
+
+        const paymentMethod = document.querySelector('.payment-method select').value;
+
+        const totalPrice = document.querySelector('.total-price-value').textContent.replace(/.$/,"");
+
+        let json_itemIds = JSON.stringify(shoppingItemIds);
+
+        let formData = new FormData();
+
+        formData.append("paymentMethod",paymentMethod);
+        formData.append("shippingMethod",shippingMethod);
+        formData.append("totalPrice",totalPrice);
+        formData.append("jsonItemIds",json_itemIds);
+    
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '../../db_handler/action_checkout.php', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
                 console.log('Checkout successful');
+                window.location.href = '../pages/loader.php';
             } else {
                 console.error('Error during checkout');
             }
         };
 
-        xhr.send();
+        xhr.send(formData);
     });
     
 });
