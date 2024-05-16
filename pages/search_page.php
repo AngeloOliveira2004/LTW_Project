@@ -10,11 +10,12 @@
     
     
 </head>
+    <?php
+        include 'templates/header.php';
+    ?>
 <body>
     <div class = "whole-page">
     <?php
-        include 'templates/header.php';
-
         $searchValue = isset($_GET['search']) ? $_GET['search'] : '';
         $categoryValue = isset($_GET['category']) ? $_GET['category'] : '';
 
@@ -216,9 +217,10 @@
     
     <div class = "search-items"></div>
 
+    </div>
+
     <?php
         include 'templates/footer.php';
     ?>
-    </div>
 </body>
 </html>
