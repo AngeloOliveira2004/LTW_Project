@@ -3,6 +3,8 @@
 require_once 'DB.php';
 require_once 'Item.php';
 
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $paymentMethod = $_POST["paymentMethod"];
     $shippingMethod = $_POST["shippingMethod"];
@@ -14,6 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $db = new Database("../database/database.db");
 
+    $db->AddOrderHistory($user, $paymentMethod, $shippingMethod, $totalPrice);
+
+    $db->RetrieveLastOrderHistory();
 
 } else {
     // Handle the case where the request method is not POST
