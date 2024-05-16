@@ -12,7 +12,7 @@
 * Meter a funionar butoes de exit e logout
 * adicionar hrefs aonde faltar
 * Deixar site dinâmico em termos de CSS
-* Deixar site seguro
+* Deixar site seguro (ongoing)
 * Alterar todos os sessions starts para isset session start para saber se já se iniciou a sessão(session abort to end)
 * Validar HTML
 * Cant fetch user item when creating item
