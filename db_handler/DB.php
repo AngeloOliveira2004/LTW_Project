@@ -813,6 +813,18 @@
             return $wishlistItems;
         }
 
+        public function getcartitems($userId) : array{
+            $stmt = $this->conn->prepare("SELECT * FROM ShoppingCart WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $cartItems = [];
+            while ($row = $stmt->fetch()) {
+                $cartItems[] = $row['ItemId'];
+            }
+            return $cartItems;
+
+        }
+
         public function getPriceProposalByUserId($itemId){
             $stmt = $this->conn->prepare("SELECT * FROM PriceProposals WHERE ItemId = :itemId AND Status='Pending' ORDER BY Price DESC LIMIT 1");
             $stmt->bindParam(':itemId', $itemId);
