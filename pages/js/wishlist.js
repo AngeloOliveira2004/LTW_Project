@@ -89,6 +89,7 @@ function fetchItemsAndUpdateHearts(cartItems) {
 
     xhr.send();
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     let cartItems = [];
     fetchItemsAndUpdateHearts(cartItems)

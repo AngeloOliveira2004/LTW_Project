@@ -24,7 +24,6 @@
             <h3>sort by</h3>
             <select name=" sorting" id="sorting">
                 <option value="..."></option>
-                <option value="on sale">on sale</option>
                 <option value="recently added">recently added</option>
                 <option value="recently added">Alphabetical</option>
                 <option value="recently added">Price: Low to High</option>
