@@ -79,11 +79,9 @@ CREATE TABLE OrderHistory (
 );
 
 CREATE TABLE OrderItems (
-    OrderItemId INT PRIMARY KEY,
-    OrderId INT NOT NULL,
-    ItemId INT NOT NULL,
-    Quantity INT NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL,
+    OrderItemId INTEGER PRIMARY KEY AUTOINCREMENT,
+    OrderId INTEGER NOT NULL,
+    ItemId INTEGER NOT NULL,
     FOREIGN KEY (OrderId) REFERENCES OrderHistory(OrderId),
     FOREIGN KEY (ItemId) REFERENCES Items(Id)
 );

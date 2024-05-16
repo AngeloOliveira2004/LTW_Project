@@ -16,12 +16,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $db = new Database("../database/database.db");
 
-    $db->AddOrderHistory($user, $paymentMethod, $shippingMethod, $totalPrice);
+    $db->AddOrderHistory($user, $totalPrice, $shippingMethod, $paymentMethod,);
 
-    $db->RetrieveLastOrderHistory();
+    $orderId = $db->RetrieveLastOrderHistory();
+
+    foreach ($shoppingItemIds as $itemId) {
+        $db->AddOrderItem($orderId, $itemId);
+        $db->UpdateItemNotAvailable($itemId);
+        $db->deleteShoppingCart($itemId);
+        $db->deleteItemWishlist($itemId);
+        $db->deleteItemProposals($itemId);
+    }   
 
 } else {
-    // Handle the case where the request method is not POST
+
     echo "Invalid request method";
 }
 

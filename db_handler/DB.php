@@ -66,6 +66,7 @@
         public function deleteItemWishlist($itemId){
             $stmt = $this->conn->prepare("DELETE FROM Wishlist WHERE ItemId = :itemId");
             $stmt->bindParam(':itemId', $itemId);
+            $stmt->bindParam(':userId', $userId);
             $stmt->execute();
         }
 
@@ -203,6 +204,12 @@
         public function deleteCategoryById($id) {
             $stmt = $this->conn->prepare("DELETE FROM Categories WHERE CategoryId = :id");
             $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+        public function deleteItemProposals($itemId){
+            $stmt = $this->conn->prepare("DELETE FROM PriceProposals WHERE ItemId = :itemId");
+            $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
         }
 
@@ -500,7 +507,7 @@
         }
 
         public function getXRandItems(int $x) : array {
-            $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY RANDOM() LIMIT :x");
+            $stmt = $this->conn->prepare("SELECT * FROM items WHERE Available = 1 ORDER BY RANDOM() LIMIT :x");
             $stmt->bindParam(':x', $x);
             $stmt->execute();
             $items = [];
@@ -848,7 +855,7 @@
         }
 
         public function AddOrderHistory($userId,$totalPrice,$shippingMethod,$paymentMethod){
-            $stmt = $this->conn->prepare("INSERT INTO OrderHistory (UserId, OrderDate, PaymentMethod, ShippingMethod, TotalPrice, Status) VALUES (:userId, :orderDate, :payment, :shipping, :totalPrice, 'Complete')");
+            $stmt = $this->conn->prepare("INSERT INTO OrderHistory (UserId, OrderDate, PaymentMethod, ShippingMethod, TotalPrice, Status) VALUES (:userId, :orderDate, :payment, :shipping, :totalPrice, 'Completed')");
             $stmt->bindParam(':userId', $userId);
             $stmt->bindParam(':orderDate', date("Y-m-d H:i:s"));
             $stmt->bindParam(':totalPrice', $totalPrice);
@@ -858,7 +865,7 @@
         }
 
         public function RetrieveLastOrderHistory(){
-            $stmt = $this->conn->prepare("SELECT * FROM OrderHistory ORDER BY OrderId DESC LIMIT 1");
+            $stmt = $this->conn->prepare("SELECT OrderId FROM OrderHistory ORDER BY OrderId DESC LIMIT 1");
             $stmt->execute();
             $orderHistory = $stmt->fetch();
             if ($orderHistory) {
@@ -866,6 +873,19 @@
             } else {
                 return null;
             }
+        }
+
+        public function AddOrderItem($orderId,$itemId){
+            $stmt = $this->conn->prepare("INSERT INTO OrderItems (OrderId, ItemId) VALUES (:orderId, :itemId)");
+            $stmt->bindParam(':orderId', $orderId);
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
+        }
+
+        public function UpdateItemNotAvailable($itemId){
+            $stmt = $this->conn->prepare("UPDATE Items SET Available = 0 WHERE Id = :itemId");
+            $stmt->bindParam(':itemId', $itemId);
+            $stmt->execute();
         }
     }
 ?>

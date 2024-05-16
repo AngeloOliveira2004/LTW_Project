@@ -141,7 +141,19 @@ $db = new Database("../database/database.db");
 
 $randomItems = $db->getXRandItems(21);
 
+    $userId = -1;
+
+    if (isset($_SESSION['userId'])) {
+        $userId = $_SESSION['userId'];
+    }
+
+
 foreach ($randomItems as $item) {
+
+    if ($item->getUserId() == $userId) {
+        continue;
+    }
+    
     $name = $item->getName();
     $price = $item->getPrice();
     $brand = $item->getBrand();
