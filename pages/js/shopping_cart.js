@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
                 console.log('Checkout successful');
+                window.location.href = '../pages/loader.php';
             } else {
                 console.error('Error during checkout');
             }

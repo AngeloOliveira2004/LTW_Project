@@ -9,5 +9,5 @@ setTimeout(function() {
 }, 8000);
 
 setTimeout(function() {
-    window.location.href = "../shopping.php";
+    window.location.href = "../pages/homepage.php";
 }, 10000);
