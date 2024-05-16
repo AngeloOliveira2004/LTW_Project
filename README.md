@@ -8,14 +8,16 @@
 
 # TODO
 
-* Finalizar AdminPage (Quase) , Wishlist e Shopping Cart. Meter Report de compra
-* Meter Admin Page a atualizar dinamicamente
-* Trocar o hover do profile para ter lá as opções todas
+* Finalizar Shopping Cart. Meter Report de compra
 * adicionar hrefs aonde faltar
 * Deixar site dinâmico em termos de CSS
 * Deixar site seguro
+* Alterar todos os sessions starts para isset session start para saber se já se iniciou a sessão(session abort to end)
+* Validar HTML
 
 # Opcional 
 
+* Meter Admin Page a atualizar dinamicamente
 * Meter o Header a desaparecer quando se dá scroll para baixo e a aprecer quando se dá scroll para cima
 * Testar Mais paletes de cores
+* Meter Pop Up de não estar com sessão iniciada

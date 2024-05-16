@@ -20,6 +20,8 @@ let allConditions = [];
 let selectedUsersGlobal = [];
 let selectedItemsGlobal = [];
 
+let isLoggedIn = false;
+
 document.addEventListener("DOMContentLoaded", async function() {
     await loadInitialContent();
 });
@@ -242,7 +244,10 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-function searchUsers(inputVal, users) {
+async function searchUsers(inputVal, users) {
+
+    console.log("this is the function being called");
+
     if (inputVal.length === 0) {
         return users; 
     } else {
@@ -315,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function() {
     searchButton.addEventListener('click', async function() {
         suggestedUsers = getSuggestions(inputBox.value.trim() , allUsersNames); 
         console.log(suggestedUsers);
-        filteredUsers = searchUsers(suggestedUsers); 
+        filteredUsers = await searchUsers(suggestedUsers); 
         render_users();    
     });
 
@@ -360,14 +365,14 @@ document.addEventListener("DOMContentLoaded", function() {
             case 'users':
                 console.log("Searching users");
                 console.log(suggestedUsers);
-                filteredUsers = searchUsers(suggestedUsers); 
+                filteredUsers = await searchUsers(suggestedUsers); 
                 render_users();
                 break;
             case 'items':
                 console.log("Searching items");
                 console.log("SuggestedItems: " + suggestedItems)
                 suggestedItems = getSuggestions(inputBoxItem.value.trim(), allItemsNames); 
-                filteredItems = searchItems(suggestedItems); 
+                filteredItems = await searchItems(suggestedItems); 
                 render_items();
                 break;
             default:
@@ -381,7 +386,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-function searchUsers(suggestedWords){
+function getUserLoginStatus() {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    let response = xhr.responseText;
+                    resolve(parseInt(response));
+                } else {
+                    reject(new Error("Request failed"));
+                }
+            }
+        };
+        xhr.open("GET", "../db_handler/action_is_user_logged_in.php", true);
+        xhr.send();
+    });
+}
+
+async function checkLoginStatus() {
+    
+    try {
+        isLoggedIn = await getUserLoginStatus();
+        
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+async function searchUsers(suggestedWords){
+
+    await checkLoginStatus();
+
     let searchResults = [];
     for(let i = 0 ; i < allUsers.length; i++){
         for(let j = 0; j < suggestedWords.length; j++){
@@ -391,11 +427,29 @@ function searchUsers(suggestedWords){
             }
         }   
     }
+
+    console.log("SearchedUsers" + searchResults);
+    
+    console.log("IsLoggedIn: " + isLoggedIn);
+    for(let i = 0; i < searchResults.length; i++){
+        console.log("this user id = " + searchResults[i][0]);
+    }
+
+    if(isLoggedIn !== -1){
+        searchResults = searchResults.filter(user => user[0] !== isLoggedIn);
+    }
+
+    
+
     return searchResults;
 }
 
-function searchItems(suggestedWords){
+async function searchItems(suggestedWords){
+
+    await checkLoginStatus();
+
     let searchResults = [];
+
     for(let i = 0 ; i < allItems.length; i++){
         for(let j = 0; j < suggestedWords.length; j++){
             if(allItems[i][1].startsWith(suggestedWords[j])){
@@ -404,7 +458,16 @@ function searchItems(suggestedWords){
         }   
     }
 
-    console.log("SearchedItems" + searchResults);
+    console.log("SearchedUsers" + searchResults);
+    
+    console.log("IsLoggedIn: " + isLoggedIn);
+    for(let i = 0; i < searchResults.length; i++){
+        console.log("this user id = " + searchResults[i][14]);
+    }
+
+    if(isLoggedIn !== -1){
+        searchResults = searchResults.filter(item => item[14] !== isLoggedIn);
+    }
 
     return searchResults;
 }

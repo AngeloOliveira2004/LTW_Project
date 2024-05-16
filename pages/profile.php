@@ -107,13 +107,13 @@
                  $photo = "assets/error.png";
          
              echo "<span class='item'>
-                     <img src='$photo' alt='$name'>
-                     <h3>$name</h3>
+                     <img src='$photo' alt='$name' >
+                     <h3 >$name</h3>
                      <p>Price: $price</p>
                      <p>Brand: $brand</p>";  
             if ($priceproposal != null) {
                 echo "<p>Price Proposal: $proposalPrice</p>
-                              <button class='accept-proposal' data-item-id='$id'>Yes</button>
+                              <button id='$id' class='accept-proposal' data-item-id='$id'>Yes</button>
                               <button class='reject-proposal' data-item-id='$id'>No</button>";
             }
             echo "</span>";          

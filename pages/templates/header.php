@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-US">
+
   <head>
     <title>Shop Header</title>
     <meta charset="UTF-8">
@@ -18,6 +17,9 @@
   </head>
     <body>
     <header>
+        <?php
+            session_start();
+        ?>
       <nav class = "navbar">
         <div class = "navdiv"> 
             <div class = "logo"> 
@@ -28,32 +30,106 @@
             <ul>
                 <li>
                     <i class="fa-solid fa-heart"></i>
-                    <a href="../../pages/wishlist.php"> 
-                        Wishlist
-                    </a>
+                            <?php
+
+
+                            if(isset($_SESSION['userId'])){
+
+                                echo '<a href="../../pages/wishlist.php"> 
+                                        Wishlist
+                                    </a>';
+                            }else{
+                                echo '<a href="../../pages/userReg.php"> 
+                                        Wishlist
+                                    </a>';
+                            
+                            }
+
+                        ?>
                 </li>
-                <li>
+                <li class = "profile-item">
                     <i class="fa-solid fa-user"></i>
-                    <a href="../../pages/profile.php"> 
-                        Profile
-                    </a>
+
+                    <?php
+
+
+                            if(isset($_SESSION['userId'])){
+
+                                echo '<a href="../../pages/profile.php" class = "ProfileWord"> 
+                                Profile
+                            </a>
+        
+                            <ul class = "profile-options">
+                                <li class = "profile-option"><a class = "option"  href="../../pages/AdminPage.php">
+                                <img src="../../assets/admin.png" class ="imageIcons" alt="">
+                                    Página de Administrador
+                                </a>
+                            </li>
+                                <li class = "profile-option">
+                                    <a class = "option" id="logout1" href="../../pages/userReg.php">
+                                        <img src="../../assets/logout.png" class ="imageIcons" alt="">
+                                        Entrar noutra conta
+                                    </a>
+                                </li>
+                                <li class = "profile-option">
+                                    <a class = "option" id="logout2" href="../../pages/homepage.php">
+                                        <img src="../../assets/exit.png" class ="imageIcons" alt="">
+                                        Sair
+                                    </a>
+                                </li>
+                            </ul>';
+                            }else{
+                                echo '<a href="../../pages/userReg.php"> 
+                                Profile
+                                    </a>';
+                            
+                            }
+
+                    ?>
+                    
                 </li>
                 <li>
                     <i class="fa-solid fa-envelope"></i>
-                    <a href="../../pages/messages.php"> 
-                        Messages
-                    </a>
+                    <?php
+
+
+                            if(isset($_SESSION['userId'])){
+
+                                echo '<a href="../../pages/messages.php"> 
+                                Messages
+                            </a>';
+                            }else{
+                                echo '<a href="../../pages/userReg.php"> 
+                                        Messages
+                                    </a>';
+                            
+                            }
+
+                        ?>
+
                 </li>
                 <li>
                     <i class="fa-solid fa-shopping-cart"></i>   
-                    <a href="../../pages/shopping.php"> 
-                       Checkout
-                    </a>
+                    <?php
+
+
+                            if(isset($_SESSION['userId'])){
+
+                                echo '<a href="../../pages/shopping.php"> 
+                                Checkout
+                            </a>';
+                            }else{
+                                echo '<a href="../../pages/userReg.php"> 
+                                Checkout
+                                    </a>';
+                            
+                            }
+
+                        ?>
                 </li>
                 
                 <?php
 
-                    session_start();
 
                     if(isset($_SESSION['userId'])){
 

@@ -3,6 +3,9 @@
 let lastSuggestions = [];
 let allItems = [];
 
+user_is_not_logged_in = true;
+user_id_ = -1;
+
 let searched_items = [];
 let current_filters = {
     "state": new Set(),
@@ -386,6 +389,36 @@ function imageExistsAsync(url) {
     });
 }
 
+function getUserLoginStatus() {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    let response = xhr.responseText;
+                    resolve(parseInt(response));
+                } else {
+                    reject(new Error("Request failed"));
+                }
+            }
+        };
+        xhr.open("GET", "../db_handler/action_is_user_logged_in.php", true);
+        xhr.send();
+    });
+}
+
+async function checkLoginStatus() {
+    try {
+        isLoggedIn = await getUserLoginStatus();// Assuming -1 denotes not logged in
+        user_id_ = isLoggedIn;
+
+ 
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
 async function search_algorithm(items , isImageFilterActive , isDeliveryFilterActive){
     
     console.log('search_algorithm');
@@ -482,6 +515,18 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
         });
     }
 
+    await checkLoginStatus();
+
+    console.log('user_id_ : ' + user_id_);
+
+    if(user_id_ !== -1){
+        items = items.filter(
+            item => item[14] !== user_id_,
+        );
+    }
+
+    user_id_ = -1;
+
     console.log(items);
 
     searched_items = items;
@@ -497,90 +542,58 @@ function render_items() {
     searched_items.forEach(item => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('searched-item-container');
-
-        // Fetch the item photo
-        const itemId = item[0]; // Assuming item id is in the first index
-        const itemPhotoUrl = `../assets/items/${itemId}-1.png`; // Construct the URL
-        const itemPhoto = document.createElement('img');
-        itemPhoto.src = itemPhotoUrl;
-        itemPhoto.classList.add('item-photo');
-        itemContainer.appendChild(itemPhoto);
-
-        // Item title
-        const titleElement = document.createElement('h3');
-        titleElement.textContent = item[1]; // Assuming item name is in the second index
-        titleElement.classList.add('item-title');
-        itemContainer.appendChild(titleElement);
-
-        // Item description
-        const descriptionElement = document.createElement('p');
-        descriptionElement.textContent = item[2]; // Assuming item description is in the third index
-        descriptionElement.classList.add('item-description');
-        itemContainer.appendChild(descriptionElement);
-
-        // Item price
-        const priceElement = document.createElement('p');
-        priceElement.textContent = `${item[6]}`; // Assuming price is in the sixth index
-        priceElement.classList.add('item-price');
-        itemContainer.appendChild(priceElement);
-
-        // Heart icon (for wishlist)
-        const heartIcon = document.createElement('i');
-        heartIcon.classList.add('fas', 'fa-heart', 'heart-icon');
-        heartIcon.addEventListener('click', function() {
-            heartIcon.classList.toggle('heart-active');
+        
+        itemContainer.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
         });
-        itemContainer.appendChild(heartIcon);
-
-        // Text for wishlist
-        const addToWishlistText = document.createElement('p');
-        addToWishlistText.textContent = "Add to Wishlist?";
-        addToWishlistText.classList.add('text-icon');
-        itemContainer.appendChild(addToWishlistText);
-
-        searchItemsDiv.appendChild(itemContainer);
-    });
-}
-
-function render_items() {
-    const searchItemsDiv = document.querySelector('.search-items');
-    searchItemsDiv.innerHTML = '';
-
-    // Render found items
-    searched_items.forEach(item => {
-        const itemContainer = document.createElement('div');
-        itemContainer.classList.add('searched-item-container');
-
         // Fetch the item photo
         const itemId = item[0]; // Assuming item id is in the first index
         const itemPhotoUrl = `../assets/items/${itemId}-1.png`; // Construct the URL
         const itemPhoto = document.createElement('img');
         itemPhoto.src = itemPhotoUrl;
         itemPhoto.classList.add('item-photo');
+        itemPhoto.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
+        });
         itemContainer.appendChild(itemPhoto);
 
         // Item title
         const titleElement = document.createElement('h3');
         titleElement.textContent = item[1]; // Assuming item name is in the second index
         titleElement.classList.add('item-title');
+        titleElement.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
+        });
         itemContainer.appendChild(titleElement);
 
         // Item description
         const descriptionElement = document.createElement('p');
         descriptionElement.textContent = item[2]; // Assuming item description is in the third index
         descriptionElement.classList.add('item-description');
+        descriptionElement.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
+        });
         itemContainer.appendChild(descriptionElement);
 
         // Item price
         const priceElement = document.createElement('p');
         priceElement.textContent = `Price: ${item[6]}`; // Assuming price is in the sixth index
         priceElement.classList.add('item-price');
+        priceElement.addEventListener('click', function() {
+            const itemId = item[0]; // Assuming item id is in the first index
+            window.location.href = `itempage.php?item=${itemId}`;
+        });
         itemContainer.appendChild(priceElement);
 
         // Heart icon (for wishlist)
         const heartIcon = document.createElement('i');
         heartIcon.classList.add('fas', 'fa-heart', 'heart-icon');
         heartIcon.addEventListener('click', function() {
+            event.stopPropagation();
             heartIcon.classList.toggle('heart-active');
         });
         itemContainer.appendChild(heartIcon);
@@ -665,6 +678,28 @@ async function initialSearch(searchInput , locationInput , brandInput , category
         console.error('Error fetching data:', error);
     }
 } 
+
+function checkLoggedInStatus() {
+
+    console.log('checkLoggedInStatus');
+
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let isLoggedIn = xhr.responseText;
+            console.log('isLoggedIn:', isLoggedIn);
+            console.log('isLoggedIn:', typeof isLoggedIn);
+            isLoggedIn = parseInt(isLoggedIn);
+            if (isLoggedIn !== -1) {
+                return isLoggedIn;
+            } else {
+                return -1;
+            }
+        }
+    };
+    xhr.open("GET", "../db_handler/action_is_user_logged_in.php", true);
+    xhr.send();
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     
