@@ -8,7 +8,8 @@
 
 # TODO
 
-* Finalizar Shopping Cart. Meter Report de compra
+* Finalizar Shopping Cart(almost). Meter Report de compra 
+* Meter a funionar butoes de exit e logout
 * adicionar hrefs aonde faltar
 * Deixar site dinâmico em termos de CSS
 * Deixar site seguro
@@ -17,6 +18,7 @@
 
 # Opcional 
 
+* Meter last Time online no itemPage
 * Meter Admin Page a atualizar dinamicamente
 * Meter o Header a desaparecer quando se dá scroll para baixo e a aprecer quando se dá scroll para cima
 * Testar Mais paletes de cores
