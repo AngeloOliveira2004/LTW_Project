@@ -27,5 +27,5 @@ remove_from_shoppingcart($dbh, $shoppingcartItem);
 $shoppingcartItem = get_cart_items_ids($dbh, $userId);
 
 
-echo json_encode(['wishlistItems' => $itemId, 'message' => 'Sucesso']);
+echo json_encode(['CartItem' => $itemId, 'message' => 'Sucesso']);
 ?>

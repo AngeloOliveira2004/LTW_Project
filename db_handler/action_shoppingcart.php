@@ -28,5 +28,6 @@ $shoppingcartItem = new ShoppingCartItem(null, $userId, $itemId);
 add_item_shopping_cart($dbh, $shoppingcartItem);
 header("Location: ../pages/shopping.php");
 
-exit();
+
+echo json_encode(['shoppingcartitems' => $itemId, 'message' => 'Sucesso']);
 ?>
