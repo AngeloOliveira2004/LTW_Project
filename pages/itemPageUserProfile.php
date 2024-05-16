@@ -171,10 +171,18 @@
                 </div>
             </section>
 
+            <?php
+                $array_location = get_coordinates_locationiq($user_details->getAddress());
+                $lat = $array_location['lat'];
+                $lon = $array_location['lng'];
+            ?>
 
-            <section class="location_section">
-                <?= $user_details->getAddress() ?>
-            </section>
+            <div class="location_div">
+                <section class="location_section">
+                    <p>Street Location: <?= $user_details->getAddress() ?><p>
+                    <iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCqgDw_DnnKeMJ-35uKojLyyaJxnWPfJ9Q&center=<?= $lat ?>,<?= $lon ?>&zoom=15"></iframe>
+                </section>
+            </div>
 
         </section>
 
@@ -233,3 +241,35 @@
     </body>
 
 </html>
+
+<?php
+function get_coordinates_locationiq($address) {
+    $api_key = 'pk.04501fc68a271f59fa011139d9b85f71';
+
+    $formatted_address = urlencode($address);
+    
+    $url = "https://us1.locationiq.com/v1/search.php?key={$api_key}&q={$formatted_address}&format=json&limit=1";
+    
+    $response = @file_get_contents($url);
+    
+    if ($response === FALSE) {
+        echo "Error: Could not get a response from the LocationIQ API.\n";
+        return null;
+    }
+    
+    $data = json_decode($response, true);
+    
+    if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+        echo "Error: Failed to decode the JSON response.\n";
+        return null;
+    }
+    
+    if (count($data) > 0) {
+        $location = $data[0];
+        return array('lat' => $location['lat'], 'lng' => $location['lon']);
+    } else {
+        echo "Error: No results found.\n";
+        return null;
+    }
+}
+?>
