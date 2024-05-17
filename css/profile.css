@@ -127,7 +127,7 @@ a {
     margin: 10px 0;
 }
 
-#item-count h3, #reviews-count h3{
+#item-count h3, #reviews-count h3, #items-sold-count h3 {
     padding: 1em 0 0 2em;
 }
 
@@ -142,6 +142,17 @@ a {
     gap: 20px;
     padding-left: 1em;
     padding-right: 1em;
+}
+
+#items-sold-section{
+    display: none;
+    gap: 20px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+#items-sold-count{
+    display: none;
 }
 
 #reviews-count{

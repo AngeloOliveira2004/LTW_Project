@@ -324,7 +324,7 @@ class Database
 
     public function getItemByUserId($userId): array
     {
-        $stmt = $this->conn->prepare("SELECT * FROM Items WHERE UserId = :userId");
+        $stmt = $this->conn->prepare("SELECT * FROM Items WHERE UserId = :userId AND Available = 1");
         $stmt->bindParam(':userId', $userId);
         $stmt->execute();
         $items = [];
@@ -963,6 +963,33 @@ class Database
             $stmt = $this->conn->prepare("UPDATE Items SET Available = 0 WHERE Id = :itemId");
             $stmt->bindParam(':itemId', $itemId);
             $stmt->execute();
+        }
+
+        public function GetItemsAlreadySold($userId) : array{
+            $stmt = $this->conn->prepare("SELECT * FROM Items WHERE UserId = :userId AND Available = 0");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $items = [];
+        while ($row = $stmt->fetch()) {
+            $items[] = new Item(
+                $row['Id'],
+                $row['Name'],
+                $row['Description'],
+                $row['Brand'],
+                $row['Model'],
+                $row['CategoryId'],
+                $row['Size'],
+                $row['Price'],
+                $row['ConditionId'],
+                $row['Available'],
+                $row['AvailableForDelivery'],
+                $row['SubCategory'],
+                $row['NumberOfImages'],
+                $row['Highlighted'],
+                $row['UserId']
+            );
+        }
+            return $items;
         }
     }
 ?>

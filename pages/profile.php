@@ -67,6 +67,12 @@
                 <li>
                     <a id="ratings-link">Reviews</a>
                 </li>
+                <li>
+                    <a id="items-sold">Items Sold</a>
+                </li>
+                <li>
+                    <a id="purchases">Purchases</a>
+                </li>
             </ul>
         </section>
         <div class="blue-line"></div>
@@ -117,12 +123,12 @@
                               <button class='reject-proposal' data-item-id='$id'>No</button>";
             }
             echo "</span>";          
-            }
+        }
          ?>
         </div>
 
         <nav id="reviews-count">
-         <?php
+        <?php
              require_once '../db_handler/DB.php';
      
              $db = new Database("../database/database.db");
@@ -132,8 +138,9 @@
              $reviewsCount = count($Reviews);
  
              echo "<h3>Total reviews: $reviewsCount </h3>";
-         ?>
+        ?>
         </nav>
+
         <nav class = "Reviews" id="reviews-section">
          <?php
          require_once '../db_handler/DB.php';
@@ -170,8 +177,99 @@
                  </span>";
              }
          ?>
-         </nav>
+        </nav>
+
+        <nav id="items-sold-count">
+         <?php
+             require_once '../db_handler/DB.php';
+     
+             $db = new Database("../database/database.db");
+         
+             $itemsAlreadySold = $db->GetItemsAlreadySold($userId);;
+ 
+             $itemsAlreadySoldCount = count($itemsAlreadySold);
+ 
+             echo "<h3>Total Items Sold: $itemsAlreadySoldCount </h3>";
+         ?>
+        </nav>
+
+        <nav class = "items-sold" id="items-sold-section">
+         <?php
+         require_once '../db_handler/DB.php';
+     
+         $db = new Database("../database/database.db");
+         
+         $itemsSold = $db->GetItemsAlreadySold($userId);
+
+         foreach ($itemsSold as $item) {
+            $id = $item->getId();
+
+            $name = $item->getName();
+            $price = $item->getPrice();
+            $photo = "../../assets/items/{$item->getId()}-1.png";
+            $brand = $item->getBrand();
+            
+            if($photo == null)
+                $photo = "assets/error.png";
         
+            echo "<span class='item'>
+                    <img src='$photo' alt='$name' >
+                    <h3 >$name</h3>
+                    <p>Price: $price</p>
+                    <p>Brand: $brand</p>";  
+           echo "</span>";          
+       }
+         
+         ?>
+        </nav>
+
+        <nav id="purchases-count">
+         <?php
+             require_once '../db_handler/DB.php';
+     
+             $db = new Database("../database/database.db");
+         
+             $purchases = $db->GetItemsAlreadySold($userId);;
+ 
+             $purchasesCount = count($purchases);
+ 
+             echo "<h3> Total Orders: $purchasesCount </h3>";
+         ?>
+        </nav>
+
+
+
+
+        <nav class = "purchases" id="purchases-section">
+         <?php
+         require_once '../db_handler/DB.php';
+     
+         $db = new Database("../database/database.db");
+         
+         $itemsSold = $db->GetItemsAlreadySold($userId);
+
+         foreach ($itemsSold as $item) {
+            $id = $item->getId();
+
+            $name = $item->getName();
+            $price = $item->getPrice();
+            $photo = "../../assets/items/{$item->getId()}-1.png";
+            $brand = $item->getBrand();
+            
+            if($photo == null)
+                $photo = "assets/error.png";
+        
+            echo "<span class='item'>
+                    <img src='$photo' alt='$name' >
+                    <h3 >$name</h3>
+                    <p>Price: $price</p>
+                    <p>Brand: $brand</p>";  
+           echo "</span>";          
+       }
+         
+         ?>
+        </nav>
+
 
         <footer>
             <?php

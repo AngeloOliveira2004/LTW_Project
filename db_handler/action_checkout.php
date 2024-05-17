@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($shoppingItemIds as $itemId) {
         $db->AddOrderItem($orderId, $itemId);
         $db->UpdateItemNotAvailable($itemId);
-        $db->deleteShoppingCart($itemId);
+        $db->deleteItemShoppingCart($itemId);
         $db->deleteItemWishlist($itemId);
         $db->deleteItemProposals($itemId);
     }   
