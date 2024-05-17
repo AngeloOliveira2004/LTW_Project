@@ -51,6 +51,7 @@
             }
         }
         ?>
+        
         <div class="items">
             <div class="wishlist-items">
                 <?php foreach ($wishlistItemsDetails as $item): ?>

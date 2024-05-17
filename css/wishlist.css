@@ -52,6 +52,7 @@ h3 {
 
 .items {
     padding: 0 2em;
+    min-height: 60vh;
 }
 
 .item img {
@@ -94,8 +95,8 @@ h3 {
     transition: transform 0.2s ease;
 }
 
-.fa-heart,
-.fa-cart-shopping {
+.wishilist_send > .fa-heart,
+.cart_add > .fa-cart-shopping {
     font-size: 24px;
 }
 
