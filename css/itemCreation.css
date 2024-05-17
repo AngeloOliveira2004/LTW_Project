@@ -221,9 +221,10 @@ li{
 }
 
 .close_icon{
-    padding-top: 1em;
-    color: #0B6E4F;
+    color: white;
     font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .Item-Images input[type="file"] {
@@ -231,7 +232,9 @@ li{
 }
 
 .Item-Images label {
-    display: block;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     width: 90%;
     height: 90%;
     padding: 0.5em 0.75em;

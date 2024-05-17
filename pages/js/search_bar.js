@@ -18,6 +18,22 @@ let current_filters = {
     "delivery": false,
 };
 
+function escapeHtml(unsafe) {
+
+    unsafe.trim();
+
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+ 
+function sanitizeInput(input) {
+    return DOMPurify.sanitize(input);
+}
+
 function calculateSuggestions(inputVal , items){
     console.log('beginning suggestions');
     console.log(items);
@@ -26,6 +42,9 @@ function calculateSuggestions(inputVal , items){
     if(inputVal === null){
         return items;
     }
+
+    inputVal = escapeHtml(inputVal);
+    inputVal = sanitizeInput(inputVal);
 
     if (inputVal.length === 0) {
         return items;
@@ -66,6 +85,9 @@ function calculateSuggestions(inputVal , items){
 
 function getSuggestions(input , itemNamesJson){
     var itemNames = JSON.parse(itemNamesJson);
+
+    input = escapeHtml(input);
+    input = sanitizeInput(input);
 
     if (input.length < 0) {
         return [];
@@ -157,7 +179,8 @@ document.addEventListener('DOMContentLoaded', function() {
     inputBox.addEventListener('keyup' , function() {
         console.log("inputBox.onkeyup");
 
-        let input = inputBox.value;
+        let input = escapeHtml(inputBox.value);
+        input = sanitizeInput(input);
 
         let result_ = getSuggestions(input, JSON.stringify(itemNames)); 
 
@@ -271,6 +294,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function updateCurrentFilters(input , indicator , from) {
+
+        input = escapeHtml(input);
+        input = sanitizeInput(input);
+
         switch(indicator){
             case 'Marca':
                 if(input === 'Marca' || input === ''){
@@ -538,53 +565,63 @@ function render_items() {
     const searchItemsDiv = document.querySelector('.search-items');
     searchItemsDiv.innerHTML = '';
 
-    // Render found items
     searched_items.forEach(item => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('searched-item-container');
         
         itemContainer.addEventListener('click', function() {
-            const itemId = item[0]; // Assuming item id is in the first index
+            const itemId = escapeHtml(item[0]);
+            itemId = sanitizeInput(itemId);
             window.location.href = `itempage.php?item=${itemId}`;
         });
+
         // Fetch the item photo
-        const itemId = item[0]; // Assuming item id is in the first index
-        const itemPhotoUrl = `../assets/items/${itemId}-1.png`; // Construct the URL
+        const itemId = escapeHtml(item[0]); 
+        itemId = sanitizeInput(itemId);
+        const itemPhotoUrl = `../assets/items/${itemId}-1.png`; 
         const itemPhoto = document.createElement('img');
         itemPhoto.src = itemPhotoUrl;
         itemPhoto.classList.add('item-photo');
         itemPhoto.addEventListener('click', function() {
-            const itemId = item[0]; // Assuming item id is in the first index
+            const itemId = escapeHtml(item[0]); 
+            itemId = sanitizeInput(itemId);
             window.location.href = `itempage.php?item=${itemId}`;
         });
         itemContainer.appendChild(itemPhoto);
 
         // Item title
         const titleElement = document.createElement('h3');
-        titleElement.textContent = item[1]; // Assuming item name is in the second index
+        item[1] = escapeHtml(item[1]); 
+        titleElement.textContent = item[1] = sanitizeInput(item[1]);
+
         titleElement.classList.add('item-title');
         titleElement.addEventListener('click', function() {
-            const itemId = item[0]; // Assuming item id is in the first index
+            const itemId = escapeHtml(item[0]); 
+            itemId = sanitizeInput(itemId);
             window.location.href = `itempage.php?item=${itemId}`;
         });
         itemContainer.appendChild(titleElement);
 
         // Item description
         const descriptionElement = document.createElement('p');
-        descriptionElement.textContent = item[2]; // Assuming item description is in the third index
+        item[2] = escapeHtml(item[2]);
+        descriptionElement.textContent = sanitizeInput(item[2]);
         descriptionElement.classList.add('item-description');
         descriptionElement.addEventListener('click', function() {
-            const itemId = item[0]; // Assuming item id is in the first index
+            const itemId = escapeHtml(item[0]); 
+            itemId = sanitizeInput(itemId);
             window.location.href = `itempage.php?item=${itemId}`;
         });
         itemContainer.appendChild(descriptionElement);
 
         // Item price
         const priceElement = document.createElement('p');
-        priceElement.textContent = `Price: ${item[6]}`; // Assuming price is in the sixth index
+        item[6] = escapeHtml(item[6]);
+        priceElement.textContent = `Price: ${sanitizeInput(item[6])}`; 
         priceElement.classList.add('item-price');
         priceElement.addEventListener('click', function() {
-            const itemId = item[0]; // Assuming item id is in the first index
+            const itemId = escapeHtml(item[0]); 
+            itemId = sanitizeInput(itemId);
             window.location.href = `itempage.php?item=${itemId}`;
         });
         itemContainer.appendChild(priceElement);
@@ -607,6 +644,7 @@ function render_items() {
         searchItemsDiv.appendChild(itemContainer);
     });
 }
+
 
 
 

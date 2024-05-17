@@ -7,6 +7,7 @@
 
     <link href="../../css/itemCreation.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
     <script src="js/itemCreation.js"></script>
     <link rel="shortcut icon" href="#">
     
@@ -14,7 +15,7 @@
 
 <body>  
     <?php
-        include 'templates/header.php';
+        include 'templates/header.php'; 
 
         require_once '../db_handler/DB.php';
 

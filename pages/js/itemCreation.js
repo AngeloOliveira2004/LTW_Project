@@ -2,8 +2,6 @@
 let inputedImages = [];
 
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
   var searchInput = document.querySelector(".search_category");
   var suggestions = document.querySelector(".suggestions");
@@ -59,24 +57,31 @@ document.addEventListener("DOMContentLoaded", function() {
                 frame.classList.remove('image_icon');
                 frame.classList.add('new_image');
 
+                console.log('Frame:', frame);
+                console.log("Image " + i + ":", file.name);
+
                 frame.addEventListener('mouseenter', () => {
                   let closeIcon = frame.querySelector('.close_icon');
                   console.log('Close Icon:', closeIcon);
-                  if (!closeIcon) {
+
+                  if (!closeIcon && file.name !== 'camera.png') {
                       closeIcon = document.createElement('span');
                       closeIcon.innerHTML = 'Remove Image';
                       closeIcon.classList.add('close_icon');
                       frame.appendChild(closeIcon);
-                  }else{
-                    frame.removeChild(closeIcon);
                   }
               
                   closeIcon.addEventListener('click', () => {
-                      
+
+                      console.log('Close icon clicked');
+                      console.log('inputedImages before:', inputedImages);
+                      inputedImages = inputedImages.filter(image => image !== file);
+                      console.log('inputedImages after:', inputedImages);
                       imageHolder.src = '../assets/camera.png';
                       frame.classList.remove('new_image');
                       frame.classList.add('image_icon');
-                      removeAllChildNodes();
+                      frame.removeChild(closeIcon);
+                      
                   });
               });
               
@@ -103,26 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function removeAllChildNodes(){
 
-  console.log('Removing all child nodes');
-
-  for (let i = 1; i <= 15; i++) {
-
-    const frame = document.getElementById('image_icon' + i);
-
-    let closeIcon = frame.querySelector('.close_icon');
-
-    console.log('Close Icon:', closeIcon);
-    if (!closeIcon) {
-      continue;
-    }else{
-      console.log('Removing close icon');
-      frame.removeChild(closeIcon);
-    }
-
-  }
-}
 
 });
 
@@ -260,6 +246,12 @@ conditionsDropdown.addEventListener("click", function(event) {
 });
 
 
+function sanitizeInput(input) {
+  input.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return DOMPurify.sanitize(input);
+}
+
+
 document.addEventListener("DOMContentLoaded", function() {
   var publicarBtn = document.querySelector(".Publicar");
 
@@ -267,15 +259,15 @@ document.addEventListener("DOMContentLoaded", function() {
       
       console.log('Publish button clicked');
 
-      let title = document.querySelector(".Item-Title").value;
-      let category = document.querySelector(".search_category").value;
-      let subCategory = document.querySelector(".sub_search_category").value;
-      let description = document.querySelector(".description-text").value;
-      let price = document.querySelector(".Preço_").value;
+      let title = sanitizeInput(document.querySelector(".Item-Title").value);
+      let category = sanitizeInput(document.querySelector(".search_category").value);
+      let subCategory = sanitizeInput(document.querySelector(".sub_search_category").value);
+      let description = sanitizeInput(document.querySelector(".description-text").value);
+      let price = sanitizeInput(document.querySelector(".Preço_").value);
       let negociavel = document.querySelector(".toggle-button-wrapper input[type='checkbox']").checked;
-      let tamanho = document.querySelector(".Tamanho").value;
-      let marca = document.querySelector(".Marca").value;
-      let estado = document.querySelector(".Estado").value;
+      let tamanho = sanitizeInput(document.querySelector(".Tamanho").value);
+      let marca = sanitizeInput(document.querySelector(".Marca").value);
+      let estado = sanitizeInput(document.querySelector(".Estado").value);
       let numberOfImages = inputedImages.length;
 
       console.log('Title:', title);
@@ -287,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log('Tamanho:', tamanho);
       console.log('Marca:', marca);
       console.log('Estado:', estado);
+      console.log('Number of images:', numberOfImages);
 
       if (title.trim() === "" || category.trim() === "" || description.trim() === "" || price.trim() === "" || marca.trim() === "" || estado.trim() === "") {
           alert("Por favor, preencha todos os campos obrigatórios.");
@@ -307,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function() {
       xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
               console.log(xhr.responseText);
-          }
+          } 
       };
       
       xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&negociavel=" + (negociavel ? "1" : "0") + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
