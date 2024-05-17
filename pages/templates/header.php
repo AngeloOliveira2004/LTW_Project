@@ -42,21 +42,22 @@
                     <i class="fa-solid fa-user"></i>
 
                     <?php
-
-
                             if(isset($_SESSION['userId'])){
 
-                                echo '<a href="../../pages/profile.php" class = "ProfileWord"> 
-                                Profile
-                            </a>
-        
-                            <ul class = "profile-options">
-                                <li class = "profile-option"><a class = "option"  href="../../pages/AdminPage.php">
-                                <img src="../../assets/admin.png" class ="imageIcons" alt="">
-                                    Página de Administrador
-                                </a>
-                            </li>
-                                <li class = "profile-option">
+                                echo '<a href="../../pages/profile.php" class = "ProfileWord">Profile</a>
+                                <ul class = "profile-options">';
+
+                                require_once('../db_handler/DB.php');
+                                $db = new Database("../database/database.db");
+                                $user = $db->getUserById($_SESSION['userId']);
+
+                                if($user->getUserStatus() == 1){
+                                    echo '<li class = "profile-option"><a class = "option"  href="../../pages/AdminPage.php">
+                                    <img src="../../assets/admin.png" class ="imageIcons" alt="">
+                                        Página de Administrador</a></li>';
+                                }
+
+                                echo '<li class = "profile-option">
                                     <a class = "option" id="logout1" href="../../pages/userReg.php">
                                         <img src="../../assets/logout.png" class ="imageIcons" alt="">
                                         Entrar noutra conta
