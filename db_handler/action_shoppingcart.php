@@ -1,5 +1,5 @@
 <?php
-declare (strict_types= 1);
+declare(strict_types=1);
 
 session_start();
 
@@ -13,21 +13,16 @@ if (!isset($_SESSION['userId'])) {
     exit();
 }
 
-// Obtém o ID do usuário logado
 $userId = $_SESSION['userId'];
-
-// Obtém o ID do item a ser adicionado à Wishlist
 $itemId = $_POST['itemId'] ?? null; 
-$dB = new Database("../database/database.db");
 $db = new DB();
-
-$dbh = $db->get_database_connection();
+$dbh = $db->get_database_connection();    
 
 $shoppingcartItem = new ShoppingCartItem(null, $userId, $itemId);
 
 add_item_shopping_cart($dbh, $shoppingcartItem);
-header("Location: ../pages/shopping.php");
 
+$cartItems = get_cart_items_ids($dbh, $userId);
 
-echo json_encode(['shoppingcartitems' => $itemId, 'message' => 'Sucesso']);
+echo json_encode(['shoppingcartitems' => $cartItems, 'message' => 'Sucesso']);
 ?>

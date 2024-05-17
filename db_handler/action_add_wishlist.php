@@ -27,5 +27,5 @@ add_item_to_wishlist($dbh, $wishlistItem);
 $wishlistItems = get_wishlist_items_ids($dbh, $userId);
 
 
-echo json_encode(['wishlistItems' => $itemId, 'message' => 'Sucesso']);
+echo json_encode(['wishlistItems' => $wishlistItems, 'message' => 'Sucesso']);
 ?>

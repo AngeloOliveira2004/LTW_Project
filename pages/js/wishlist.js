@@ -40,27 +40,32 @@ function addtocart(cartItems) {
 
             const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', isInCart ? '../../db_handler/action_remove_cart.php' : '../../db_handler/action_shoppingcart.php', true)
+            xhr.open('POST', isInCart ? '../../db_handler/action_remove_cart.php' : '../../db_handler/action_shoppingcart.php', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     console.log(xhr.responseText);
-                    let cartitem = JSON.parse(xhr.responseText);
-                    if (cartitem.includes(itemsId)) {
+                    let response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    let updatedCartItems = response.shoppingcartitems;
+
+                    if (updatedCartItems.includes(parseInt(itemsId))) {
                         cart.classList.remove('fa-cart-shopping');
                         cart.classList.add('fa-check');
-                        cartItems.push(parseInt(itemsId));
+                        if (!cartItems.includes(parseInt(itemsId))) {
+                            cartItems.push(parseInt(itemsId));
+                        }
                     } else {
                         cart.classList.add('fa-cart-shopping');
                         cart.classList.remove('fa-check');
-                        cartItems = cartItems.filter(items => parse(items) !== parseInt(itemsId));
+                        cartItems = cartItems.filter(item => item !== parseInt(itemsId));
                     }
                     console.log(`Item ${itemsId} toggled`);
                 }
             };
             xhr.send('itemId=' + encodeURIComponent(itemsId));
-            });
+        });
     });
 }
 
@@ -77,8 +82,8 @@ function fetchItemsAndUpdateHearts(cartItems) {
             cartResult.forEach(function(item) {
                 let itemElement = document.querySelector('.fa-cart-shopping[data-item-id="' + item + '"]');
                 if (itemElement && !cartItems.includes(itemElement)) {
-                    itemElement.classList.remove('fa-regular');
-                    itemElement.classList.add('fa-solid');
+                    itemElement.classList.remove('fa-shopping-cart');
+                    itemElement.classList.add('fa-check');
                     cartItems.push(parseInt(item));
                 }
             });
@@ -90,7 +95,10 @@ function fetchItemsAndUpdateHearts(cartItems) {
     xhr.send();
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     let cartItems = [];
     fetchItemsAndUpdateHearts(cartItems)
 });
+
+
