@@ -297,31 +297,25 @@ document.addEventListener("DOMContentLoaded", function() {
           return;
       }
 
-      let formData = new FormData();
-        formData.append('title', title);
-        formData.append('category', category);
-        formData.append('subCategory', subCategory);
-        formData.append('description', description);
-        formData.append('price', price);
-        formData.append('negociavel', negociavel ? "1" : "0");
-        formData.append('tamanho', tamanho);
-        formData.append('marca', marca);
-        formData.append('estado', estado);
-        formData.append('imagesSizes', numberOfImages);
+      const formElements = document.querySelectorAll('.form');
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'add_item.php', true);
-        xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                console.log(xhr.responseText);
-                alert('Item added successfully!');
-                
-            } else {
-                console.error(xhr.responseText);
-                alert('Failed to add item. Please try again.');
-            }
-        };
-        xhr.send(formData);
+      formElements.forEach(formElement => {
+          formElement.submit();
+      });
+
+      console.log('Form submitted');
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "add_item.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              console.log(xhr.responseText);
+          }
+      };
+      
+      xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&negociavel=" + (negociavel ? "1" : "0") + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
+        + "&imagesSizes=" + numberOfImages);
       
 
       inputedImages.forEach((image, index) => {

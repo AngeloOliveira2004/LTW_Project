@@ -63,7 +63,7 @@
                                     </a>
                                 </li>
                                 <li class = "profile-option">
-                                    <a class = "option" id="logout2" href="../../pages/homepage.php">
+                                    <a class = "option" id="exit1" href="../../pages/homepage.php">
                                         <img src="../../assets/exit.png" class ="imageIcons" alt="">
                                         Sair
                                     </a>

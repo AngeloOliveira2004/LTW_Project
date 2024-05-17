@@ -8,11 +8,12 @@
 
 # TODO
 
-* Finalizar Shopping Cart(almost). Meter Report de compra 
+* Meter Report de compra 
 * Meter a funionar butoes de exit e logout
-* adicionar hrefs aonde faltar
+* adicionar hrefs aonde faltar(footer)
 * Deixar site dinâmico em termos de CSS
 * Deixar site seguro (ongoing)
+* Item creation page nao esta a remover images e o remove image text nao aparece. 
 * Alterar todos os sessions starts para isset session start para saber se já se iniciou a sessão(session abort to end)
 * Validar HTML
 * Cant fetch user item when creating item

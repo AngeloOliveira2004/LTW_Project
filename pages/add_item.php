@@ -10,7 +10,7 @@ session_start();
 
 $userId = -1;
 
-if (!isset($_SESSION['userId'])) {
+if (isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];
 }
 
