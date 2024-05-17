@@ -1,5 +1,5 @@
 <?php
-declare (strict_types= 1);
+declare(strict_types=1);
 
 session_start();
 
@@ -13,14 +13,9 @@ if (!isset($_SESSION['userId'])) {
     exit();
 }
 
-// Obtém o ID do usuário logado
 $userId = $_SESSION['userId'];
-
-// Obtém o ID do item a ser adicionado à Wishlist
 $itemId = $_POST['itemId'] ?? null; 
-$dB = new Database("../database/database.db");
 $db = new DB();
-
 $dbh = $db->get_database_connection();    
 
 $shoppingcartItem = new ShoppingCartItem(null, $userId, $itemId);
