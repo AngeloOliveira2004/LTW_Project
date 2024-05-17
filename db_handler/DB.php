@@ -427,6 +427,9 @@ class Database
         return $subCategories;
     }
 
+
+
+
     public function insertItem($name, $description, $brand, $model, $category, $size, $price, $condition, $available, $available_for_delivery, $subCategory, $numberOfImages, $userId)
     {
         $stmt = $this->conn->prepare("INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, Available, AvailableForDelivery,SubCategory,NumberOfImages,UserId) VALUES (:name, :description, :brand, :category, :price, :condition, :available, :delivery, :subCategory, :numImages, :userId)");
@@ -574,7 +577,7 @@ class Database
         return $items;
     }
 
-    function getUserById($userId): User
+    function getUserById($userId)
     {
         $stmt = $this->conn->prepare("SELECT * FROM Users WHERE Id = :userId");
         $stmt->bindParam(':userId', $userId);

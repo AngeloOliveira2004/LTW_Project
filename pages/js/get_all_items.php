@@ -20,6 +20,7 @@
         $location = $user->getAddress();
         $addressParts = explode(',', $location);
         $district = trim(end($addressParts));
+        $id = $user->getId();
 
         $itemsArray[] = [
             $item->getId(),

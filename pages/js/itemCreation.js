@@ -57,24 +57,31 @@ document.addEventListener("DOMContentLoaded", function() {
                 frame.classList.remove('image_icon');
                 frame.classList.add('new_image');
 
+                console.log('Frame:', frame);
+                console.log("Image " + i + ":", file.name);
+
                 frame.addEventListener('mouseenter', () => {
                   let closeIcon = frame.querySelector('.close_icon');
                   console.log('Close Icon:', closeIcon);
-                  if (!closeIcon) {
+
+                  if (!closeIcon && file.name !== 'camera.png') {
                       closeIcon = document.createElement('span');
                       closeIcon.innerHTML = 'Remove Image';
                       closeIcon.classList.add('close_icon');
                       frame.appendChild(closeIcon);
-                  }else{
-                    frame.removeChild(closeIcon);
                   }
               
                   closeIcon.addEventListener('click', () => {
-                      
+
+                      console.log('Close icon clicked');
+                      console.log('inputedImages before:', inputedImages);
+                      inputedImages = inputedImages.filter(image => image !== file);
+                      console.log('inputedImages after:', inputedImages);
                       imageHolder.src = '../assets/camera.png';
                       frame.classList.remove('new_image');
                       frame.classList.add('image_icon');
-                      removeAllChildNodes();
+                      frame.removeChild(closeIcon);
+                      
                   });
               });
               
@@ -101,26 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function removeAllChildNodes(){
 
-  console.log('Removing all child nodes');
-
-  for (let i = 1; i <= 15; i++) {
-
-    const frame = document.getElementById('image_icon' + i);
-
-    let closeIcon = frame.querySelector('.close_icon');
-
-    console.log('Close Icon:', closeIcon);
-    if (!closeIcon) {
-      continue;
-    }else{
-      console.log('Removing close icon');
-      frame.removeChild(closeIcon);
-    }
-
-  }
-}
 
 });
 
@@ -291,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log('Tamanho:', tamanho);
       console.log('Marca:', marca);
       console.log('Estado:', estado);
+      console.log('Number of images:', numberOfImages);
 
       if (title.trim() === "" || category.trim() === "" || description.trim() === "" || price.trim() === "" || marca.trim() === "" || estado.trim() === "") {
           alert("Por favor, preencha todos os campos obrigatórios.");
@@ -311,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function() {
       xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
               console.log(xhr.responseText);
-          }
+          } 
       };
       
       xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&negociavel=" + (negociavel ? "1" : "0") + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
