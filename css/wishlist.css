@@ -15,7 +15,7 @@ h3 {
     padding: 0 2em 0 0;
 }
 
-.option {
+section.option {
     padding: 1em 0 0 2em;
     margin: 0;
     display: flex;
