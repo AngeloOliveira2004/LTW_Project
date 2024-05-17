@@ -32,11 +32,11 @@ function get_cart_items_ids($dbh, $userId)
         $stmt = $dbh->prepare("SELECT ItemId FROM ShoppingCart WHERE userId = :userId");
         $stmt->bindParam(":userId", $userId);
         $stmt->execute();
-        $ShoppingCartItems = array();
+        $cartItems = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $ShoppingCartItems[] = $row['ItemId'];
+                $cartItems[] = $row['ItemId'];
         }
-        return $ShoppingCartItems;
+        return $cartItems;
 }
 
 function remove_from_wishilist($dbh, WishlistItem $wishlistItem) : void {

@@ -4,10 +4,9 @@ function toggleHeartColor(wishlistItems) {
     heartIcons.forEach(function (icon) {
         icon.addEventListener('click', function () {
             let itemId = icon.getAttribute('data-item-id');
-            console.log(itemId);
+
             let isInWishlist = wishlistItems.includes(parseInt(itemId)); 
-            console.log(wishlistItems);
-            console.log(isInWishlist);
+
             const xhr = new XMLHttpRequest();
 
             xhr.open('POST', isInWishlist ? '../../db_handler/action_remove_wishlist.php' : '../../db_handler/action_add_wishlist.php', true);
@@ -18,7 +17,7 @@ function toggleHeartColor(wishlistItems) {
                     console.log(xhr.responseText);
 
                     let wishlistItemsResult = JSON.parse(xhr.responseText).wishlistItems;
-
+                    console.log(wishlistItemsResult);
                     if (wishlistItemsResult.includes(itemId)) {
                         icon.classList.remove('fa-regular');
                         icon.classList.add('fa-solid');

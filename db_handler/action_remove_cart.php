@@ -24,8 +24,8 @@ $shoppingcartItem = new shoppingcartItem(null, $userId, $itemId);
 
 remove_from_shoppingcart($dbh, $shoppingcartItem);
 
-$shoppingcartItem = get_cart_items_ids($dbh, $userId);
+$cartItems = get_cart_items_ids($dbh, $userId);
 
 
-echo json_encode(['CartItem' => $itemId, 'message' => 'Sucesso']);
+echo json_encode(['CartItem' => $item, 'message' => 'Sucesso']);
 ?>

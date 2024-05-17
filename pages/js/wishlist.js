@@ -46,12 +46,16 @@ function addtocart(cartItems) {
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     console.log(xhr.responseText);
-                    let cartitem = JSON.parse(xhr.responseText);
+                    let cartitem = JSON.parse(xhr.responseText).cartItems;
+                    console.log(cartitem);
                     if (cartitem.includes(itemsId)) {
+
                         cart.classList.remove('fa-cart-shopping');
                         cart.classList.add('fa-check');
                         cartItems.push(parseInt(itemsId));
+
                     } else {
+
                         cart.classList.add('fa-cart-shopping');
                         cart.classList.remove('fa-check');
                         cartItems = cartItems.filter(items => parse(items) !== parseInt(itemsId));
@@ -77,8 +81,8 @@ function fetchItemsAndUpdateHearts(cartItems) {
             cartResult.forEach(function(item) {
                 let itemElement = document.querySelector('.fa-cart-shopping[data-item-id="' + item + '"]');
                 if (itemElement && !cartItems.includes(itemElement)) {
-                    itemElement.classList.remove('fa-regular');
-                    itemElement.classList.add('fa-solid');
+                    itemElement.classList.remove('fa-shopping-cart');
+                    itemElement.classList.add('fa-check');
                     cartItems.push(parseInt(item));
                 }
             });
@@ -90,7 +94,10 @@ function fetchItemsAndUpdateHearts(cartItems) {
     xhr.send();
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     let cartItems = [];
     fetchItemsAndUpdateHearts(cartItems)
 });
+
+
