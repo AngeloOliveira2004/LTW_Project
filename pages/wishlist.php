@@ -25,9 +25,9 @@
             <select name=" sorting" id="sorting">
                 <option value="..."></option>
                 <option value="recently added">recently added</option>
-                <option value="recently added">Alphabetical</option>
-                <option value="recently added">Price: Low to High</option>
-                <option value="recently added">Price: High to Low</option>
+                <option value="alphabetical">Alphabetical</option>
+                <option value="price-low-to-high">Price: Low to High</option>
+                <option value="price-high-to-low">Price: High to Low</option>
             </select>
         </section>
 
