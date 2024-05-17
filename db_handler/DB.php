@@ -486,26 +486,6 @@ class Database
         $stmt->execute();
     }
 
-    public function getOrderHistoryById($id): OrderHistory
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM orderHistory WHERE id = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $row = $stmt->fetch();
-        return new OrderHistory($row['id'], $row['userId'], $row['orderDate'], $row['totalPrice'], $row['status']);
-    }
-
-    public function getOrderHistories(): array
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM orderHistory");
-        $stmt->execute();
-        $orderHistories = [];
-        while ($row = $stmt->fetch()) {
-            $orderHistories[] = new OrderHistory($row['id'], $row['userId'], $row['orderDate'], $row['totalPrice'], $row['status']);
-        }
-        return $orderHistories;
-    }
-
     public function insertOrderHistory(OrderHistory $orderHistory)
     {
         $stmt = $this->conn->prepare("INSERT INTO OrderHistory (OrderId , UserId, OrderDate, TotalPrice, Status) VALUES (:orderId, :userId, :orderDate, :totalPrice, :status)");
@@ -990,6 +970,40 @@ class Database
             );
         }
             return $items;
+        }
+
+        public function getOrderHistoryByUserId($userId) : array{
+            $stmt = $this->conn->prepare("SELECT * FROM OrderHistory WHERE UserId = :userId");
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $orderHistory = [];
+            while ($row = $stmt->fetch()) {
+                $orderHistory[] = new OrderHistory(
+                    $row['OrderId'],
+                    $row['UserId'],
+                    $row['OrderDate'],
+                    $row['TotalPrice'],
+                    $row['PaymentMethod'],
+                    $row['ShippingMethod'],
+                    $row['Status']
+                );
+            }
+            return $orderHistory;
+        }
+
+        public function getOrderItemsByOrderId($orderId) : array{
+            $stmt = $this->conn->prepare("SELECT * FROM OrderItems WHERE OrderId = :orderId");
+            $stmt->bindParam(':orderId', $orderId);
+            $stmt->execute();
+            $orderItems = [];
+            while ($row = $stmt->fetch()) {
+                $orderItems[] = new OrderItem(
+                    $row['OrderItemId'],
+                    $row['OrderId'],
+                    $row['ItemId']
+                );
+            }
+            return $orderItems;
         }
     }
 ?>

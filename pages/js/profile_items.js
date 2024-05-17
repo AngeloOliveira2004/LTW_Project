@@ -17,6 +17,38 @@ document.addEventListener('DOMContentLoaded', function() {
         const reviews_count = document.getElementById("reviews-count");
         reviews.style.display = 'flex';
         reviews_count.style.display = 'flex';
+
+        const purchases = document.getElementById("purchases-section");
+        const purchases_count = document.getElementById("purchases-count");
+        purchases.style.display = 'none';
+        purchases_count.style.display = 'none';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const ratings = document.getElementById("purchases-link");
+    ratings.addEventListener("click", hideItems);
+
+    function hideItems(event) {
+        const items = document.getElementById("items-section");
+        const item_count = document.getElementById("item-count");
+        items.style.display = 'none';
+        item_count.style.display = 'none';
+
+        const itemSold = document.getElementById("items-sold-section");
+        const itemSold_count = document.getElementById("items-sold-count");
+        itemSold.style.display = 'none';
+        itemSold_count.style.display = 'none';
+
+        const reviews = document.getElementById("reviews-section");
+        const reviews_count = document.getElementById("reviews-count");
+        reviews.style.display = 'none';
+        reviews_count.style.display = 'none';
+
+        const purchases = document.getElementById("purchases-section");
+        const purchases_count = document.getElementById("purchases-count");
+        purchases.style.display = 'flex';
+        purchases_count.style.display = 'flex';
     }
 });
 
@@ -40,6 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemSold_count = document.getElementById("items-sold-count");
         itemSold.style.display = 'none';
         itemSold_count.style.display = 'none';
+
+        const purchases = document.getElementById("purchases-section");
+        const purchases_count = document.getElementById("purchases-count");
+        purchases.style.display = 'none';
+        purchases_count.style.display = 'none';
     }
 });
 
@@ -63,6 +100,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemSold_count = document.getElementById("items-sold-count");
         itemSold.style.display = 'flex';
         itemSold_count.style.display = 'flex';
+
+        const purchases = document.getElementById("purchases-section");
+        const purchases_count = document.getElementById("purchases-count");
+        purchases.style.display = 'none';
+        purchases_count.style.display = 'none';
+
     }
 });
 

@@ -71,7 +71,7 @@
                     <a id="items-sold">Items Sold</a>
                 </li>
                 <li>
-                    <a id="purchases">Purchases</a>
+                    <a id="purchases-link">Purchases</a>
                 </li>
             </ul>
         </section>
@@ -229,7 +229,7 @@
      
              $db = new Database("../database/database.db");
          
-             $purchases = $db->GetItemsAlreadySold($userId);;
+             $purchases = $db->getOrderHistoryByUserId($userId);
  
              $purchasesCount = count($purchases);
  
@@ -237,34 +237,32 @@
          ?>
         </nav>
 
-
-
-
         <nav class = "purchases" id="purchases-section">
          <?php
          require_once '../db_handler/DB.php';
      
          $db = new Database("../database/database.db");
          
-         $itemsSold = $db->GetItemsAlreadySold($userId);
+         $orders = $db->getOrderHistoryByUserId($userId);
 
-         foreach ($itemsSold as $item) {
-            $id = $item->getId();
-
-            $name = $item->getName();
-            $price = $item->getPrice();
-            $photo = "../../assets/items/{$item->getId()}-1.png";
-            $brand = $item->getBrand();
+         foreach ($orders as $order) {
+            $id = $order->getOrderId();
+            $date = $order->getOrderDate();
+            $total = $order->getTotalPrice();
+            $paymentMethod = $order->getPaymentMethod();
+            $shippingMethod = $order->getShippingMethod();
             
-            if($photo == null)
-                $photo = "assets/error.png";
-        
-            echo "<span class='item'>
-                    <img src='$photo' alt='$name' >
-                    <h3 >$name</h3>
-                    <p>Price: $price</p>
-                    <p>Brand: $brand</p>";  
-           echo "</span>";          
+            echo "<span class='order'>
+                    <div class='order_details'>
+                        <h3>Order ID: $id</h3>
+                        <p>Date: $date</p>
+                        <p>Payment Method: $paymentMethod</p>
+                        <p>Delivery Method: $shippingMethod</p>
+                        <p>Total: $total</p>
+                    </div>
+                    <button class='view-order' data-order-id='$id'>View Shipping Form</button>";  
+           echo "</span>";
+                     
        }
          
          ?>
