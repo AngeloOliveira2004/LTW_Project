@@ -502,7 +502,7 @@ class Database
 
     public function getAllUserItems(int $id)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM items WHERE UserId = :id");
+        $stmt = $this->conn->prepare("SELECT * FROM items WHERE UserId = :id AND Available = 1");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $items = [];
@@ -1040,6 +1040,26 @@ class Database
             $condition = $stmt->fetch();
             if ($condition) {
                 return $condition['ConditionId'];
+            } else {
+                return null;
+            }
+        }
+
+        public function getOrderHistoryById($orderId){
+            $stmt = $this->conn->prepare("SELECT * FROM OrderHistory WHERE OrderId = :orderId");
+            $stmt->bindParam(':orderId', $orderId);
+            $stmt->execute();
+            $orderHistory = $stmt->fetch();
+            if ($orderHistory) {
+                return new OrderHistory(
+                    $orderHistory['OrderId'],
+                    $orderHistory['UserId'],
+                    $orderHistory['OrderDate'],
+                    $orderHistory['TotalPrice'],
+                    $orderHistory['PaymentMethod'],
+                    $orderHistory['ShippingMethod'],
+                    $orderHistory['Status']
+                );
             } else {
                 return null;
             }

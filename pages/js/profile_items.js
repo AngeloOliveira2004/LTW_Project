@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const ratings = document.getElementById("items-sold");
+
     ratings.addEventListener("click", hideItems);
 
     function hideItems(event) {
@@ -196,12 +197,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     allItems.forEach(item => {
         item.addEventListener('click', function() {
-            console.log(item);
             let acceptProposalButton = item.querySelector('.accept-proposal');
-            console.log(acceptProposalButton);
             let buttonId = acceptProposalButton.getAttribute('id');
             itemId = parseInt(buttonId);
             window.location.href = 'itemPageUserProfile.php?item=' + itemId;
+        });
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const viewOrderButton = document.querySelectorAll(".view-order");
+    viewOrderButton.forEach(order => {
+        order.addEventListener('click', function() {
+            const orderId = order.getAttribute('data-order-id');
+            window.location.href = 'shipping_form.php?order=' + orderId;
         });
     });
 });
