@@ -27,6 +27,10 @@
 
             $reviewsCount = count($Reviews);
 
+            $itemsAlreadySold = $db->GetItemsAlreadySold($userId);;
+ 
+            $itemsAlreadySoldCount = count($itemsAlreadySold);
+
             if($reviewsCount == 0){
                 $average = 0;
             }else{
@@ -46,7 +50,7 @@
                         <ul>
                             <li>About:</li>
                             <li><img src='assets/profile/location.png' alt='location icon'> {$user->getAddress()}</li>
-                            <li><img src='assets/profile/product.png' alt='product icon'> Items sold: 20</li>
+                            <li><img src='assets/profile/product.png' alt='product icon'> Items sold: {$itemsAlreadySoldCount}</li>
                         </ul>
                     </div>
                 <div class='buttons'>    
