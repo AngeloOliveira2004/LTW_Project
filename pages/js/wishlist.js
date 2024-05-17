@@ -69,7 +69,7 @@ function addtocart(cartItems) {
     });
 }
 
-function fetchItemsAndUpdateHearts(cartItems) {
+function fetchItemsAndUpdateCart(cartItems) {
     const xhr = new XMLHttpRequest();
     
     xhr.open('GET', '../../db_handler/action_get_all_cart_items.php', true);
@@ -98,7 +98,6 @@ function fetchItemsAndUpdateHearts(cartItems) {
 
 document.addEventListener('DOMContentLoaded', function () {
     let cartItems = [];
-    fetchItemsAndUpdateHearts(cartItems)
+    fetchItemsAndUpdateCart(cartItems)
 });
-
 

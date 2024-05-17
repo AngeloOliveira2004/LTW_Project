@@ -6,7 +6,7 @@ function toggleHeartColor(wishlistItems) {
             let itemId = icon.getAttribute('data-item-id');
 
             let isInWishlist = wishlistItems.includes(parseInt(itemId)); 
-
+            console.log(isInWishlist)
             const xhr = new XMLHttpRequest();
 
             xhr.open('POST', isInWishlist ? '../../db_handler/action_remove_wishlist.php' : '../../db_handler/action_add_wishlist.php', true);
@@ -15,22 +15,29 @@ function toggleHeartColor(wishlistItems) {
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     console.log(xhr.responseText);
-
-                    let wishlistItemsResult = JSON.parse(xhr.responseText).wishlistItems;
-                    console.log(wishlistItemsResult);
-                    if (wishlistItemsResult.includes(itemId)) {
+            
+                    let response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    let updatedWishlistItems = response.wishlistItems;
+            
+                    wishlistItems = updatedWishlistItems;
+                    console.log(wishlistItems);
+                    if (updatedWishlistItems.includes(parseInt(itemId))) {
                         icon.classList.remove('fa-regular');
                         icon.classList.add('fa-solid');
-                        wishlistItems.push(parseInt(itemId));
-                    } else {
+                        if (!wishlistItems.includes(parseInt(itemId))) {
+                            wishlistItems.push(parseInt(itemId));
+                        }
+                    }  else {
                         icon.classList.remove('fa-solid');
                         icon.classList.add('fa-regular');
-                        wishlistItems = wishlistItems.filter(item => parseInt(item) !== parseInt(itemId));
                     }
-
+            
                     console.log(`Item ${itemId} toggled`);
                 }
             };
+            
+            
 
             xhr.send('itemId=' + encodeURIComponent(itemId));
         });
@@ -105,6 +112,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
 
 
