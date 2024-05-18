@@ -122,7 +122,7 @@
     
                     arsort($brandCounts);
     
-                    $topBrands = array_keys(array_slice($brandCounts, 0, 8));
+                    $topBrands = array_keys($brandCounts);
                 
                     foreach ($topBrands as $brand) {
                         echo "<option value=\"$brand\" class=\"Marca\">$brand</option>";
