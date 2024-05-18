@@ -37,12 +37,15 @@ document.addEventListener('DOMContentLoaded', function () {
     function addToCart() {
         console.log('Adding click event listeners to cart items...');
         let cartIcon = document.querySelectorAll('.fa-cart-shopping');
+        let checkIcon = document.querySelectorAll('.fa-check');
+
 
         cartIcon.forEach(function (cart) {
             cart.addEventListener('click', function () {
                 let itemId = cart.getAttribute('data-item-id');
                 console.log('Clicked item ID:', itemId);
                 let isInCart = cartItems.includes(parseInt(itemId));
+
 
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', isInCart ? '../../db_handler/action_remove_cart.php' : '../../db_handler/action_add_shoppingcart.php', true);
@@ -52,7 +55,47 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (xhr.status >= 200 && xhr.status < 300) {
                         let response = JSON.parse(xhr.responseText);
                         let updatedCartItems = response.shoppingcartitems;
+                        console.log('Updated Cart Items:', updatedCartItems);
+                        if (updatedCartItems.includes(parseInt(itemId))) {
+                            cart.classList.remove('fa-cart-shopping');
+                            cart.classList.add('fa-check');
+                            if (!cartItems.includes(parseInt(itemId))) {
+                                cartItems.push(parseInt(itemId));
+                            }
+                        } else {
+                            cart.classList.add('fa-cart-shopping');
+                            cart.classList.remove('fa-check');
+                            cartItems = cartItems.filter(item => item !== parseInt(itemId));
+                        }
+                        console.log('Updated Cart Items:', cartItems);
+                    } else {
+                        console.error('Error adding/removing item from cart:', xhr.status);
+                    }
+                };
 
+                xhr.onerror = function () {
+                    console.error('Error adding/removing item from cart: Network error.');
+                };
+
+                xhr.send('itemId=' + encodeURIComponent(itemId));
+            });
+        });
+        checkIcon.forEach(function (cart) {
+            cart.addEventListener('click', function () {
+                let itemId = cart.getAttribute('data-item-id');
+                console.log('Clicked item ID:', itemId);
+                let isInCart = cartItems.includes(parseInt(itemId));
+
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', isInCart ? '../../db_handler/action_remove_cart.php' : '../../db_handler/action_add_shoppingcart.php', true);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        let response = JSON.parse(xhr.responseText);
+                        let updatedCartItems = response.shoppingcartitems;
+                        console.log('Updated Cart Items:', updatedCartItems);
                         if (updatedCartItems.includes(parseInt(itemId))) {
                             cart.classList.remove('fa-cart-shopping');
                             cart.classList.add('fa-check');
