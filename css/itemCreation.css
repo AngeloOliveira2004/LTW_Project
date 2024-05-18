@@ -149,11 +149,6 @@ li{
 }
 
 
-
-
-
-/*------- Item Images-------------------------*/
-
 .Item-Images {
     display: flex;
     flex-wrap: wrap;
@@ -586,4 +581,18 @@ li{
     background-color: white;
     margin-right: 1em;
     cursor: pointer;
+}
+
+
+@media screen and (max-width: 768px) {
+
+
+    .pre_visualizar_publicar_section{
+        margin-left: 0;
+        align-items: center;
+    }
+
+    .Publicar{
+        margin-left: 13%;
+    }
 }

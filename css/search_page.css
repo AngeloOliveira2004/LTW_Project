@@ -359,3 +359,92 @@ body{
     font-size: 1.3em;
     background-color: white;
 }
+
+@media screen and (max-width: 768px) {
+
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    #marca_filter {
+        padding-left: 0;
+        margin-left: 0;
+        margin-right: 0;
+        color: #0B6E4F;
+        font-size: 1.3em;
+        background-color: white;
+    }
+
+    #filter_delivery{
+        padding-right: 0;
+        color: #0B6E4F;
+    }
+
+    .category_dropdown{
+        display: none;
+    }
+
+
+    .filter_section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .filter_keyword{
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    #estado_filter {
+        padding-left: 0.5em;
+        background-color: white;
+        color: #0B6E4F;
+        font-size: 1.3em;
+        margin-right: 0;
+    }
+
+    .from{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .to{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .price{
+        margin-right: 0;
+        margin-bottom: 0.5em;
+    }
+
+    #Categorias{
+        margin: 0;
+        margin-bottom: 1em;
+    }
+
+    #subCategorias{
+        margin: 0;
+        margin-bottom: 1em;
+    }
+
+    #Tamanhos{
+        margin: 0;
+        margin-bottom: 1em;
+    }
+
+    #sort_filter{
+        margin: 0;
+        margin-bottom: 1em;
+    }
+
+    .item-description {
+        position: absolute;
+        margin-top: 5%;
+        margin-left: 20%;
+        margin-bottom: 0.5em;
+    }
+}

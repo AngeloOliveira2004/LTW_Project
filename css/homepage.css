@@ -239,13 +239,13 @@ a{
   
 }
 .wishilist_send:hover{
-    transform: translateY(-3px); /* Translação para cima ao passar o mouse */
+    transform: translateY(-3px); 
 }
    
 .wishlist_button i {
-    color: #ff0000; /* Cor do coração */
-    font-size: 20px; /* Tamanho do ícone */
-    /* Outros estilos conforme desejado */
+    color: #ff0000; 
+    font-size: 20px; 
+    
 }
 .Categories .image-container img, .Categories .image-container span{
     cursor: pointer;

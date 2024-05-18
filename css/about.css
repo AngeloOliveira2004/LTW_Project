@@ -32,3 +32,32 @@ section > p, section > ul, section > h1, section > h3, section > h4,section > li
     margin-left: 2rem;
     width: 80%;
 }
+
+@media screen and (max-width: 768px) {
+ 
+    section > p, section > ul, section > h1, section > h3, section > h4,section > li {
+        margin-left: 1rem;
+        width: 90%;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    li {
+        font-size: 1em;
+    }
+
+    section > h4 {
+        font-size: 1.2em;
+    }
+
+}

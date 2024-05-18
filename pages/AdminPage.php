@@ -53,8 +53,6 @@
 
             <div class="optionsText">
                 <h4>Opção dos users: </h4>
-
-                <i class="fa fa-question-circle"></i>
             </div>
             <section class="search_table">
 
@@ -92,8 +90,7 @@
 
         <div id="itemsContent" class="content" style="display: none;">
             <div class="optionsText">
-                <h4>Opção dos items</h4>
-                <i class="fa fa-question-circle"></i>
+                <h4 class = "optionsTextText">Opção dos items</h4>
             </div>
 
             <section class="search_table">
@@ -133,7 +130,6 @@
         <div id="categoriesContent" class="content" style="display: none;">
             <div class="optionsText">
                 <h4>Opção das categorias</h4>
-                 <i class="fa fa-question-circle"></i>
             </div>
             <div class = "CategoriesSections">
             <section class = "showAllCateogiries">
