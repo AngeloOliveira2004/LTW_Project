@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let isInCart = cartItems.includes(parseInt(itemId));
 
                 const xhr = new XMLHttpRequest();
-                xhr.open('POST', isInCart ? '../../db_handler/action_remove_cart.php' : '../../db_handler/action_shoppingcart.php', true);
+                xhr.open('POST', isInCart ? '../../db_handler/action_remove_cart.php' : '../../db_handler/action_add_shoppingcart.php', true);
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
                 xhr.onload = function () {
