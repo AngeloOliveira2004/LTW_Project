@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function() {
   titleInput.addEventListener("input", function(event) {
       var inputLength = titleInput.value.length;
 
-      wordCount.textContent = inputLength + "/50 letras";
+      wordCount.textContent = inputLength + "/50 letters";
 
       if (inputLength >= 50) {
           event.preventDefault();
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var words = descriptionInput.value.trim().split(/\s+/).filter(Boolean); 
       var wordLength = words.length;
 
-      wordCount.textContent = wordLength + "/200 palavras";
+      wordCount.textContent = wordLength + "/200 words";
 
       if (wordLength > 200) {
           event.preventDefault();
@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log('Number of images:', numberOfImages);
 
       if (title.trim() === "" || category.trim() === "" || description.trim() === "" || price.trim() === "" || marca.trim() === "" || estado.trim() === "") {
-          alert("Por favor, preencha todos os campos obrigatórios.");
+          alert("Please fill in all required fields.");
           return;
       }
 

@@ -49,7 +49,7 @@
 
 
             <button class="search_button">
-                Pesquisar
+                Search
                 <img src="assets/search-interface-symbol.png" alt="search-icon" class="search_icon">
             </button>
         </span>

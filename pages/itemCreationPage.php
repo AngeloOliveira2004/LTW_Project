@@ -26,22 +26,22 @@
     ?>
     
 
-    <p class="publish">Publicar Anúncio</p>
+    <p class="publish">Publish Item</p>
     <div class="ItemCreation">
 
     <section class="Item-Title-And-Categories">
-        <p class="title">Primeiro, introduz um título*</p>
-        <p class="box_title">Tenta ser o mais descritivo e apelativo possível</p>
+        <p class="title">First, introduce a title*</p>
+        <p class="box_title">Try to be as descriptive as possible.</p>
         <input type="text" class="Item-Title">
         
         <div class = "words-details">
-            <p>Introduz pelo menos 1 caractér</p>
-            <p class = "word-count">0/50 letras</p>
+            <p>Introduce atleast 1 character</p>
+            <p class = "word-count">0/50 letters</p>
         </div>
 
         <div class="category-container">
-            <p class="Category_choice">Escolha uma Categorias</p>
-            <input type="text" placeholder="Escolhe uma categoria?" class="search_category">
+            <p class="Category_choice">Choose a Category</p>
+            <input type="text" placeholder="Choose a Category" class="search_category">
             <div class="suggestions">
                 <?php
                 foreach ($allCategories as $category ) {
@@ -51,8 +51,8 @@
             </div>
         </div>
 
-        <p class="Sub_Category_choice">Escolha uma Sub-Categoria</p>
-        <input type="text" placeholder="Escolhe uma categoria?" class="sub_search_category">
+        <p class="Sub_Category_choice">Choose a Sub-Category</p>
+        <input type="text" placeholder="Choose a Sub-Category" class="sub_search_category">
         <div class="sub_suggestions">
             <?php
 
@@ -64,8 +64,8 @@
     </section>
 
         <section class="Item-Images">
-            <p class="images">Imagens</p>
-            <p class="images_text">A primeira imagem é a foto principal do teu anúncio. Podes inserir outras 15</p>
+            <p class="images">Images</p>
+            <p class="images_text">The first image is the main photo of your announcement. You can insert more 15</p>
             <?php for ($i = 1; $i <= 15; $i++): ?>
                 <form class = "form" id="myForm<?= $i ?>" method=POST enctype=multipart/form-data>
                     <input type="hidden" name="form_index" value="<?= $i ?>">
@@ -78,17 +78,17 @@
         </section>
 
         <section class="Item-Description">
-            <p class = "item-description">Introduza uma boa descrição do item!<span>*</span></p>
-            <textarea class="description-text" placeholder="Introduza no mínimo 10 caracteres e no máximo 1000"></textarea>
+            <p class = "item-description">Introduce a good description for your item!<span>*</span></p>
+            <textarea class="description-text" placeholder="Introduce atleast 10 characters and no more than 1000"></textarea>
             <div class="word-details">
-                <p class = "min_words">Introduz pelo menos 10 caracteres</p>
-                <p class="word-counter">0/200 palavras</p>
+                <p class = "min_words">Introduce atleast 10 words</p>
+                <p class="word-counter">0/200 words</p>
             </div>
         </section>
 
 
         <section class="Item-Price-Trade">
-            <p class="Preço">Preço (EUR) :</p>
+            <p class="Preço">Price (EUR) :</p>
             <input type="number" class="Preço_" min="0">
         </section>
 
@@ -106,7 +106,7 @@
 
             ?>
 
-            <p class = "size">Tamanho</p>
+            <p class = "size">Size</p>
             <input type="text" class="Tamanho">
             <ul class="sizes">
                 <?php 
@@ -116,10 +116,10 @@
                 ?>
             </ul>
 
-            <p id = "brand">Marca*</p>
+            <p id = "brand">Brand*</p>
             <input type="text" class="Marca">
 
-            <p class = "condition" >Estado*</p>
+            <p class = "condition" >Condition*</p>
             <input type="text" class="Estado">
             <ul class = "conditions">
                 <?php 
