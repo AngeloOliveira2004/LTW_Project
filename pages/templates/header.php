@@ -18,7 +18,7 @@
                         <img src="../../assets/logo.png" alt="logo" class="logo">
                 </a>
             </div>
-            <ul>
+            <ul class = "headerNav">
                 <li>
                     <i class="fa-solid fa-heart"></i>
                             <?php

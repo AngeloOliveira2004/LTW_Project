@@ -1,4 +1,4 @@
-body{
+body {
     text-decoration: none;
     margin: 0;
     padding: 0;
@@ -7,50 +7,50 @@ body{
     min-height: 100vh;
 }
 
-.header{
+.header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 0.9en 3.5em;
+    padding: 0.9em 3.5em;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
 }
 
-.navbar{
-    background: #0B6E4F; 
-    font-family: 'Poppins', sans-serif; 
+.navbar {
+    background: #0B6E4F;
+    font-family: 'Poppins', sans-serif;
     padding-right: 0.5em;
     padding-left: 0.5em;
 }
 
-.navdiv{
-    display: flex; 
-    align-items: center; 
+.navdiv {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
-.logo a{
-    font-size: 2em; 
-    font-weight: 600; 
+.logo a {
+    font-size: 2em;
+    font-weight: 600;
     color: white;
     text-decoration: none;
     padding-left: 1em;
 }
 
-.navdiv ul{
+.navdiv ul {
     padding: 1em;
 }
 
-.navdiv ul > li{
+.navdiv ul > li {
     list-style: none;
     display: inline-block;
     margin-left: 20px;
 }
 
-.navdiv ul > li a{
+.navdiv ul > li a {
     color: white;
     font-size: 20px;
     font-weight: 500;
@@ -58,14 +58,14 @@ body{
     margin-right: 50px;
 }
 
-.navdiv ul > a > button{
-    background-color: #fff; 
-    margin-left: 10px; 
-    border-radius: 10px; 
-    padding: 10px; 
+.navdiv ul > a > button {
+    background-color: #fff;
+    margin-left: 10px;
+    border-radius: 10px;
+    padding: 10px;
     width: 90px;
-    color: #172A3A; 
-    font-weight: 600; 
+    color: #172A3A;
+    font-weight: 600;
     font-size: 15px;
 }
 
@@ -79,11 +79,10 @@ li i {
     padding-right: 0.5em;
 }
 
-.logo{
+.logo {
     width: 30%;
     height: 100%;
 }
-
 
 .profile-options {
     display: none;
@@ -120,14 +119,13 @@ li i {
     display: block;
 }
 
-
-.imageIcons{
+.imageIcons {
     width: 15%;
     height: 15%;
     filter: invert(100%);
 }
 
-.anuncie{
+.anuncie {
     cursor: pointer;
 }
 
@@ -150,7 +148,7 @@ li i {
         height: 80%;
     }
 
-    .navdiv ul {
+    .headerNav {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -177,5 +175,12 @@ li i {
     .navdiv ul > li > a {
         margin-right: 0;
     }
-}
 
+    .profile-options {
+        display: none;
+    }
+
+    .profile-options li {
+        display: none; /* Ensure li elements are hidden */
+    }
+}
