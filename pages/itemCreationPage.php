@@ -89,7 +89,7 @@
 
         <section class="Item-Price-Trade">
             <p class="Preço">Preço (EUR) :</p>
-            <input type="text" class="Preço_">
+            <input type="number" class="Preço_" min="0">
         </section>
 
 

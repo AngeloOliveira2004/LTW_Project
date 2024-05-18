@@ -264,7 +264,6 @@ document.addEventListener("DOMContentLoaded", function() {
       let subCategory = sanitizeInput(document.querySelector(".sub_search_category").value);
       let description = sanitizeInput(document.querySelector(".description-text").value);
       let price = sanitizeInput(document.querySelector(".Preço_").value);
-      let negociavel = document.querySelector(".toggle-button-wrapper input[type='checkbox']").checked;
       let tamanho = sanitizeInput(document.querySelector(".Tamanho").value);
       let marca = sanitizeInput(document.querySelector(".Marca").value);
       let estado = sanitizeInput(document.querySelector(".Estado").value);
@@ -275,7 +274,6 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log('Subcategory:', subCategory);
       console.log('Description:', description);
       console.log('Price:', price);
-      console.log('Negociavel:', negociavel);
       console.log('Tamanho:', tamanho);
       console.log('Marca:', marca);
       console.log('Estado:', estado);
@@ -303,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function() {
           } 
       };
       
-      xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&negociavel=" + encodeURIComponent(negociavel) + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
+      xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
         + "&imagesSizes=" + numberOfImages);
       
 
