@@ -474,13 +474,7 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
     size = size2;
 
     if (current_filters['onlyAdsWithImages']) {
-        items = await Promise.all(items.map(async (item) => {
-            const filePath = `../assets/items/${item[0]}.png`;
-            const imageExists = await imageExistsAsync(filePath);
-            return imageExists ? item : null;
-        }));
-       
-        items = items.filter(item => item !== null);
+        items = items.filter(item => item[11] != 0);
     }
     
     size2 = items.length;
