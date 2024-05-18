@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }else{
         $actualSubCategory = null;
     }
+
     $actualCondition = $db->getConditionIdByName($estado);
 
     if($imagesSizes == null){
@@ -54,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo "Estado: $estado <br>";
     echo "Number of images: $numberOfImages <br>";
 
-    $db->insertItem($title , $description, $marca, null , $actualCategory, $tamanho, $price, $actualCondition, true,$available_for_delivery, $actualSubCategory , $imagesSizes, $userId);
+    $db->insertItem($title , $description, $marca, null , $actualCategory, $tamanho, $price, $actualCondition, true ,$available_for_delivery, $actualSubCategory , $imagesSizes, $userId);
 }
 
 ?>

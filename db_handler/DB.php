@@ -432,18 +432,22 @@ class Database
 
     public function insertItem($name, $description, $brand, $model, $category, $size, $price, $condition, $available, $available_for_delivery, $subCategory, $numberOfImages, $userId)
     {
-        $stmt = $this->conn->prepare("INSERT INTO Items (Name, Description, Brand, CategoryId, Price, ConditionId, Available, AvailableForDelivery,SubCategory,NumberOfImages,UserId) VALUES (:name, :description, :brand, :category, :price, :condition, :available, :delivery, :subCategory, :numImages, :userId)");
+        $highlighted = 0;
+        $stmt = $this->conn->prepare("INSERT INTO Items (Name, Description, Brand, Model, CategoryId, Size,  Price, ConditionId, Available, AvailableForDelivery, SubCategory, NumberOfImages,Highlighted, UserId) VALUES (:name, :description, :brand, :model, :category, :size, :price, :condition, :available, :delivery, :subCategory, :numImages, :highlighted, :userId)");
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':brand', $brand);
+        $stmt->bindParam(':model', $model);
         $stmt->bindParam(':category', $category);
+        $stmt->bindParam(':size', $size);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':condition', $condition);
         $stmt->bindParam(':available', $available);
-        $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':delivery', $available_for_delivery);
         $stmt->bindParam(':subCategory', $subCategory);
         $stmt->bindParam(':numImages', $numberOfImages);
+        $stmt->bindParam(':highlighted', $highlighted);
+        $stmt->bindParam(':userId', $userId);
 
         $stmt->execute();
     }

@@ -90,13 +90,6 @@
         <section class="Item-Price-Trade">
             <p class="Preço">Preço (EUR) :</p>
             <input type="text" class="Preço_">
-            <div class="toggle-button-wrapper">
-                <p class ="Negociável" > Disponível para entrega: </p>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                </label>
-            </div>
         </section>
 
 

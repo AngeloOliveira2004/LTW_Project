@@ -24,9 +24,9 @@
     ?>
 
         <span class="search_table">
-            <input type="text" placeholder="O que Procuras?" class="search_bar"> </input>
+            <input type="text" placeholder="What are you searching for?" class="search_bar"> </input>
             <select class="category_dropdown">
-                <option value="">Todas as Localizações</option>
+                <option value="">Locations</option>
                 <option value="Aveiro">Aveiro</option>
                 <option value="Beja">Beja</option>
                 <option value="Braga">Braga</option>
@@ -55,7 +55,7 @@
         </span>
 
         <span class="Categorias_Principais">
-            Categorias Principais
+            Principal Categories
         </span>
 
         <div class="Categories">
@@ -93,7 +93,7 @@
         </div>
 
         <span class="Buy_From_Brand">
-            Compre pela marca
+            Buy from Brand
         </span>
 
         <?php

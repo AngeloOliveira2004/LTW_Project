@@ -101,7 +101,7 @@ class Item {
         return $this->category;
     }
 
-    public function getPrice() : float {
+    public function getPrice() {
         return $this->price;
     }
 
