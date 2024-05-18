@@ -27,6 +27,7 @@ function get_wishlist_items_ids($dbh, $userId) {
         }
         return $wishlistItems;
 }
+
 function get_cart_items_ids($dbh, $userId)
 {
         $stmt = $dbh->prepare("SELECT ItemId FROM ShoppingCart WHERE userId = :userId");
@@ -47,6 +48,15 @@ function remove_from_wishilist($dbh, WishlistItem $wishlistItem) : void {
 function remove_from_shoppingcart($dbh, ShoppingCartItem $shoppingCartItem) : void {
         $query = $dbh->prepare('DELETE FROM ShoppingCart WHERE UserId = ? AND ItemID = ?');
         $query->execute([$shoppingCartItem->getUserId(), $shoppingCartItem->getItemId()]);
+}
+
+
+function getItemFromShoppingCartUserId($dbh, $userId, $itemId) {
+        $stmt = $dbh->prepare("SELECT * FROM ShoppingCart WHERE userId = :userId AND ItemId = :itemId");
+        $stmt->bindParam(":userId", $userId);
+        $stmt->bindParam(":itemId", $itemId);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 ?>

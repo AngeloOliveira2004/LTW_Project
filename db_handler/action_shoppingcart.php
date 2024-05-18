@@ -20,9 +20,11 @@ $dbh = $db->get_database_connection();
 
 $shoppingcartItem = new ShoppingCartItem(null, $userId, $itemId);
 
-add_item_shopping_cart($dbh, $shoppingcartItem);
-
 $cartItems = get_cart_items_ids($dbh, $userId);
 
-echo json_encode(['shoppingcartitems' => $cartItems, 'message' => 'Sucesso']);
+if(!in_array($itemId, $cartItems)){
+    add_item_shopping_cart($dbh, $shoppingcartItem);
+}
+
+header("Location: ../pages/shopping.php");
 ?>
