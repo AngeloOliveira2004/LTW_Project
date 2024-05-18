@@ -98,3 +98,11 @@ p {
     filter: brightness(0) saturate(100%) invert(34%) sepia(11%) saturate(4211%) hue-rotate(117deg) brightness(90%) contrast(91%);
     padding-top: 2em;
 }
+
+@media screen and (max-width: 768px) {
+    p {
+        word-wrap: break-word;
+        white-space: normal;
+        overflow-wrap: break-word;
+    }
+}
