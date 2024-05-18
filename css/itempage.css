@@ -565,3 +565,141 @@
   color: #0B6E4F;
   padding-bottom: 1em;
 }
+
+@media screen and (max-width: 768px) {
+
+  .item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    grid-template-columns: 100%;
+    margin-top: 2em;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .description_and_rest_section {
+    order: 4;
+  }
+
+  .image_section {
+    order: 1;
+  }
+
+  .title_price_section {
+    order: 2;
+  }
+
+  .contact_user_section {
+    order: 3;
+  }
+
+  .location_div{
+    order: 6;
+  }
+
+  .vendedor_section,
+  .location_section {
+    order: 5;
+  }
+
+  .image_section {
+    grid-row: auto;
+    grid-column: auto;
+  }
+
+  #item_image {
+    width: 100%;
+    height: auto;
+  }
+
+  .preview_images_container {
+    justify-content: center;
+    margin-top: 1em;
+  }
+
+  .preview_images {
+    gap: 0.5em;
+  }
+
+  .description_and_rest_section,
+  .contact_user_section,
+  .title_price_section,
+  .vendedor_section,
+  .location_section {
+    margin-top: 1em;
+  }
+
+  .item_details {
+    margin-left: 0;
+  }
+
+  .Item_Brand,
+  .Item_Category,
+  .Item_Description_div,
+  .shipping,
+  .user_details {
+    margin-left: 0;
+  }
+
+  .title_price_section {
+    margin-bottom: 1em;
+  }
+
+  .Item_name {
+    margin-right: 0;
+  }
+
+  .propose_button,
+  .checkout {
+    margin-left: 0;
+    margin-top: 1em;
+  }
+
+  .location_section p {
+    padding-bottom: 0.5em;
+  }
+
+  .user_name {
+    font-size: 1em;
+  }
+
+  .review_text {
+    font-size: 1.25em;
+  }
+
+  .line {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .form_review {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .title_price_section_box > .item_details,.button_container, .Item_Description_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .description_and_rest_section > .item_details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .description_and_rest_section > .item_details > p {
+    margin-bottom: 0.2em;
+  }
+
+  .other_items_of_the_user{
+    display: flex;
+    flex-direction: column;
+  }
+}
+

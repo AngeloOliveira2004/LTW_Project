@@ -135,4 +135,24 @@ h1 {
 }
   
 
+@media screen and (max-width: 768px) {
+    .cart_body {
+        flex-direction: column;
+    }
+
+    .ShoppingCart-items {
+        width: 100%;
+    }
+
+    .checkout{
+        margin-top: 20px;
+        width: 90%;
+    }
+
+    section.checkout-zone {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+
 
