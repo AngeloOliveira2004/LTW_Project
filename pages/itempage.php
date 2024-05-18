@@ -15,58 +15,59 @@
 
     <body>
         <?php
-            include 'templates/header.php';
+        include 'templates/header.php';
         ?>
 
         <section class="item-container">
 
             <?php
-                require_once '../db_handler/DB.php';
+            require_once '../db_handler/DB.php';
 
-                $db = new Database("../database/database.db");
+            $db = new Database("../database/database.db");
 
-                $itemId = $_GET['item'];
+            $itemId = $_GET['item'];
 
-                $item = $db->getItemById($itemId);
-            
-                $name = $item->getName();
-                $price = $item->getPrice();
-                $brand = $item->getBrand();
-                $userId = $item->getUserId();
-                $number_of_photos = $item->getNumberOfImages();
-                
+            $item = $db->getItemById($itemId);
 
-                $user_details = $db->getUserById($userId);
-                $user_username = $user_details->getUsername();
-                $user_phonenumber = $user_details->getPhoneNumber();
-                $user_email = $user_details->getEmail();
+            $name = $item->getName();
+            $price = $item->getPrice();
+            $brand = $item->getBrand();
+            $userId = $item->getUserId();
+            $number_of_photos = $item->getNumberOfImages();
 
-                $Reviews = $db->getReviewByReviewedUserId($userId);
 
-                $reviewsCount = count($Reviews);
+            $user_details = $db->getUserById($userId);
+            $user_username = $user_details->getUsername();
+            $user_phonenumber = $user_details->getPhoneNumber();
+            $user_email = $user_details->getEmail();
 
-                if($reviewsCount == 0){
-                    $average = 0;
-                }else{
-                    $average = number_format(array_reduce($Reviews, function ($carry, $review) {return $carry + $review->getRating();}, 0) / $reviewsCount,2);
-                }
+            $Reviews = $db->getReviewByReviewedUserId($userId);
+
+            $reviewsCount = count($Reviews);
+
+            if ($reviewsCount == 0) {
+                $average = 0;
+            } else {
+                $average = number_format(array_reduce($Reviews, function ($carry, $review) {
+                    return $carry + $review->getRating(); }, 0) / $reviewsCount, 2);
+            }
 
             ?>
 
 
             <section class="image_section">
                 <div class="main_image_container">
-                    <img src="../assets/items/<?= $item->getId()?>-1.png"
-                        class="<?= $item->getId() . '-' . $item->getNumberOfImages() ?>" alt="<?= $name?>"
+                    <img src="../assets/items/<?= $item->getId() ?>-1.png"
+                        class="<?= $item->getId() . '-' . $item->getNumberOfImages() ?>" alt="<?= $name ?>"
                         id="item_image">
                 </div>
                 <div class="preview_images_container">
                     <button id="prev-image">&larr;</button>
                     <div class="preview_images">
                         <?php
-                            for ($i = 1; $i <= $item->getNumberOfImages(); $i++) {
-                                echo '<img src="../assets/items/' . $item->getId() . '-' . $i . '.png" class="prev-image'. $i . '" alt="' . $name . '" id="preview_image">';
-                            }
+                        for ($i = 1; $i <= $item->getNumberOfImages(); $i++) {
+                            echo '<img src="../assets/items/' . $item->getId() . '-' . $i . '.png" class="prev-image' . $i . '" alt="' . $name . '" id="preview_image">';
+                        }
                         ?>
                     </div>
                     <button id="next-image">&rarr;</button>
@@ -77,30 +78,30 @@
             <section class="description_and_rest_section">
                 <div class="item_details">
                     <p class="Item_Category">
-                        <?= 
+                        <?=
                             require_once '../db_handler/DB.php';
 
-                            $db = new Database("../database/database.db");
-                            
-                            $categoryId = $item->getCategoryId(); 
-                            
-                            $category = $db->getCategoryById($categoryId);
-                            
-                            $categoryName = $category->getName();
-                            
-                            $categoryName = preg_replace('/^\d+/', '', $categoryName);
-                            
+                        $db = new Database("../database/database.db");
 
-                            echo $categoryName;
+                        $categoryId = $item->getCategoryId();
+
+                        $category = $db->getCategoryById($categoryId);
+
+                        $categoryName = $category->getName();
+
+                        $categoryName = preg_replace('/^\d+/', '', $categoryName);
+
+
+                        echo $categoryName;
                         ?>
                     </p>
                     <p class="Item_Brand"> <?= $brand ?></p>
                     <p> <?= $item->getSubcategory() ?></p>
 
                     <?php if ($item->isAvailableForDelivery()): ?>
-                    <img src="../assets/local_shipping_FILL0_wght400_GRAD0_opsz24.png" alt="shipping" class="shipping">
+                        <img src="../assets/local_shipping_FILL0_wght400_GRAD0_opsz24.png" alt="shipping" class="shipping">
                     <?php else: ?>
-                    <img src="../assets/no_shipping.png" alt="no shipping" class="shipping">
+                        <img src="../assets/no_shipping.png" alt="no shipping" class="shipping">
                     <?php endif; ?>
                 </div>
                 <div class="Item_Description_div">
@@ -110,7 +111,7 @@
             </section>
 
             <section class="contact_user_section">
-                <div class="user_info" id="user_info" data-user-id="<?=$user_details->getId() ?>">
+                <div class="user_info" id="user_info" data-user-id="<?= $user_details->getId() ?>">
                     <div class="user_image_container">
                         <img src="../assets/users/<?= $user_details->getId() ?>.png" alt="<?= $user_username ?>"
                             id="user_image">
@@ -135,7 +136,8 @@
                         <p class="Item_Price"> <?= $price ?> EUR</p>
                     </div>
                     <div class="button_container" id="button_proposal_container">
-                        <input type="number" class="price_input" placeholder="Propor Outro Preço" id="item_proposal" name="proposal" step="0.1" min="0" max="<?php echo $item->getPrice(); ?>">
+                        <input type="number" class="price_input" placeholder="Propor Outro Preço" id="item_proposal"
+                            name="proposal" step="0.1" min="0" max="<?php echo $item->getPrice(); ?>">
                         <button class="propose_button" id="propose_button">Propor Preço</button>
                         <form class="shoppingcart" action="../../db_handler/action_shoppingcart.php" method="post">
                             <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
@@ -145,7 +147,8 @@
                             </button>
                         </form>
                     </div>
-                    <i class="fa-regular fa-heart"></i>
+                    
+                        <i class="fa-regular fa-heart wishlist_sned" data-item-id="<?= $item->getId() ?>"></i>
                 </div>
 
             </section>
@@ -161,39 +164,41 @@
                         Average rating: <?= $average ?>
                         <span class='stars' style='--rating: $rating;'></span> <br>
                         <?php
-                            $icon = "";
-                            $message = "";  
-                            if($average == 0){
-                                $icon = "😐"; 
-                                $message = "This user has no reviews yet";
-                            }elseif ($average > 4) {
-                                $icon = "😊"; 
-                                $message = "This user has had really positive reviews";
-                            } elseif ($average >= 2.5 && $average <= 3.99) {
-                                $icon = "😐"; 
-                                $message = "This user's reviews are neutral";
-                            } else {
-                                $icon = "😞"; 
-                                $message = "This user's reviews are negative";
-                            }
-                            echo "Reviews: " . $icon;
-                            echo "<br>";
-                            echo $message;
+                        $icon = "";
+                        $message = "";
+                        if ($average == 0) {
+                            $icon = "😐";
+                            $message = "This user has no reviews yet";
+                        } elseif ($average > 4) {
+                            $icon = "😊";
+                            $message = "This user has had really positive reviews";
+                        } elseif ($average >= 2.5 && $average <= 3.99) {
+                            $icon = "😐";
+                            $message = "This user's reviews are neutral";
+                        } else {
+                            $icon = "😞";
+                            $message = "This user's reviews are negative";
+                        }
+                        echo "Reviews: " . $icon;
+                        echo "<br>";
+                        echo $message;
                         ?>
                     </div>
                 </div>
             </section>
 
             <?php
-                $array_location = get_coordinates_locationiq($user_details->getAddress());
-                $lat = $array_location['lat'];
-                $lon = $array_location['lng'];
+            $array_location = get_coordinates_locationiq($user_details->getAddress());
+            $lat = $array_location['lat'];
+            $lon = $array_location['lng'];
             ?>
 
             <div class="location_div">
                 <section class="location_section">
-                    <p>Street Location: <?= $user_details->getAddress() ?><p>
-                    <iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCqgDw_DnnKeMJ-35uKojLyyaJxnWPfJ9Q&center=<?= $lat ?>,<?= $lon ?>&zoom=15"></iframe>
+                    <p>Street Location: <?= $user_details->getAddress() ?>
+                    <p>
+                        <iframe
+                            src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCqgDw_DnnKeMJ-35uKojLyyaJxnWPfJ9Q&center=<?= $lat ?>,<?= $lon ?>&zoom=15"></iframe>
                 </section>
             </div>
 
@@ -209,38 +214,38 @@
             </div>
             <div class="items_container">
                 <?php
-        require_once '../db_handler/DB.php';
+                require_once '../db_handler/DB.php';
 
-        $db = new Database("../database/database.db");
+                $db = new Database("../database/database.db");
 
-        $userItems = $db->getAllUserItems($user_details->getId());
+                $userItems = $db->getAllUserItems($user_details->getId());
 
-        $itemsPerPage = 5;
-        $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $startIndex = ($currentPage - 1) * $itemsPerPage;
-        $endIndex = $startIndex + $itemsPerPage;
+                $itemsPerPage = 5;
+                $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                $startIndex = ($currentPage - 1) * $itemsPerPage;
+                $endIndex = $startIndex + $itemsPerPage;
 
-        for ($i = $startIndex; $i < $endIndex && $i < count($userItems); $i++) {
-            $item = $userItems[$i];
-            $name = $item->getName();
-            $price = $item->getPrice();
-            $brand = $item->getBrand();
+                for ($i = $startIndex; $i < $endIndex && $i < count($userItems); $i++) {
+                    $item = $userItems[$i];
+                    $name = $item->getName();
+                    $price = $item->getPrice();
+                    $brand = $item->getBrand();
 
-            $itemImagePath = "../assets/items/{$item->getId()}-1.png";
-            $errorImagePath = "../assets/items/error.png";
-            $imageSrc = file_exists($itemImagePath) ? $itemImagePath : $errorImagePath;
-        ?>
-                <div class='item'>
-                    <a href='itempage.php?item=<?= $item->getId() ?>'>
-                        <img src="<?= $imageSrc ?>" alt='<?= $item->getName() ?>'>
-                    </a>
-                    <h3><?= $item->getName() ?></h3>
-                    <p>Price: <?= $item->getPrice() ?></p>
-                    <p>Brand: <?= $item->getBrand() ?></p>
-                </div>
-                <?php
-        }
-        ?>
+                    $itemImagePath = "../assets/items/{$item->getId()}-1.png";
+                    $errorImagePath = "../assets/items/error.png";
+                    $imageSrc = file_exists($itemImagePath) ? $itemImagePath : $errorImagePath;
+                    ?>
+                    <div class='item'>
+                        <a href='itempage.php?item=<?= $item->getId() ?>'>
+                            <img src="<?= $imageSrc ?>" alt='<?= $item->getName() ?>'>
+                        </a>
+                        <h3><?= $item->getName() ?></h3>
+                        <p>Price: <?= $item->getPrice() ?></p>
+                        <p>Brand: <?= $item->getBrand() ?></p>
+                    </div>
+                    <?php
+                }
+                ?>
             </div>
             <div class="arrows">
                 <button id="nextPage">&rarr;</button>
@@ -256,7 +261,7 @@
             <textarea id="message" class="review_message" name="message" rows="4" cols="50"></textarea>
 
             <label for="rating" class="label_message">Rating (0 - 5.0):</label>
-            <input type="number" class ="rating_number" id="rating" name="rating" step="0.1" min="0" max="5.0" required>
+            <input type="number" class="rating_number" id="rating" name="rating" step="0.1" min="0" max="5.0" required>
 
             <input type="submit" class="submit_button" value="Submit">
         </form>
@@ -270,27 +275,28 @@
 </html>
 
 <?php
-function get_coordinates_locationiq($address) {
+function get_coordinates_locationiq($address)
+{
     $api_key = 'pk.04501fc68a271f59fa011139d9b85f71';
 
     $formatted_address = urlencode($address);
-    
+
     $url = "https://us1.locationiq.com/v1/search.php?key={$api_key}&q={$formatted_address}&format=json&limit=1";
-    
+
     $response = @file_get_contents($url);
-    
+
     if ($response === FALSE) {
         echo "Error: Could not get a response from the LocationIQ API.\n";
         return null;
     }
-    
+
     $data = json_decode($response, true);
-    
+
     if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
         echo "Error: Failed to decode the JSON response.\n";
         return null;
     }
-    
+
     if (count($data) > 0) {
         $location = $data[0];
         return array('lat' => $location['lat'], 'lng' => $location['lon']);

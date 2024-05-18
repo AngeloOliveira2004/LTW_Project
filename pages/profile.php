@@ -47,7 +47,7 @@
                             <li>{$average} stars</li>
                             <li>{$reviewsCount} reviews</li>
                         </ul>
-                        <ul>
+                        <ul class= 'About'>
                             <li>About:</li>
                             <li><img src='assets/profile/location.png' alt='location icon'> {$user->getAddress()}</li>
                             <li><img src='assets/profile/product.png' alt='product icon'> Items sold: {$itemsAlreadySoldCount}</li>

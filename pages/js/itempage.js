@@ -3,17 +3,80 @@ let email_value_save = "";
 let isContentHiddenEmail = true;
 let isContentHiddenPassword = true;
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Get all heart icons
-    const heartIcons = document.querySelectorAll('.fa-heart');
+function toggleHeartColor(wishlistItems) {
+    let heartIcons = document.querySelectorAll('.fa-heart');
 
-    // Loop through each heart icon
-    heartIcons.forEach(function(icon) {
-        // Add click event listener
-        icon.addEventListener('click', function() {
-            toggleHeart(icon);
+    heartIcons.forEach(function (icon) {
+        icon.addEventListener('click', function () {
+            let itemId = icon.getAttribute('data-item-id');
+
+            let isInWishlist = wishlistItems.includes(parseInt(itemId)); 
+            console.log(isInWishlist)
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', isInWishlist ? '../../db_handler/action_remove_wishlist.php' : '../../db_handler/action_add_wishlist.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log(xhr.responseText);
+            
+                    let response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    let updatedWishlistItems = response.wishlistItems;
+            
+                    wishlistItems = updatedWishlistItems;
+                    console.log(wishlistItems);
+                    if (updatedWishlistItems.includes(parseInt(itemId))) {
+                        icon.classList.remove('fa-regular');
+                        icon.classList.add('fa-solid');
+                        if (!wishlistItems.includes(parseInt(itemId))) {
+                            wishlistItems.push(parseInt(itemId));
+                        }
+                    }  else {
+                        icon.classList.remove('fa-solid');
+                        icon.classList.add('fa-regular');
+                    }
+            
+                    console.log(`Item ${itemId} toggled`);
+                }
+            };
+            
+            
+
+            xhr.send('itemId=' + encodeURIComponent(itemId));
         });
     });
+}
+function fetchItemsAndUpdateHearts(wishlistItems) {
+    const xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', '../../db_handler/action_get_all_wishlisted_items.php', true);
+    
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            let wishlistItemsResult = JSON.parse(xhr.responseText);
+            
+            
+            wishlistItemsResult.forEach(function(item) {
+                let itemElement = document.querySelector('.fa-heart[data-item-id="' + item + '"]');
+                if (itemElement && !wishlistItems.includes(itemElement)) {
+                    itemElement.classList.remove('fa-regular');
+                    itemElement.classList.add('fa-solid');
+                    wishlistItems.push(parseInt(item));
+                }
+            });
+
+            toggleHeartColor(wishlistItems);
+        }
+    };
+
+    xhr.send();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    let wishlistItems = [];
+    fetchItemsAndUpdateHearts(wishlistItems);
 });
 
 

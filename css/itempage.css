@@ -483,6 +483,18 @@
   color: #0B6E4F;
   cursor: pointer;
 }
+.fa-heart.fa-regular, 
+.fa-heart.fa-solid {
+  /* Add your regular heart icon styles here */
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  font-size: 1.5625em; 
+  margin-top: 0.9em;
+  margin-right: 0.9em;
+  color: #0B6E4F;
+  cursor: pointer;
+}
 
 .fa-heart-filled {
   /* Add your filled heart icon styles here */
