@@ -126,11 +126,11 @@
                     if(isset($_SESSION['userId'])){
 
                         echo '<a href="../../pages/itemCreationPage.php"> 
-                                <button>Anuncie Agora</button>
+                                <button class = "anuncie">Anuncie Agora</button>
                             </a>';
                     }else{
                         echo '<a href="../../pages/userReg.php"> 
-                                <button>Anuncie Agora</button>
+                                <button class = "anuncie">Anuncie Agora</button>
                             </a>';
                     
                     }

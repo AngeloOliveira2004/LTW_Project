@@ -852,7 +852,10 @@ class Database
     }
 
     public function getWishlistItems($userId): array
-    {
+    {   
+        if($userId == null){
+            return [];
+        }
         $stmt = $this->conn->prepare("SELECT * FROM Wishlist WHERE UserId = :userId");
         $stmt->bindParam(':userId', $userId);
         $stmt->execute();

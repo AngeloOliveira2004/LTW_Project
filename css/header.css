@@ -127,6 +127,10 @@ li i {
     filter: invert(100%);
 }
 
+.anuncie{
+    cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;

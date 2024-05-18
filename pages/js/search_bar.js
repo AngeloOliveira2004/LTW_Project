@@ -164,9 +164,11 @@ document.addEventListener('DOMContentLoaded', function() {
     inputBox.addEventListener('keyup' , function() {
         console.log("inputBox.onkeyup");
 
+        let input = inputBox.value;
+
         let result_ = getSuggestions(input, JSON.stringify(itemNames)); 
 
-        console.log(result_);
+        console.log("resultado" + result_);
 
         if(input.length == 0){
             result_ = [];
