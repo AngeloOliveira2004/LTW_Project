@@ -35,6 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     $actualCondition = $db->getConditionIdByName($estado);
 
+    if($imagesSizes == null){
+        $imagesSizes = 0;
+    }
+
+    if($available_for_delivery != true){
+        $available_for_delivery = false;
+    }
+
     echo "Title: $title <br>";
     echo "Category: $category <br>";
     echo "SubCategory: $subCategory <br>";
