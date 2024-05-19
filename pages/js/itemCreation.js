@@ -268,6 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let marca = sanitizeInput(document.querySelector(".Marca").value);
       let estado = sanitizeInput(document.querySelector(".Estado").value);
       let numberOfImages = inputedImages.length;
+      let csrf_token = document.getElementById("csrf_token");
 
       console.log('Title:', title);
       console.log('Category:', category);
@@ -302,13 +303,14 @@ document.addEventListener("DOMContentLoaded", function() {
       };
       
       xhr.send("title=" + encodeURIComponent(title) + "&category=" + encodeURIComponent(category) + "&subCategory=" + encodeURIComponent(subCategory) + "&description=" + encodeURIComponent(description) + "&price=" + encodeURIComponent(price) + "&tamanho=" + encodeURIComponent(tamanho) + "&marca=" + encodeURIComponent(marca) + "&estado=" + encodeURIComponent(estado)
-        + "&imagesSizes=" + numberOfImages);
+        + "&imagesSizes=" + numberOfImages + '&csrf_token=' + encodeURIComponent(csrf_token.value));
       
 
       inputedImages.forEach((image, index) => {
         const formData = new FormData();
         formData.append('item_image', image);
         formData.append('index', index); 
+        formData.append('csrf_token', csrf_token.value);
     
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../../db_handler/uploadItemImage.php');

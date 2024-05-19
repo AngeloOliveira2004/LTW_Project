@@ -2,6 +2,10 @@
 
     session_start();
 
+    if ($_SESSION['csrf'] !== $_POST['csrf_token']) {
+        exit();
+    }
+
     $itemId = $_POST['itemId'];
 
     require_once '../db_handler/DB.php';

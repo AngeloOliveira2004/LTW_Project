@@ -8,6 +8,10 @@ $allItems = $db->getItems();
 
 session_start();
 
+if ($_SESSION['csrf'] !== $_POST['csrf_token']) {
+	exit();
+}
+
 $userId = -1;
 
 if (isset($_SESSION['userId'])) {

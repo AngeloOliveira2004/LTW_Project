@@ -48,8 +48,11 @@ require_once '../db_handler/DB.php';
 require_once '../db_handler/Item.php';
 require_once '../db_handler/Users.php';
 
-
 session_start();
+
+if ($_SESSION['csrf'] !== $_POST['csrf_token']) {
+    exit();
+}
 
 $userId = $_SESSION['userId'];
 

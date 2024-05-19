@@ -5,6 +5,10 @@ require_once 'Item.php';
 
 session_start();
 
+if ($_SESSION['csrf'] !== $_POST['csrf_token']) {
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $paymentMethod = $_POST["paymentMethod"];
     $shippingMethod = $_POST["shippingMethod"];

@@ -192,27 +192,9 @@ VALUES
     ('Hiking Boots', 'Sturdy hiking boots for outdoor adventures', 'Merrell', 3, 129.99, 1, true, true,1,0, 9),
     ('Camping Tent', 'Spacious camping tent for overnight trips', 'Coleman', 5, 199.99, 1, true, true,1,0, 9),
     ('Guitar', 'Acoustic guitar for playing beautiful melodies', 'Fender', 6, 399.99, 1, true, true,1,0, 10),
-    ('Drone', 'High-performance drone for aerial photography', 'DJI', 1, 799.99, 1, true, true,1,0, 10),
-    ('Large Description Item', 'This is a very large description item that is used to test long descriptions in the database. It may contain multiple paragraphs of text to demonstrate the handling of large text fields in the database.', 'TestBrand', 1, 999.99, 1, true, true,1,0, 1);
+    ('Drone', 'High-performance drone for aerial photography', 'DJI', 1, 799.99, 1, true, true,1,0, 10);
 
-INSERT INTO OrderHistory (UserId,OrderDate, TotalPrice, PaymentMethod, ShippingMethod, Status)
-VALUES
-    (2,'2024-04-01 10:30:00', 799.99,'credit-card','standard', 'Completed'),
-    (2,'2024-04-02 15:45:00', 499.98,'mb-way','express', 'Completed');
-
--- Inserting data into the ShoppingCart table
-INSERT INTO ShoppingCart (UserId, ItemId)
-VALUES
-    (1, 2),
-    (2, 4);
-
--- Inserting data into the Wishlist table
-INSERT INTO Wishlist (UserId, ItemId)
-VALUES
-    (1, 3),
-    (2, 1);
-
- -- Insert data into Reviews table
+-- Insert data into Reviews table
 INSERT INTO Reviews (Rating, Comment, Author, UserReviewed, ReviewDate) VALUES
 (4.5, 'Great product!', 1, 1, '2024-04-20'),
 (3.8, 'Could be better.', 2, 1, '2024-04-21'),
@@ -234,15 +216,3 @@ INSERT INTO Messages (Sender, Receiver, ItemId, Content, Timestamp) VALUES
     (9, 2, 1, "Hey John, when are you available for a catch-up?", '2024-04-11 16:15:00'),
     (2, 9, 2, "Hey Joy, when are you available for a catch-up?", '2024-04-11 16:20:00'),
     (7, 2, 2, "Jessica, could you review the presentation slides?", '2024-04-12 11:00:00');
-
-INSERT INTO PriceProposals (ItemId, UserId, Price, Status) VALUES
-    (1, 2, 749.99, 'Pending'),
-    (2, 1, 1199.99, 'Pending'),
-    (3, 3, 199.99, 'Pending'),
-    (4, 1, 14.99, 'Pending'),
-    (5, 2, 279.99, 'Pending'),
-    (6, 3, 449.99, 'Pending'),
-    (7, 4, 649.99, 'Pending'),
-    (8, 1, 349.99, 'Pending'),
-    (9, 2, 39.99, 'Pending'),
-    (10, 3, 79.99, 'Pending');

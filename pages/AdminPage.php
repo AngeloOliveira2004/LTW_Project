@@ -19,7 +19,8 @@
         include 'templates/header.php';
     ?>
 
-
+    <input type="hidden" name="csrf" id="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
+    
     <div class="adminPage">
         <h1>Página de Administrador</h1>
 

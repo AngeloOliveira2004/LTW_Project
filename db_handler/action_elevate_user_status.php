@@ -4,6 +4,10 @@
 
     session_start();
 
+    if ($_SESSION['csrf'] !== $_POST['csrf_token']) {
+        exit();
+    }
+
     $myId = $_SESSION['userId'];
 
     $db = new Database("../database/database.db");

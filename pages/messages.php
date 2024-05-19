@@ -21,6 +21,8 @@
             ?>
         </header>
 
+    <input type="hidden" name="csrf" id="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
+
     <section class="messages-section">
         <article class="messages-rectangle">
             <h2>Messages</h2>

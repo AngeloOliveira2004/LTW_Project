@@ -23,7 +23,9 @@
     <body>
         <?php
         include 'templates/header.php';
-    ?>
+        ?>
+
+        <input type="hidden" name="csrf" id="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
 
         <span class="search_table">
             <input type="text" placeholder="What are you searching for?" class="search_bar"> </input>

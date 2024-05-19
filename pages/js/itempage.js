@@ -2,6 +2,7 @@ let phone_number_value_save = "";
 let email_value_save = "";
 let isContentHiddenEmail = true;
 let isContentHiddenPassword = true;
+let csrf_token = "";
 
 function sanitizeInput(input) {
     return DOMPurify.sanitize(input);
@@ -48,7 +49,7 @@ function toggleHeartColor(wishlistItems) {
             
             
 
-            xhr.send('itemId=' + encodeURIComponent(itemId));
+            xhr.send('itemId=' + encodeURIComponent(itemId) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
         });
     });
 }
@@ -81,6 +82,7 @@ function fetchItemsAndUpdateHearts(wishlistItems) {
 document.addEventListener("DOMContentLoaded", function () {
     let wishlistItems = [];
     fetchItemsAndUpdateHearts(wishlistItems);
+    csrf_token = document.getElementById("csrf_token");
 });
 
 
@@ -208,7 +210,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         xhr.send('receiverId=' + encodeURIComponent(receiverId)
-        + '&itemId=' + encodeURIComponent(itemId));
+        + '&itemId=' + encodeURIComponent(itemId)
+        + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }
 });
 
@@ -276,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let [key, value] of formData.entries()) {
             formData.set(key, sanitizeInput(value));
         }
+        formData.append("csrf_token", csrf_token.value);
         
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "../../db_handler/action_send_review.php", true);
@@ -323,5 +327,7 @@ function submitProposal() {
         }
     };
     xhr.send("proposal=" + encodeURIComponent(proposalInput)
-    + '&itemId=' + encodeURIComponent(itemId));
+    + '&itemId=' + encodeURIComponent(itemId)
+    + '&csrf_token=' + encodeURIComponent(csrf_token.value)
+);
 }

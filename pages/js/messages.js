@@ -1,5 +1,6 @@
 let senderId;
 let itemId;
+let csrf_token;
 
 function sanitizeInput(input) {
     return DOMPurify.sanitize(input);
@@ -41,6 +42,7 @@ function displayMessages(messages) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    csrf_token = document.getElementById("csrf_token");
     let users = document.querySelectorAll('.user-box');
     users.forEach(function(user) {
         user.addEventListener('click', function() {
@@ -88,7 +90,8 @@ document.addEventListener("DOMContentLoaded", function(){
         };
         xhr.send('message=' + encodeURIComponent(messageInput)
         + '&receiverId=' + encodeURIComponent(senderId)
-        + '&itemId=' + encodeURIComponent(itemId));
+        + '&itemId=' + encodeURIComponent(itemId)
+        + '&csrf_token=' + encodeURIComponent(csrf_token.value));
 
         const userMessageInput = document.getElementById('user-message-input');
 

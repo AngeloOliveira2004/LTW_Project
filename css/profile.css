@@ -282,6 +282,13 @@ button i{
 
 }
 
+.item img {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 .view-order:hover {
     background-color: #CBE896;
 }
