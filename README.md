@@ -1,4 +1,4 @@
-# Your Project Name
+# Thrift Trove
 
 ## Group ltw04g05
 
@@ -27,44 +27,42 @@ We have used the following external libraries and APIs:
 
 **General**:
 
-- [ ] Register a new account.
-- [ ] Log in and out.
-- [ ] Edit their profile, including their name, username, password, and email.
+- [X] Register a new account.
+- [X] Log in and out.
+- [X] Edit their profile, including their name, username, password, and email.
 
 **Sellers**:
 
-- [ ] List new items, providing details such as category, brand, model, size, and condition, along with images.
-- [ ] Track and manage their listed items.
-- [ ] Respond to inquiries from buyers regarding their items and add further information if needed.
-- [ ] Print shipping forms for items that have been sold.
+- [X] List new items, providing details such as category, brand, model, size, and condition, along with images.
+- [X] Track and manage their listed items.
+- [X] Respond to inquiries from buyers regarding their items and add further information if needed.
+- [X] Print shipping forms for items that have been sold.
 
 **Buyers**:
 
-- [ ] Browse items using filters like category, price, and condition.
-- [ ] Engage with sellers to ask questions or negotiate prices.
-- [ ] Add items to a wishlist or shopping cart.
-- [ ] Proceed to checkout with their shopping cart (simulate payment process).
+- [X] Browse items using filters like category, price, and condition.
+- [X] Engage with sellers to ask questions or negotiate prices.
+- [X] Add items to a wishlist or shopping cart.
+- [X] Proceed to checkout with their shopping cart (simulate payment process).
 
 **Admins**:
 
-- [ ] Elevate a user to admin status.
-- [ ] Introduce new item categories, sizes, conditions, and other pertinent entities.
-- [ ] Oversee and ensure the smooth operation of the entire system.
+- [X] Elevate a user to admin status.
+- [X] Introduce new item categories, sizes, conditions, and other pertinent entities.
+- [X] Oversee and ensure the smooth operation of the entire system.
 
 **Security**:
 We have been careful with the following security aspects:
 
-- [ ] **SQL injection**
-- [ ] **Cross-Site Scripting (XSS)**
-- [ ] **Cross-Site Request Forgery (CSRF)**
+- [X] **SQL injection**
+- [X] **Cross-Site Scripting (XSS)**
+- [X] **Cross-Site Request Forgery (CSRF)**
 
-**Password Storage Mechanism**: md5 / sha1 / sha256 / hash_password&verify_password
+**Password Storage Mechanism**: sha1
 
 **Aditional Requirements**:
 
-We also implemented the following additional requirements (you can add more):
-
-- [ ] **Rating and Review System**
+- [X] **Rating and Review System**
 - [ ] **Promotional Features**
 - [ ] **Analytics Dashboard**
 - [ ] **Multi-Currency Support**
@@ -72,5 +70,6 @@ We also implemented the following additional requirements (you can add more):
 - [ ] **API Integration**
 - [ ] **Dynamic Promotions**
 - [ ] **User Preferences**
-- [ ] **Shipping Costs**
-- [ ] **Real-Time Messaging System**
+- [X] **Shipping Costs**
+- [X] **Real-Time Messaging System**
+- [X] **Google Maps Integration**.
