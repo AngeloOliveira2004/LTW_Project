@@ -1,4 +1,4 @@
-# Thrift Trove <img src="https://github.com/FEUP-LTW-2024/ltw-project-2024-ltw04g05/assets/131660816/f371bb97-24a3-43c9-8c39-70de553eb0bb" alt="logo" width="50" height="20" />
+# <img src="https://github.com/FEUP-LTW-2024/ltw-project-2024-ltw04g05/assets/131660816/f371bb97-24a3-43c9-8c39-70de553eb0bb" alt="logo" width="50" height="30" /> Thrift Trove
 
 ## Group ltw04g05
 
