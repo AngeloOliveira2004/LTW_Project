@@ -2,31 +2,26 @@
 
 ## Group ltw00g00
 
-- John Doe (up202012345) 40%
-- Jane Doe (up202012345) 30%
-- Carl Doe (up202012345) 30%
+- Bruno Fortes (up202209730) 33.3%
+- Ângelo Oliveira (up202207798) 33.3%
+- José Costa (up202207871) 33.3%
 
 ## Install Instructions
-
-(adapt this)
-
-    git clone <your_repo_url>
+    git clone https://github.com/FEUP-LTW-2024/ltw-project-2024-ltw04g05.git
     git checkout final-delivery-v1
-    sqlite database/database.db < database/script.sql
+    sqlite database/database.db < database/database.sql
     php -S localhost:9000
 
-## External Libraries
+## External Libraries and APIs
 
-(you can remove this section if it doesn't apply to you)
+We have used the following external libraries and APIs:
 
-We have used the following external libraries:
-
-- Library 1
-- Library 2
+- Font Awesome
+- Google Maps
+- LocationIQ
+- DOMPurify 
 
 ## Screenshots
-
-(2 or 3 screenshots of your website)
 
 ## Implemented Features
 
@@ -36,21 +31,21 @@ We have used the following external libraries:
 - [ ] Log in and out.
 - [ ] Edit their profile, including their name, username, password, and email.
 
-**Sellers**  should be able to:
+**Sellers**:
 
 - [ ] List new items, providing details such as category, brand, model, size, and condition, along with images.
 - [ ] Track and manage their listed items.
 - [ ] Respond to inquiries from buyers regarding their items and add further information if needed.
 - [ ] Print shipping forms for items that have been sold.
 
-**Buyers**  should be able to:
+**Buyers**:
 
 - [ ] Browse items using filters like category, price, and condition.
 - [ ] Engage with sellers to ask questions or negotiate prices.
 - [ ] Add items to a wishlist or shopping cart.
 - [ ] Proceed to checkout with their shopping cart (simulate payment process).
 
-**Admins**  should be able to:
+**Admins**:
 
 - [ ] Elevate a user to admin status.
 - [ ] Introduce new item categories, sizes, conditions, and other pertinent entities.
