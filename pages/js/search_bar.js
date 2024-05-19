@@ -607,14 +607,7 @@ function render_items() {
         });
         itemContainer.appendChild(priceElement);
 
-        // Heart icon (for wishlist)
-        const heartIcon = document.createElement('i');
-        heartIcon.classList.add('fas', 'fa-heart', 'heart-icon');
-        heartIcon.addEventListener('click', function() {
-            event.stopPropagation();
-            heartIcon.classList.toggle('heart-active');
-        });
-        itemContainer.appendChild(heartIcon);
+        
 
         // Text for wishlist
         const addToWishlistText = document.createElement('p');
