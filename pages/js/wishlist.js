@@ -1,5 +1,8 @@
+let csrf_token = "";
+
 document.addEventListener('DOMContentLoaded', function () {
     let cartItems = [];
+    csrf_token = document.getElementById("csrf_token");
 
     function fetchItemsAndUpdateCart() {
         console.log('Fetching items and updating cart...');
@@ -77,7 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error adding/removing item from cart: Network error.');
                 };
 
-                xhr.send('itemId=' + encodeURIComponent(itemId));
+                xhr.send('itemId=' + encodeURIComponent(itemId)
+                + '&csrf_token=' + encodeURIComponent(csrf_token.value));
             });
         });
         checkIcon.forEach(function (cart) {
@@ -117,7 +121,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error adding/removing item from cart: Network error.');
                 };
 
-                xhr.send('itemId=' + encodeURIComponent(itemId));
+                xhr.send('itemId=' + encodeURIComponent(itemId)
+                + '&csrf_token=' + encodeURIComponent(csrf_token.value));
             });
         });
     }
@@ -147,7 +152,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error removing item from wishlist: Network error.');
                 };
 
-                xhr.send('itemId=' + encodeURIComponent(itemId));
+                xhr.send('itemId=' + encodeURIComponent(itemId)
+                + '&csrf_token=' + encodeURIComponent(csrf_token.value));
             });
         });
     }

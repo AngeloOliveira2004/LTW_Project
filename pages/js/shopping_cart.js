@@ -1,4 +1,7 @@
+let csrf_token = "";
+
 document.addEventListener('DOMContentLoaded', function () {
+    csrf_token = document.getElementById("csrf_token");
     const removeButtons = document.querySelectorAll('.Remove_cart');
 
     removeButtons.forEach(function (button) {
@@ -20,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             };
 
-            xhr.send('itemId=' + encodeURIComponent(itemId));
+            xhr.send('itemId=' + encodeURIComponent(itemId)
+            + '&csrf_token=' + encodeURIComponent(csrf_token.value));
 
         });
     });
@@ -64,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append("shippingMethod",shippingMethod);
         formData.append("totalPrice",totalPrice);
         formData.append("jsonItemIds",json_itemIds);
+        formData.append("csrf_token", csrf_token.value);
     
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '../../db_handler/action_checkout.php', true);
@@ -139,7 +144,8 @@ function UpdatePrice() {
             }
         };
 
-        xhr.send('itemIds=' + JSON.stringify(itemIds));
+        xhr.send('itemIds=' + JSON.stringify(itemIds)
+        + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }
 }
 

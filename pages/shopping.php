@@ -17,6 +17,8 @@
         include 'templates/header.php';
         ?>
 
+        <input type="hidden" name="csrf" id="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
+
         <h1>Shopping Cart</h1>
         <section id="banner-conatainer">
 
