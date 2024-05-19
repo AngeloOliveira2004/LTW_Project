@@ -1,11 +1,8 @@
 <?php
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!isset($_POST['csrf']) || $_SESSION['csrf'] !== $_POST['csrf']) {
-        header("Location: ../pages/homepage.php");
-        exit();
-    }
+if ($_SESSION['csrf'] !== $_POST['csrf_token']) {
+	exit();
 }
 
 $message = trim($_POST["message"]);

@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if ($_SESSION['csrf'] !== $_POST['csrf_token']) {
+    exit();
+}
+
 if(isset($_POST['itemId']) && isset($_POST['type'])){
     $itemId = $_POST['itemId'];
     $type = $_POST['type'];

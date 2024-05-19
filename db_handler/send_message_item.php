@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if ($_SESSION['csrf'] !== $_POST['csrf_token']) {
+	exit();
+}
+
 if (isset($_POST['receiverId'])) {
     require_once (__DIR__ . '/DB.php');
 

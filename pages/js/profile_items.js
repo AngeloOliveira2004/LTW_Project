@@ -1,4 +1,7 @@
+let csrf_token = ""
+
 document.addEventListener('DOMContentLoaded', function() {
+    csrf_token = document.getElementById('csrf_token');
     const ratings = document.getElementById("ratings-link");
     ratings.addEventListener("click", hideItems);
 
@@ -149,7 +152,9 @@ function handleAcceptProposalClick(event) {
     };
 
     xhr.send('itemId=' + encodeURIComponent(itemId)
-        + '&type=' + encodeURIComponent("accept"));
+        + '&type=' + encodeURIComponent("accept")
+        + '&csrf_token=' + encodeURIComponent(csrf_token.value)
+    );
 }
 
 function handleRejectProposalClick(event) {
@@ -177,7 +182,9 @@ function handleRejectProposalClick(event) {
     };
 
     xhr.send('itemId=' + encodeURIComponent(itemId)
-        + '&type=' + encodeURIComponent("reject"));
+        + '&type=' + encodeURIComponent("reject")
+        + '&csrf_token=' + encodeURIComponent(csrf_token.value)
+    );
 
 }
 

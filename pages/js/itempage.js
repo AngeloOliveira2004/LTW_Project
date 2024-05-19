@@ -210,7 +210,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         xhr.send('receiverId=' + encodeURIComponent(receiverId)
-        + '&itemId=' + encodeURIComponent(itemId));
+        + '&itemId=' + encodeURIComponent(itemId)
+        + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }
 });
 
@@ -278,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let [key, value] of formData.entries()) {
             formData.set(key, sanitizeInput(value));
         }
+        formData.append("csrf_token", csrf_token.value);
         
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "../../db_handler/action_send_review.php", true);
@@ -325,5 +327,7 @@ function submitProposal() {
         }
     };
     xhr.send("proposal=" + encodeURIComponent(proposalInput)
-    + '&itemId=' + encodeURIComponent(itemId));
+    + '&itemId=' + encodeURIComponent(itemId)
+    + '&csrf_token=' + encodeURIComponent(csrf_token.value)
+);
 }
