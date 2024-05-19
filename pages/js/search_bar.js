@@ -470,13 +470,17 @@ async function search_algorithm(items , isImageFilterActive , isDeliveryFilterAc
         console.log("marcou filter , estado filter , preço filter")
     }
 
-    items.filter(item => {
-        const tamanhoMatch = current_filters['tamanho'].size === 0 || current_filters['tamanho'].has(item[5]) || item[5] === null;//|| item[5] === null;
+    console.log("current filters " + current_filters['location']);
+    
+    items = items.filter(item => {
+        const tamanhoMatch = current_filters['tamanho'].size === 0 || current_filters['tamanho'].has(item[5]);
         const subCategoryMatch = current_filters['subCategory'].size === 0 || current_filters['subCategory'].has(item[10]);
 
-        //const locationMatch = current_filters['location'] === null || current_filters['location'] === item[12];
+        const locationMatch = current_filters['location'] === null || item[13].includes(current_filters['location']);
 
-        return tamanhoMatch && subCategoryMatch && item[8];
+        console.log("location match " + locationMatch);
+
+        return tamanhoMatch && subCategoryMatch && item[8] && locationMatch;
     });
 
     size = size2;
