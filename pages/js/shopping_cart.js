@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
 function UpdatePrice() {
     let itemPrices = document.querySelectorAll('.item p');
     let totalPrice = 0;
-    const maxShippingCost = 50;
     UpdateItemCount();
 
     itemPrices.forEach(function(price) {
@@ -126,7 +125,7 @@ function UpdatePrice() {
                 let totalDistanceCost = 0;
 
                 distances.forEach(function(distance) {
-                    totalDistanceCost += distance * 0.001 * calculateShippingPrice(shippingMethod);
+                    totalDistanceCost += distance * 0.01 * calculateShippingPrice(shippingMethod);
 
                 totalPrice += totalDistanceCost;
 
