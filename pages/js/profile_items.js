@@ -204,9 +204,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     allItems.forEach(item => {
         item.addEventListener('click', function() {
-            let acceptProposalButton = item.querySelector('.accept-proposal');
-            let buttonId = acceptProposalButton.getAttribute('id');
-            itemId = parseInt(buttonId);
+            let itemImage = item.querySelector('img');
+            let imageHref = itemImage.getAttribute('src');
+            let itemId = parseInt(imageHref.split('/').pop().split('-')[0]);
             window.location.href = 'itemPageUserProfile.php?item=' + itemId;
         });
     });
