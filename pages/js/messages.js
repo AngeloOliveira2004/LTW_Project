@@ -1,6 +1,10 @@
 let senderId;
 let itemId;
 
+function sanitizeInput(input) {
+    return DOMPurify.sanitize(input);
+}
+
 setInterval(function() {fetchMessagesFromSender(senderId);}, 5000);
 
 
@@ -65,6 +69,8 @@ document.addEventListener("DOMContentLoaded", function(){
         event.preventDefault();
 
         const messageInput = document.getElementById('user-message-input').value;
+
+        sanitizeInput(messageInput);
 
         if (messageInput.trim() === '') {
             return;

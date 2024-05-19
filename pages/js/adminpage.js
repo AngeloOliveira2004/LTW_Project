@@ -22,6 +22,10 @@ let selectedItemsGlobal = [];
 
 let isLoggedIn = false;
 
+function sanitizeInput(input) {
+    return DOMPurify.sanitize(input);
+}
+
 document.addEventListener("DOMContentLoaded", async function() {
     await loadInitialContent();
 });
@@ -276,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("Realoading2");
 
     const inputBox = document.querySelector('.search_bar');
-    suggestedUsers[0] = inputBox.value;
+    suggestedUsers[0] = sanitizeInput(inputBox.value);
     const resultBoxUsers = document.getElementById('result-box-users');
     const resultBoxItems = document.getElementById('result-box-items');
     const searchButton = document.querySelector('.search_button');
