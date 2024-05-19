@@ -23,12 +23,16 @@ We have used the following external libraries and APIs:
 
 ## Screenshots
 
+### Homepage
 ![Screenshot from 2024-05-19 14-01-58](https://github.com/FEUP-LTW-2024/ltw-project-2024-ltw04g05/assets/131660816/4205ef76-4ebd-46bd-a499-b3d64e9c5acf)
 
+### Profile
 ![Screenshot from 2024-05-19 14-02-40](https://github.com/FEUP-LTW-2024/ltw-project-2024-ltw04g05/assets/131660816/98587d30-59cf-4aa2-b33a-efdb896b917c)
 
+### Item Page
 ![Screenshot from 2024-05-19 14-03-10](https://github.com/FEUP-LTW-2024/ltw-project-2024-ltw04g05/assets/131660816/c0251391-c2fc-487f-bf2a-bfd07dc6288d)
 
+### Checkout
 ![Screenshot from 2024-05-19 14-03-29](https://github.com/FEUP-LTW-2024/ltw-project-2024-ltw04g05/assets/131660816/4716fc98-8e4a-402f-aa2b-931ea6896942)
 
 ## Implemented Features
