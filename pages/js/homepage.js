@@ -1,3 +1,9 @@
+
+function sanitizeInput(input) {
+    return DOMPurify.sanitize(input);
+}
+
+
 function toggleHeartColor(wishlistItems) {
     let heartIcons = document.querySelectorAll('.fa-heart');
 
@@ -84,6 +90,14 @@ document.addEventListener('DOMContentLoaded', function () {
         let searchBarValue = document.querySelector('.search_bar').value;
         let categoryDropdownValue = document.querySelector('.category_dropdown').value;
 
+        console.log(searchBarValue);
+        console.log(categoryDropdownValue);
+
+        searchBarValue = sanitizeInput(searchBarValue);
+        categoryDropdownValue = sanitizeInput(categoryDropdownValue);
+
+        console.log(searchBarValue);
+        console.log(categoryDropdownValue);
         // Construct the search page URL with search parameters
         let searchPageURL = 'search_page.php?search=' + encodeURIComponent(searchBarValue) + '&location=' + encodeURIComponent(categoryDropdownValue);
 

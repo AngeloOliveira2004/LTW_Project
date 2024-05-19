@@ -3,6 +3,10 @@ let email_value_save = "";
 let isContentHiddenEmail = true;
 let isContentHiddenPassword = true;
 
+function sanitizeInput(input) {
+    return DOMPurify.sanitize(input);
+}
+
 function toggleHeartColor(wishlistItems) {
     let heartIcons = document.querySelectorAll('.fa-heart');
 

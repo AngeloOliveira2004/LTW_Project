@@ -18,7 +18,6 @@ let current_filters = {
     "delivery": false,
 };
 
-
  
 function sanitizeInput(input) {
     return DOMPurify.sanitize(input);
@@ -164,7 +163,13 @@ document.addEventListener('DOMContentLoaded', function() {
     inputBox.addEventListener('keyup' , function() {
         console.log("inputBox.onkeyup");
 
-        let input = inputBox.value;
+        let input = inputBox.value; 
+        
+        console.log("input before sanitization" + input);
+
+        input = sanitizeInput(input);
+
+        console.log("input aftet sanitization" + input);
 
         let result_ = getSuggestions(input, JSON.stringify(itemNames)); 
 
@@ -224,6 +229,9 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(items);
 
             input = document.querySelector('.search_bar').value;
+
+            input = sanitizeInput(input);
+
             console.log(input);
             
             const recommendad_items = calculateSuggestions(input, items);
