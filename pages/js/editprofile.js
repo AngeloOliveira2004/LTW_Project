@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function previewAndUploadImage(event) {
     let file = event.target.files[0];
     let formData = new FormData();
+    let csrf_token = document.getElementById("csrf_token");
     formData.append('profile_image', file);
+    formData.append('csrf_token', csrf_token.value);
 
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '../../db_handler/upload_image.php');

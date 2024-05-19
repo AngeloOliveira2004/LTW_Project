@@ -20,6 +20,8 @@ let allConditions = [];
 let selectedUsersGlobal = [];
 let selectedItemsGlobal = [];
 
+let csrf_token = '';
+
 let isLoggedIn = false;
 
 function sanitizeInput(input) {
@@ -39,6 +41,7 @@ async function loadInitialContent() {
     let allSubCategoriesJSON = [];
     let allSizesJSON = [];
     let allConditionsJSON = [];
+    csrf_token = document.getElementById("csrf_token");
 
     try {
         const response = await fetch('js/get_all_items.php');
@@ -1095,7 +1098,8 @@ function addNewItem(table,newItem) {
             }
     };
     xhr.send('table=' + encodeURIComponent(table)
-        + '&newItem=' + encodeURIComponent(newItem));
+        + '&newItem=' + encodeURIComponent(newItem)
+        + '&csrf_token=' + encodeURIComponent(csrf_token.value));
  
 }
 
@@ -1121,13 +1125,15 @@ function deleteParameter(table,main_class){
             if (xhr.status >= 200 && xhr.status < 300) {
                 const response = xhr.responseText;
                 console.log('Parameters deleted successfully:', response);
+                location.reload();
             } else {
                 console.error('Failed to delete parameters. Status:', xhr.status);
             }
             };
 
             xhr.send('table=' + encodeURIComponent(table)
-        + '&itemName=' + encodeURIComponent(itemName));
+        + '&itemName=' + encodeURIComponent(itemName)
+        + '&csrf_token=' + encodeURIComponent(csrf_token.value));
         }
 
         while (size < selectedItems.length) {
@@ -1145,7 +1151,7 @@ function deleteParameter(table,main_class){
                 }
             };
         
-            xhr.send('table=' + encodeURIComponent(table) + '&itemName=' + encodeURIComponent(itemName));
+            xhr.send('table=' + encodeURIComponent(table) + '&itemName=' + encodeURIComponent(itemName) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
         
             size++;
         }
@@ -1159,7 +1165,7 @@ function deleteUsers() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', "../../db_handler/action_delete_users_admin.php", true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send('id=' + encodeURIComponent(user));
+        xhr.send('id=' + encodeURIComponent(user) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }); 
 
     allUsers = allUsers.filter(user => !selectedUsersGlobal.includes(user[0]));
@@ -1178,7 +1184,7 @@ function elevateUserStatus() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', "../../db_handler/action_elevate_user_status.php", true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send('id=' + encodeURIComponent(user));
+        xhr.send('id=' + encodeURIComponent(user) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }); 
 
     allUsers = allUsers.filter(user => !selectedUsersGlobal.includes(user[0]));
@@ -1196,7 +1202,7 @@ function downgradeUserStatus() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', "../../db_handler/action_downgrade_user_status.php", true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send('id=' + encodeURIComponent(user));
+        xhr.send('id=' + encodeURIComponent(user) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }); 
 
     allUsers = allUsers.filter(user => !selectedUsersGlobal.includes(user[0]));
@@ -1263,7 +1269,7 @@ function deleteItems() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', "../../db_handler/action_delete_items_admin.php", true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send('itemId=' + encodeURIComponent(item));
+        xhr.send('itemId=' + encodeURIComponent(item) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }); 
 
     allItems = allItems.filter(item => !selectedItemsGlobal.includes(item[0]));
@@ -1282,7 +1288,7 @@ function elevateItemStatus() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', "../../db_handler/action_elevate_item_status.php", true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send('itemId=' + encodeURIComponent(item));
+        xhr.send('itemId=' + encodeURIComponent(item) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }); 
 
     allItems = allItems.filter(item => !selectedItemsGlobal.includes(item[0]));
@@ -1300,7 +1306,7 @@ function downgradeItemStatus() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', "../../db_handler/action_downgrade_item_status.php", true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send('itemId=' + encodeURIComponent(item));
+        xhr.send('itemId=' + encodeURIComponent(item) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
     }); 
 
     allItems = allItems.filter(item => !selectedItemsGlobal.includes(item[0]));

@@ -11,7 +11,8 @@ function toggleHeartColor(wishlistItems) {
         icon.addEventListener('click', function () {
             let itemId = icon.getAttribute('data-item-id');
 
-            let isInWishlist = wishlistItems.includes(parseInt(itemId)); 
+            let isInWishlist = wishlistItems.includes(parseInt(itemId));
+            let csrf_token = document.getElementById("csrf_token");
             console.log(isInWishlist)
             const xhr = new XMLHttpRequest();
 
@@ -45,7 +46,7 @@ function toggleHeartColor(wishlistItems) {
             
             
 
-            xhr.send('itemId=' + encodeURIComponent(itemId));
+            xhr.send('itemId=' + encodeURIComponent(itemId)+ '&csrf_token=' + encodeURIComponent(csrf_token.value));
         });
     });
 }

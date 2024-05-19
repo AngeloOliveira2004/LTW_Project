@@ -533,7 +533,7 @@ class Database
     }
 
         public function getXRandItems(int $x) : array {
-            $stmt = $this->conn->prepare("SELECT * FROM items WHERE Available = 1 ORDER BY RANDOM() LIMIT :x");
+            $stmt = $this->conn->prepare("SELECT * FROM items WHERE Available = 1 ORDER BY Highlighted DESC, RANDOM() LIMIT :x");
             $stmt->bindParam(':x', $x);
             $stmt->execute();
             $items = [];
@@ -850,6 +850,14 @@ class Database
     {
         $stmt = $this->conn->prepare("UPDATE Items SET Priority = :priority WHERE Id = :itemId");
         $stmt->bindParam(':priority', $priority);
+        $stmt->bindParam(':itemId', $itemId);
+        $stmt->execute();
+    }
+
+    public function UpdateItemHighlighted($itemId, $highlighted)
+    {
+        $stmt = $this->conn->prepare("UPDATE Items SET Highlighted = :highlighted WHERE Id = :itemId");
+        $stmt->bindParam(':highlighted', $highlighted);
         $stmt->bindParam(':itemId', $itemId);
         $stmt->execute();
     }

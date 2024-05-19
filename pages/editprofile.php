@@ -62,7 +62,7 @@
             <label for="profile-picture">Profile Picture:</label>
             <input type="file" id="profile-picture" accept="image/*">
 
-            <input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
+            <input type="hidden" id="csrf_token" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
             
             <button type="submit">Save Changes</button>
         </form>
