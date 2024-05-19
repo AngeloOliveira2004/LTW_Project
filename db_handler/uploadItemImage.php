@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if($_POST['csrf_token'] !== $_SESSION['csrf']) {
+    exit();
+}
+
 require_once 'DB.php';
 
 $db = new Database("../database/database.db");

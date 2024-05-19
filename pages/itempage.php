@@ -20,6 +20,8 @@
             include 'templates/header.php';
         ?>
 
+        <input type="hidden" name="csrf" id="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
+
         <section class="item-container">
 
             <?php

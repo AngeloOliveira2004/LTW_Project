@@ -24,6 +24,8 @@
         $allCategories = $db->getAllCategoriesName();   
         $allsubCategories = $db->getAllSubCategoriesNames();
     ?>
+
+    <input type="hidden" name="csrf" id="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
     
 
     <p class="publish">Publish Item</p>

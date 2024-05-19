@@ -2,6 +2,7 @@ let phone_number_value_save = "";
 let email_value_save = "";
 let isContentHiddenEmail = true;
 let isContentHiddenPassword = true;
+let csrf_token = "";
 
 function sanitizeInput(input) {
     return DOMPurify.sanitize(input);
@@ -48,7 +49,7 @@ function toggleHeartColor(wishlistItems) {
             
             
 
-            xhr.send('itemId=' + encodeURIComponent(itemId));
+            xhr.send('itemId=' + encodeURIComponent(itemId) + '&csrf_token=' + encodeURIComponent(csrf_token.value));
         });
     });
 }
@@ -81,6 +82,7 @@ function fetchItemsAndUpdateHearts(wishlistItems) {
 document.addEventListener("DOMContentLoaded", function () {
     let wishlistItems = [];
     fetchItemsAndUpdateHearts(wishlistItems);
+    csrf_token = document.getElementById("csrf_token");
 });
 
 
