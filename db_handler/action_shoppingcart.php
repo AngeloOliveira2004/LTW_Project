@@ -8,6 +8,13 @@ require_once(__DIR__ . '/ShoppingCart.php');
 require_once(__DIR__ . '/DB.php');
 require_once(__DIR__ . '/itemmove.php');
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!isset($_POST['csrf']) || $_SESSION['csrf'] !== $_POST['csrf']) {
+        header("Location: ../pages/homepage.php");
+        exit();
+    }
+}
+
 if (!isset($_SESSION['userId'])) {
     header("Location: ../pages/userReg.php");
     exit();

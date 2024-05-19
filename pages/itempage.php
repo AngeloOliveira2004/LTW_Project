@@ -143,6 +143,7 @@
                         <button class="propose_button" id="propose_button">Propor Preço</button>
                         <form class="shoppingcart" action="../../db_handler/action_shoppingcart.php" method="post">
                             <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
+                            <input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
                             <button class="checkout">
                                 Adicionar ao carrinho?
                                 <img src="../assets/cart.png" class="shopping_cart" alt="shopping_cart">
@@ -259,6 +260,7 @@
         <div class="line"></div>
         <form class="form_review" id="reviewForm" method="post">
             <input type="hidden" name="userReviewed" value="<?php echo $userId; ?>">
+            <input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
             <label for="message" class="label_message">Message:</label>
             <textarea id="message" class="review_message" name="message" rows="4" cols="50"></textarea>
 

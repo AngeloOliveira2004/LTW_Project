@@ -5,6 +5,13 @@ $db = new Database("../database/database.db");
 
 session_start();
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!isset($_POST['csrf']) || $_SESSION['csrf'] !== $_POST['csrf']) {
+        header("Location: ../pages/profile.php");
+        exit();
+    }
+}
+
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $userId = $_SESSION['userId'];
