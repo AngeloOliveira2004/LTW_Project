@@ -167,7 +167,6 @@ class Database
             $row['SubCategory'],
             $row['NumberOfImages'],
             $row['Highlighted'],
-
             $row['UserId']
         );
     }

@@ -85,11 +85,19 @@ document.addEventListener('DOMContentLoaded', function () {
 function UpdatePrice() {
     let itemPrices = document.querySelectorAll('.item p');
     let totalPrice = 0;
+    const maxShippingCost = 50;
     UpdateItemCount();
 
     itemPrices.forEach(function(price) {
         let priceValue = parseFloat(price.textContent.replace('Price: ', '').replace('€', ''));
         totalPrice += priceValue;
+    });
+
+    let itemIds = [];
+    let removeButtons = document.querySelectorAll('.Remove_cart');
+    removeButtons.forEach(function(button) {
+        let itemId = button.getAttribute('data-item-id');
+        itemIds.push(itemId);
     });
 
     let totalItemPriceElement = document.querySelector('.total-item-price-value');
@@ -99,13 +107,40 @@ function UpdatePrice() {
 
     const paymentMethod = document.querySelector('.payment-method select').value;
 
-    totalPrice += calculateShippingPrice(shippingMethod) * itemPrices.length;
-    if(itemPrices.length != 0){
-        totalPrice += calculatePaymentMethodPrice(paymentMethod);
-    }
+    if(itemIds.length != 0){
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../db_handler/action_get_locations.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    let totalPriceElement = document.querySelector('.total-price-value');
-    totalPriceElement.textContent = totalPrice.toFixed(2) + '€';
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                let distances = JSON.parse(xhr.responseText);
+
+                console.log(distances);
+
+                let totalDistanceCost = 0;
+
+                distances.forEach(function(distance) {
+                    totalDistanceCost += distance * 0.001 * calculateShippingPrice(shippingMethod);
+
+                totalPrice += totalDistanceCost;
+
+                if(itemPrices.length != 0){
+                    totalPrice += calculatePaymentMethodPrice(paymentMethod);
+                }
+            
+                let totalPriceElement = document.querySelector('.total-price-value');
+                totalPriceElement.textContent = totalPrice.toFixed(2) + '€';    
+                    
+                });
+
+            } else {
+                console.error('Error getting locations');
+            }
+        };
+
+        xhr.send('itemIds=' + JSON.stringify(itemIds));
+    }
 }
 
 function UpdateItemCount(){
