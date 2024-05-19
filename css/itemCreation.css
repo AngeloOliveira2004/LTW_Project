@@ -583,6 +583,10 @@ li{
     cursor: pointer;
 }
 
+.headerNav{
+    margin: 1em;
+}
+
 
 @media screen and (max-width: 768px) {
 
@@ -596,13 +600,5 @@ li{
         margin-left: 13%;
     }
 
-    .publish{
-        position: relative;
-        margin-top: 1em;
-        margin-bottom: 1em;
-    }
-
-    .ItemCreation{
-        margin-top: 2em;
-    }
+    
 }

@@ -265,8 +265,17 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("reviewForm").addEventListener("submit", function(event) {
         event.preventDefault();
-        
+
+        function sanitizeInput(input) {
+            let div = document.createElement('div');
+            div.appendChild(document.createTextNode(input));
+            return div.innerHTML;
+        }
+
         let formData = new FormData(this);
+        for (let [key, value] of formData.entries()) {
+            formData.set(key, sanitizeInput(value));
+        }
         
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "../../db_handler/action_send_review.php", true);
