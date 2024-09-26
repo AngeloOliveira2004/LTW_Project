@@ -203,7 +203,7 @@
                     <p>Street Location: <?= $user_details->getAddress() ?>
                     <p>
                         <iframe
-                            src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCqgDw_DnnKeMJ-35uKojLyyaJxnWPfJ9Q&center=<?= $lat ?>,<?= $lon ?>&zoom=15"></iframe>
+                            
                 </section>
             </div>
 
